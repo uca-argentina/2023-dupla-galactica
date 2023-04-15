@@ -65,5 +65,5 @@ Board >> sizeOfItIs [
 
 { #category : #'verifying winner' }
 Board >> whoAchieveTheGoal [
-	(self doSomeoneWin) ifTrue:[^'banana'] ifFalse:[^'Nobody'].
+	(self doSomeoneWin) ifTrue:[^((spaceshipOnBoard detect: [:spaceship | ((spaceship whereItIs > sizeOfBoard) or: (spaceship whereItIs == sizeOfBoard))]) spaceshipColor)] ifFalse:[^'Nobody'].
 ]
