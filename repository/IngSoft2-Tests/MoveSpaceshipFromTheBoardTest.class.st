@@ -5,14 +5,14 @@ Class {
 }
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testCreateBoard [
+MoveSpaceshipFromTheBoardTest >> testA001CreateBoard [
 	| aBoard |
 	aBoard := Board new.
 	self assert: (aBoard isCreatedSuccessfully).
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testCreateSpaceship [
+MoveSpaceshipFromTheBoardTest >> testA002CreateSpaceship [
 	| aSpaceship |
 	aSpaceship := Spaceship new.
 	self assert: (aSpaceship isCreatedSuccessfully).
