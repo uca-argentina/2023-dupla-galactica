@@ -10,3 +10,10 @@ MoveSpaceshipFromTheBoardTest >> testCreateBoard [
 	aBoard := Board new.
 	self assert: (aBoard isCreatedSuccessfully).
 ]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testCreateSpaceship [
+	| aSpaceship |
+	aSpaceship := Spaceship new.
+	self assert: (aSpaceship isCreatedSuccessfully).
+]
