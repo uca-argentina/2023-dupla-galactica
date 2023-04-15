@@ -41,7 +41,7 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship putItOnTheBeginning.
 	aSpaceship moveOn: 8.
-	aBoard := Board with: aSpaceship.
+	aBoard := Board with: (OrderedCollection with: aSpaceship).
 	self assert: aBoard positionOfTheSpaceshipFarther identicalTo: 8
 ]
 
