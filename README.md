@@ -1,6 +1,6 @@
 # Ingenieria del Software II - Template
 
-![GHA Status](https://github.com/uca-is2/2023-dupla-galactica/actions/workflows/GHA.yml/badge.svg)
+![GHA Status](https://github.com/uca-argentina/2023-dupla-galactica/actions/workflows/GHA.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/uca-is2/project-template/badge.svg?branch=master)](https://coveralls.io/github/uca-is2/project-template?branch=master)
 
 ## Metacello
