@@ -25,7 +25,7 @@ Board class >> withSizeOf: aValue and: aCollectionOfSpaceships [
 
 { #category : #'verifying winner' }
 Board >> doSomeoneWin [
-	^false.
+	^(spaceshipOnBoard anySatisfy: [:spaceship | (spaceship whereItIs > sizeOfBoard) or: (spaceship whereItIs == sizeOfBoard) ]).
 ]
 
 { #category : #'spaceships position' }
