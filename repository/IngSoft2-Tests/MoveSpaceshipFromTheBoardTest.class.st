@@ -136,3 +136,17 @@ MoveSpaceshipFromTheBoardTest >> testA012CreateABoardWithASpecificSizeAndTwoSpac
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
 	self assert: (((aBoard whoAchieveTheGoal) asSymbol) == (('blue') asSymbol))
 ]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testA013CreateABoardWithASpecificSizeAndTwoSpaceshipsAskForTheFinalsPositionsAndInformThatTheGameHasNotFinishedYet [
+
+| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
+	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red'.
+	aSpaceshipRed moveOn: 8.
+	aSpaceshipBlue := Spaceship putItOnThePosition: 0 withColor: 'blue'.
+	aSpaceshipBlue moveOn: 9.
+	
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
+	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
+	self assert: (((aBoard finalPositionOfSpaceShips) asSymbol) == (('the game has not finished yet') asSymbol))
+]

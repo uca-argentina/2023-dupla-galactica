@@ -38,6 +38,11 @@ Board >> fartherPosition [
 	^ max
 ]
 
+{ #category : #'verifying winner' }
+Board >> finalPositionOfSpaceShips [
+	(self doSomeoneWin) ifTrue:[^'banan'] ifFalse:[^'the game has not finished yet'].
+]
+
 { #category : #initialization }
 Board >> initializeWith: aSpaceship [ 
 	spaceshipOnBoard:=aSpaceship.
