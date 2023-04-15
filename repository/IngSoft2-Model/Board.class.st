@@ -62,3 +62,8 @@ Board >> positionOfTheSpaceshipFarther [
 Board >> sizeOfItIs [
 	^sizeOfBoard.
 ]
+
+{ #category : #'verifying winner' }
+Board >> whoAchieveTheGoal [
+	(self doSomeoneWin) ifTrue:[^'banana'] ifFalse:[^'Nobody'].
+]
