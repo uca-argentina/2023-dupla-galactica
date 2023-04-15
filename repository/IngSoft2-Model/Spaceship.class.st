@@ -8,3 +8,8 @@ Class {
 Spaceship >> isCreatedSuccessfully [
 	^true.
 ]
+
+{ #category : #position }
+Spaceship >> whereItIs [
+	^0.
+]
