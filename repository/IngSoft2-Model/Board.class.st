@@ -12,6 +12,16 @@ Board class >> with: aSpaceship [
 	^(self new) initializeWith: aSpaceship.
 ]
 
+{ #category : #'spaceships position' }
+Board >> fartherPosition [
+
+	| max |
+	max := 0.
+	spaceshipOnBoard do: [ :spaceship | 
+		max < spaceship whereItIs ifTrue: [ max := spaceship whereItIs ] ].
+	^ max
+]
+
 { #category : #initialization }
 Board >> initializeWith: aSpaceship [ 
 	spaceshipOnBoard:=aSpaceship.
@@ -24,8 +34,5 @@ Board >> isCreatedSuccessfully [
 
 { #category : #'spaceships position' }
 Board >> positionOfTheSpaceshipFarther [
-	|max|
-	max:=0.
-	spaceshipOnBoard do: [:spaceship | ((max<(spaceship whereItIs)) ifTrue:[max:=spaceship whereItIs])].
-	^max.
+	^ self fartherPosition.
 ]
