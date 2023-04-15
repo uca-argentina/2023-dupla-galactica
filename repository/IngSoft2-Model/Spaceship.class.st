@@ -29,5 +29,5 @@ Spaceship >> moveOn: aValue [
 
 { #category : #position }
 Spaceship >> whereItIs [
-	^0.
+	^position.
 ]
