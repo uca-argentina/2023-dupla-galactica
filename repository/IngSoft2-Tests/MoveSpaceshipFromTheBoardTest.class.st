@@ -22,7 +22,7 @@ MoveSpaceshipFromTheBoardTest >> testA002CreateSpaceship [
 MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 
 	| aSpaceship |
-	aSpaceship := Spaceship new.
+	aSpaceship := Spaceship putItOnTheBeginning.
 	self assert: aSpaceship whereItIs identicalTo: 0
 ]
 
@@ -43,4 +43,18 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 	aSpaceship moveOn: 8.
 	aBoard := Board with: aSpaceship.
 	self assert: aBoard positionOfTheSpaceshipFarther identicalTo: 8
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAndThenAskTheBoardForThePositionOfTheSpacecshipThatHasMovedMore [
+
+	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
+	aSpaceshipRed := Spaceship putItOnTheBeginning.
+	aSpaceshipRed moveOn: 8.
+	aSpaceshipBlue := Spaceship putItOnTheBeginning.
+	aSpaceshipBlue moveOn: 9.
+	
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
+	aBoard := Board with: aSpaceshipCollection.
+	self assert: aBoard positionOfTheSpaceshipFarther identicalTo: 9
 ]

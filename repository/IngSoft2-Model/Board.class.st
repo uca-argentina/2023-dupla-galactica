@@ -24,5 +24,8 @@ Board >> isCreatedSuccessfully [
 
 { #category : #'spaceships position' }
 Board >> positionOfTheSpaceshipFarther [
-	^(spaceshipOnBoard whereItIs).
+	|max|
+	max:=0.
+	spaceshipOnBoard do: [:spaceship | ((max<(spaceship whereItIs)) ifTrue:[max:=spaceship whereItIs])].
+	^max.
 ]
