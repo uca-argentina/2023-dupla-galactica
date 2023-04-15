@@ -40,7 +40,18 @@ Board >> fartherPosition [
 
 { #category : #'verifying winner' }
 Board >> finalPositionOfSpaceShips [
-	(self doSomeoneWin) ifTrue:[^'banan'] ifFalse:[^'the game has not finished yet'].
+
+	| message color position |
+	self doSomeoneWin
+		ifTrue: [ 
+			message := ''.
+			spaceshipOnBoard do: [ :spaceship | 
+				color := spaceship spaceshipColor.
+				position := spaceship whereItIs.
+				message:=message,color,':',position asString,' '.
+				].
+				^message.]
+		ifFalse: [ ^ 'the game has not finished yet' ]
 ]
 
 { #category : #initialization }
