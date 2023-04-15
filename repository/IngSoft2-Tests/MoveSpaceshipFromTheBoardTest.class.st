@@ -66,3 +66,17 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 	aBoard := Board withSizeOf: 9.
 	self assert: aBoard sizeOfItIs identicalTo: 9.
 ]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpaceships [
+
+| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
+	aSpaceshipRed := Spaceship putItOnTheBeginning.
+	aSpaceshipRed moveOn: 8.
+	aSpaceshipBlue := Spaceship putItOnTheBeginning.
+	aSpaceshipBlue moveOn: 9.
+	
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
+	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
+	self assert: aBoard positionOfTheSpaceshipFarther identicalTo: 9
+]

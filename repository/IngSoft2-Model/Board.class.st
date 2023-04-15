@@ -18,6 +18,11 @@ Board class >> withSizeOf: aSize [
 	^(self new) initializeWithSizeOf: aSize.
 ]
 
+{ #category : #'instance creation' }
+Board class >> withSizeOf: aValue and: aCollectionOfSpaceships [ 
+	^((self new) initializeWithSizeOf:aValue) initializeWith: aCollectionOfSpaceships.
+]
+
 { #category : #'spaceships position' }
 Board >> fartherPosition [
 
