@@ -24,8 +24,22 @@ Board class >> withSizeOf: aValue and: aCollectionOfSpaceships [
 ]
 
 { #category : #'verifying winner' }
+Board >> createFinalMessage [
+
+	| color position message |
+	message := ''.
+	self spaceshipsOnIt do: [ :spaceship | 
+		color := spaceship spaceshipColor.
+		position := spaceship whereItIs.
+		message := message , color , ':' , position asString , ' ' ].
+	^ message
+]
+
+{ #category : #'verifying winner' }
 Board >> doSomeoneWin [
-	^(spaceshipOnBoard anySatisfy: [:spaceship | (spaceship whereItIs > sizeOfBoard) or: (spaceship whereItIs == sizeOfBoard) ]).
+
+	^ self spaceshipsOnIt anySatisfy: [ :spaceship | 
+		  self winningCondition: spaceship ]
 ]
 
 { #category : #'spaceships position' }
@@ -33,7 +47,7 @@ Board >> fartherPosition [
 
 	| max |
 	max := 0.
-	spaceshipOnBoard do: [ :spaceship | 
+	self spaceshipsOnIt do: [ :spaceship | 
 		max < spaceship whereItIs ifTrue: [ max := spaceship whereItIs ] ].
 	^ max
 ]
@@ -41,16 +55,8 @@ Board >> fartherPosition [
 { #category : #'verifying winner' }
 Board >> finalPositionOfSpaceShips [
 
-	| message color position |
 	self doSomeoneWin
-		ifTrue: [ 
-			message := ''.
-			spaceshipOnBoard do: [ :spaceship | 
-				color := spaceship spaceshipColor.
-				position := spaceship whereItIs.
-				message:=message,color,':',position asString,' '.
-				].
-				^message.]
+		ifTrue: [ ^ self createFinalMessage ]
 		ifFalse: [ ^ 'the game has not finished yet' ]
 ]
 
@@ -79,7 +85,24 @@ Board >> sizeOfItIs [
 	^sizeOfBoard.
 ]
 
+{ #category : #'spaceships position' }
+Board >> spaceshipsOnIt [
+	^ spaceshipOnBoard.
+]
+
 { #category : #'verifying winner' }
 Board >> whoAchieveTheGoal [
-	(self doSomeoneWin) ifTrue:[^((spaceshipOnBoard detect: [:spaceship | ((spaceship whereItIs > sizeOfBoard) or: (spaceship whereItIs == sizeOfBoard))]) spaceshipColor)] ifFalse:[^'Nobody'].
+
+	self doSomeoneWin
+		ifTrue: [ 
+			^ (self spaceshipsOnIt detect: [ :spaceship | 
+				   self winningCondition: spaceship ]) spaceshipColor ]
+		ifFalse: [ ^ 'Nobody' ]
+]
+
+{ #category : #'verifying winner' }
+Board >> winningCondition: spaceship [
+
+	^ (spaceship whereItIs > self sizeOfItIs or:
+		  spaceship whereItIs == self sizeOfItIs)
 ]
