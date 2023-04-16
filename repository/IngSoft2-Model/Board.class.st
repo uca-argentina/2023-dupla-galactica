@@ -25,7 +25,9 @@ Board class >> withSizeOf: aValue and: aCollectionOfSpaceships [
 
 { #category : #'verifying winner' }
 Board >> doSomeoneWin [
-	^(self spaceshipsOnIt anySatisfy: [:spaceship | (spaceship whereItIs > self sizeOfItIs) or: (spaceship whereItIs == self sizeOfItIs) ]).
+
+	^ self spaceshipsOnIt anySatisfy: [ :spaceship | 
+		  self winningCondition: spaceship ]
 ]
 
 { #category : #'spaceships position' }
@@ -86,5 +88,17 @@ Board >> spaceshipsOnIt [
 
 { #category : #'verifying winner' }
 Board >> whoAchieveTheGoal [
-	(self doSomeoneWin) ifTrue:[^((self spaceshipsOnIt detect: [:spaceship | ((spaceship whereItIs > self sizeOfItIs) or: (spaceship whereItIs == self sizeOfItIs))]) spaceshipColor)] ifFalse:[^'Nobody'].
+
+	self doSomeoneWin
+		ifTrue: [ 
+			^ (self spaceshipsOnIt detect: [ :spaceship | 
+				   self winningCondition: spaceship ]) spaceshipColor ]
+		ifFalse: [ ^ 'Nobody' ]
+]
+
+{ #category : #'verifying winner' }
+Board >> winningCondition: spaceship [
+
+	^ (spaceship whereItIs > self sizeOfItIs or:
+		  spaceship whereItIs == self sizeOfItIs)
 ]
