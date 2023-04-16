@@ -33,7 +33,7 @@ Board >> fartherPosition [
 
 	| max |
 	max := 0.
-	spaceshipOnBoard do: [ :spaceship | 
+	self spaceshipsOnIt do: [ :spaceship | 
 		max < spaceship whereItIs ifTrue: [ max := spaceship whereItIs ] ].
 	^ max
 ]
@@ -77,6 +77,11 @@ Board >> positionOfTheSpaceshipFarther [
 { #category : #size }
 Board >> sizeOfItIs [
 	^sizeOfBoard.
+]
+
+{ #category : #'spaceships position' }
+Board >> spaceshipsOnIt [
+	^ spaceshipOnBoard.
 ]
 
 { #category : #'verifying winner' }
