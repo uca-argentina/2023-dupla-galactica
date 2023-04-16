@@ -24,6 +24,18 @@ Board class >> withSizeOf: aValue and: aCollectionOfSpaceships [
 ]
 
 { #category : #'verifying winner' }
+Board >> createFinalMessage [
+
+	| color position message |
+	message := ''.
+	self spaceshipsOnIt do: [ :spaceship | 
+		color := spaceship spaceshipColor.
+		position := spaceship whereItIs.
+		message := message , color , ':' , position asString , ' ' ].
+	^ message
+]
+
+{ #category : #'verifying winner' }
 Board >> doSomeoneWin [
 
 	^ self spaceshipsOnIt anySatisfy: [ :spaceship | 
@@ -43,16 +55,8 @@ Board >> fartherPosition [
 { #category : #'verifying winner' }
 Board >> finalPositionOfSpaceShips [
 
-	| message color position |
 	self doSomeoneWin
-		ifTrue: [ 
-			message := ''.
-			self spaceshipsOnIt do: [ :spaceship | 
-				color := spaceship spaceshipColor.
-				position := spaceship whereItIs.
-				message:=message,color,':',position asString,' '.
-				].
-				^message.]
+		ifTrue: [ ^ self createFinalMessage ]
 		ifFalse: [ ^ 'the game has not finished yet' ]
 ]
 
