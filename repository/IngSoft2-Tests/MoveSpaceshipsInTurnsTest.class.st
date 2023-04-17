@@ -6,5 +6,9 @@ Class {
 
 { #category : #tests }
 MoveSpaceshipsInTurnsTest >> testB001CreateSpaceshipWithTimeToTurn [
+| aSpaceshipRed |
+	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red' withTurn: 1.
+	self assert: aSpaceshipRed timeToTurn identicalTo: 1
+	
 
 ]
