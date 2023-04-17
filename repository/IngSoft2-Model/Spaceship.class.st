@@ -59,7 +59,7 @@ Spaceship >> spaceshipColor [
 
 { #category : #information }
 Spaceship >> timeToTurn [
-	^1
+	^turn
 ]
 
 { #category : #position }

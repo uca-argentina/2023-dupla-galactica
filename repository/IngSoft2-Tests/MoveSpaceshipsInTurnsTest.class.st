@@ -12,3 +12,11 @@ MoveSpaceshipsInTurnsTest >> testB001CreateSpaceshipWithTimeToTurn [
 	
 
 ]
+
+{ #category : #tests }
+MoveSpaceshipsInTurnsTest >> testB002CreateOtherSpaceshipWithOtherTimeToTurn [
+| aSpaceshipRed aSpaceshipBlue |
+	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red' withTurn: 1.
+	aSpaceshipBlue := Spaceship putItOnThePosition: 0 withColor: 'blue' withTurn: 2.
+	self assert: aSpaceshipBlue timeToTurn identicalTo: 2
+]
