@@ -25,7 +25,7 @@ Spaceship >> initializePutItOnTheBeginning [
 
 { #category : #initialization }
 Spaceship >> initializePutItOnThePosition: aPosition withColor: aColor [
-	position:=0.
+	position:=aPosition.
 	color:=aColor.
 ]
 
