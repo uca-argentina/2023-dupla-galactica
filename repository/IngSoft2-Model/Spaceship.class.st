@@ -26,7 +26,8 @@ Spaceship class >> putItOnThePosition: aPosition withColor: aColor withTurn: aTu
 
 { #category : #turn }
 Spaceship >> hasPassedATurn [
-	^ (turn:=turn-1)
+	turn:=turn-1.
+	turn=0 ifTrue: [ ^(turn:=2) ] ifFalse: [ ^turn ]
 ]
 
 { #category : #initialization }
