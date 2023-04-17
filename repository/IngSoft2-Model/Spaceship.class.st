@@ -24,6 +24,11 @@ Spaceship class >> putItOnThePosition: aPosition withColor: aColor withTurn: aTu
 	^(self new) initializePutItOnThePosition: aPosition withColor: aColor withTurn:aTurn.
 ]
 
+{ #category : #turn }
+Spaceship >> hasPassedATurn [
+	^ (turn:=turn-1)
+]
+
 { #category : #initialization }
 Spaceship >> initializePutItOnTheBeginning [
 	position:=0.
