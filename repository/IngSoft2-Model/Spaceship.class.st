@@ -67,6 +67,11 @@ Spaceship >> timeToTurn [
 	^turn
 ]
 
+{ #category : #turn }
+Spaceship >> verifyTurn: numberOfSpaceshipsOnBoard [
+	turn=0 ifTrue: [ turn := numberOfSpaceshipsOnBoard  ]
+]
+
 { #category : #position }
 Spaceship >> whereItIs [
 	^position.
