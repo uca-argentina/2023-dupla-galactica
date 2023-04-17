@@ -85,6 +85,14 @@ Board >> sizeOfItIs [
 	^sizeOfBoard.
 ]
 
+{ #category : #'spaceships turn' }
+Board >> someoneMoves [
+
+	spaceshipOnBoard do: [ :spaceship | 
+		spaceship hasPassedATurn.
+		spaceship verifyTurn: (spaceshipOnBoard size) ]
+]
+
 { #category : #'spaceships position' }
 Board >> spaceshipsOnIt [
 	^ spaceshipOnBoard.
