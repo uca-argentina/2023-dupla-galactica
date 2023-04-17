@@ -33,10 +33,25 @@ MoveSpaceshipsInTurnsTest >> testB003PassATurnInAGameWithTwoSpaceships [
 
 { #category : #tests }
 MoveSpaceshipsInTurnsTest >> testB004PassATurnInAGameWithTwoSpaceshipsAndResetTimeToTurn [
-| aSpaceshipRed aSpaceshipBlue |
+| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red' withTurn: 1.
 	aSpaceshipBlue := Spaceship putItOnThePosition: 0 withColor: 'blue' withTurn: 2.
-	aSpaceshipRed hasPassedATurn.
-	aSpaceshipBlue hasPassedATurn.
+	
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
+	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
+	aBoard someoneMoves.
 	self assert: aSpaceshipRed timeToTurn identicalTo: 2
+]
+
+{ #category : #tests }
+MoveSpaceshipsInTurnsTest >> testB005PassATurnInAGameWithThreeSpaceshipsAndABoardWhichResetTimeToTurn [
+| aSpaceshipRed aSpaceshipBlue aSpaceshipBlack aSpaceshipCollection aBoard |
+	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red' withTurn: 1.
+	aSpaceshipBlue := Spaceship putItOnThePosition: 0 withColor: 'blue' withTurn: 2.
+	aSpaceshipBlack := Spaceship putItOnThePosition: 0 withColor: 'black' withTurn: 3.
+	
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue with:aSpaceshipBlack.
+	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
+	aBoard someoneMoves.
+	self assert: aSpaceshipRed  timeToTurn identicalTo: 3
 ]
