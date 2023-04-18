@@ -76,3 +76,8 @@ Spaceship >> verifyTurn: numberOfSpaceshipsOnBoard [
 Spaceship >> whereItIs [
 	^position.
 ]
+
+{ #category : #turn }
+Spaceship >> whichTurn [
+	^turn
+]

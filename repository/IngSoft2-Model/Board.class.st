@@ -76,6 +76,13 @@ Board >> isCreatedSuccessfully [
 ]
 
 { #category : #'spaceships position' }
+Board >> moveSpaceship: movementValue [
+
+	(spaceshipOnBoard detect: [ :spaceship | spaceship whichTurn = 1 ]) moveOn: movementValue.
+	self doSomeoneWin ifFalse: [ self someoneMoves. ]
+]
+
+{ #category : #'spaceships position' }
 Board >> positionOfTheSpaceshipFarther [
 	^ self fartherPosition.
 ]
