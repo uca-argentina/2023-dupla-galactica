@@ -25,3 +25,16 @@ BoardMovingSpaceshipsTest >> testC002BoardMovesTwoSpaceships [
 	aBoard moveSpaceship: 3.
 	self assert: aSpaceshipBlue whereItIs identicalTo: 3
 ]
+
+{ #category : #tests }
+BoardMovingSpaceshipsTest >> testC003ASpaceshipAchieveTheGoalBeforeOthers [
+| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard|
+	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red' withTurn: 1.
+	aSpaceshipBlue := Spaceship putItOnThePosition: 0 withColor: 'blue' withTurn: 2.
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
+	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
+	aBoard moveSpaceship: 6.
+	aBoard moveSpaceship: 10.
+	aBoard moveSpaceship: 7.
+	self assert: aBoard whoAchieveTheGoal asSymbol identicalTo: 'blue' asSymbol
+]
