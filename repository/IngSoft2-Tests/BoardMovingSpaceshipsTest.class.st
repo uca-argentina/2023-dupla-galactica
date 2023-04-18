@@ -22,8 +22,6 @@ BoardMovingSpaceshipsTest >> testC002BoardMovesTwoSpaceships [
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
 	aBoard moveSpaceship: 6.
-	aBoard someoneMoves.
 	aBoard moveSpaceship: 3.
-	aBoard someoneMoves.
 	self assert: aSpaceshipBlue whereItIs identicalTo: 3
 ]
