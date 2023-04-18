@@ -76,8 +76,9 @@ Board >> isCreatedSuccessfully [
 ]
 
 { #category : #'spaceships position' }
-Board >> moveSpaceship: movementValue [ 
-	(spaceshipOnBoard at: 1) moveOn: movementValue.
+Board >> moveSpaceship: movementValue [
+
+	(spaceshipOnBoard detect: [ :spaceship | spaceship whichTurn = 1 ]) moveOn: movementValue.
 ]
 
 { #category : #'spaceships position' }
