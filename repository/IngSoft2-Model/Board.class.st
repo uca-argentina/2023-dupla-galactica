@@ -76,6 +76,11 @@ Board >> isCreatedSuccessfully [
 ]
 
 { #category : #'spaceships position' }
+Board >> moveSpaceship: movementValue [ 
+	(spaceshipOnBoard at: 1) moveOn: movementValue.
+]
+
+{ #category : #'spaceships position' }
 Board >> positionOfTheSpaceshipFarther [
 	^ self fartherPosition.
 ]
