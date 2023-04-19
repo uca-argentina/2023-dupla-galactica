@@ -57,6 +57,11 @@ Spaceship >> moveOn: aValue [
 	position := position + aValue.
 ]
 
+{ #category : #position }
+Spaceship >> position [
+	^position.
+]
+
 { #category : #information }
 Spaceship >> spaceshipColor [
 	^color.
@@ -70,11 +75,6 @@ Spaceship >> timeToTurn [
 { #category : #turn }
 Spaceship >> verifyTurn: numberOfSpaceshipsOnBoard [
 	turn=0 ifTrue: [ turn := numberOfSpaceshipsOnBoard  ]
-]
-
-{ #category : #position }
-Spaceship >> whereItIs [
-	^position.
 ]
 
 { #category : #turn }

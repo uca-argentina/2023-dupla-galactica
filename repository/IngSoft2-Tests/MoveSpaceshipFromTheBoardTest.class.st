@@ -23,7 +23,7 @@ MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 
 	| aSpaceship |
 	aSpaceship := Spaceship putItOnTheBeginning.
-	self assert: aSpaceship whereItIs identicalTo: 0
+	self assert: aSpaceship position identicalTo: 0
 ]
 
 { #category : #tests }
@@ -32,7 +32,7 @@ MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovin
 	| aSpaceship |
 	aSpaceship := Spaceship putItOnTheBeginning.
 	aSpaceship moveOn: 8.
-	self assert: aSpaceship whereItIs identicalTo: 8
+	self assert: aSpaceship position identicalTo: 8
 ]
 
 { #category : #tests }

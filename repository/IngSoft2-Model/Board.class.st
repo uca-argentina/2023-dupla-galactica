@@ -30,7 +30,7 @@ Board >> createFinalMessage [
 	message := ''.
 	self spaceshipsOnIt do: [ :spaceship | 
 		color := spaceship spaceshipColor.
-		position := spaceship whereItIs.
+		position := spaceship position.
 		message := message , color , ':' , position asString , ' ' ].
 	^ message
 ]
@@ -48,7 +48,7 @@ Board >> fartherPosition [
 	| max |
 	max := 0.
 	self spaceshipsOnIt do: [ :spaceship | 
-		max < spaceship whereItIs ifTrue: [ max := spaceship whereItIs ] ].
+		max < spaceship position ifTrue: [ max := spaceship position ] ].
 	^ max
 ]
 
@@ -118,6 +118,6 @@ Board >> whoAchieveTheGoal [
 { #category : #'verifying winner' }
 Board >> winningCondition: spaceship [
 
-	^ (spaceship whereItIs > self sizeOfItIs or:
-		  spaceship whereItIs == self sizeOfItIs)
+	^ (spaceship position > self sizeOfItIs or:
+		  spaceship position == self sizeOfItIs)
 ]
