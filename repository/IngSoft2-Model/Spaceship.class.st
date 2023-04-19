@@ -15,12 +15,12 @@ Spaceship class >> putItOnTheBeginning [
 ]
 
 { #category : #'instance creation' }
-Spaceship class >> putItOnThePosition: aPosition withColor: aColor [
+Spaceship class >> putOn: aPosition with: aColor [
 	^(self new) initializePutItOnThePosition: aPosition withColor: aColor.
 ]
 
 { #category : #'instance creation' }
-Spaceship class >> putItOnThePosition: aPosition withColor: aColor withTurn: aTurn [ 
+Spaceship class >> putOn: aPosition with: aColor and: aTurn [ 
 	^(self new) initializePutItOnThePosition: aPosition withColor: aColor withTurn:aTurn.
 ]
 
@@ -57,6 +57,11 @@ Spaceship >> moveOn: aValue [
 	position := position + aValue.
 ]
 
+{ #category : #position }
+Spaceship >> position [
+	^position.
+]
+
 { #category : #information }
 Spaceship >> spaceshipColor [
 	^color.
@@ -70,11 +75,6 @@ Spaceship >> timeToTurn [
 { #category : #turn }
 Spaceship >> verifyTurn: numberOfSpaceshipsOnBoard [
 	turn=0 ifTrue: [ turn := numberOfSpaceshipsOnBoard  ]
-]
-
-{ #category : #position }
-Spaceship >> whereItIs [
-	^position.
 ]
 
 { #category : #turn }
