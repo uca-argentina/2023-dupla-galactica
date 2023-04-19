@@ -92,7 +92,7 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithASpecificSizeAndTwoSpac
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
-	self deny: ((aBoard winner))
+	self deny: ((aBoard winnerExists))
 ]
 
 { #category : #tests }
@@ -106,7 +106,7 @@ MoveSpaceshipFromTheBoardTest >> testA010CreateABoardWithASpecificSizeAndTwoSpac
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
-	self assert: ((aBoard winner))
+	self assert: ((aBoard winnerExists))
 ]
 
 { #category : #tests }
@@ -120,7 +120,7 @@ MoveSpaceshipFromTheBoardTest >> testA011CreateABoardWithASpecificSizeAndTwoSpac
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
-	self assert: (((aBoard whoAchieveTheGoal) asSymbol) == (('Nobody') asSymbol))
+	self assert: (((aBoard winner) asSymbol) == (('Nobody') asSymbol))
 ]
 
 { #category : #tests }
@@ -134,7 +134,7 @@ MoveSpaceshipFromTheBoardTest >> testA012CreateABoardWithASpecificSizeAndTwoSpac
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
-	self assert: (((aBoard whoAchieveTheGoal) asSymbol) == (('blue') asSymbol))
+	self assert: (((aBoard winner) asSymbol) == (('blue') asSymbol))
 ]
 
 { #category : #tests }

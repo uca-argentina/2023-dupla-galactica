@@ -48,7 +48,7 @@ Board >> fartherPosition [
 { #category : #'verifying winner' }
 Board >> finalPositionOfSpaceShips [
 
-	self winner
+	self winnerExists
 		ifTrue: [ ^ self createFinalMessage ]
 		ifFalse: [ ^ 'the game has not finished yet' ]
 ]
@@ -72,7 +72,7 @@ Board >> isCreatedSuccessfully [
 Board >> moveSpaceship: movementValue [
 
 	(spaceshipOnBoard detect: [ :spaceship | spaceship whichTurn = 1 ]) moveOn: movementValue.
-	self winner ifFalse: [ self someoneMoves. ]
+	self winnerExists ifFalse: [ self someoneMoves. ]
 ]
 
 { #category : #'spaceships position' }
@@ -99,9 +99,9 @@ Board >> spaceshipsOnIt [
 ]
 
 { #category : #'verifying winner' }
-Board >> whoAchieveTheGoal [
+Board >> winner [
 
-	self winner
+	self winnerExists
 		ifTrue: [ 
 			^ (self spaceshipsOnIt detect: [ :spaceship | 
 				   self winningCondition: spaceship ]) spaceshipColor ]
@@ -109,7 +109,7 @@ Board >> whoAchieveTheGoal [
 ]
 
 { #category : #'verifying winner' }
-Board >> winner [
+Board >> winnerExists [
 
 	^ self spaceshipsOnIt anySatisfy: [ :spaceship | 
 		  self winningCondition: spaceship ]

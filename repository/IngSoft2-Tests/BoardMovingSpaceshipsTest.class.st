@@ -36,5 +36,5 @@ BoardMovingSpaceshipsTest >> testC003ASpaceshipAchieveTheGoalBeforeOthers [
 	aBoard moveSpaceship: 6.
 	aBoard moveSpaceship: 10.
 	aBoard moveSpaceship: 7.
-	self assert: aBoard whoAchieveTheGoal asSymbol identicalTo: 'blue' asSymbol
+	self assert: aBoard winner asSymbol identicalTo: 'blue' asSymbol
 ]
