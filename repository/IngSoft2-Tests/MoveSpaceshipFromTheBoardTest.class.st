@@ -36,17 +36,17 @@ MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovin
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThenAskTheBoardForThePositionOfTheSpacecshipThatHasMovedMore [
+MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship putItOnTheBeginning.
 	aSpaceship moveOn: 8.
 	aBoard := Board with: (OrderedCollection with: aSpaceship).
-	self assert: aBoard positionOfTheSpaceshipFarther identicalTo: 8
+	self assert: aBoard positionOfTheFartherSpaceship identicalTo: 8
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAndThenAskTheBoardForThePositionOfTheSpacecshipThatHasMovedMore [
+MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnTheBeginning.
@@ -56,7 +56,7 @@ MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAnd
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board with: aSpaceshipCollection.
-	self assert: aBoard positionOfTheSpaceshipFarther identicalTo: 9
+	self assert: aBoard positionOfTheFartherSpaceship identicalTo: 9
 ]
 
 { #category : #tests }
@@ -64,7 +64,7 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 
 	| aBoard |
 	aBoard := Board withSizeOf: 9.
-	self assert: aBoard sizeOfItIs identicalTo: 9.
+	self assert: aBoard sizeIs identicalTo: 9.
 ]
 
 { #category : #tests }
@@ -78,7 +78,7 @@ MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpac
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
-	self assert: aBoard positionOfTheSpaceshipFarther identicalTo: 9
+	self assert: aBoard positionOfTheFartherSpaceship identicalTo: 9
 ]
 
 { #category : #tests }

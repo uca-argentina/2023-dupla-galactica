@@ -83,12 +83,12 @@ Board >> moveSpaceship: movementValue [
 ]
 
 { #category : #'spaceships position' }
-Board >> positionOfTheSpaceshipFarther [
+Board >> positionOfTheFartherSpaceship [
 	^ self fartherPosition.
 ]
 
 { #category : #size }
-Board >> sizeOfItIs [
+Board >> sizeIs [
 	^sizeOfBoard.
 ]
 
@@ -118,6 +118,6 @@ Board >> whoAchieveTheGoal [
 { #category : #'verifying winner' }
 Board >> winningCondition: spaceship [
 
-	^ (spaceship position > self sizeOfItIs or:
-		  spaceship position == self sizeOfItIs)
+	^ (spaceship position > self sizeIs or:
+		  spaceship position == self sizeIs)
 ]
