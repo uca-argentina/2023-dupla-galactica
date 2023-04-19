@@ -92,7 +92,7 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithASpecificSizeAndTwoSpac
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
-	self deny: ((aBoard doSomeoneWin))
+	self deny: ((aBoard winner))
 ]
 
 { #category : #tests }
@@ -106,7 +106,7 @@ MoveSpaceshipFromTheBoardTest >> testA010CreateABoardWithASpecificSizeAndTwoSpac
 	
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board withSizeOf: 10 and: aSpaceshipCollection.
-	self assert: ((aBoard doSomeoneWin))
+	self assert: ((aBoard winner))
 ]
 
 { #category : #tests }
