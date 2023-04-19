@@ -152,7 +152,7 @@ MoveSpaceshipFromTheBoardTest >> testA013CreateABoardWithASpecificSizeAndTwoSpac
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA014CreateABoardWithASpecificSizeAndTwoSpaceshipsAskForTheFinalsPositionsAndInformTheFinalPositions [
+MoveSpaceshipFromTheBoardTest >> testA014CreateABoardWithASpecificSizeAndTwoSpaceshipsAskForTheFinalsPositionsAndInformThem [
 
 | aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red'.
@@ -166,7 +166,7 @@ MoveSpaceshipFromTheBoardTest >> testA014CreateABoardWithASpecificSizeAndTwoSpac
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA015CreateABoardWithASpecificSizeAndTwoSpaceshipsAskForTheFinalsPositionsAndInformTheFinalPositions [
+MoveSpaceshipFromTheBoardTest >> testA015CreateABoardWithASpecificSizeAndTwoSpaceshipsMoveThemAskForTheFinalsPositionsAndInformThem [
 
 | aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnThePosition: 0 withColor: 'red'.
