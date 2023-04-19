@@ -26,8 +26,8 @@ MoveSpaceshipsInTurnsTest >> testB003PassATurnInAGameWithTwoSpaceships [
 | aSpaceshipRed aSpaceshipBlue |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
-	aSpaceshipRed hasPassedATurn.
-	aSpaceshipBlue hasPassedATurn.
+	aSpaceshipRed someonePlays.
+	aSpaceshipBlue someonePlays.
 	self assert: aSpaceshipBlue timeToTurn identicalTo: 1
 ]
 

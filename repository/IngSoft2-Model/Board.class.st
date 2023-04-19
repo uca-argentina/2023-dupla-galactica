@@ -89,7 +89,7 @@ Board >> sizeIs [
 Board >> someoneMoves [
 
 	spaceshipOnBoard do: [ :spaceship | 
-		spaceship hasPassedATurn.
+		spaceship someonePlays.
 		spaceship verifyTurn: (spaceshipOnBoard size) ]
 ]
 
