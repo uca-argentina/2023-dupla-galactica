@@ -67,8 +67,8 @@ Spaceship >> spaceshipColor [
 	^color.
 ]
 
-{ #category : #information }
-Spaceship >> timeToTurn [
+{ #category : #turn }
+Spaceship >> turn [
 	^turn
 ]
 
