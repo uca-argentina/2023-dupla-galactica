@@ -15,12 +15,12 @@ Spaceship class >> putItOnTheBeginning [
 ]
 
 { #category : #'instance creation' }
-Spaceship class >> putItOnThePosition: aPosition withColor: aColor [
+Spaceship class >> putOn: aPosition with: aColor [
 	^(self new) initializePutItOnThePosition: aPosition withColor: aColor.
 ]
 
 { #category : #'instance creation' }
-Spaceship class >> putItOnThePosition: aPosition withColor: aColor withTurn: aTurn [ 
+Spaceship class >> putOn: aPosition with: aColor and: aTurn [ 
 	^(self new) initializePutItOnThePosition: aPosition withColor: aColor withTurn:aTurn.
 ]
 

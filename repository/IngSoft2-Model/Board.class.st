@@ -8,18 +8,18 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #initialize }
+Board class >> size: aSize [ 
+	^(self new) initializeWithSizeOf: aSize.
+]
+
 { #category : #'instance creation' }
 Board class >> with: aSpaceship [ 
 	^(self new) initializeWith: aSpaceship.
 ]
 
-{ #category : #initialize }
-Board class >> withSizeOf: aSize [ 
-	^(self new) initializeWithSizeOf: aSize.
-]
-
 { #category : #'instance creation' }
-Board class >> withSizeOf: aValue and: aCollectionOfSpaceships [ 
+Board class >> with: aValue and: aCollectionOfSpaceships [ 
 	^((self new) initializeWithSizeOf:aValue) initializeWith: aCollectionOfSpaceships.
 ]
 
