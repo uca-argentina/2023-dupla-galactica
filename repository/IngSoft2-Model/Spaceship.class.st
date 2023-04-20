@@ -24,6 +24,11 @@ Spaceship class >> putOn: aPosition with: aColor and: aTurn [
 	^(self new) initializePutItOnThePosition: aPosition withColor: aColor withTurn:aTurn.
 ]
 
+{ #category : #information }
+Spaceship >> color [
+	^color.
+]
+
 { #category : #initialization }
 Spaceship >> initializePutItOnTheBeginning [
 	position:=0.
@@ -42,17 +47,17 @@ Spaceship >> initializePutItOnThePosition: aPosition withColor: aColor withTurn:
 	turn:=aTurn.
 ]
 
-{ #category : #creation }
+{ #category : #initialization }
 Spaceship >> isCreatedSuccessfully [
 	^true.
 ]
 
-{ #category : #position }
+{ #category : #turn }
 Spaceship >> moveOn: aValue [ 
 	position := position + aValue.
 ]
 
-{ #category : #position }
+{ #category : #information }
 Spaceship >> position [
 	^position.
 ]
@@ -63,11 +68,6 @@ Spaceship >> someonePlays [
 ]
 
 { #category : #information }
-Spaceship >> spaceshipColor [
-	^color.
-]
-
-{ #category : #turn }
 Spaceship >> turn [
 	^turn
 ]
@@ -75,9 +75,4 @@ Spaceship >> turn [
 { #category : #turn }
 Spaceship >> verifyTurn: numberOfSpaceshipsOnBoard [
 	turn==0 ifTrue: [ turn := numberOfSpaceshipsOnBoard  ]
-]
-
-{ #category : #turn }
-Spaceship >> whichTurn [
-	^turn
 ]

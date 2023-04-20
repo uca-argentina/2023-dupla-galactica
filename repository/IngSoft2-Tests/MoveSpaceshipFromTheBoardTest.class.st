@@ -44,7 +44,7 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 	aSpaceship := Spaceship putItOnTheBeginning.
 	aSpaceship moveOn: 8.
 	aBoard := Board with: (OrderedCollection with: aSpaceship).
-	self assert: aBoard positionOfTheFartherSpaceship identicalTo: 8
+	self assert: aBoard fartherPosition identicalTo: 8
 ]
 
 { #category : #tests }
@@ -60,7 +60,7 @@ MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAnd
 		                        with: aSpaceshipRed
 		                        with: aSpaceshipBlue.
 	aBoard := Board with: aSpaceshipCollection.
-	self assert: aBoard positionOfTheFartherSpaceship identicalTo: 9
+	self assert: aBoard fartherPosition identicalTo: 9
 ]
 
 { #category : #tests }
@@ -84,7 +84,7 @@ MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpac
 		                        with: aSpaceshipRed
 		                        with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
-	self assert: aBoard positionOfTheFartherSpaceship identicalTo: 9
+	self assert: aBoard fartherPosition identicalTo: 9
 ]
 
 { #category : #tests }
@@ -165,7 +165,7 @@ MoveSpaceshipFromTheBoardTest >> testA013CreateABoardWithASpecificSizeAndTwoSpac
 		                        with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
 	self
-		assert: aBoard finalPositionOfSpaceShips asSymbol
+		assert: aBoard finalPositions asSymbol
 		identicalTo: 'the game has not finished yet' asSymbol
 ]
 
@@ -183,7 +183,7 @@ MoveSpaceshipFromTheBoardTest >> testA014CreateABoardWithASpecificSizeAndTwoSpac
 		                        with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
 	self
-		assert: aBoard finalPositionOfSpaceShips asSymbol
+		assert: aBoard finalPositions asSymbol
 		identicalTo: 'red:8 blue:10 ' asSymbol
 ]
 
@@ -201,6 +201,6 @@ MoveSpaceshipFromTheBoardTest >> testA015CreateABoardWithASpecificSizeAndTwoSpac
 		                        with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
 	self
-		assert: aBoard finalPositionOfSpaceShips asSymbol
+		assert: aBoard finalPositions asSymbol
 		identicalTo: 'red:9 blue:10 ' asSymbol
 ]
