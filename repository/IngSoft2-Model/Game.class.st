@@ -20,7 +20,7 @@ Game class >> with: aSpaceshipCollection and: aSize [
 
 { #category : #winner }
 Game >> finalMessage [
-	^(board finalPositionOfSpaceShips).
+	^(board finalPositions).
 ]
 
 { #category : #initialization }
@@ -33,12 +33,12 @@ Game >> initializeWith: aSpaceshipCollection and: aSize [
 	board:= Board with: aSize  and: aSpaceshipCollection.
 ]
 
-{ #category : #move }
+{ #category : #player }
 Game >> movePlayer: aValue [ 
 	board moveSpaceship: aValue.
 ]
 
-{ #category : #turns }
+{ #category : #player }
 Game >> nextPlayer [
 	^(board nextPlayer).
 ]
