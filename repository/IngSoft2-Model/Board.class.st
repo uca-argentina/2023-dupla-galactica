@@ -25,11 +25,12 @@ Board class >> with: aValue and: aCollectionOfSpaceships [
 
 { #category : #spaceships }
 Board >> fartherPosition [
-	| max |
-	max := 0.
+
+	| maxValue  |
+	maxValue := 0.
 	self spaceships do: [ :spaceship | 
-		max < spaceship position ifTrue: [ max := spaceship position ] ].
-	^ max
+		maxValue := maxValue max: spaceship position ].
+	^ maxValue.
 ]
 
 { #category : #finalization }
