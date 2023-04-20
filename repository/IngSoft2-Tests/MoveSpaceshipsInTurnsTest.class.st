@@ -8,7 +8,7 @@ Class {
 MoveSpaceshipsInTurnsTest >> testB001CreateSpaceshipWithTimeToTurn [
 | aSpaceshipRed |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
-	self assert: aSpaceshipRed timeToTurn identicalTo: 1
+	self assert: aSpaceshipRed turn identicalTo: 1
 	
 
 ]
@@ -18,7 +18,7 @@ MoveSpaceshipsInTurnsTest >> testB002CreateOtherSpaceshipWithOtherTimeToTurn [
 | aSpaceshipRed aSpaceshipBlue |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
-	self assert: aSpaceshipBlue timeToTurn identicalTo: 2
+	self assert: aSpaceshipBlue turn identicalTo: 2
 ]
 
 { #category : #tests }
@@ -26,9 +26,9 @@ MoveSpaceshipsInTurnsTest >> testB003PassATurnInAGameWithTwoSpaceships [
 | aSpaceshipRed aSpaceshipBlue |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
-	aSpaceshipRed hasPassedATurn.
-	aSpaceshipBlue hasPassedATurn.
-	self assert: aSpaceshipBlue timeToTurn identicalTo: 1
+	aSpaceshipRed someonePlays.
+	aSpaceshipBlue someonePlays.
+	self assert: aSpaceshipBlue turn identicalTo: 1
 ]
 
 { #category : #tests }
@@ -40,7 +40,7 @@ MoveSpaceshipsInTurnsTest >> testB004PassATurnInAGameWithTwoSpaceshipsAndResetTi
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
 	aBoard someoneMoves.
-	self assert: aSpaceshipRed timeToTurn identicalTo: 2
+	self assert: aSpaceshipRed turn identicalTo: 2
 ]
 
 { #category : #tests }
@@ -53,7 +53,7 @@ MoveSpaceshipsInTurnsTest >> testB005PassATurnInAGameWithThreeSpaceships [
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue with:aSpaceshipBlack.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
 	aBoard someoneMoves.
-	self assert: aSpaceshipBlack timeToTurn identicalTo: 2
+	self assert: aSpaceshipBlack turn identicalTo: 2
 ]
 
 { #category : #tests }
@@ -66,7 +66,7 @@ MoveSpaceshipsInTurnsTest >> testB006PassATurnInAGameWithThreeSpaceshipsAndABoar
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue with:aSpaceshipBlack.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
 	aBoard someoneMoves.
-	self assert: aSpaceshipRed  timeToTurn identicalTo: 3
+	self assert: aSpaceshipRed  turn identicalTo: 3
 ]
 
 { #category : #tests }

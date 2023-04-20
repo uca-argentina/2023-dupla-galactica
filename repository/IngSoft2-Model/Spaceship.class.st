@@ -24,11 +24,6 @@ Spaceship class >> putOn: aPosition with: aColor and: aTurn [
 	^(self new) initializePutItOnThePosition: aPosition withColor: aColor withTurn:aTurn.
 ]
 
-{ #category : #turn }
-Spaceship >> hasPassedATurn [
-	turn:=turn-1.
-]
-
 { #category : #initialization }
 Spaceship >> initializePutItOnTheBeginning [
 	position:=0.
@@ -62,19 +57,24 @@ Spaceship >> position [
 	^position.
 ]
 
+{ #category : #turn }
+Spaceship >> someonePlays [
+	turn:=turn-1.
+]
+
 { #category : #information }
 Spaceship >> spaceshipColor [
 	^color.
 ]
 
-{ #category : #information }
-Spaceship >> timeToTurn [
+{ #category : #turn }
+Spaceship >> turn [
 	^turn
 ]
 
 { #category : #turn }
 Spaceship >> verifyTurn: numberOfSpaceshipsOnBoard [
-	turn=0 ifTrue: [ turn := numberOfSpaceshipsOnBoard  ]
+	turn==0 ifTrue: [ turn := numberOfSpaceshipsOnBoard  ]
 ]
 
 { #category : #turn }

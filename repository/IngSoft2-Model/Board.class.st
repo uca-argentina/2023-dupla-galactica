@@ -71,8 +71,8 @@ Board >> isCreatedSuccessfully [
 { #category : #'spaceships position' }
 Board >> moveSpaceship: movementValue [
 
-	(spaceshipOnBoard detect: [ :spaceship | spaceship whichTurn = 1 ]) moveOn: movementValue.
-	self winnerExists ifFalse: [ self someoneMoves. ]
+	(spaceshipOnBoard detect: [ :spaceship | spaceship whichTurn == 1 ]) moveOn: movementValue.
+	self winnerExists ifTrue: [ self createFinalMessage ] ifFalse: [ self someoneMoves. ]
 ]
 
 { #category : #'spaceships position' }
@@ -89,7 +89,7 @@ Board >> sizeIs [
 Board >> someoneMoves [
 
 	spaceshipOnBoard do: [ :spaceship | 
-		spaceship hasPassedATurn.
+		spaceship someonePlays.
 		spaceship verifyTurn: (spaceshipOnBoard size) ]
 ]
 
