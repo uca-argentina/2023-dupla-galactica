@@ -27,7 +27,7 @@ BoardMovingSpaceshipsTest >> testC002BoardMovesTwoSpaceships [
 ]
 
 { #category : #tests }
-BoardMovingSpaceshipsTest >> testC003ASpaceshipAchieveTheGoalBeforeOthers [
+BoardMovingSpaceshipsTest >> testC003ASpaceshipAchieveTheGoalBeforeOthers [ 
 | aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard|
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
