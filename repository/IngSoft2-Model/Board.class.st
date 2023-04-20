@@ -75,6 +75,12 @@ Board >> moveSpaceship: movementValue [
 	self winnerExists ifTrue: [ self createFinalMessage ] ifFalse: [ self someoneMoves. ]
 ]
 
+{ #category : #spaceships }
+Board >> nextPlayer [
+	^ (spaceshipOnBoard detect: [:spaceship | (spaceship turn == 1)]) spaceshipColor .
+	 
+]
+
 { #category : #'spaceships position' }
 Board >> positionOfTheFartherSpaceship [
 	^ self fartherPosition.
