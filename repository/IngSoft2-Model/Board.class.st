@@ -8,7 +8,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #initialize }
+{ #category : #'instance creation' }
 Board class >> size: aSize [ 
 	^(self new) initializeWithSizeOf: aSize.
 ]
@@ -23,33 +23,32 @@ Board class >> with: aValue and: aCollectionOfSpaceships [
 	^((self new) initializeWithSizeOf:aValue) initializeWith: aCollectionOfSpaceships.
 ]
 
-{ #category : #'verifying winner' }
-Board >> createFinalMessage [
+{ #category : #spaceships }
+Board >> fartherPosition [
+	| max |
+	max := 0.
+	self spaceships do: [ :spaceship | 
+		max < spaceship position ifTrue: [ max := spaceship position ] ].
+	^ max
+]
+
+{ #category : #finalization }
+Board >> finalMessage [
 
 	| color position message |
 	message := ''.
-	self spaceshipsOnIt do: [ :spaceship | 
+	self spaceships do: [ :spaceship | 
 		color := spaceship spaceshipColor.
 		position := spaceship position.
 		message := message , color , ':' , position asString , ' ' ].
 	^ message
 ]
 
-{ #category : #'spaceships position' }
-Board >> fartherPosition [
-
-	| max |
-	max := 0.
-	self spaceshipsOnIt do: [ :spaceship | 
-		max < spaceship position ifTrue: [ max := spaceship position ] ].
-	^ max
-]
-
-{ #category : #'verifying winner' }
-Board >> finalPositionOfSpaceShips [
+{ #category : #finalization }
+Board >> finalPositions [
 
 	self winnerExists
-		ifTrue: [ ^ self createFinalMessage ]
+		ifTrue: [ ^ self finalMessage ]
 		ifFalse: [ ^ 'the game has not finished yet' ]
 ]
 
@@ -58,40 +57,35 @@ Board >> initializeWith: aSpaceship [
 	spaceshipOnBoard:=aSpaceship.
 ]
 
-{ #category : #'instance creation' }
+{ #category : #initialization }
 Board >> initializeWithSizeOf: aSize [ 
 	sizeOfBoard:=aSize.
 ]
 
-{ #category : #creation }
+{ #category : #initialization }
 Board >> isCreatedSuccessfully [
 	^true.
 ]
 
-{ #category : #'spaceships position' }
+{ #category : #spaceships }
 Board >> moveSpaceship: movementValue [
 
 	(spaceshipOnBoard detect: [ :spaceship | spaceship whichTurn == 1 ]) moveOn: movementValue.
-	self winnerExists ifTrue: [ self createFinalMessage ] ifFalse: [ self someoneMoves. ]
+	self winnerExists ifTrue: [ self finalMessage ] ifFalse: [ self someoneMoves. ]
 ]
 
-{ #category : #spaceships }
+{ #category : #information }
 Board >> nextPlayer [
 	^ (spaceshipOnBoard detect: [:spaceship | (spaceship turn == 1)]) spaceshipColor .
 	 
 ]
 
-{ #category : #'spaceships position' }
-Board >> positionOfTheFartherSpaceship [
-	^ self fartherPosition.
-]
-
-{ #category : #size }
+{ #category : #information }
 Board >> sizeIs [
 	^sizeOfBoard.
 ]
 
-{ #category : #'spaceships turn' }
+{ #category : #spaceships }
 Board >> someoneMoves [
 
 	spaceshipOnBoard do: [ :spaceship | 
@@ -99,29 +93,29 @@ Board >> someoneMoves [
 		spaceship verifyTurn: (spaceshipOnBoard size) ]
 ]
 
-{ #category : #'spaceships position' }
-Board >> spaceshipsOnIt [
+{ #category : #spaceships }
+Board >> spaceships [
 	^ spaceshipOnBoard.
 ]
 
-{ #category : #'verifying winner' }
+{ #category : #finalization }
 Board >> winner [
 
 	self winnerExists
 		ifTrue: [ 
-			^ (self spaceshipsOnIt detect: [ :spaceship | 
+			^ (self spaceships detect: [ :spaceship | 
 				   self winningCondition: spaceship ]) spaceshipColor ]
 		ifFalse: [ ^ 'Nobody' ]
 ]
 
-{ #category : #'verifying winner' }
+{ #category : #finalization }
 Board >> winnerExists [
 
-	^ self spaceshipsOnIt anySatisfy: [ :spaceship | 
+	^ self spaceships anySatisfy: [ :spaceship | 
 		  self winningCondition: spaceship ]
 ]
 
-{ #category : #'verifying winner' }
+{ #category : #finalization }
 Board >> winningCondition: spaceship [
 
 	^ (spaceship position > self sizeIs or:

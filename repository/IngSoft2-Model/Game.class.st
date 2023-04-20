@@ -14,7 +14,7 @@ Game class >> with: aSpaceshipCollection and: aSize [
 
 { #category : #winner }
 Game >> finalMessage [
-	^(board finalPositionOfSpaceShips).
+	^(board finalPositions).
 ]
 
 { #category : #initialization }
