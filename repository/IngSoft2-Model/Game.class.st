@@ -12,6 +12,11 @@ Game class >> with: aSpaceshipCollection and: aSize [
 	^(self new) initializeWith: aSpaceshipCollection and: aSize.
 ]
 
+{ #category : #winner }
+Game >> finalMessage [
+	^(board finalPositionOfSpaceShips).
+]
+
 { #category : #initialization }
 Game >> initializeWith: aSpaceshipCollection and: aSize [ 
 	board:= Board with: aSize  and: aSpaceshipCollection.
