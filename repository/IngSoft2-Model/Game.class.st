@@ -18,6 +18,16 @@ Game >> initializeWith: aSpaceshipCollection and: aSize [
 ]
 
 { #category : #player }
+Game >> movePlayer: aValue [ 
+	board moveSpaceship: aValue.
+]
+
+{ #category : #player }
 Game >> nextPlayer [
 	^(board nextPlayer).
+]
+
+{ #category : #winner }
+Game >> winner [
+	^(board winner).
 ]

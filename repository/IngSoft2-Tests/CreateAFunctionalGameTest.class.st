@@ -14,3 +14,14 @@ CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
 	
 	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
 ]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testD002CreateGameAndAskForWinner [
+	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aGame|
+	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
+	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
+	aGame := Game with: aSpaceshipCollection and: 8.
+	aGame movePlayer: 8.
+	self assert: aGame winner asSymbol identicalTo: 'red' asSymbol
+]
