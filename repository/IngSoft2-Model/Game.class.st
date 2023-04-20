@@ -12,7 +12,7 @@ Game class >> with: aSpaceshipCollection and: aSize [
 	^(self new) initializeWith: aSpaceshipCollection and: aSize.
 ]
 
-{ #category : #winner }
+{ #category : #finalization }
 Game >> finalMessage [
 	^(board finalPositions).
 ]
@@ -32,7 +32,7 @@ Game >> nextPlayer [
 	^(board nextPlayer).
 ]
 
-{ #category : #winner }
+{ #category : #finalization }
 Game >> winner [
 	^(board winner).
 ]
