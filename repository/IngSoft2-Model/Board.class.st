@@ -94,7 +94,7 @@ Board >> someoneMoves [
 		spaceship verifyTurn: (spaceshipOnBoard size) ]
 ]
 
-{ #category : #spaceships }
+{ #category : #information }
 Board >> spaceships [
 	^ spaceshipOnBoard.
 ]

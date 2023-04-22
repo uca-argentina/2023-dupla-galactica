@@ -68,10 +68,3 @@ MoveSpaceshipsInTurnsTest >> testB006PassATurnInAGameWithThreeSpaceshipsAndABoar
 	aBoard someoneMoves.
 	self assert: aSpaceshipRed  turn identicalTo: 3
 ]
-
-{ #category : #tests }
-MoveSpaceshipsInTurnsTest >> testB007CreateDice [
-| aDice |
-	aDice  := Dice new.
-	self assert: (aDice isCreatedSuccessfully).
-]
