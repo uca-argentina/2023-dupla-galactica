@@ -24,3 +24,8 @@ LoadedDie >> initializeWith: aValue [
 
 	faces := aValue.
 ]
+
+{ #category : #throw }
+LoadedDie >> throw [
+	^2.
+]

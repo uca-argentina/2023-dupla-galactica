@@ -43,3 +43,11 @@ ThrowADieTest >> testE005CreateLoadedDieAndCheckItsNumberOfFacesWithDifferentVal
 	aLoadedDie := LoadedDie with: 5.
 	self assert: aLoadedDie faces equals: 5
 ]
+
+{ #category : #tests }
+ThrowADieTest >> testE006ThrowALoadedDieAndCheckValue [
+
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with: 5.
+	self assert: aLoadedDie throw equals: 2
+]
