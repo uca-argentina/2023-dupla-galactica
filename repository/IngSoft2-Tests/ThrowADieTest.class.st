@@ -72,3 +72,17 @@ ThrowADieTest >> testE008CreateALoadedDieWithAOrderCollectionOfValues [
 	aLoadedDie := LoadedDie with: anOrderedCollection.
 	self assert: aLoadedDie throw equals: 3
 ]
+
+{ #category : #tests }
+ThrowADieTest >> testE009CreateALoadedDieWithAOrderCollectionOfValuesAndThrowItTwice [
+
+	| aLoadedDie anOrderedCollection |
+	anOrderedCollection := OrderedCollection
+		                       with: 3
+		                       with: 5
+		                       with: 7
+		                       with: 9.
+	aLoadedDie := LoadedDie with: anOrderedCollection.
+	aLoadedDie throw.
+	self assert: aLoadedDie throw equals: 5.
+]
