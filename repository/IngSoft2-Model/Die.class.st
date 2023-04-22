@@ -28,3 +28,8 @@ Die >> initializeWith: aValue [
 Die >> isCreatedSuccessfully [
 	^true.
 ]
+
+{ #category : #throw }
+Die >> throw [
+	^ faces atRandom.
+]

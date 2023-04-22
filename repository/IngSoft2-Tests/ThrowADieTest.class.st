@@ -51,3 +51,11 @@ ThrowADieTest >> testE006ThrowALoadedDieAndCheckValue [
 	aLoadedDie := LoadedDie with: 5.
 	self assert: aLoadedDie throw equals: 2
 ]
+
+{ #category : #tests }
+ThrowADieTest >> testE007ThrowADieAndCheckValue [
+
+	| aDie |
+	aDie := Die with: 5.
+	self assert: (aDie throw between: 1 and: (aDie faces)).
+]
