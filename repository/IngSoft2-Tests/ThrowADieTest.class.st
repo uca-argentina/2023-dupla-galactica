@@ -19,3 +19,11 @@ ThrowADieTest >> testE002CreateDieAndCheckItsNumberOfFaces [
 	aDie := Die with: 3.
 	self assert: aDie faces equals: 3
 ]
+
+{ #category : #tests }
+ThrowADieTest >> testE003CreateDieAndCheckItsNumberOfFacesWithDifferentValues [
+
+	| aDie |
+	aDie := Die with: 4.
+	self assert: aDie faces equals: 4
+]

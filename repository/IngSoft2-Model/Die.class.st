@@ -15,7 +15,7 @@ Die class >> with: aValue [
 
 { #category : #information }
 Die >> faces [
-	^ 3.
+	^ faces.
 ]
 
 { #category : #initialization }
