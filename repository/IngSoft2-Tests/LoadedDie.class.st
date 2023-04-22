@@ -27,5 +27,5 @@ LoadedDie >> initializeWith: aValue [
 
 { #category : #throw }
 LoadedDie >> throw [
-	^2.
+	^(self faces at: 1).
 ]

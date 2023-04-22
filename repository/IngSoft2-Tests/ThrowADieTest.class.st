@@ -48,8 +48,8 @@ ThrowADieTest >> testE005CreateLoadedDieAndCheckItsNumberOfFacesWithDifferentVal
 ThrowADieTest >> testE006ThrowALoadedDieAndCheckValue [
 
 	| aLoadedDie |
-	aLoadedDie := LoadedDie with: 5.
-	self assert: aLoadedDie throw equals: 2
+	aLoadedDie := LoadedDie with: (OrderedCollection with: 5).
+	self assert: aLoadedDie throw equals: 5.
 ]
 
 { #category : #tests }
@@ -58,4 +58,17 @@ ThrowADieTest >> testE007ThrowADieAndCheckValue [
 	| aDie |
 	aDie := Die with: 5.
 	self assert: (aDie throw between: 1 and: (aDie faces)).
+]
+
+{ #category : #tests }
+ThrowADieTest >> testE008CreateALoadedDieWithAOrderCollectionOfValues [
+
+	| aLoadedDie anOrderedCollection |
+	anOrderedCollection := OrderedCollection
+		                       with: 3
+		                       with: 5
+		                       with: 7
+		                       with: 9.
+	aLoadedDie := LoadedDie with: anOrderedCollection.
+	self assert: aLoadedDie throw equals: 3
 ]
