@@ -44,7 +44,22 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aSpaceshipCollection and: 8 throwing: aLoadedDie.
+	aGame := Game with: aSpaceshipCollection and: 9 throwing: aLoadedDie.
 	aGame moveNextPlayer.
-	self assert: aGame finalMessage asSymbol identicalTo: 'red:8 blue:0 ' asSymbol
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame finalMessage asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
+]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes [
+	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aLoadedDie aGame|
+	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
+	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
+	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
+	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
+	aGame := Game with: aSpaceshipCollection and: 9 throwing: aLoadedDie.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame moveNextPlayer asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
 ]

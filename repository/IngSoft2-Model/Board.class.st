@@ -72,7 +72,8 @@ Board >> isCreatedSuccessfully [
 Board >> moveSpaceship: movementValue [
 
 	(spaceshipOnBoard detect: [ :spaceship | spaceship turn == 1 ]) moveOn: movementValue.
-	self winnerExists ifTrue: [ self finalMessage ] ifFalse: [ self someoneMoves. ]
+	self winnerExists ifTrue: [ ^(self finalMessage) ] ifFalse: [ self someoneMoves. ].
+	^'Game has not finished'
 ]
 
 { #category : #information }

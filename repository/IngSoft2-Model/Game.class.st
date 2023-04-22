@@ -38,7 +38,7 @@ Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDie [
 { #category : #player }
 Game >> moveNextPlayer [
 
-	board moveSpaceship: die throw
+	^(board moveSpaceship: die throw)
 ]
 
 { #category : #player }
