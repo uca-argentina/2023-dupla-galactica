@@ -27,3 +27,19 @@ ThrowADieTest >> testE003CreateDieAndCheckItsNumberOfFacesWithDifferentValues [
 	aDie := Die with: 4.
 	self assert: aDie faces equals: 4
 ]
+
+{ #category : #tests }
+ThrowADieTest >> testE004CreateLoadedDieAndCheckItsNumberOfFaces [
+
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with: 4.
+	self assert: aLoadedDie faces equals: 4
+]
+
+{ #category : #tests }
+ThrowADieTest >> testE005CreateLoadedDieAndCheckItsNumberOfFacesWithDifferentValues [
+
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with: 5.
+	self assert: aLoadedDie faces equals: 5
+]
