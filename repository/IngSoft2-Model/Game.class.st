@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'board',
-		'die'
+		'diceCollection'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,8 +14,8 @@ Game class >> with: aSpaceshipCollection and: aSize [
 ]
 
 { #category : #'instance creation' }
-Game class >> with: aSpaceshipCollection and: aValue throwing: aDie [ 
-	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDie.
+Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [ 
+	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection.
 ]
 
 { #category : #finalization }
@@ -29,16 +29,18 @@ Game >> initializeWith: aSpaceshipCollection and: aSize [
 ]
 
 { #category : #initialization }
-Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDie [
+Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection [
 
 	board := Board with: aValue and: aSpaceshipCollection.
-	die := aDie
+	diceCollection := aDiceCollection.
 ]
 
 { #category : #player }
 Game >> moveNextPlayer [
-
-	^(board moveSpaceship: die throw)
+	|value|
+	value:=0.
+	diceCollection do: [:die| value:= value+ (die throw)].
+	^(board moveSpaceship: value)
 ]
 
 { #category : #player }
