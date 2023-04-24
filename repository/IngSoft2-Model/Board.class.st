@@ -41,7 +41,7 @@ Board >> finalMessage [
 	self spaceships do: [ :spaceship | 
 		color := spaceship color.
 		position := spaceship position.
-		message := message , color , ':' , position asString , ' ' ].
+		message:= message, color, ':', position asString, ' '].
 	^ message
 ]
 
@@ -77,7 +77,7 @@ Board >> moveSpaceship: movementValue [
 
 { #category : #information }
 Board >> nextPlayer [
-	^ (spaceshipOnBoard detect: [:spaceship | (spaceship turn == 1)]) color .
+	^ (self spaceships detect: [:spaceship | (spaceship turn == 1)]) color .
 	 
 ]
 
@@ -88,8 +88,8 @@ Board >> sizeIs [
 
 { #category : #spaceships }
 Board >> someoneMoves [
-
-	spaceshipOnBoard do: [ :spaceship | 
+	
+	self spaceships do: [ :spaceship | 
 		spaceship someonePlays.
 		spaceship verifyTurn: (spaceshipOnBoard size) ]
 ]
