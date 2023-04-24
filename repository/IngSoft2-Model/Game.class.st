@@ -2,8 +2,8 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'board',
-		'die'
+		'diceCollection',
+		'boardAtBox'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,44 +14,57 @@ Game class >> with: aSpaceshipCollection and: aSize [
 ]
 
 { #category : #'instance creation' }
-Game class >> with: aSpaceshipCollection and: aValue throwing: aDie [ 
-	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDie.
+Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [ 
+	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection.
+]
+
+{ #category : #information }
+Game >> board [
+
+	^ boardAtBox
+]
+
+{ #category : #information }
+Game >> dice [
+	^(diceCollection).
 ]
 
 { #category : #finalization }
 Game >> finalMessage [
-	^(board finalPositions).
+	^(self board finalPositions).
 ]
 
 { #category : #initialization }
 Game >> initializeWith: aSpaceshipCollection and: aSize [ 
-	board:= Board with: aSize  and: aSpaceshipCollection.
+	boardAtBox:= Board with: aSize  and: aSpaceshipCollection.
 ]
 
 { #category : #initialization }
-Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDie [
+Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection [
 
-	board := Board with: aValue and: aSpaceshipCollection.
-	die := aDie
+	boardAtBox := Board with: aValue and: aSpaceshipCollection.
+	diceCollection := aDiceCollection.
 ]
 
 { #category : #player }
 Game >> moveNextPlayer [
-
-	^(board moveSpaceship: die throw)
+	|value|
+	value:=0.
+	self dice do: [:die| value:= value+ (die throw)].
+	(self board moveSpaceship: value)
 ]
 
 { #category : #player }
 Game >> movePlayer: aValue [ 
-	board moveSpaceship: aValue.
+	self board moveSpaceship: aValue.
 ]
 
 { #category : #player }
 Game >> nextPlayer [
-	^(board nextPlayer).
+	^(self board nextPlayer).
 ]
 
 { #category : #finalization }
 Game >> winner [
-	^(board winner).
+	^(self board winner).
 ]

@@ -41,7 +41,7 @@ Board >> finalMessage [
 	self spaceships do: [ :spaceship | 
 		color := spaceship color.
 		position := spaceship position.
-		message := message , color , ':' , position asString , ' ' ].
+		message:= message, color, ':', position asString, ' '].
 	^ message
 ]
 
@@ -72,13 +72,12 @@ Board >> isCreatedSuccessfully [
 Board >> moveSpaceship: movementValue [
 
 	(spaceshipOnBoard detect: [ :spaceship | spaceship turn == 1 ]) moveOn: movementValue.
-	self winnerExists ifTrue: [ ^(self finalMessage) ] ifFalse: [ self someoneMoves. ].
-	^'Game has not finished'
+	self winnerExists  ifFalse: [ self someoneMoves. ].
 ]
 
 { #category : #information }
 Board >> nextPlayer [
-	^ (spaceshipOnBoard detect: [:spaceship | (spaceship turn == 1)]) color .
+	^ (self spaceships detect: [:spaceship | (spaceship turn == 1)]) color .
 	 
 ]
 
@@ -89,8 +88,8 @@ Board >> sizeIs [
 
 { #category : #spaceships }
 Board >> someoneMoves [
-
-	spaceshipOnBoard do: [ :spaceship | 
+	
+	self spaceships do: [ :spaceship | 
 		spaceship someonePlays.
 		spaceship verifyTurn: (spaceshipOnBoard size) ]
 ]
