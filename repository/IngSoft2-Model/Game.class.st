@@ -40,7 +40,7 @@ Game >> moveNextPlayer [
 	|value|
 	value:=0.
 	diceCollection do: [:die| value:= value+ (die throw)].
-	^(board moveSpaceship: value)
+	(board moveSpaceship: value)
 ]
 
 { #category : #player }
