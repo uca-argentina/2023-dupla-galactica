@@ -57,6 +57,12 @@ Spaceship >> moveOn: aValue [
 	position := position + aValue.
 ]
 
+{ #category : #turn }
+Spaceship >> nextTurn: amountOfSpaceships [
+	self someonePlays.
+	self verifyTurn: amountOfSpaceships.
+]
+
 { #category : #information }
 Spaceship >> position [
 	^position.
