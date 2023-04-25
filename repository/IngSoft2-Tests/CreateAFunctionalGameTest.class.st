@@ -131,3 +131,37 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemThreeTimes
 		assert: aGame finalMessage asSymbol
 		identicalTo: 'red:29 blue:12 ' asSymbol
 ]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
+	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
+	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
+	aSpaceshipCollection := OrderedCollection
+		                        with: aSpaceshipRed
+		                        with: aSpaceshipBlue.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 5
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 9
+			                     with: 7
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aSpaceshipCollection
+		         and: 17
+		         throwing: aLoadedDiceCollection.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+		
+	self
+		assert: aGame finalMessage asSymbol
+		identicalTo: 'red:17 blue:0 ' asSymbol
+]

@@ -71,8 +71,10 @@ Board >> isCreatedSuccessfully [
 { #category : #spaceships }
 Board >> moveSpaceship: movementValue [
 
-	(spaceshipOnBoard detect: [ :spaceship | spaceship turn == 1 ]) moveOn: movementValue.
-	self winnerExists  ifFalse: [ self someoneMoves. ].
+	self winnerExists ifFalse: [ 
+		(self spaceships detect: [ :spaceship | spaceship turn == 1 ]) 
+			moveOn: movementValue.
+		self someoneMoves ].
 ]
 
 { #category : #information }
