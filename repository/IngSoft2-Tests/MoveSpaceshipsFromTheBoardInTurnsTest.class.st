@@ -1,11 +1,11 @@
 Class {
-	#name : #BoardMovingSpaceshipsTest,
+	#name : #MoveSpaceshipsFromTheBoardInTurnsTest,
 	#superclass : #TestCase,
 	#category : #'IngSoft2-Tests'
 }
 
 { #category : #tests }
-BoardMovingSpaceshipsTest >> testC001BoardMovesASpaceship [
+MoveSpaceshipsFromTheBoardInTurnsTest >> testC001BoardMovesASpaceship [
 | aSpaceshipRed aSpaceshipCollection aBoard|
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed.
@@ -15,7 +15,7 @@ BoardMovingSpaceshipsTest >> testC001BoardMovesASpaceship [
 ]
 
 { #category : #tests }
-BoardMovingSpaceshipsTest >> testC002BoardMovesTwoSpaceships [
+MoveSpaceshipsFromTheBoardInTurnsTest >> testC002BoardMovesTwoSpaceships [
 | aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard|
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
@@ -27,7 +27,7 @@ BoardMovingSpaceshipsTest >> testC002BoardMovesTwoSpaceships [
 ]
 
 { #category : #tests }
-BoardMovingSpaceshipsTest >> testC003ASpaceshipAchieveTheGoalBeforeOthers [
+MoveSpaceshipsFromTheBoardInTurnsTest >> testC003ASpaceshipAchieveTheGoalBeforeOthers [
 | aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard|
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.

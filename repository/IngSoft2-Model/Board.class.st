@@ -69,10 +69,17 @@ Board >> isCreatedSuccessfully [
 ]
 
 { #category : #spaceships }
+Board >> moveAndCheck: movementValue [
+
+	(self spaceships detect: [ :spaceship | spaceship turn == 1 ]) 
+		moveOn: movementValue.
+	self someoneMoves
+]
+
+{ #category : #spaceships }
 Board >> moveSpaceship: movementValue [
 
-	(spaceshipOnBoard detect: [ :spaceship | spaceship turn == 1 ]) moveOn: movementValue.
-	self winnerExists  ifFalse: [ self someoneMoves. ].
+	self winnerExists ifFalse: [ self moveAndCheck: movementValue ]
 ]
 
 { #category : #information }
@@ -88,10 +95,9 @@ Board >> sizeIs [
 
 { #category : #spaceships }
 Board >> someoneMoves [
-	
-	self spaceships do: [ :spaceship | 
-		spaceship someonePlays.
-		spaceship verifyTurn: (spaceshipOnBoard size) ]
+
+	 self spaceships do: [ :spaceship | 
+		spaceship nextTurn: self spaceships size ]
 ]
 
 { #category : #information }
