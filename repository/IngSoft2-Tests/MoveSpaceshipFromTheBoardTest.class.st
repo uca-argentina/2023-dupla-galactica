@@ -33,7 +33,7 @@ MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovin
 
 	| aSpaceship |
 	aSpaceship := Spaceship putItOnTheBeginning.
-	aSpaceship moveOn: 8.
+	aSpaceship moveOnValue: 8.
 	self assert: aSpaceship position identicalTo: 8
 ]
 
@@ -42,7 +42,7 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 
 	| aSpaceship aBoard |
 	aSpaceship := Spaceship putItOnTheBeginning.
-	aSpaceship moveOn: 8.
+	aSpaceship moveOnValue: 8.
 	aBoard := Board with: (OrderedCollection with: aSpaceship).
 	self assert: aBoard fartherPosition identicalTo: 8
 ]
@@ -52,9 +52,9 @@ MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAnd
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnTheBeginning.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putItOnTheBeginning.
-	aSpaceshipBlue moveOn: 9.
+	aSpaceshipBlue moveOnValue: 9.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -76,9 +76,9 @@ MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnTheBeginning.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putItOnTheBeginning.
-	aSpaceshipBlue moveOn: 9.
+	aSpaceshipBlue moveOnValue: 9.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -92,9 +92,9 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnTheBeginning.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putItOnTheBeginning.
-	aSpaceshipBlue moveOn: 9.
+	aSpaceshipBlue moveOnValue: 9.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -108,9 +108,9 @@ MoveSpaceshipFromTheBoardTest >> testA010CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnTheBeginning.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putItOnTheBeginning.
-	aSpaceshipBlue moveOn: 10.
+	aSpaceshipBlue moveOnValue: 10.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -124,9 +124,9 @@ MoveSpaceshipFromTheBoardTest >> testA011CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putItOnTheBeginning.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putItOnTheBeginning.
-	aSpaceshipBlue moveOn: 9.
+	aSpaceshipBlue moveOnValue: 9.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -140,9 +140,9 @@ MoveSpaceshipFromTheBoardTest >> testA012CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red'.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue'.
-	aSpaceshipBlue moveOn: 10.
+	aSpaceshipBlue moveOnValue: 10.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -156,9 +156,9 @@ MoveSpaceshipFromTheBoardTest >> testA013CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red'.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue'.
-	aSpaceshipBlue moveOn: 9.
+	aSpaceshipBlue moveOnValue: 9.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -174,9 +174,9 @@ MoveSpaceshipFromTheBoardTest >> testA014CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red'.
-	aSpaceshipRed moveOn: 8.
+	aSpaceshipRed moveOnValue: 8.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue'.
-	aSpaceshipBlue moveOn: 10.
+	aSpaceshipBlue moveOnValue: 10.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -192,9 +192,9 @@ MoveSpaceshipFromTheBoardTest >> testA015CreateABoardWithASpecificSizeAndTwoSpac
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red'.
-	aSpaceshipRed moveOn: 9.
+	aSpaceshipRed moveOnValue: 9.
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue'.
-	aSpaceshipBlue moveOn: 10.
+	aSpaceshipBlue moveOnValue: 10.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed

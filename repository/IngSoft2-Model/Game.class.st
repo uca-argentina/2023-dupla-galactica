@@ -18,53 +18,54 @@ Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [
 	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection.
 ]
 
-{ #category : #information }
+{ #category : #Information }
 Game >> board [
 
 	^ boardAtBox
 ]
 
-{ #category : #information }
+{ #category : #Information }
 Game >> dice [
 	^(diceCollection).
 ]
 
-{ #category : #finalization }
+{ #category : #Finalization }
 Game >> finalMessage [
 	^(self board finalPositions).
 ]
 
-{ #category : #initialization }
+{ #category : #Initialization }
 Game >> initializeWith: aSpaceshipCollection and: aSize [ 
 	boardAtBox:= Board with: aSize  and: aSpaceshipCollection.
 ]
 
-{ #category : #initialization }
+{ #category : #Initialization }
 Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection [
 
 	boardAtBox := Board with: aValue and: aSpaceshipCollection.
 	diceCollection := aDiceCollection.
 ]
 
-{ #category : #player }
+{ #category : #Player }
 Game >> moveNextPlayer [
-	|value|
-	value:=0.
-	self dice do: [:die| value:= value+ (die throw)].
-	(self board moveSpaceship: value)
+	
+	(self board movePlayer: self dice)
 ]
 
-{ #category : #player }
-Game >> movePlayer: aValue [ 
-	self board moveSpaceship: aValue.
+{ #category : #Player }
+Game >> movePlayer: aValue [
+
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with: (OrderedCollection with: aValue).
+	self board movePlayer: (OrderedCollection with: aLoadedDie)
 ]
 
-{ #category : #player }
+{ #category : #Player }
 Game >> nextPlayer [
 	^(self board nextPlayer).
 ]
 
-{ #category : #finalization }
+{ #category : #Finalization }
 Game >> winner [
 	^(self board winner).
 ]
