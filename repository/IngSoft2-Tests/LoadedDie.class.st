@@ -14,7 +14,7 @@ LoadedDie class >> with: aValue [
 	^ self new initializeWith: aValue
 ]
 
-{ #category : #throw }
+{ #category : #Throw }
 LoadedDie >> changeValue [
 
 	positionValue := positionValue == self faces size
@@ -22,19 +22,19 @@ LoadedDie >> changeValue [
 		                 ifFalse: [ positionValue + 1 ]
 ]
 
-{ #category : #information }
+{ #category : #Information }
 LoadedDie >> faces [
 
 	^ faces.
 ]
 
-{ #category : #initialization }
+{ #category : #Initialization }
 LoadedDie >> initializeWith: aValue [
 	positionValue := 1.
 	faces := aValue.
 ]
 
-{ #category : #throw }
+{ #category : #Throw }
 LoadedDie >> throw [
 | value |
 	value:= (self faces at: positionValue).

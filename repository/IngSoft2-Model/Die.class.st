@@ -13,23 +13,23 @@ Die class >> with: aValue [
 	^ self new initializeWith: aValue
 ]
 
-{ #category : #information }
+{ #category : #Information }
 Die >> faces [
 	^ faces.
 ]
 
-{ #category : #initialization }
+{ #category : #Initialization }
 Die >> initializeWith: aValue [
 
 	faces := aValue
 ]
 
-{ #category : #initialization }
+{ #category : #Initialization }
 Die >> isCreatedSuccessfully [
 	^true.
 ]
 
-{ #category : #throw }
+{ #category : #Throw }
 Die >> throw [
 	^ faces atRandom.
 ]
