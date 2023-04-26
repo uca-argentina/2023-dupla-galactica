@@ -48,15 +48,16 @@ Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollecti
 
 { #category : #player }
 Game >> moveNextPlayer [
-	|value|
-	value:=0.
-	self dice do: [:die| value:= value+ (die throw)].
-	(self board moveSpaceship: value)
+	
+	(self board moveSpaceship: self dice)
 ]
 
 { #category : #player }
-Game >> movePlayer: aValue [ 
-	self board moveSpaceship: aValue.
+Game >> movePlayer: aValue [
+
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with: (OrderedCollection with: aValue).
+	self board moveSpaceship: (OrderedCollection with: aLoadedDie)
 ]
 
 { #category : #player }

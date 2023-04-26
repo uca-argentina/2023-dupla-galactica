@@ -10,7 +10,7 @@ MoveSpaceshipsFromTheBoardInTurnsTest >> testC001BoardMovesASpaceship [
 	aSpaceshipRed := Spaceship putOn: 0 with: 'red' and: 1.
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
-	aBoard moveSpaceship: 6.
+	aBoard movePlayerTo: 6.
 	self assert: aSpaceshipRed position  identicalTo: 6
 ]
 
@@ -21,8 +21,8 @@ MoveSpaceshipsFromTheBoardInTurnsTest >> testC002BoardMovesTwoSpaceships [
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
-	aBoard moveSpaceship: 6.
-	aBoard moveSpaceship: 3.
+	aBoard movePlayerTo: 6.
+	aBoard movePlayerTo: 3.
 	self assert: aSpaceshipBlue position identicalTo: 3
 ]
 
@@ -33,8 +33,8 @@ MoveSpaceshipsFromTheBoardInTurnsTest >> testC003ASpaceshipAchieveTheGoalBeforeO
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
-	aBoard moveSpaceship: 6.
-	aBoard moveSpaceship: 10.
-	aBoard moveSpaceship: 7.
+	aBoard movePlayerTo: 6.
+	aBoard movePlayerTo: 10.
+	aBoard movePlayerTo: 7.
 	self assert: aBoard winner asSymbol identicalTo: 'blue' asSymbol
 ]

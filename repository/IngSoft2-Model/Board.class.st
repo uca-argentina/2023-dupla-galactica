@@ -69,17 +69,26 @@ Board >> isCreatedSuccessfully [
 ]
 
 { #category : #spaceships }
-Board >> moveAndCheck: movementValue [
+Board >> moveAndCheck: aDiceCollection [
 
 	(self spaceships detect: [ :spaceship | spaceship turn == 1 ]) 
-		moveOn: movementValue.
+		moveOn: aDiceCollection.
 	self someoneMoves
 ]
 
-{ #category : #spaceships }
-Board >> moveSpaceship: movementValue [
+{ #category : #spaceship }
+Board >> movePlayerTo: aValue [
 
-	self winnerExists ifFalse: [ self moveAndCheck: movementValue ]
+	self winnerExists ifFalse: [ 
+		(self spaceships detect: [ :spaceship | spaceship turn == 1 ]) 
+			moveOnValue: aValue.
+		self someoneMoves ]
+]
+
+{ #category : #spaceships }
+Board >> moveSpaceship: aDiceCollection [
+
+	self winnerExists ifFalse: [ self moveAndCheck: aDiceCollection ]
 ]
 
 { #category : #information }

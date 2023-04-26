@@ -53,8 +53,18 @@ Spaceship >> isCreatedSuccessfully [
 ]
 
 { #category : #turn }
-Spaceship >> moveOn: aValue [ 
-	position := position + aValue.
+Spaceship >> moveOn: aDiceCollection [
+
+	| value |
+	value := 0.
+	aDiceCollection do: [ :die | value := value + die throw ].
+	position := position + value
+]
+
+{ #category : #turn }
+Spaceship >> moveOnValue: aNumber [
+
+	position := position + aNumber
 ]
 
 { #category : #turn }
