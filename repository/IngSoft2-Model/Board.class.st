@@ -33,26 +33,6 @@ Board >> fartherPosition [
 	^ maxValue.
 ]
 
-{ #category : #Finalization }
-Board >> finalMessage [
-
-	| color position message |
-	message := ''.
-	self players do: [ :spaceship | 
-		color := spaceship color.
-		position := spaceship position.
-		message:= message, color, ':', position asString, ' '].
-	^ message
-]
-
-{ #category : #Finalization }
-Board >> finalPositions [
-
-	self winnerExists
-		ifTrue: [ ^ self finalMessage ]
-		ifFalse: [ ^ 'the game has not finished yet' ]
-]
-
 { #category : #Initialization }
 Board >> initializeWith: aSpaceship [ 
 	players:=aSpaceship.
@@ -107,16 +87,6 @@ Board >> someoneMoves [
 
 	 self players do: [ :spaceship | 
 		spaceship nextTurn: self players size ]
-]
-
-{ #category : #Finalization }
-Board >> winner [
-
-	self winnerExists
-		ifTrue: [ 
-			^ (self players detect: [ :spaceship | 
-				   self winningCondition: spaceship ]) color ]
-		ifFalse: [ ^ 'Nobody' ]
 ]
 
 { #category : #Finalization }

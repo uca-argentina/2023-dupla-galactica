@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'diceCollection',
-		'boardAtBox'
+		'boardAtBox',
+		'spaceships'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -24,9 +25,23 @@ Game >> dice [
 	^(diceCollection).
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> finalMessagge [
+
+	| color position messagge |
+	messagge := ''.
+	spaceships do: [ :spaceship | 
+		color := spaceship color.
+		position := spaceship position.
+		messagge := messagge , color , ':' , position asString , ' ' ].
+	^ messagge
+]
+
 { #category : #Finalization }
-Game >> finalMessage [
-	^(self board finalPositions).
+Game >> finalPositions [
+	self winnerExists
+		ifTrue: [ ^ self finalMessagge  ]
+		ifFalse: [ ^ 'the game has not finished yet' ]
 ]
 
 { #category : #Initialization }
@@ -34,6 +49,7 @@ Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollecti
 
 	boardAtBox := Board with: aValue and: aSpaceshipCollection.
 	diceCollection := aDiceCollection.
+	spaceships := aSpaceshipCollection.
 ]
 
 { #category : #Player }
@@ -57,5 +73,24 @@ Game >> nextPlayer [
 
 { #category : #Finalization }
 Game >> winner [
-	^(self board winner).
+
+	self winnerExists
+		ifTrue: [ 
+			^ (spaceships detect: [ :spaceship | 
+				   self winningCondition: spaceship ]) color ]
+		ifFalse: [ ^ 'Nobody' ]
+]
+
+{ #category : #Finalization }
+Game >> winnerExists [
+
+	^ spaceships anySatisfy: [ :spaceship | 
+		  self winningCondition: spaceship ]
+]
+
+{ #category : #Finalization }
+Game >> winningCondition: spaceship [
+
+	^ (spaceship position > boardAtBox sizeIs or:
+		  spaceship position == boardAtBox sizeIs)
 ]

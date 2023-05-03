@@ -37,7 +37,7 @@ CreateAFunctionalGameTest >> testD003CreateGameAndAskForFinalMessage [
 	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
 	aGame := Game with: aSpaceshipCollection and: 8 throwing: aLoadedDie.
 	aGame movePlayer: 8.
-	self assert: aGame finalMessage asSymbol identicalTo: 'red:8 blue:0 ' asSymbol
+	self assert: aGame finalPositions asSymbol identicalTo: 'red:8 blue:0 ' asSymbol
 ]
 
 { #category : #tests }
@@ -51,7 +51,7 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame finalMessage asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
+	self assert: aGame finalPositions asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
 ]
 
 { #category : #tests }
@@ -65,7 +65,7 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame finalMessage asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
+	self assert: aGame finalPositions asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
 ]
 
 { #category : #tests }
@@ -96,7 +96,7 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 		         throwing: aLoadedDiceCollection.
 	aGame moveNextPlayer.
 	self
-		assert: aGame finalMessage asSymbol
+		assert: aGame finalPositions asSymbol
 		identicalTo: 'red:17 blue:0 ' asSymbol
 ]
 
@@ -131,7 +131,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemThreeTimes
 	aGame moveNextPlayer.
 		
 	self
-		assert: aGame finalMessage asSymbol
+		assert: aGame finalPositions asSymbol
 		identicalTo: 'red:29 blue:12 ' asSymbol
 ]
 
@@ -165,6 +165,6 @@ CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
 	aGame moveNextPlayer.
 		
 	self
-		assert: aGame finalMessage asSymbol
+		assert: aGame finalPositions asSymbol
 		identicalTo: 'red:17 blue:0 ' asSymbol
 ]
