@@ -9,7 +9,7 @@ CreatePlayerTest >> testK001CreateAPlayerThatHasAnSpaceship [
 	|aSpaceship aPlayer|
 	aSpaceship:= Spaceship with: 'red'.
 	aPlayer:= Player with: aSpaceship.
-	self assert: aPlayer spaceshipColor asSymbol identicalTo: 'red' asSymbol.
+	self assert: aPlayer color asSymbol identicalTo: 'red' asSymbol.
 	
 ]
 
@@ -19,7 +19,7 @@ CreatePlayerTest >> testK002CreateAPlayerAndThrowTheDice [
 	aSpaceship:= Spaceship with: 'red'.
 	aPlayer:= Player with: aSpaceship.
 	aLoadedDie:= LoadedDie with: (OrderedCollection with: 8 with: 10).
-	aPlayer moveOn: (OrderedCollection with: aLoadedDie). 
-	self assert: aPlayer spaceshipColor asSymbol identicalTo: 'red' asSymbol.
+	aPlayer move: (OrderedCollection with: aLoadedDie). 
+	self assert: aPlayer color asSymbol identicalTo: 'red' asSymbol.
 	
 ]

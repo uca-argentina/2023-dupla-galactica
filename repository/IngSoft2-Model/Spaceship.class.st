@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'position',
-		'color',
-		'turn'
+		'color'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,8 +24,8 @@ Spaceship >> initializeWith: aColor [
 	color:=aColor.
 ]
 
-{ #category : #Turn }
-Spaceship >> moveOn: value [
+{ #category : #Move }
+Spaceship >> move: value [
 	position:= position +value.
 ]
 

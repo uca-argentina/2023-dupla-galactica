@@ -12,39 +12,32 @@ Player class >> with: aSpaceship [
 	^(self new) initializeWith: aSpaceship.
 ]
 
-{ #category : #information }
+{ #category : #Information }
 Player >> color [
 	^(self spaceship) color.
 ]
 
-{ #category : #initialization }
+{ #category : #Initialization }
 Player >> initializeWith: aSpaceship [ 
 	spaceship:= aSpaceship.
 ]
 
-{ #category : #moves }
-Player >> moveOn: aDiceCollection [
-	|value|
-	value:= (self throwDice: aDiceCollection).
-	spaceship moveOn: value.
+{ #category : #Move }
+Player >> move: aDiceCollection [
+	(self spaceship) move: (self throwDice: aDiceCollection).
 ]
 
-{ #category : #information }
+{ #category : #Information }
 Player >> position [
 	^(self spaceship ) position.
 ]
 
-{ #category : #information }
+{ #category : #Information }
 Player >> spaceship [
 	^ spaceship
 ]
 
-{ #category : #information }
-Player >> spaceshipColor [
-	^(spaceship color).
-]
-
-{ #category : #moves }
+{ #category : #Move }
 Player >> throwDice: aDiceCollection [
 	| value |
 	value := 0.
