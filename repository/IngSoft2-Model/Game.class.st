@@ -50,7 +50,7 @@ Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection 
 	|aSpaceshipCollection turn|
 	turn:=1.
 	aSpaceshipCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | aSpaceshipCollection addLast: (Spaceship with:color  and:turn).
+	aColorsCollection do: [ :color | aSpaceshipCollection addLast: (Spaceship with:color).
 		turn:=turn+1 ].
 	boardAtBox := Board with: aValue and: aSpaceshipCollection.
 	diceCollection := aDiceCollection.

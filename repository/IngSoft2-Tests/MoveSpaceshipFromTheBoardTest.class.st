@@ -8,7 +8,7 @@ Class {
 MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 
 	| aSpaceship |
-	aSpaceship := Spaceship with: 'red' and: 1.
+	aSpaceship := Spaceship with: 'red'.
 	self assert: aSpaceship position identicalTo: 0
 ]
 
@@ -16,7 +16,7 @@ MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovingIt [
 
 	| aSpaceship aLoadedDie|
-	aSpaceship := Spaceship with: 'red' and: 1.
+	aSpaceship := Spaceship with: 'red'.
 	aLoadedDie := LoadedDie with: (OrderedCollection with: 8).
 	aSpaceship moveOn: (OrderedCollection with: aLoadedDie) .
 	self assert: aSpaceship position identicalTo: 8
@@ -26,7 +26,7 @@ MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovin
 MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
 	| aSpaceship aBoard aLoadedDie|
-	aSpaceship := Spaceship with: 'red' and: 1.
+	aSpaceship := Spaceship with: 'red'.
 	aLoadedDie := LoadedDie with: (OrderedCollection with: 8).
 	aSpaceship moveOn: (OrderedCollection with: aLoadedDie) .
 	aBoard := Board with: 10 and: (OrderedCollection with: aSpaceship) .
@@ -37,8 +37,8 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie |
-	aSpaceshipRed := Spaceship with: 'red' and: 1.
-	aSpaceshipBlue :=Spaceship with: 'blue' and: 1.
+	aSpaceshipRed := Spaceship with: 'red'.
+	aSpaceshipBlue :=Spaceship with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection with: 8 with: 9).
 	aSpaceshipRed moveOn: (OrderedCollection with: aLoadedDie) .
 	aSpaceshipBlue moveOn: (OrderedCollection with: aLoadedDie).
@@ -63,8 +63,8 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpaceships [
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie|
-	aSpaceshipRed := Spaceship with: 'red' and: 1.
-	aSpaceshipBlue :=Spaceship with: 'blue' and: 1.
+	aSpaceshipRed := Spaceship with: 'red'.
+	aSpaceshipBlue :=Spaceship with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection with: 8 with: 9).
 	aSpaceshipRed moveOn: (OrderedCollection with: aLoadedDie) .
 	aSpaceshipBlue moveOn: (OrderedCollection with: aLoadedDie).

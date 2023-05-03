@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'sizeOfBoard',
-		'players'
+		'players',
+		'turn'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -27,26 +28,27 @@ Board >> fartherPosition [
 Board >> initializeWithSizeOf:aValue and: aCollectionOfSpaceships [
 	sizeOfBoard:=aValue.
 	players:=aCollectionOfSpaceships.
-	
+	turn:= 1.
 ]
 
 { #category : #Players }
 Board >> moveAndCheck: aDiceCollection [
 
-	(self players detect: [ :spaceship | spaceship turn == 1 ]) 
-		moveOn: aDiceCollection.
-	self someoneMoves
+	(self players at: turn) moveOn: aDiceCollection.
+	turn := turn == self players size
+		        ifTrue: [ 1 ]
+		        ifFalse: [ turn + 1 ]
 ]
 
 { #category : #Players }
 Board >> movePlayer: aDiceCollection [
 
-	self winnerExists2 ifFalse: [ self moveAndCheck: aDiceCollection ]
+	self winnerExists ifFalse: [ self moveAndCheck: aDiceCollection ]
 ]
 
 { #category : #Information }
 Board >> nextPlayer [
-	^ (self players detect: [:spaceship | (spaceship turn == 1)]) color .
+	^ (self players at: turn) color .
 	 
 ]
 
@@ -68,14 +70,14 @@ Board >> someoneMoves [
 ]
 
 { #category : #Finalization }
-Board >> winnerExists2 [
+Board >> winnerExists [
 
 	^ self players anySatisfy: [ :spaceship | 
-		  self winningCondition2: spaceship ]
+		  self winningCondition: spaceship ]
 ]
 
 { #category : #Finalization }
-Board >> winningCondition2: spaceship [
+Board >> winningCondition: spaceship [
 
 	^ (spaceship position > self sizeIs or:
 		  spaceship position == self sizeIs)
