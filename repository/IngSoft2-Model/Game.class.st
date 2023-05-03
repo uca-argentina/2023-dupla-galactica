@@ -3,15 +3,11 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'diceCollection',
-		'boardAtBox'
+		'boardAtBox',
+		'spaceships'
 	],
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #'instance creation' }
-Game class >> with: aSpaceshipCollection and: aSize [ 
-	^(self new) initializeWith: aSpaceshipCollection and: aSize.
-]
 
 { #category : #'instance creation' }
 Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [ 
@@ -30,20 +26,35 @@ Game >> dice [
 ]
 
 { #category : #Finalization }
-Game >> finalMessage [
-	^(self board finalPositions).
+Game >> finalMessagge [
+
+	| color position messagge |
+	messagge := ''.
+	spaceships do: [ :spaceship | 
+		color := spaceship color.
+		position := spaceship position.
+		messagge := messagge , color , ':' , position asString , ' ' ].
+	^ messagge
+]
+
+{ #category : #Finalization }
+Game >> finalPositions [
+	self winnerExists
+		ifTrue: [ ^ self finalMessagge  ]
+		ifFalse: [ ^ 'the game has not finished yet' ]
 ]
 
 { #category : #Initialization }
-Game >> initializeWith: aSpaceshipCollection and: aSize [ 
-	boardAtBox:= Board with: aSize  and: aSpaceshipCollection.
-]
+Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection [
 
-{ #category : #Initialization }
-Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection [
-
+	|aSpaceshipCollection turn|
+	turn:=1.
+	aSpaceshipCollection := OrderedCollection new.
+	aColorsCollection do: [ :color | aSpaceshipCollection addLast: (Spaceship putOn: 0 with:color  and:turn).
+		turn:=turn+1 ].
 	boardAtBox := Board with: aValue and: aSpaceshipCollection.
 	diceCollection := aDiceCollection.
+	spaceships := aSpaceshipCollection.
 ]
 
 { #category : #Player }
@@ -53,19 +64,30 @@ Game >> moveNextPlayer [
 ]
 
 { #category : #Player }
-Game >> movePlayer: aValue [
-
-	| aLoadedDie |
-	aLoadedDie := LoadedDie with: (OrderedCollection with: aValue).
-	self board movePlayer: (OrderedCollection with: aLoadedDie)
-]
-
-{ #category : #Player }
 Game >> nextPlayer [
 	^(self board nextPlayer).
 ]
 
 { #category : #Finalization }
 Game >> winner [
-	^(self board winner).
+
+	self winnerExists
+		ifTrue: [ 
+			^ (spaceships detect: [ :spaceship | 
+				   self winningCondition: spaceship ]) color ]
+		ifFalse: [ ^ 'Nobody' ]
+]
+
+{ #category : #Finalization }
+Game >> winnerExists [
+
+	^ spaceships anySatisfy: [ :spaceship | 
+		  self winningCondition: spaceship ]
+]
+
+{ #category : #Finalization }
+Game >> winningCondition: spaceship [
+
+	^ (spaceship position > boardAtBox sizeIs or:
+		  spaceship position == boardAtBox sizeIs)
 ]

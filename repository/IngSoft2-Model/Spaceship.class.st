@@ -47,11 +47,6 @@ Spaceship >> initializePutItOnThePosition: aPosition withColor: aColor withTurn:
 	turn:=aTurn.
 ]
 
-{ #category : #Initialization }
-Spaceship >> isCreatedSuccessfully [
-	^true.
-]
-
 { #category : #Turn }
 Spaceship >> moveOn: aDiceCollection [
 

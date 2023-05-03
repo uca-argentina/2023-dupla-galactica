@@ -33,26 +33,6 @@ Board >> fartherPosition [
 	^ maxValue.
 ]
 
-{ #category : #Finalization }
-Board >> finalMessage [
-
-	| color position message |
-	message := ''.
-	self players do: [ :spaceship | 
-		color := spaceship color.
-		position := spaceship position.
-		message:= message, color, ':', position asString, ' '].
-	^ message
-]
-
-{ #category : #Finalization }
-Board >> finalPositions [
-
-	self winnerExists
-		ifTrue: [ ^ self finalMessage ]
-		ifFalse: [ ^ 'the game has not finished yet' ]
-]
-
 { #category : #Initialization }
 Board >> initializeWith: aSpaceship [ 
 	players:=aSpaceship.
@@ -61,11 +41,6 @@ Board >> initializeWith: aSpaceship [
 { #category : #Initialization }
 Board >> initializeWithSizeOf: aSize [ 
 	sizeOfBoard:=aSize.
-]
-
-{ #category : #Initialization }
-Board >> isCreatedSuccessfully [
-	^true.
 ]
 
 { #category : #Players }
@@ -79,16 +54,7 @@ Board >> moveAndCheck: aDiceCollection [
 { #category : #Players }
 Board >> movePlayer: aDiceCollection [
 
-	self winnerExists ifFalse: [ self moveAndCheck: aDiceCollection ]
-]
-
-{ #category : #Players }
-Board >> movePlayerTo: aValue [
-
-	self winnerExists ifTrue: [ ^ self ].
-	(self players detect: [ :spaceship | spaceship turn == 1 ]) 
-		moveOnValue: aValue.
-	self someoneMoves
+	self winnerExists2 ifFalse: [ self moveAndCheck: aDiceCollection ]
 ]
 
 { #category : #Information }
@@ -115,24 +81,14 @@ Board >> someoneMoves [
 ]
 
 { #category : #Finalization }
-Board >> winner [
-
-	self winnerExists
-		ifTrue: [ 
-			^ (self players detect: [ :spaceship | 
-				   self winningCondition: spaceship ]) color ]
-		ifFalse: [ ^ 'Nobody' ]
-]
-
-{ #category : #Finalization }
-Board >> winnerExists [
+Board >> winnerExists2 [
 
 	^ self players anySatisfy: [ :spaceship | 
-		  self winningCondition: spaceship ]
+		  self winningCondition2: spaceship ]
 ]
 
 { #category : #Finalization }
-Board >> winningCondition: spaceship [
+Board >> winningCondition2: spaceship [
 
 	^ (spaceship position > self sizeIs or:
 		  spaceship position == self sizeIs)
