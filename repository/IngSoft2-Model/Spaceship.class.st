@@ -36,12 +36,6 @@ Spaceship >> moveOn: aDiceCollection [
 ]
 
 { #category : #Turn }
-Spaceship >> moveOnValue: aNumber [
-
-	position := position + aNumber
-]
-
-{ #category : #Turn }
 Spaceship >> nextTurn: amountOfSpaceships [
 	self someonePlays.
 	self verifyTurn: amountOfSpaceships.
