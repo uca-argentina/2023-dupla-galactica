@@ -5,6 +5,15 @@ Class {
 }
 
 { #category : #tests }
+ThrowADieTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+	self
+		should: anErrorBlock
+		raise: anExceptionClass 
+		withExceptionDo: [ :error|
+			self assert: error messageText equals: anErrorMessage ].
+]
+
+{ #category : #tests }
 ThrowADieTest >> testE002CreateDieAndCheckItsNumberOfFaces [
 
 	| aDie |
@@ -24,16 +33,16 @@ ThrowADieTest >> testE003CreateDieAndCheckItsNumberOfFacesWithDifferentValues [
 ThrowADieTest >> testE004CreateLoadedDieAndCheckItsNumberOfFaces [
 
 	| aLoadedDie |
-	aLoadedDie := LoadedDie with: 4.
-	self assert: aLoadedDie faces equals: 4
+	aLoadedDie := LoadedDie with: (OrderedCollection with: 4).
+	self assert: aLoadedDie numberOffaces equals: 1.
 ]
 
 { #category : #tests }
 ThrowADieTest >> testE005CreateLoadedDieAndCheckItsNumberOfFacesWithDifferentValues [
 
 	| aLoadedDie |
-	aLoadedDie := LoadedDie with: 5.
-	self assert: aLoadedDie faces equals: 5
+	aLoadedDie := LoadedDie with: (OrderedCollection with: 5).
+	self assert: aLoadedDie numberOffaces equals: 1.
 ]
 
 { #category : #tests }
@@ -94,4 +103,28 @@ ThrowADieTest >> testE010CreateALoadedDieWithAOrderCollectionOfValuesAndThrowItF
 	aLoadedDie throw.
 	aLoadedDie throw.
 	self assert: aLoadedDie throw equals: 3.
+]
+
+{ #category : #tests }
+ThrowADieTest >> testE011CreateALoadedDieWithNegativeAmountOfFaces [
+	
+	self should: [ LoadedDie with: (OrderedCollection with: 8 with: -7 with: -2)] raise: Error withMessage: 'Cannot create with negative values at faces'.
+]
+
+{ #category : #tests }
+ThrowADieTest >> testE012CreateALoadedDieWithValuesLessThanTwo [
+	
+	self should: [ LoadedDie with: (OrderedCollection with: 1 with: 1 with: 1)] raise: Error withMessage: 'Cannot create with negative values at faces'.
+]
+
+{ #category : #tests }
+ThrowADieTest >> testE013CreateADieWithNegativeNumberOfFacesThenInvalid [
+	
+	self should: [ Die with: -2] raise: Error withMessage: 'Cannot create with negative values at faces'.
+]
+
+{ #category : #tests }
+ThrowADieTest >> testE014CreateADieWithNumberOfFacesLessThanTwoThenInvalid [
+	
+	self should: [ Die with: 1] raise: Error withMessage: 'Cannot create with negative values at faces'.
 ]

@@ -9,7 +9,9 @@ Class {
 
 { #category : #'instance creation' }
 Die class >> with: aValue [
-
+	|res|
+	res:=0.
+	(aValue<2) ifTrue: [Error signal: 'Cannot create with negative values at faces'].
 	^ self new initializeWith: aValue
 ]
 

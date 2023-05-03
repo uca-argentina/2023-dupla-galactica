@@ -9,9 +9,11 @@ Class {
 }
 
 { #category : #'instance creation' }
-LoadedDie class >> with: aValue [
-
-	^ self new initializeWith: aValue
+LoadedDie class >> with: aValuesCollection [
+	|res|
+	res:=0.
+	aValuesCollection do: [:value| (value< 2) ifTrue: [Error signal: 'Cannot create with negative values at faces']].
+	^ self new initializeWith: aValuesCollection
 ]
 
 { #category : #Throw }
@@ -25,13 +27,19 @@ LoadedDie >> changeValue [
 { #category : #Information }
 LoadedDie >> faces [
 
-	^ faces.
+	^ (faces).
 ]
 
 { #category : #Initialization }
 LoadedDie >> initializeWith: aValue [
 	positionValue := 1.
 	faces := aValue.
+]
+
+{ #category : #Information }
+LoadedDie >> numberOffaces [
+
+	^ (faces size).
 ]
 
 { #category : #Throw }
