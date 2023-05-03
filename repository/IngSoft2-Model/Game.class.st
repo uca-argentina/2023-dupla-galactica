@@ -9,11 +9,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> with: aSpaceshipCollection and: aSize [ 
-	^(self new) initializeWith: aSpaceshipCollection and: aSize.
-]
-
-{ #category : #'instance creation' }
 Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [ 
 	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection.
 ]
@@ -32,11 +27,6 @@ Game >> dice [
 { #category : #Finalization }
 Game >> finalMessage [
 	^(self board finalPositions).
-]
-
-{ #category : #Initialization }
-Game >> initializeWith: aSpaceshipCollection and: aSize [ 
-	boardAtBox:= Board with: aSize  and: aSpaceshipCollection.
 ]
 
 { #category : #Initialization }
