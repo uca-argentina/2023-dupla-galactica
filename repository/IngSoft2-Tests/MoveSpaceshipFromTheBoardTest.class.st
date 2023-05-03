@@ -8,7 +8,7 @@ Class {
 MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 
 	| aSpaceship |
-	aSpaceship := Spaceship putItOnTheBeginning.
+	aSpaceship := Spaceship with: 'red' and: 1.
 	self assert: aSpaceship position identicalTo: 0
 ]
 
@@ -16,7 +16,7 @@ MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovingIt [
 
 	| aSpaceship |
-	aSpaceship := Spaceship putItOnTheBeginning.
+	aSpaceship := Spaceship with: 'red' and: 1.
 	aSpaceship moveOnValue: 8.
 	self assert: aSpaceship position identicalTo: 8
 ]
@@ -25,7 +25,7 @@ MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovin
 MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
 	| aSpaceship aBoard |
-	aSpaceship := Spaceship putItOnTheBeginning.
+	aSpaceship := Spaceship with: 'red' and: 1.
 	aSpaceship moveOnValue: 8.
 	aBoard := Board with: (OrderedCollection with: aSpaceship).
 	self assert: aBoard fartherPosition identicalTo: 8
@@ -35,9 +35,9 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
-	aSpaceshipRed := Spaceship putItOnTheBeginning.
+	aSpaceshipRed := Spaceship with: 'red' and: 1.
+	aSpaceshipBlue :=Spaceship with: 'blue' and: 1.
 	aSpaceshipRed moveOnValue: 8.
-	aSpaceshipBlue := Spaceship putItOnTheBeginning.
 	aSpaceshipBlue moveOnValue: 9.
 
 	aSpaceshipCollection := OrderedCollection
@@ -59,9 +59,9 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpaceships [
 
 	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard |
-	aSpaceshipRed := Spaceship putItOnTheBeginning.
+	aSpaceshipRed := Spaceship with: 'red' and: 1.
+	aSpaceshipBlue :=Spaceship with: 'blue' and: 1.
 	aSpaceshipRed moveOnValue: 8.
-	aSpaceshipBlue := Spaceship putItOnTheBeginning.
 	aSpaceshipBlue moveOnValue: 9.
 
 	aSpaceshipCollection := OrderedCollection

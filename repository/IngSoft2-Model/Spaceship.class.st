@@ -10,18 +10,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-Spaceship class >> putItOnTheBeginning [
-	^(self new) initializePutItOnTheBeginning.
-]
-
-{ #category : #'instance creation' }
-Spaceship class >> putOn: aPosition with: aColor [
-	^(self new) initializePutItOnThePosition: aPosition withColor: aColor.
-]
-
-{ #category : #'instance creation' }
-Spaceship class >> putOn: aPosition with: aColor and: aTurn [ 
-	^(self new) initializePutItOnThePosition: aPosition withColor: aColor withTurn:aTurn.
+Spaceship class >> with: aColor and: aTurn [ 
+	^(self new) initializeWith: aColor and: aTurn.
 ]
 
 { #category : #Information }
@@ -30,19 +20,8 @@ Spaceship >> color [
 ]
 
 { #category : #Initialization }
-Spaceship >> initializePutItOnTheBeginning [
+Spaceship >> initializeWith: aColor and: aTurn [
 	position:=0.
-]
-
-{ #category : #Initialization }
-Spaceship >> initializePutItOnThePosition: aPosition withColor: aColor [
-	position:=aPosition.
-	color:=aColor.
-]
-
-{ #category : #Initialization }
-Spaceship >> initializePutItOnThePosition: aPosition withColor: aColor withTurn: aTurn [
-	position:=aPosition.
 	color:=aColor.
 	turn:=aTurn.
 ]
