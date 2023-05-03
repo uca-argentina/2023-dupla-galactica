@@ -5,6 +5,15 @@ Class {
 }
 
 { #category : #tests }
+MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+	self
+		should: anErrorBlock
+		raise: anExceptionClass 
+		withExceptionDo: [ :error|
+			self assert: error messageText equals: anErrorMessage ].
+]
+
+{ #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 
 	| aSpaceship |
@@ -70,4 +79,10 @@ MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpac
 		                        with: aSpaceshipBlue.
 	aBoard := Board with: 10 and: aSpaceshipCollection.
 	self assert: aBoard fartherPosition identicalTo: 9
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
+
+	self should: [Board with: -1 and: OrderedCollection new.] raise: Error withMessage: 'Cannot create a board with that value'.
 ]

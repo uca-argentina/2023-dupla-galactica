@@ -10,7 +10,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> with: aValue and: aCollectionOfSpaceships [ 
+Board class >> with: aValue and: aCollectionOfSpaceships [
+	(aValue <0 or: aValue==0) ifTrue: [Error signal: 'Cannot create a board with that value'].
 	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships.
 ]
 
