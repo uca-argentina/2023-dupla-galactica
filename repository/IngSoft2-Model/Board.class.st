@@ -9,18 +9,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> size: aSize [ 
-	^(self new) initializeWithSizeOf: aSize.
-]
-
-{ #category : #'instance creation' }
-Board class >> with: aSpaceship [ 
-	^(self new) initializeWith: aSpaceship.
-]
-
-{ #category : #'instance creation' }
 Board class >> with: aValue and: aCollectionOfSpaceships [ 
-	^((self new) initializeWithSizeOf:aValue) initializeWith: aCollectionOfSpaceships.
+	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships.
 ]
 
 { #category : #Players }
@@ -34,13 +24,10 @@ Board >> fartherPosition [
 ]
 
 { #category : #Initialization }
-Board >> initializeWith: aSpaceship [ 
-	players:=aSpaceship.
-]
-
-{ #category : #Initialization }
-Board >> initializeWithSizeOf: aSize [ 
-	sizeOfBoard:=aSize.
+Board >> initializeWithSizeOf:aValue and: aCollectionOfSpaceships [
+	sizeOfBoard:=aValue.
+	players:=aCollectionOfSpaceships.
+	
 ]
 
 { #category : #Players }

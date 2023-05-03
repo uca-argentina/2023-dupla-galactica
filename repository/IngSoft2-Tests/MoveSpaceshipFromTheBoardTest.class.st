@@ -29,7 +29,7 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 	aSpaceship := Spaceship with: 'red' and: 1.
 	aLoadedDie := LoadedDie with: (OrderedCollection with: 8).
 	aSpaceship moveOn: (OrderedCollection with: aLoadedDie) .
-	aBoard := Board with: (OrderedCollection with: aSpaceship).
+	aBoard := Board with: 10 and: (OrderedCollection with: aSpaceship) .
 	self assert: aBoard fartherPosition identicalTo: 8
 ]
 
@@ -46,15 +46,16 @@ MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAnd
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
 		                        with: aSpaceshipBlue.
-	aBoard := Board with: aSpaceshipCollection.
+	aBoard := Board with: 10 and: aSpaceshipCollection.
 	self assert: aBoard fartherPosition identicalTo: 9
 ]
 
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 
-	| aBoard |
-	aBoard := Board size: 9.
+	| aBoard aSpaceshipCollection |
+	aSpaceshipCollection:= OrderedCollection new.
+	aBoard := Board with: 9 and: aSpaceshipCollection.
 	self assert: aBoard sizeIs identicalTo: 9
 ]
 
