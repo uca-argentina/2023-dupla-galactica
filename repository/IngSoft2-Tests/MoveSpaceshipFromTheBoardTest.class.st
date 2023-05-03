@@ -15,20 +15,18 @@ MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovingIt [
 
-	| aSpaceship aLoadedDie|
+	| aSpaceship|
 	aSpaceship := Spaceship with: 'red'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8).
-	aSpaceship moveOn: (OrderedCollection with: aLoadedDie) .
+	aSpaceship moveOn: 8 .
 	self assert: aSpaceship position identicalTo: 8
 ]
 
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
-	| aSpaceship aBoard aLoadedDie|
+	| aSpaceship aBoard|
 	aSpaceship := Spaceship with: 'red'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8).
-	aSpaceship moveOn: (OrderedCollection with: aLoadedDie) .
+	aSpaceship moveOn: 8.
 	aBoard := Board with: 10 and: (OrderedCollection with: aSpaceship) .
 	self assert: aBoard fartherPosition identicalTo: 8
 ]
@@ -36,12 +34,11 @@ MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThe
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
 
-	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie |
+	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard|
 	aSpaceshipRed := Spaceship with: 'red'.
 	aSpaceshipBlue :=Spaceship with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8 with: 9).
-	aSpaceshipRed moveOn: (OrderedCollection with: aLoadedDie) .
-	aSpaceshipBlue moveOn: (OrderedCollection with: aLoadedDie).
+	aSpaceshipRed moveOn: 8 .
+	aSpaceshipBlue moveOn: 9.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed
@@ -62,12 +59,11 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpaceships [
 
-	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie|
+	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard|
 	aSpaceshipRed := Spaceship with: 'red'.
 	aSpaceshipBlue :=Spaceship with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8 with: 9).
-	aSpaceshipRed moveOn: (OrderedCollection with: aLoadedDie) .
-	aSpaceshipBlue moveOn: (OrderedCollection with: aLoadedDie).
+	aSpaceshipRed moveOn: 8.
+	aSpaceshipBlue moveOn: 9.
 
 	aSpaceshipCollection := OrderedCollection
 		                        with: aSpaceshipRed

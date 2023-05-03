@@ -25,9 +25,9 @@ Board >> fartherPosition [
 ]
 
 { #category : #Initialization }
-Board >> initializeWithSizeOf:aValue and: aCollectionOfSpaceships [
+Board >> initializeWithSizeOf:aValue and: aPlayersCollection [
 	length:=aValue.
-	players:=aCollectionOfSpaceships.
+	players:=aPlayersCollection.
 	turn:= 1.
 ]
 
@@ -77,8 +77,8 @@ Board >> winnerExists [
 ]
 
 { #category : #Finalization }
-Board >> winningCondition: spaceship [
+Board >> winningCondition: player [
 
-	^ (spaceship position > self length or:
-		  spaceship position == self length)
+	^ (player position > self length or:
+		  player position == self length)
 ]

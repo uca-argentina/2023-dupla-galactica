@@ -26,12 +26,8 @@ Spaceship >> initializeWith: aColor [
 ]
 
 { #category : #Turn }
-Spaceship >> moveOn: aDiceCollection [
-
-	| value |
-	value := 0.
-	aDiceCollection do: [ :die | value := value + die throw ].
-	position := position + value
+Spaceship >> moveOn: value [
+	position:= position +value.
 ]
 
 { #category : #Information }

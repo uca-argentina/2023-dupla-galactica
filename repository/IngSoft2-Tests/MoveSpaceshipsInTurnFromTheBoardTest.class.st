@@ -21,19 +21,15 @@ MoveSpaceshipsInTurnFromTheBoardTest >> testJ001CheckTheNextSpacheshipToPlay [
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfterMovingOne [
 
-	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie|
+	| aSpaceshipRed aSpaceshipBlue aBoard aLoadedDie|
 	aSpaceshipRed := Spaceship with: 'red'.
 	aSpaceshipBlue :=Spaceship with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
 			               with: 5
 			               with: 7
-			               with: 9).
-	aSpaceshipCollection := OrderedCollection
-		                        with: aSpaceshipRed
-		                        with: aSpaceshipBlue.
-		
-	aBoard := Board with: 10 and: aSpaceshipCollection.
+			               with: 9).	
+	aBoard := Board with: 10 and: (OrderedCollection with: (Player with: aSpaceshipRed ) with: (Player with: aSpaceshipBlue)).
 	aBoard movePlayer: (OrderedCollection with: aLoadedDie).
 	self assert: aBoard nextPlayer asSymbol identicalTo: 'blue' asSymbol.
 ]
@@ -41,7 +37,7 @@ MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfte
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnceAllTheSpaceshipsThrowOneTime [
 
-	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie|
+	| aSpaceshipRed aSpaceshipBlue aBoard aLoadedDie|
 	aSpaceshipRed := Spaceship with: 'red'.
 	aSpaceshipBlue :=Spaceship with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -49,11 +45,8 @@ MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnce
 			               with: 5
 			               with: 7
 			               with: 9).
-	aSpaceshipCollection := OrderedCollection
-		                        with: aSpaceshipRed
-		                        with: aSpaceshipBlue.
 		
-	aBoard := Board with: 10 and: aSpaceshipCollection.
+	aBoard := Board with: 10 and: (OrderedCollection with: (Player with: aSpaceshipRed ) with: (Player with: aSpaceshipBlue)).
 	aBoard movePlayer: (OrderedCollection with: aLoadedDie).
 	aBoard movePlayer: (OrderedCollection with: aLoadedDie).
 	self assert: aBoard nextPlayer asSymbol identicalTo: 'red' asSymbol.

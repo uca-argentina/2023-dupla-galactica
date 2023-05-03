@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'diceCollection',
 		'boardAtBox',
-		'spaceships'
+		'players'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,7 +30,7 @@ Game >> finalMessagge [
 
 	| color position messagge |
 	messagge := ''.
-	spaceships do: [ :spaceship | 
+	players do: [ :spaceship | 
 		color := spaceship color.
 		position := spaceship position.
 		messagge := messagge , color , ':' , position asString , ' ' ].
@@ -47,14 +47,14 @@ Game >> finalPositions [
 { #category : #Initialization }
 Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection [
 
-	|aSpaceshipCollection turn|
-	turn:=1.
-	aSpaceshipCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | aSpaceshipCollection addLast: (Spaceship with:color).
-		turn:=turn+1 ].
-	boardAtBox := Board with: aValue and: aSpaceshipCollection.
+	| aSpaceship aPlayerCollection|
+	aPlayerCollection  := OrderedCollection new.
+	aColorsCollection do: [ :color |
+		aSpaceship:= Spaceship with: color.
+		aPlayerCollection  addLast: (Player with: aSpaceship).].
+	boardAtBox := Board with: aValue and: aPlayerCollection.
 	diceCollection := aDiceCollection.
-	spaceships := aSpaceshipCollection.
+	players := aPlayerCollection.
 ]
 
 { #category : #Player }
@@ -73,7 +73,7 @@ Game >> winner [
 
 	self winnerExists
 		ifTrue: [ 
-			^ (spaceships detect: [ :spaceship | 
+			^ (players detect: [ :spaceship | 
 				   self winningCondition: spaceship ]) color ]
 		ifFalse: [ ^ 'Nobody' ]
 ]
@@ -81,7 +81,7 @@ Game >> winner [
 { #category : #Finalization }
 Game >> winnerExists [
 
-	^ spaceships anySatisfy: [ :spaceship | 
+	^ players anySatisfy: [ :spaceship | 
 		  self winningCondition: spaceship ]
 ]
 
