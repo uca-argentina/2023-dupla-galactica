@@ -2,9 +2,9 @@ Class {
 	#name : #Game,
 	#superclass : #Object,
 	#instVars : [
-		'diceCollection',
-		'boardAtBox',
-		'spaceships'
+		'players',
+		'board',
+		'dice'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,15 +14,28 @@ Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [
 	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection.
 ]
 
+{ #category : #Initialization }
+Game >> addPlayers: aColorsCollection with: aValue [
+
+	| aPlayerCollection aSpaceship |
+	aPlayerCollection := OrderedCollection new.
+	aColorsCollection do: [ :color | 
+		aSpaceship := Spaceship with: color.
+		aPlayerCollection addLast: (Player with: aSpaceship) ].
+	board := Board with: aValue and: aPlayerCollection.
+	players := aPlayerCollection.
+]
+
 { #category : #Information }
 Game >> board [
 
-	^ boardAtBox
+	^ board
 ]
 
 { #category : #Information }
 Game >> dice [
-	^(diceCollection).
+
+	^ dice
 ]
 
 { #category : #Finalization }
@@ -30,9 +43,9 @@ Game >> finalMessagge [
 
 	| color position messagge |
 	messagge := ''.
-	spaceships do: [ :spaceship | 
-		color := spaceship color.
-		position := spaceship position.
+	self players do: [ :player | 
+		color := player color.
+		position := player position.
 		messagge := messagge , color , ':' , position asString , ' ' ].
 	^ messagge
 ]
@@ -46,21 +59,13 @@ Game >> finalPositions [
 
 { #category : #Initialization }
 Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection [
-
-	|aSpaceshipCollection turn|
-	turn:=1.
-	aSpaceshipCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | aSpaceshipCollection addLast: (Spaceship with:color).
-		turn:=turn+1 ].
-	boardAtBox := Board with: aValue and: aSpaceshipCollection.
-	diceCollection := aDiceCollection.
-	spaceships := aSpaceshipCollection.
+	(self addPlayers: aColorsCollection with: aValue).
+	dice := aDiceCollection.
 ]
 
 { #category : #Player }
 Game >> moveNextPlayer [
-	
-	(self board movePlayer: self dice)
+	(self winnerExists) ifFalse: [(self board movePlayer: self dice)].
 ]
 
 { #category : #Player }
@@ -68,26 +73,31 @@ Game >> nextPlayer [
 	^(self board nextPlayer).
 ]
 
+{ #category : #Information }
+Game >> players [
+	^ players
+]
+
 { #category : #Finalization }
 Game >> winner [
 
 	self winnerExists
 		ifTrue: [ 
-			^ (spaceships detect: [ :spaceship | 
-				   self winningCondition: spaceship ]) color ]
+			^ (self players detect: [ :player | 
+				   self winningCondition: player ]) color ]
 		ifFalse: [ ^ 'Nobody' ]
 ]
 
 { #category : #Finalization }
 Game >> winnerExists [
 
-	^ spaceships anySatisfy: [ :spaceship | 
-		  self winningCondition: spaceship ]
+	^ self players anySatisfy: [ :player | 
+		  self winningCondition: player ]
 ]
 
 { #category : #Finalization }
-Game >> winningCondition: spaceship [
+Game >> winningCondition: aPlayer [
 
-	^ (spaceship position > boardAtBox length or:
-		  spaceship position == boardAtBox length)
+	^ (aPlayer position > board length or:
+		  aPlayer position == board length)
 ]

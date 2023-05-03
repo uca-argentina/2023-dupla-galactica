@@ -5,6 +5,15 @@ Class {
 }
 
 { #category : #tests }
+MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+	self
+		should: anErrorBlock
+		raise: anExceptionClass 
+		withExceptionDo: [ :error|
+			self assert: error messageText equals: anErrorMessage ].
+]
+
+{ #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 
 	| aSpaceship |
@@ -15,39 +24,10 @@ MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovingIt [
 
-	| aSpaceship aLoadedDie|
+	| aSpaceship|
 	aSpaceship := Spaceship with: 'red'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8).
-	aSpaceship moveOn: (OrderedCollection with: aLoadedDie) .
+	aSpaceship move: 8 .
 	self assert: aSpaceship position identicalTo: 8
-]
-
-{ #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA005CreateOneSpaceshipPutItOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
-
-	| aSpaceship aBoard aLoadedDie|
-	aSpaceship := Spaceship with: 'red'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8).
-	aSpaceship moveOn: (OrderedCollection with: aLoadedDie) .
-	aBoard := Board with: 10 and: (OrderedCollection with: aSpaceship) .
-	self assert: aBoard fartherPosition identicalTo: 8
-]
-
-{ #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA006CreateTwoSpaceshipsPutThemOnTheBoardAndThenAskTheBoardForThePositionOfTheSpaceshipThatHasMovedMore [
-
-	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie |
-	aSpaceshipRed := Spaceship with: 'red'.
-	aSpaceshipBlue :=Spaceship with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8 with: 9).
-	aSpaceshipRed moveOn: (OrderedCollection with: aLoadedDie) .
-	aSpaceshipBlue moveOn: (OrderedCollection with: aLoadedDie).
-
-	aSpaceshipCollection := OrderedCollection
-		                        with: aSpaceshipRed
-		                        with: aSpaceshipBlue.
-	aBoard := Board with: 10 and: aSpaceshipCollection.
-	self assert: aBoard fartherPosition identicalTo: 9
 ]
 
 { #category : #tests }
@@ -60,18 +40,7 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA008CreateABoardWithASpecificSizeAndTwoSpaceships [
+MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
 
-	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard aLoadedDie|
-	aSpaceshipRed := Spaceship with: 'red'.
-	aSpaceshipBlue :=Spaceship with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection with: 8 with: 9).
-	aSpaceshipRed moveOn: (OrderedCollection with: aLoadedDie) .
-	aSpaceshipBlue moveOn: (OrderedCollection with: aLoadedDie).
-
-	aSpaceshipCollection := OrderedCollection
-		                        with: aSpaceshipRed
-		                        with: aSpaceshipBlue.
-	aBoard := Board with: 10 and: aSpaceshipCollection.
-	self assert: aBoard fartherPosition identicalTo: 9
+	self should: [Board with: -1 and: OrderedCollection new.] raise: Error withMessage: 'Cannot create a board with that value'.
 ]

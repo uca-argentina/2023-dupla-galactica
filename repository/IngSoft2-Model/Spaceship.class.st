@@ -3,8 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'position',
-		'color',
-		'turn'
+		'color'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,13 +24,9 @@ Spaceship >> initializeWith: aColor [
 	color:=aColor.
 ]
 
-{ #category : #Turn }
-Spaceship >> moveOn: aDiceCollection [
-
-	| value |
-	value := 0.
-	aDiceCollection do: [ :die | value := value + die throw ].
-	position := position + value
+{ #category : #Move }
+Spaceship >> move: value [
+	position:= position +value.
 ]
 
 { #category : #Information }
