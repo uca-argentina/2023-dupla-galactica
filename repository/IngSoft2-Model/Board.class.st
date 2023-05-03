@@ -2,25 +2,16 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'sizeOfBoard',
-		'players'
+		'players',
+		'turn',
+		'length'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Board class >> size: aSize [ 
-	^(self new) initializeWithSizeOf: aSize.
-]
-
-{ #category : #'instance creation' }
-Board class >> with: aSpaceship [ 
-	^(self new) initializeWith: aSpaceship.
-]
-
-{ #category : #'instance creation' }
 Board class >> with: aValue and: aCollectionOfSpaceships [ 
-	^((self new) initializeWithSizeOf:aValue) initializeWith: aCollectionOfSpaceships.
+	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships.
 ]
 
 { #category : #Players }
@@ -34,43 +25,41 @@ Board >> fartherPosition [
 ]
 
 { #category : #Initialization }
-Board >> initializeWith: aSpaceship [ 
-	players:=aSpaceship.
+Board >> initializeWithSizeOf:aValue and: aCollectionOfSpaceships [
+	length:=aValue.
+	players:=aCollectionOfSpaceships.
+	turn:= 1.
 ]
 
-{ #category : #Initialization }
-Board >> initializeWithSizeOf: aSize [ 
-	sizeOfBoard:=aSize.
+{ #category : #Information }
+Board >> length [
+	^length.
 ]
 
 { #category : #Players }
 Board >> moveAndCheck: aDiceCollection [
 
-	(self players detect: [ :spaceship | spaceship turn == 1 ]) 
-		moveOn: aDiceCollection.
-	self someoneMoves
+	(self players at: turn) moveOn: aDiceCollection.
+	turn := turn == self players size
+		        ifTrue: [ 1 ]
+		        ifFalse: [ turn + 1 ]
 ]
 
 { #category : #Players }
 Board >> movePlayer: aDiceCollection [
 
-	self winnerExists2 ifFalse: [ self moveAndCheck: aDiceCollection ]
+	self winnerExists ifFalse: [ self moveAndCheck: aDiceCollection ]
 ]
 
 { #category : #Information }
 Board >> nextPlayer [
-	^ (self players detect: [:spaceship | (spaceship turn == 1)]) color .
+	^ (self players at: turn) color .
 	 
 ]
 
 { #category : #Information }
 Board >> players [
 	^ players.
-]
-
-{ #category : #Information }
-Board >> sizeIs [
-	^sizeOfBoard.
 ]
 
 { #category : #Players }
@@ -81,15 +70,15 @@ Board >> someoneMoves [
 ]
 
 { #category : #Finalization }
-Board >> winnerExists2 [
+Board >> winnerExists [
 
 	^ self players anySatisfy: [ :spaceship | 
-		  self winningCondition2: spaceship ]
+		  self winningCondition: spaceship ]
 ]
 
 { #category : #Finalization }
-Board >> winningCondition2: spaceship [
+Board >> winningCondition: spaceship [
 
-	^ (spaceship position > self sizeIs or:
-		  spaceship position == self sizeIs)
+	^ (spaceship position > self length or:
+		  spaceship position == self length)
 ]

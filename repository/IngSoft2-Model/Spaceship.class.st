@@ -10,18 +10,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-Spaceship class >> putItOnTheBeginning [
-	^(self new) initializePutItOnTheBeginning.
-]
-
-{ #category : #'instance creation' }
-Spaceship class >> putOn: aPosition with: aColor [
-	^(self new) initializePutItOnThePosition: aPosition withColor: aColor.
-]
-
-{ #category : #'instance creation' }
-Spaceship class >> putOn: aPosition with: aColor and: aTurn [ 
-	^(self new) initializePutItOnThePosition: aPosition withColor: aColor withTurn:aTurn.
+Spaceship class >> with: aColor [
+	^(self new) initializeWith: aColor.
 ]
 
 { #category : #Information }
@@ -30,21 +20,9 @@ Spaceship >> color [
 ]
 
 { #category : #Initialization }
-Spaceship >> initializePutItOnTheBeginning [
+Spaceship >> initializeWith: aColor [
 	position:=0.
-]
-
-{ #category : #Initialization }
-Spaceship >> initializePutItOnThePosition: aPosition withColor: aColor [
-	position:=aPosition.
 	color:=aColor.
-]
-
-{ #category : #Initialization }
-Spaceship >> initializePutItOnThePosition: aPosition withColor: aColor withTurn: aTurn [
-	position:=aPosition.
-	color:=aColor.
-	turn:=aTurn.
 ]
 
 { #category : #Turn }
@@ -56,34 +34,7 @@ Spaceship >> moveOn: aDiceCollection [
 	position := position + value
 ]
 
-{ #category : #Turn }
-Spaceship >> moveOnValue: aNumber [
-
-	position := position + aNumber
-]
-
-{ #category : #Turn }
-Spaceship >> nextTurn: amountOfSpaceships [
-	self someonePlays.
-	self verifyTurn: amountOfSpaceships.
-]
-
 { #category : #Information }
 Spaceship >> position [
 	^position.
-]
-
-{ #category : #Turn }
-Spaceship >> someonePlays [
-	turn:=turn-1.
-]
-
-{ #category : #Information }
-Spaceship >> turn [
-	^turn
-]
-
-{ #category : #Turn }
-Spaceship >> verifyTurn: numberOfSpaceshipsOnBoard [
-	self turn==0 ifTrue: [ turn := numberOfSpaceshipsOnBoard  ]
 ]

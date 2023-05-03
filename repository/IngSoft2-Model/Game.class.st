@@ -50,7 +50,7 @@ Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection 
 	|aSpaceshipCollection turn|
 	turn:=1.
 	aSpaceshipCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | aSpaceshipCollection addLast: (Spaceship putOn: 0 with:color  and:turn).
+	aColorsCollection do: [ :color | aSpaceshipCollection addLast: (Spaceship with:color).
 		turn:=turn+1 ].
 	boardAtBox := Board with: aValue and: aSpaceshipCollection.
 	diceCollection := aDiceCollection.
@@ -88,6 +88,6 @@ Game >> winnerExists [
 { #category : #Finalization }
 Game >> winningCondition: spaceship [
 
-	^ (spaceship position > boardAtBox sizeIs or:
-		  spaceship position == boardAtBox sizeIs)
+	^ (spaceship position > boardAtBox length or:
+		  spaceship position == boardAtBox length)
 ]
