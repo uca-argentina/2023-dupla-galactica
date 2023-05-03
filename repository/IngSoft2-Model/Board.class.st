@@ -2,9 +2,9 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'sizeOfBoard',
 		'players',
-		'turn'
+		'turn',
+		'length'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -26,9 +26,14 @@ Board >> fartherPosition [
 
 { #category : #Initialization }
 Board >> initializeWithSizeOf:aValue and: aCollectionOfSpaceships [
-	sizeOfBoard:=aValue.
+	length:=aValue.
 	players:=aCollectionOfSpaceships.
 	turn:= 1.
+]
+
+{ #category : #Information }
+Board >> length [
+	^length.
 ]
 
 { #category : #Players }
@@ -57,11 +62,6 @@ Board >> players [
 	^ players.
 ]
 
-{ #category : #Information }
-Board >> sizeIs [
-	^sizeOfBoard.
-]
-
 { #category : #Players }
 Board >> someoneMoves [
 
@@ -79,6 +79,6 @@ Board >> winnerExists [
 { #category : #Finalization }
 Board >> winningCondition: spaceship [
 
-	^ (spaceship position > self sizeIs or:
-		  spaceship position == self sizeIs)
+	^ (spaceship position > self length or:
+		  spaceship position == self length)
 ]

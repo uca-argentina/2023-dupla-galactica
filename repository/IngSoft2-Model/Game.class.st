@@ -88,6 +88,6 @@ Game >> winnerExists [
 { #category : #Finalization }
 Game >> winningCondition: spaceship [
 
-	^ (spaceship position > boardAtBox sizeIs or:
-		  spaceship position == boardAtBox sizeIs)
+	^ (spaceship position > boardAtBox length or:
+		  spaceship position == boardAtBox length)
 ]

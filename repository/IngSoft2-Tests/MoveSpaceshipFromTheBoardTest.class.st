@@ -56,7 +56,7 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 	| aBoard aSpaceshipCollection |
 	aSpaceshipCollection:= OrderedCollection new.
 	aBoard := Board with: 9 and: aSpaceshipCollection.
-	self assert: aBoard sizeIs identicalTo: 9
+	self assert: aBoard length identicalTo: 9
 ]
 
 { #category : #tests }
