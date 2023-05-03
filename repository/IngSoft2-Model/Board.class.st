@@ -54,7 +54,7 @@ Board >> moveAndCheck: aDiceCollection [
 { #category : #Players }
 Board >> movePlayer: aDiceCollection [
 
-	self winnerExists ifFalse: [ self moveAndCheck: aDiceCollection ]
+	self winnerExists2 ifFalse: [ self moveAndCheck: aDiceCollection ]
 ]
 
 { #category : #Information }
@@ -81,14 +81,14 @@ Board >> someoneMoves [
 ]
 
 { #category : #Finalization }
-Board >> winnerExists [
+Board >> winnerExists2 [
 
 	^ self players anySatisfy: [ :spaceship | 
-		  self winningCondition: spaceship ]
+		  self winningCondition2: spaceship ]
 ]
 
 { #category : #Finalization }
-Board >> winningCondition: spaceship [
+Board >> winningCondition2: spaceship [
 
 	^ (spaceship position > self sizeIs or:
 		  spaceship position == self sizeIs)
