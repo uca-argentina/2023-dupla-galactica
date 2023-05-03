@@ -24,11 +24,6 @@ Die >> initializeWith: aValue [
 	faces := aValue
 ]
 
-{ #category : #Initialization }
-Die >> isCreatedSuccessfully [
-	^true.
-]
-
 { #category : #Throw }
 Die >> throw [
 	^ faces atRandom.

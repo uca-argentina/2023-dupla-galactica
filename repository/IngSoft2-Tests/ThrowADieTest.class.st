@@ -5,14 +5,6 @@ Class {
 }
 
 { #category : #tests }
-ThrowADieTest >> testE001CreateADie [
-
-	| aDice |
-	aDice := Die new.
-	self assert: aDice isCreatedSuccessfully
-]
-
-{ #category : #tests }
 ThrowADieTest >> testE002CreateDieAndCheckItsNumberOfFaces [
 
 	| aDie |

@@ -63,11 +63,6 @@ Board >> initializeWithSizeOf: aSize [
 	sizeOfBoard:=aSize.
 ]
 
-{ #category : #Initialization }
-Board >> isCreatedSuccessfully [
-	^true.
-]
-
 { #category : #Players }
 Board >> moveAndCheck: aDiceCollection [
 
