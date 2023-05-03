@@ -23,8 +23,8 @@ CreateAFunctionalGameTest >> testD002CreateGameAndAskForWinner [
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aSpaceshipCollection and: 8 throwing: aLoadedDie.
-	aGame movePlayer: 8.
+	aGame := Game with: aSpaceshipCollection and: 8 throwing: (OrderedCollection with: aLoadedDie).
+	aGame moveNextPlayer.
 	self assert: aGame winner asSymbol identicalTo: 'red' asSymbol
 ]
 
@@ -35,8 +35,8 @@ CreateAFunctionalGameTest >> testD003CreateGameAndAskForFinalMessage [
 	aSpaceshipBlue := Spaceship putOn: 0 with: 'blue' and: 2.
 	aSpaceshipCollection := OrderedCollection with: aSpaceshipRed with: aSpaceshipBlue.
 	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aSpaceshipCollection and: 8 throwing: aLoadedDie.
-	aGame movePlayer: 8.
+	aGame := Game with: aSpaceshipCollection and: 8 throwing: (OrderedCollection with: aLoadedDie).
+	aGame moveNextPlayer.
 	self assert: aGame finalPositions asSymbol identicalTo: 'red:8 blue:0 ' asSymbol
 ]
 

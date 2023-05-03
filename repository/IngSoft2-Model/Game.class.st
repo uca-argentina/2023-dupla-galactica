@@ -25,7 +25,7 @@ Game >> dice [
 	^(diceCollection).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #Finalization }
 Game >> finalMessagge [
 
 	| color position messagge |
@@ -56,14 +56,6 @@ Game >> initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollecti
 Game >> moveNextPlayer [
 	
 	(self board movePlayer: self dice)
-]
-
-{ #category : #Player }
-Game >> movePlayer: aValue [
-
-	| aLoadedDie |
-	aLoadedDie := LoadedDie with: (OrderedCollection with: aValue).
-	self board movePlayer: (OrderedCollection with: aLoadedDie)
 ]
 
 { #category : #Player }

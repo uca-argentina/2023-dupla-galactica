@@ -57,15 +57,6 @@ Board >> movePlayer: aDiceCollection [
 	self winnerExists ifFalse: [ self moveAndCheck: aDiceCollection ]
 ]
 
-{ #category : #Players }
-Board >> movePlayerTo: aValue [
-
-	self winnerExists ifTrue: [ ^ self ].
-	(self players detect: [ :spaceship | spaceship turn == 1 ]) 
-		moveOnValue: aValue.
-	self someoneMoves
-]
-
 { #category : #Information }
 Board >> nextPlayer [
 	^ (self players detect: [:spaceship | (spaceship turn == 1)]) color .
