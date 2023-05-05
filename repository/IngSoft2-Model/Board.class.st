@@ -15,6 +15,14 @@ Board class >> with: aValue and: aCollectionOfSpaceships [
 	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships.
 ]
 
+{ #category : #Players }
+Board >> changeTurn [
+
+	turn := turn == self players size
+		        ifTrue: [ 1 ]
+		        ifFalse: [ turn + 1 ]
+]
+
 { #category : #Initialization }
 Board >> initializeWithSizeOf:aValue and: aPlayersCollection [
 	length:=aValue.
@@ -43,12 +51,10 @@ Board >> nextPlayer [
 Board >> passTurn: aDiceCollection [
 
 	(self players at: turn) move: aDiceCollection.
-	turn := turn == self players size
-		        ifTrue: [ 1 ]
-		        ifFalse: [ turn + 1 ]
+	self changeTurn.
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 Board >> players [
 	^ players.
 ]

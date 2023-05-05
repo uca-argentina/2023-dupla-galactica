@@ -10,9 +10,8 @@ Class {
 
 { #category : #'instance creation' }
 LoadedDie class >> with: aValuesCollection [
-	|res|
-	res:=0.
-	aValuesCollection do: [:value| (value< 2) ifTrue: [Error signal: 'Cannot create with negative values at faces']].
+	aValuesCollection do: [:value| (value< 0) ifTrue: [Error signal: 'Cannot create with negative values at faces']].
+	(aValuesCollection size < 3) ifTrue: [Error signal: 'Cannot create with faces less than 3'].
 	^ self new initializeWith: aValuesCollection
 ]
 

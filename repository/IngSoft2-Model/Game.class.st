@@ -14,22 +14,20 @@ Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [
 	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection.
 ]
 
-{ #category : #Initialization }
-Game >> addPlayers: aColorsCollection with: aValue [
-
-	| aPlayerCollection aSpaceship |
-	aPlayerCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | 
-		aSpaceship := Spaceship with: color.
-		aPlayerCollection addLast: (Player with: aSpaceship) ].
-	board := Board with: aValue and: aPlayerCollection.
-	players := aPlayerCollection.
-]
-
 { #category : #Information }
 Game >> board [
 
 	^ board
+]
+
+{ #category : #Initialization }
+Game >> createPlayers: aColorsCollection [
+
+	| aPlayerCollection|
+	aPlayerCollection := OrderedCollection new.
+	aColorsCollection do: [ :color | 
+		aPlayerCollection addLast: (Player with: (Spaceship with: color)) ].
+	^ aPlayerCollection
 ]
 
 { #category : #Information }
@@ -40,7 +38,10 @@ Game >> dice [
 
 { #category : #Initialization }
 Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection [
-	(self addPlayers: aColorsCollection with: aValue).
+	| aPlayerCollection |
+	aPlayerCollection := (self createPlayers: aColorsCollection).
+	board := Board with: aValue and: aPlayerCollection.
+	players := aPlayerCollection.
 	dice := aDiceCollection.
 ]
 
