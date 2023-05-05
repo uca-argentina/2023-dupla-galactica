@@ -39,18 +39,6 @@ Game >> dice [
 ]
 
 { #category : #Finalization }
-Game >> finalMessagge [
-
-	| color position messagge |
-	messagge := ''.
-	self players do: [ :player | 
-		color := player color.
-		position := player position.
-		messagge := messagge , color , ':' , position asString , ' ' ].
-	^ messagge
-]
-
-{ #category : #Finalization }
 Game >> finalPositions [
 
 	| positions |
