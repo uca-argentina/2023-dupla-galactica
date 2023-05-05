@@ -38,15 +38,6 @@ Game >> dice [
 	^ dice
 ]
 
-{ #category : #Finalization }
-Game >> finalPositions [
-
-	| positions |
-	positions := OrderedCollection new.
-	self players do: [ :player | positions addLast: player position ].
-	^ positions
-]
-
 { #category : #Initialization }
 Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection [
 	(self addPlayers: aColorsCollection with: aValue).
@@ -69,13 +60,22 @@ Game >> players [
 ]
 
 { #category : #Finalization }
+Game >> positions [
+
+	| positions |
+	positions := OrderedCollection new.
+	self players do: [ :player | positions addLast: player position ].
+	^ positions
+]
+
+{ #category : #Finalization }
 Game >> winner [
 
 	self winnerExists
 		ifTrue: [ 
 			^ (self players detect: [ :player | 
 				   self winningCondition: player ]) color ]
-		ifFalse: [ ^ 'Nobody' ]
+		ifFalse: [ Error signal: 'There is no winner']
 ]
 
 { #category : #Finalization }

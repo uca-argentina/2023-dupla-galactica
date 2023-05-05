@@ -20,6 +20,6 @@ CreatingSpaceshipsFromTheGameTest >> testI001CreatingSpaceshipsFromTheGame [
 		         throwing: (OrderedCollection with: aLoadedDie).
 	aGame moveNextPlayer.
 	self
-		assert: aGame finalPositions
+		assert: aGame positions
 		equals: (OrderedCollection with: 8)
 ]
