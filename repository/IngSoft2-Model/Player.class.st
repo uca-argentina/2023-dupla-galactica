@@ -39,8 +39,6 @@ Player >> spaceship [
 
 { #category : #Move }
 Player >> throwDice: aDiceCollection [
-	| value |
-	value := 0.
-	aDiceCollection do: [ :die | value := value + die throw ].
-	^value.
+
+	^ aDiceCollection sumNumbers: [ :die | die throw ]
 ]

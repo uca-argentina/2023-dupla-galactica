@@ -5,6 +5,15 @@ Class {
 }
 
 { #category : #tests }
+CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+	self
+		should: anErrorBlock
+		raise: anExceptionClass 
+		withExceptionDo: [ :error|
+			self assert: error messageText equals: anErrorMessage ].
+]
+
+{ #category : #tests }
 CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
 	| aColorCollection aLoadedDie aGame|
 	aColorCollection := OrderedCollection with:'red' with:'blue'.
@@ -32,7 +41,9 @@ CreateAFunctionalGameTest >> testD003CreateGameAndAskForFinalMessage [
 	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
 	aGame := Game with: aColorCollection and: 8 throwing: (OrderedCollection with: aLoadedDie).
 	aGame moveNextPlayer.
-	self assert: aGame finalPositions asSymbol identicalTo: 'red:8 blue:0 ' asSymbol
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 8 with: 0)
 ]
 
 { #category : #tests }
@@ -44,7 +55,9 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame finalPositions asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 15 with: 5)
 ]
 
 { #category : #tests }
@@ -56,7 +69,9 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame finalPositions asSymbol identicalTo: 'red:15 blue:5 ' asSymbol
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 15 with: 5)
 ]
 
 { #category : #tests }
@@ -83,8 +98,8 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 		         throwing: aLoadedDiceCollection.
 	aGame moveNextPlayer.
 	self
-		assert: aGame finalPositions asSymbol
-		identicalTo: 'red:17 blue:0 ' asSymbol
+		assert: aGame positions
+		equals: (OrderedCollection with: 17 with: 0)
 ]
 
 { #category : #tests }
@@ -114,14 +129,15 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemThreeTimes
 	aGame moveNextPlayer.
 		
 	self
-		assert: aGame finalPositions asSymbol
-		identicalTo: 'red:29 blue:12 ' asSymbol
+		assert: aGame positions
+		equals: (OrderedCollection with: 29 with: 12)
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
+
 	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
-	aColorCollection := OrderedCollection with:'red' with:'blue'.
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
 			               with: 5
@@ -136,14 +152,69 @@ CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
 		                         with: aLoadedDie
 		                         with: aSecondLoadedDie.
 	aGame := Game
-		         with: aColorCollection 
+		         with: aColorCollection
 		         and: 17
 		         throwing: aLoadedDiceCollection.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-		
+
 	self
-		assert: aGame finalPositions asSymbol
-		identicalTo: 'red:17 blue:0 ' asSymbol
+		assert: aGame positions
+		equals: (OrderedCollection with: 17 with: 0)
+]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testL001InformTheFinalPositionsFromTheGame [
+
+	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 5
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 9
+			                     with: 7
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 17
+		         throwing: aLoadedDiceCollection.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 17 with: 0)
+]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
+	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 5
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 9
+			                     with: 7
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 18
+		         throwing: aLoadedDiceCollection.
+	aGame moveNextPlayer.
+	self should: [ aGame winner ] raise: Error withMessage: 'There is no winner'.
 ]

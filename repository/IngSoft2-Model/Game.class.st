@@ -38,25 +38,6 @@ Game >> dice [
 	^ dice
 ]
 
-{ #category : #Finalization }
-Game >> finalMessagge [
-
-	| color position messagge |
-	messagge := ''.
-	self players do: [ :player | 
-		color := player color.
-		position := player position.
-		messagge := messagge , color , ':' , position asString , ' ' ].
-	^ messagge
-]
-
-{ #category : #Finalization }
-Game >> finalPositions [
-	self winnerExists
-		ifTrue: [ ^ self finalMessagge  ]
-		ifFalse: [ ^ 'the game has not finished yet' ]
-]
-
 { #category : #Initialization }
 Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection [
 	(self addPlayers: aColorsCollection with: aValue).
@@ -79,13 +60,22 @@ Game >> players [
 ]
 
 { #category : #Finalization }
+Game >> positions [
+
+	| positions |
+	positions := OrderedCollection new.
+	self players do: [ :player | positions addLast: player position ].
+	^ positions
+]
+
+{ #category : #Finalization }
 Game >> winner [
 
 	self winnerExists
 		ifTrue: [ 
 			^ (self players detect: [ :player | 
 				   self winningCondition: player ]) color ]
-		ifFalse: [ ^ 'Nobody' ]
+		ifFalse: [ Error signal: 'There is no winner']
 ]
 
 { #category : #Finalization }
