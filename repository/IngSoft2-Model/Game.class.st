@@ -52,9 +52,11 @@ Game >> finalMessagge [
 
 { #category : #Finalization }
 Game >> finalPositions [
-	self winnerExists
-		ifTrue: [ ^ self finalMessagge  ]
-		ifFalse: [ ^ 'the game has not finished yet' ]
+
+	| positions |
+	positions := OrderedCollection new.
+	self players do: [ :player | positions addLast: player position ].
+	^ positions
 ]
 
 { #category : #Initialization }

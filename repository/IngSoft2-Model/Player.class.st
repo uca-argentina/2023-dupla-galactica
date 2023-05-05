@@ -39,7 +39,6 @@ Player >> spaceship [
 
 { #category : #Move }
 Player >> throwDice: aDiceCollection [
-	
-	^(aDiceCollection sumNumbers: [ :die | die throw ]).
-	
+
+	^ aDiceCollection sumNumbers: [ :die | die throw ]
 ]

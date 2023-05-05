@@ -19,5 +19,7 @@ CreatingSpaceshipsFromTheGameTest >> testI001CreatingSpaceshipsFromTheGame [
 		         and: 8
 		         throwing: (OrderedCollection with: aLoadedDie).
 	aGame moveNextPlayer.
-	self assert: aGame finalPositions asSymbol identicalTo: 'red:8 ' asSymbol
+	self
+		assert: aGame finalPositions
+		equals: (OrderedCollection with: 8)
 ]
