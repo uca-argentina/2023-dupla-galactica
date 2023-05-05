@@ -18,7 +18,7 @@ CreatePlayerTest >> testK002CreateAPlayerAndThrowTheDice [
 	|aSpaceship aPlayer aLoadedDie|
 	aSpaceship:= Spaceship with: 'red'.
 	aPlayer:= Player with: aSpaceship.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with: 8 with: 10).
+	aLoadedDie:= LoadedDie with: (OrderedCollection with: 8 with: 10 with: 11).
 	aPlayer move: (OrderedCollection with: aLoadedDie). 
 	self assert: aPlayer color asSymbol identicalTo: 'red' asSymbol.
 	
