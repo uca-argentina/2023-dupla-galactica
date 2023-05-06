@@ -44,3 +44,11 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 
 	self should: [Board with: -1 and: OrderedCollection new.] raise: Error withMessage: 'Cannot create a board with that value'.
 ]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM001AskSpaceshipForTheLap [
+
+	| aSpaceship |
+	aSpaceship := Spaceship with: 'red'.
+	self assert: aSpaceship lap equals: 0
+]
