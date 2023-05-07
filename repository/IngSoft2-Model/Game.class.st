@@ -4,14 +4,15 @@ Class {
 	#instVars : [
 		'players',
 		'board',
-		'dice'
+		'dice',
+		'goalLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Game class >> with: aSpaceshipCollection and: aValue throwing: aDiceCollection [ 
-	^self new initializeWith: aSpaceshipCollection and: aValue throwing: aDiceCollection.
+Game class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+	^self new initializeWith: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps.
 ]
 
 { #category : #Information }
@@ -36,13 +37,19 @@ Game >> dice [
 	^ dice
 ]
 
+{ #category : #Information }
+Game >> goalLaps [
+	^ goalLaps
+]
+
 { #category : #Initialization }
-Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection [
+Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
 	| aPlayerCollection |
 	aPlayerCollection := (self createPlayers: aColorsCollection).
 	board := Board with: aValue and: aPlayerCollection.
 	players := aPlayerCollection.
 	dice := aDiceCollection.
+	goalLaps := laps.
 ]
 
 { #category : #Player }
@@ -97,6 +104,5 @@ Game >> winnerExists [
 { #category : #Finalization }
 Game >> winningCondition: aPlayer [
 
-	^ (aPlayer position > board length or:
-		  aPlayer position == board length)
+	 ^ (aPlayer lap == (self goalLaps)).
 ]
