@@ -40,3 +40,11 @@ Spaceship >> move: value [
 Spaceship >> position [
 	^position.
 ]
+
+{ #category : #Move }
+Spaceship >> updateLap: aLength [
+
+	self position > aLength ifFalse: [ ^ self ].
+	position := position - aLength.
+	lap := lap + 1
+]
