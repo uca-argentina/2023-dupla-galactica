@@ -22,6 +22,11 @@ Player >> initializeWith: aSpaceship [
 	spaceship:= aSpaceship.
 ]
 
+{ #category : #Information }
+Player >> lap [
+	^self spaceship lap.
+]
+
 { #category : #Move }
 Player >> move: aDiceCollection [
 	(self spaceship) move: (self throwDice: aDiceCollection).
@@ -41,4 +46,9 @@ Player >> spaceship [
 Player >> throwDice: aDiceCollection [
 
 	^ aDiceCollection sumNumbers: [ :die | die throw ]
+]
+
+{ #category : #Move }
+Player >> updateLap: aLength [
+	self spaceship updateLap: aLength.
 ]

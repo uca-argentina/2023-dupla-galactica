@@ -46,6 +46,14 @@ Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection 
 ]
 
 { #category : #Player }
+Game >> laps [
+	|laps|
+	laps:=(OrderedCollection new).
+	self players do: [ :player | laps addLast: (player lap) ].
+	^laps
+]
+
+{ #category : #Player }
 Game >> moveNextPlayer [
 	(self winnerExists) ifFalse: [(self board movePlayer: self dice)].
 ]

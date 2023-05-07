@@ -52,3 +52,40 @@ MoveSpaceshipFromTheBoardTest >> testM001AskSpaceshipForTheLap [
 	aSpaceship := Spaceship with: 'red'.
 	self assert: aSpaceship lap equals: 0
 ]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM002MoveSpaceshipOneEntireLapAndThenAskForItsPosition [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 5
+			               with: 7
+			               with: 9).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie).
+	aGame moveNextPlayer.
+	self assert: aGame laps equals: (OrderedCollection with: 1) 
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM003MoveTwoSpaceshipOneEntireLapAndThenAskForTheirPosition [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red' with:'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 9
+			               with: 7
+			               with: 9).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie).
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame laps equals: (OrderedCollection with: 1 with: 1) 
+]

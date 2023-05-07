@@ -51,6 +51,7 @@ Board >> nextPlayer [
 Board >> passTurn: aDiceCollection [
 
 	(self players at: turn) move: aDiceCollection.
+	(self players at: turn) updateLap: (self length).
 	self changeTurn.
 ]
 
