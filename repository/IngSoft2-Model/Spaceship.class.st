@@ -44,7 +44,9 @@ Spaceship >> position [
 { #category : #Move }
 Spaceship >> updateLap: aLength [
 
+	| entireLaps |
+	entireLaps := self position // aLength.
 	self position > aLength ifFalse: [ ^ self ].
-	position := position - aLength.
-	lap := lap + 1
+	position := position - (aLength * entireLaps).
+	lap := lap + entireLaps
 ]

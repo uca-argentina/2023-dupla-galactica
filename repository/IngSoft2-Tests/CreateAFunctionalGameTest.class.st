@@ -51,13 +51,11 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 	| aColorCollection aLoadedDie aGame|
 	aColorCollection := OrderedCollection with:'red' with:'blue'.
 	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aColorCollection and: 9 throwing: (OrderedCollection with: aLoadedDie) .
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame := Game with: aColorCollection and: 15 throwing: (OrderedCollection with: aLoadedDie) .
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 15 with: 5)
+		equals: (OrderedCollection with: 8 with: 0)
 ]
 
 { #category : #tests }
@@ -65,7 +63,7 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	| aColorCollection aLoadedDie aGame|
 	aColorCollection := OrderedCollection with:'red' with:'blue'.
 	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aColorCollection  and: 9 throwing:( OrderedCollection with: aLoadedDie).
+	aGame := Game with: aColorCollection  and: 15 throwing:( OrderedCollection with: aLoadedDie).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -94,7 +92,7 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 		                         with: aSecondLoadedDie.
 	aGame := Game
 		         with: aColorCollection 
-		         and: 9
+		         and: 17
 		         throwing: aLoadedDiceCollection.
 	aGame moveNextPlayer.
 	self
@@ -122,7 +120,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemThreeTimes
 		                         with: aSecondLoadedDie.
 	aGame := Game
 		         with: aColorCollection 
-		         and: 20
+		         and: 29
 		         throwing: aLoadedDiceCollection.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
