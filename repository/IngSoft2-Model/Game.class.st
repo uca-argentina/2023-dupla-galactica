@@ -104,5 +104,5 @@ Game >> winnerExists [
 { #category : #Finalization }
 Game >> winningCondition: aPlayer [
 
-	 ^ (aPlayer lap == (self goalLaps)).
+	 ^ ((aPlayer lap == (self goalLaps)) or: (aPlayer lap > (self goalLaps)) ).
 ]
