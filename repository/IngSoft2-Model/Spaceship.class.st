@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'position',
-		'color'
+		'color',
+		'lap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,6 +23,12 @@ Spaceship >> color [
 Spaceship >> initializeWith: aColor [
 	position:=0.
 	color:=aColor.
+	lap:=0.
+]
+
+{ #category : #Information }
+Spaceship >> lap [
+	^lap.
 ]
 
 { #category : #Move }
@@ -32,4 +39,14 @@ Spaceship >> move: value [
 { #category : #Information }
 Spaceship >> position [
 	^position.
+]
+
+{ #category : #Move }
+Spaceship >> updateLap: aLength [
+
+	| entireLaps |
+	entireLaps := self position // aLength.
+	self position > aLength ifFalse: [ ^ self ].
+	position := position - (aLength * entireLaps).
+	lap := lap + entireLaps
 ]

@@ -17,7 +17,8 @@ CreatingSpaceshipsFromTheGameTest >> testI001CreatingSpaceshipsFromTheGame [
 	aGame := Game
 		         with: aColorCollection 
 		         and: 8
-		         throwing: (OrderedCollection with: aLoadedDie).
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 1.
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions

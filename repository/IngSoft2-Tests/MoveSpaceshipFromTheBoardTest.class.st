@@ -44,3 +44,174 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 
 	self should: [Board with: -1 and: OrderedCollection new.] raise: Error withMessage: 'Cannot create a board with that value'.
 ]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM001AskSpaceshipForTheLap [
+
+	| aSpaceship |
+	aSpaceship := Spaceship with: 'red'.
+	self assert: aSpaceship lap equals: 0
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM002MoveSpaceshipOneEntireLapAndThenAskForItsPosition [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 5
+			               with: 7
+			               with: 9).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	self assert: aGame laps equals: (OrderedCollection with: 1) 
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM003MoveTwoSpaceshipOneEntireLapAndThenAskForTheirPosition [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red' with:'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 9
+			               with: 7
+			               with: 9).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 2.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame laps equals: (OrderedCollection with: 1 with: 1) 
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskForItsPosition [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 9
+			               with: 7
+			               with: 9).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 3.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame laps equals: (OrderedCollection with: 2)
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM005MoveSpaceshipTwoEntireLapsInOnlyOneThrow [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 15
+			               with: 9
+			               with: 7
+			               with: 9).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	self assert: aGame laps equals: (OrderedCollection with: 2)
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM006MoveSpaceshipToTheLastBox [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 5
+			               with: 7
+			               with: 9).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame laps equals: (OrderedCollection with: 1)
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 8
+			               with: 9
+			               with: 6).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 2.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame winner asSymbol equals: 'red' asSymbol 
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM008MoveSpaceshipALotOfTimesAndVerifyThatItDoesNotMove [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 1
+			               with: 9
+			               with: 6).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame laps  equals: (OrderedCollection with:1)
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red' with:'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 8
+			               with: 9
+			               with: 6).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame positions  equals: (OrderedCollection with:7 with:1).
+	self assert: aGame winner asSymbol equals: 'blue' asSymbol 
+]
