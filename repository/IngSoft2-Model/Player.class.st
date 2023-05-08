@@ -17,6 +17,12 @@ Player >> color [
 	^(self spaceship) color.
 ]
 
+{ #category : #Move }
+Player >> effect: aValue [
+
+	self spaceship move: aValue
+]
+
 { #category : #Initialization }
 Player >> initializeWith: aSpaceship [ 
 	spaceship:= aSpaceship.
