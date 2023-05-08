@@ -5,5 +5,5 @@ Class {
 }
 
 { #category : #Effect }
-NoEffectBox >> applyEffect: aPlayer [
+NoEffectBox >> effect: aPlayerCollection affects: aPlayer [
 ]

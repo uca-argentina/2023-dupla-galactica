@@ -5,6 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-SpeedUpBox >> applyEffect: aPlayer [ 
-	aPlayer effect: 4.
+SpeedUpBox >> effect: aPlayerCollection affects: aPlayer [
+
+	aPlayer effect: 4
 ]

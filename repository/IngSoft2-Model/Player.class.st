@@ -38,6 +38,11 @@ Player >> move: aDiceCollection [
 	(self spaceship) move: (self throwDice: aDiceCollection).
 ]
 
+{ #category : #Move }
+Player >> moveToTheBeginning [
+	self spaceship moveToTheBeginning.
+]
+
 { #category : #Information }
 Player >> position [
 	^(self spaceship ) position.

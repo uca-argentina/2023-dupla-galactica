@@ -36,6 +36,11 @@ Spaceship >> move: value [
 	position:= position +value.
 ]
 
+{ #category : #Move }
+Spaceship >> moveToTheBeginning [
+	position := 1.
+]
+
 { #category : #Information }
 Spaceship >> position [
 	^position.
