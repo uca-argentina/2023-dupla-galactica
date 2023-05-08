@@ -15,7 +15,7 @@ CreateBoxesTest >> testN001NoEffectBox [
 	aBox := NoEffectBox new.
 	aPlayer move: (OrderedCollection with: aLoadedDie).
 	players := OrderedCollection with: aPlayer.
-	aBox effect: players affects: aPlayer.
+	aBox effect: players affects: aPlayer parsecs: 20.
 	self assert: aPlayer position equals: 8
 ]
 
@@ -30,7 +30,7 @@ CreateBoxesTest >> testN002WormHoleBox [
 	aBox := WormHoleBox new.
 	aPlayer move: (OrderedCollection with: aLoadedDie).
 	players := OrderedCollection with: aPlayer.
-	aBox effect: players affects: aPlayer.
+	aBox effect: players affects: aPlayer parsecs: 20.
 	self assert: aPlayer position equals: 4
 ]
 
@@ -45,7 +45,7 @@ CreateBoxesTest >> testN003SpeedUpBox [
 	aBox := SpeedUpBox new.
 	aPlayer move: (OrderedCollection with: aLoadedDie).
 	players := OrderedCollection with: aPlayer.
-	aBox effect: players affects: aPlayer.
+	aBox effect: players affects: aPlayer parsecs: 20.
 	self assert: aPlayer position equals: 12
 ]
 
@@ -63,7 +63,7 @@ CreateBoxesTest >> testN004MoonWalkBox [
 	aBox := MoonWalkBox with: -2.
 	aPlayer move: (OrderedCollection with: aLoadedDie).
 	anotherPlayer move:(OrderedCollection with: aLoadedDie).
-	aBox effect: players affects: aPlayer.
+	aBox effect: players affects: aPlayer parsecs: 20.
 	self assert:  anotherPlayer position equals: 7.
 	self assert: aPlayer position equals: 8.
 ]
@@ -85,7 +85,28 @@ CreateBoxesTest >> testN005AtomicBombBox [
 	anotherPlayer move: (OrderedCollection with: aLoadedDie).
 
 	aBox := AtomicBombBox new.
-	aBox effect: players affects: aPlayer.
+	aBox effect: players affects: aPlayer parsecs: 5.
 	self assert: anotherPlayer position equals: 1.
 	self assert: aPlayer position equals: 1
+]
+
+{ #category : #tests }
+CreateBoxesTest >> testN006HyperJumpBox [
+
+	| aBox aSpaceship aPlayer aLoadedDie players aBoard |
+	aSpaceship := Spaceship with: 'red'.
+
+	aLoadedDie := LoadedDie with:
+		              (OrderedCollection with: 3 with: 2 with: 1).
+
+	aPlayer := Player with: aSpaceship.
+	players := OrderedCollection with: aPlayer.
+	aPlayer move: (OrderedCollection with: aLoadedDie).
+	
+	aBoard:= Board with: 10 and: players.
+
+	aBox := HyperJumpBox with: (OrderedCollection with: 40 with: 10 with: 2).
+	aBox effect: players affects: aPlayer parsecs: (aBoard parsecsAmount / aBoard length).
+	self assert: aPlayer position equals: 7.
+	
 ]

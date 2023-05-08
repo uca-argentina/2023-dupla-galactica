@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-AtomicBombBox >> effect: aPlayerCollection affects: aPlayer [
+AtomicBombBox >> effect: aPlayerCollection affects: aPlayer parsecs: aValue [
 
 	aPlayerCollection do: [ :player | player moveToTheBeginning ]
 ]

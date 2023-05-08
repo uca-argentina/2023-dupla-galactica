@@ -71,6 +71,11 @@ Game >> nextPlayer [
 ]
 
 { #category : #Information }
+Game >> parsecsAmount [
+	^self board parsecsAmount.
+]
+
+{ #category : #Information }
 Game >> players [
 	^ players
 ]
