@@ -5,7 +5,8 @@ Class {
 		'players',
 		'turn',
 		'length',
-		'parsecs'
+		'parsecs',
+		'boxes'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,6 +31,11 @@ Board >> initializeWithSizeOf:aValue and: aPlayersCollection [
 	players:=aPlayersCollection.
 	turn:= 1.
 	parsecs:=100.
+	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: -2) with:(HyperJumpBox with: (OrderedCollection with: 40 with:20))).
+	boxes addLast: (AtomicBombBox new).
+	boxes addLast:(NoEffectBox new).
+	boxes addLast:(NoEffectBox new).
+	boxes addLast: (NoEffectBox new).
 ]
 
 { #category : #Information }
@@ -59,6 +65,7 @@ Board >> passTurn: aDiceCollection [
 
 	(self players at: turn) move: aDiceCollection.
 	(self players at: turn) updateLap: (self length).
+	(boxes at: ((self players at: turn) position)) effect: (self players) affects: (self players at: turn) parsecs: 100. 
 	self changeTurn.
 ]
 

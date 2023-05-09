@@ -137,13 +137,13 @@ MoveSpaceshipFromTheBoardTest >> testM006MoveSpaceshipToTheLastBox [
 	| aColorCollection aLoadedDie aGame |
 	aColorCollection := OrderedCollection with: 'red'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 7
-			               with: 5
+			               with: 10
+			               with: 1
 			               with: 7
 			               with: 9).
 	aGame := Game
 		         with: aColorCollection
-		         and: 7
+		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
 					winningWhen: 1.
 	aGame moveNextPlayer.
@@ -157,13 +157,13 @@ MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 	| aColorCollection aLoadedDie aGame |
 	aColorCollection := OrderedCollection with: 'red'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 7
-			               with: 8
+			               with: 10
+			               with: 11
 			               with: 9
 			               with: 6).
 	aGame := Game
 		         with: aColorCollection
-		         and: 7
+		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
 					winningWhen: 2.
 	aGame moveNextPlayer.
@@ -177,13 +177,13 @@ MoveSpaceshipFromTheBoardTest >> testM008MoveSpaceshipALotOfTimesAndVerifyThatIt
 	| aColorCollection aLoadedDie aGame |
 	aColorCollection := OrderedCollection with: 'red'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 7
+			               with: 10
 			               with: 1
 			               with: 9
 			               with: 6).
 	aGame := Game
 		         with: aColorCollection
-		         and: 7
+		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
 					winningWhen: 1.
 	aGame moveNextPlayer.
@@ -199,25 +199,25 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 	| aColorCollection aLoadedDie aGame |
 	aColorCollection := OrderedCollection with: 'red' with:'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 7
-			               with: 8
+			               with: 1
+			               with: 11
 			               with: 9
 			               with: 6).
 	aGame := Game
 		         with: aColorCollection
-		         and: 7
+		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
 					winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions  equals: (OrderedCollection with:7 with:1).
+	self assert: aGame positions  equals: (OrderedCollection with:1 with:1).
 	self assert: aGame winner asSymbol equals: 'blue' asSymbol 
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithBoxes [
+MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
 
 	| aColorCollection aLoadedDie aGame |
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
@@ -233,4 +233,25 @@ MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithBoxes [
 		         winningWhen: 1.
 	self
 		assert: aGame parsecsAmount equals: 100.
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithBoxes [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 4
+			               with: 9
+			               with: 6).
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: (OrderedCollection with: aLoadedDie)
+		         winningWhen: 3.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self
+		assert: aGame positions equals: (OrderedCollection  with: 6 with: 4).
 ]

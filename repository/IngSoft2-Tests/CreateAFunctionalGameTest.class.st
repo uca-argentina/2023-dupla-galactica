@@ -62,14 +62,14 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes [
 	| aColorCollection aLoadedDie aGame|
 	aColorCollection := OrderedCollection with:'red' with:'blue'.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aColorCollection  and: 15 throwing:( OrderedCollection with: aLoadedDie) winningWhen: 1.
+	aLoadedDie:= LoadedDie with: (OrderedCollection with:1 with:4 with:7 with:9).
+	aGame := Game with: aColorCollection  and: 10 throwing:( OrderedCollection with: aLoadedDie) winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 15 with: 5)
+		equals: (OrderedCollection with: 8 with: 4)
 ]
 
 { #category : #tests }
@@ -78,12 +78,12 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
+			               with: 5
 			               with: 5
 			               with: 7
 			               with: 9).
 	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 9
+			                     with: 5
 			                     with: 7
 			                     with: 5
 			                     with: 8).
@@ -92,13 +92,13 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 		                         with: aSecondLoadedDie.
 	aGame := Game
 		         with: aColorCollection
-		         and: 17
+		         and: 10
 		         throwing: aLoadedDiceCollection
 		         winningWhen: 1.
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 17 with: 0)
+		equals: (OrderedCollection with: 10 with: 0)
 ]
 
 { #category : #tests }
@@ -107,21 +107,21 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemThreeTimes
 	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
 	aColorCollection := OrderedCollection with:'red' with:'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
-			               with: 5
-			               with: 7
+			               with: 3
+			               with: 1
+			               with: 2
 			               with: 9).
 	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 9
-			                     with: 7
-			                     with: 5
+			                     with: 1
+			                     with: 3
+			                     with: 4
 			                     with: 8).
 	aLoadedDiceCollection := OrderedCollection
 		                         with: aLoadedDie
 		                         with: aSecondLoadedDie.
 	aGame := Game
 		         with: aColorCollection 
-		         and: 29
+		         and: 10
 		         throwing: aLoadedDiceCollection
 					winningWhen: 1.
 	aGame moveNextPlayer.
@@ -130,7 +130,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemThreeTimes
 		
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 29 with: 12)
+		equals: (OrderedCollection with: 10 with: 4)
 ]
 
 { #category : #tests }
@@ -201,12 +201,12 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
 	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
+			               with: 1
 			               with: 5
 			               with: 7
 			               with: 9).
 	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 9
+			                     with: 7
 			                     with: 7
 			                     with: 5
 			                     with: 8).
@@ -215,7 +215,7 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
 		                         with: aSecondLoadedDie.
 	aGame := Game
 		         with: aColorCollection
-		         and: 18
+		         and: 10
 		         throwing: aLoadedDiceCollection
 					winningWhen: 1.
 	aGame moveNextPlayer.
