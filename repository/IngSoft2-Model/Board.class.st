@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'players',
 		'turn',
-		'length'
+		'length',
+		'parsecs'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -28,6 +29,7 @@ Board >> initializeWithSizeOf:aValue and: aPlayersCollection [
 	length:=aValue.
 	players:=aPlayersCollection.
 	turn:= 1.
+	parsecs:=100.
 ]
 
 { #category : #Information }
@@ -45,6 +47,11 @@ Board >> movePlayer: aDiceCollection [
 Board >> nextPlayer [
 	^ (self players at: turn) color .
 	 
+]
+
+{ #category : #Information }
+Board >> parsecsAmount [
+	^parsecs.
 ]
 
 { #category : #Players }

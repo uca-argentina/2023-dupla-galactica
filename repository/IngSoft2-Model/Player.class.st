@@ -17,6 +17,12 @@ Player >> color [
 	^(self spaceship) color.
 ]
 
+{ #category : #Move }
+Player >> effect: aValue [
+
+	self spaceship move: aValue
+]
+
 { #category : #Initialization }
 Player >> initializeWith: aSpaceship [ 
 	spaceship:= aSpaceship.
@@ -30,6 +36,11 @@ Player >> lap [
 { #category : #Move }
 Player >> move: aDiceCollection [
 	(self spaceship) move: (self throwDice: aDiceCollection).
+]
+
+{ #category : #Move }
+Player >> moveToTheBeginning [
+	self spaceship moveToTheBeginning.
 ]
 
 { #category : #Information }

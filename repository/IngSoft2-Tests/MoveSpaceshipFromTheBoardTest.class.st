@@ -215,3 +215,22 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 	self assert: aGame positions  equals: (OrderedCollection with:7 with:1).
 	self assert: aGame winner asSymbol equals: 'blue' asSymbol 
 ]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithBoxes [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 8
+			               with: 9
+			               with: 6).
+	aGame := Game
+		         with: aColorCollection
+		         and: 7
+		         throwing: (OrderedCollection with: aLoadedDie)
+		         winningWhen: 1.
+	self
+		assert: aGame parsecsAmount equals: 100.
+]
