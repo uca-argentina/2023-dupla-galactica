@@ -19,8 +19,26 @@ Player >> color [
 
 { #category : #Move }
 Player >> effect: aValue [
-
-	self spaceship move: aValue
+	|cont|
+	self spaceship lap == 0
+		ifTrue: [ 
+			aValue abs < self spaceship position
+				ifTrue: [ self spaceship move: aValue ]
+				ifFalse: [ 
+					aValue > 0
+						ifTrue: [ self spaceship move: aValue ]
+						ifFalse: [ self spaceship move: self spaceship position ] ] ]
+		ifFalse: [ 
+			aValue abs < self spaceship position
+				ifTrue: [ self spaceship move: aValue ]
+				ifFalse: [ 
+					aValue > 0
+						ifTrue: [ self spaceship move: aValue ]
+						ifFalse: [
+							 cont:= aValue abs.
+							 cont:= cont - ((self spaceship position) -1).
+							 (self spaceship move: (11 - self spaceship position - cont)).
+							self spaceship changeLap: -1. ] ] ]
 ]
 
 { #category : #Initialization }

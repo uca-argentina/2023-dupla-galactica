@@ -14,6 +14,11 @@ Spaceship class >> with: aColor [
 	^(self new) initializeWith: aColor.
 ]
 
+{ #category : #Move }
+Spaceship >> changeLap: aValue [
+	lap:=lap +aValue.
+]
+
 { #category : #Information }
 Spaceship >> color [
 	^color.

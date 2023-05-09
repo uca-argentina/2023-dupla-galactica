@@ -65,7 +65,7 @@ Board >> passTurn: aDiceCollection [
 
 	(self players at: turn) move: aDiceCollection.
 	(self players at: turn) updateLap: (self length).
-	(boxes at: ((self players at: turn) position)) effect: (self players) affects: (self players at: turn) parsecs: 100. 
+	(boxes at: ((self players at: turn) position)) effect: (self players) affects: (self players at: turn) parsecs: self parsecsAmount. 
 	self changeTurn.
 ]
 

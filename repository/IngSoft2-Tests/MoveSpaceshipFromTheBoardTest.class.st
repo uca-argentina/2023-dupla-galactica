@@ -98,18 +98,18 @@ MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskFor
 	| aColorCollection aLoadedDie aGame |
 	aColorCollection := OrderedCollection with: 'red'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
-			               with: 9
+			               with: 10
+			               with: 21
 			               with: 7
 			               with: 9).
 	aGame := Game
 		         with: aColorCollection
-		         and: 7
+		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
-					winningWhen: 3.
+					winningWhen: 4.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 2)
+	self assert: aGame laps equals: (OrderedCollection with: 3)
 ]
 
 { #category : #tests }
@@ -243,7 +243,7 @@ MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithBoxes [
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 2
 			               with: 4
-			               with: 9
+			               with: 5
 			               with: 6).
 	aGame := Game
 		         with: aColorCollection
@@ -254,4 +254,26 @@ MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithBoxes [
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions equals: (OrderedCollection  with: 6 with: 4).
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFistLap [
+
+	| aColorCollection aLoadedDie aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 9
+			               with: 5
+			               with: 6).
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: (OrderedCollection with: aLoadedDie)
+		         winningWhen: 3.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self
+		assert: aGame positions equals: (OrderedCollection  with: 9 with: 9).
 ]
