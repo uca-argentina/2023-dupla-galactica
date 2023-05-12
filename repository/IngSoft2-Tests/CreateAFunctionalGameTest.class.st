@@ -1,8 +1,86 @@
 Class {
 	#name : #CreateAFunctionalGameTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'aColorCollection'
+	],
 	#category : #'IngSoft2-Tests'
 }
+
+{ #category : #Games }
+CreateAFunctionalGameTest >> gameWithLoadedDie [
+| aGame aLoadedDie boxesCollection |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 10
+			               with: 5
+			               with: 7
+			               with: 9).
+	boxesCollection := OrderedCollection
+		                   with: NoEffectBox new
+		                   with: NoEffectBox new
+		                   with: NoEffectBox new
+		                   with: NoEffectBox new
+		                   with: NoEffectBox new
+		                   with: NoEffectBox new.
+	boxesCollection addLast: NoEffectBox new.
+	boxesCollection addLast: NoEffectBox new.
+	boxesCollection addLast: NoEffectBox new.
+	boxesCollection addLast: NoEffectBox new.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: (OrderedCollection with: aLoadedDie)
+		         winningWhen: 1
+		         effects: boxesCollection.
+	^ aGame
+]
+
+{ #category : #Games }
+CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
+
+	| aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame aBoxesCollection |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 5
+			               with: 5
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 5
+			                     with: 7
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aBoxesCollection := OrderedCollection
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: aLoadedDiceCollection
+		         winningWhen: 1
+		         effects: aBoxesCollection.
+	^ aGame
+]
+
+{ #category : #running }
+CreateAFunctionalGameTest >> setUp [
+	
+	super setUp.
+
+
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	
+]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
@@ -15,86 +93,28 @@ CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMe
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
-	| aColorCollection aLoadedDie aGame|
-	aColorCollection := OrderedCollection with:'red' with:'blue'.
-	
-	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aColorCollection  and: 8 throwing: (OrderedCollection with: aLoadedDie) winningWhen: 1.
-	
+
+	| aGame |
+	aGame := self gameWithLoadedDie.
 	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testD002CreateGameAndAskForWinner [
-	| aColorCollection aLoadedDie aGame|
-	aColorCollection := OrderedCollection with:'red' with:'blue'.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with:9 with:5 with:7 with:9).
-	aGame := Game with: aColorCollection  and: 8 throwing: (OrderedCollection with: aLoadedDie) winningWhen: 1.
+
+	| aGame |
+	aGame:= self gameWithLoadedDie.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	self assert: aGame winner asSymbol identicalTo: 'red' asSymbol
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testD003CreateGameAndAskForFinalMessage [
-	| aColorCollection aLoadedDie aGame|
-	aColorCollection := OrderedCollection with:'red' with:'blue'.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aColorCollection and: 8 throwing: (OrderedCollection with: aLoadedDie) winningWhen: 1.
-	aGame moveNextPlayer.
-	self
-		assert: aGame positions
-		equals: (OrderedCollection with: 8 with: 0)
-]
-
-{ #category : #tests }
 CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
-	| aColorCollection aLoadedDie aGame|
-	aColorCollection := OrderedCollection with:'red' with:'blue'.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with:8 with:5 with:7 with:9).
-	aGame := Game with: aColorCollection and: 15 throwing: (OrderedCollection with: aLoadedDie) winningWhen: 1 .
-	aGame moveNextPlayer.
-	self
-		assert: aGame positions
-		equals: (OrderedCollection with: 8 with: 0)
-]
 
-{ #category : #tests }
-CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes [
-	| aColorCollection aLoadedDie aGame|
-	aColorCollection := OrderedCollection with:'red' with:'blue'.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with:1 with:4 with:7 with:9).
-	aGame := Game with: aColorCollection  and: 10 throwing:( OrderedCollection with: aLoadedDie) winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self
-		assert: aGame positions
-		equals: (OrderedCollection with: 8 with: 4)
-]
-
-{ #category : #tests }
-CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
-
-	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 5
-			               with: 5
-			               with: 7
-			               with: 9).
-	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 5
-			                     with: 7
-			                     with: 5
-			                     with: 8).
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
-	aGame := Game
-		         with: aColorCollection
-		         and: 10
-		         throwing: aLoadedDiceCollection
-		         winningWhen: 1.
+	| aGame |
+	aGame:= self gameWithLoadedDie.
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
@@ -102,122 +122,60 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemThreeTimes [
+CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes [
 
-	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
-	aColorCollection := OrderedCollection with:'red' with:'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 3
-			               with: 1
-			               with: 2
-			               with: 9).
-	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 1
-			                     with: 3
-			                     with: 4
-			                     with: 8).
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
-	aGame := Game
-		         with: aColorCollection 
-		         and: 10
-		         throwing: aLoadedDiceCollection
-					winningWhen: 1.
+	| aGame |
+	aGame := self gameWithLoadedDie.
 	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 7 with: 5)
+]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
+
+	| aGame |
+	aGame:= self gameWithTwoLoadedDie.	
+	aGame moveNextPlayer.
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 10 with: 0)
+]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
+
+	| aGame |
+	aGame:= self gameWithTwoLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 		
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 10 with: 4)
+		equals: (OrderedCollection with: 10 with: 2)
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
 
-	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
-			               with: 5
-			               with: 7
-			               with: 9).
-	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 9
-			                     with: 7
-			                     with: 5
-			                     with: 8).
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
-	aGame := Game
-		         with: aColorCollection
-		         and: 16
-		         throwing: aLoadedDiceCollection
-					winningWhen: 1.
+	| aGame |
+	aGame:= self gameWithTwoLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 1 with: 0)
-]
-
-{ #category : #tests }
-CreateAFunctionalGameTest >> testL001InformTheFinalPositionsFromTheGame [
-
-	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
-			               with: 5
-			               with: 7
-			               with: 9).
-	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 9
-			                     with: 7
-			                     with: 5
-			                     with: 8).
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
-	aGame := Game
-		         with: aColorCollection
-		         and: 16
-		         throwing: aLoadedDiceCollection
-					winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self
-		assert: aGame positions
-		equals: (OrderedCollection with: 1 with: 0)
+		equals: (OrderedCollection with: 10 with: 2)
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
-	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 1
-			               with: 5
-			               with: 7
-			               with: 9).
-	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 7
-			                     with: 7
-			                     with: 5
-			                     with: 8).
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
-	aGame := Game
-		         with: aColorCollection
-		         and: 10
-		         throwing: aLoadedDiceCollection
-					winningWhen: 1.
+	| aGame |
+	aGame:= self gameWithLoadedDie.
 	aGame moveNextPlayer.
 	self should: [ aGame winner ] raise: Error withMessage: 'There is no winner'.
 ]

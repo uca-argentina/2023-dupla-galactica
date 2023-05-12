@@ -1,53 +1,60 @@
 Class {
 	#name : #MoveSpaceshipsInTurnFromTheBoardTest,
 	#superclass : #TestCase,
+	#instVars : [
+		'aColorCollection',
+		'aBoxesCollection',
+		'aLoadedDie',
+		'aGame'
+	],
 	#category : #'IngSoft2-Tests'
 }
+
+{ #category : #running }
+MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
+
+	super setUp.
+
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aBoxesCollection := OrderedCollection
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new
+		                    with: WormHoleBox new
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new
+		                    with: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	aBoxesCollection addLast: NoEffectBox new.
+	
+	aLoadedDie:= LoadedDie with: (OrderedCollection with: 1 with:2 with:3).
+
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: (OrderedCollection with: aLoadedDie)
+		         winningWhen: 1
+		         effects: aBoxesCollection
+]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ001CheckTheNextSpacheshipToPlay [
 
-	| aSpaceshipRed aSpaceshipBlue aSpaceshipCollection aBoard|
-	aSpaceshipRed := Spaceship with: 'red'.
-	aSpaceshipBlue :=Spaceship with: 'blue'.
-	aSpaceshipCollection := OrderedCollection
-		                        with: aSpaceshipRed
-		                        with: aSpaceshipBlue.
-		
-	aBoard := Board with: 10 and: aSpaceshipCollection.
-	self assert: aBoard nextPlayer asSymbol identicalTo: 'red' asSymbol.
+	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol.
 ]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfterMovingOne [
 
-	| aSpaceshipRed aSpaceshipBlue aBoard aLoadedDie|
-	aSpaceshipRed := Spaceship with: 'red'.
-	aSpaceshipBlue :=Spaceship with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
-			               with: 5
-			               with: 7
-			               with: 9).	
-	aBoard := Board with: 10 and: (OrderedCollection with: (Player with: aSpaceshipRed ) with: (Player with: aSpaceshipBlue)).
-	aBoard movePlayer: (OrderedCollection with: aLoadedDie).
-	self assert: aBoard nextPlayer asSymbol identicalTo: 'blue' asSymbol.
+	aGame moveNextPlayer.
+	self assert: aGame nextPlayer asSymbol identicalTo: 'blue' asSymbol.
 ]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnceAllTheSpaceshipsThrowOneTime [
 
-	| aSpaceshipRed aSpaceshipBlue aBoard aLoadedDie|
-	aSpaceshipRed := Spaceship with: 'red'.
-	aSpaceshipBlue :=Spaceship with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
-			               with: 5
-			               with: 7
-			               with: 9).
-		
-	aBoard := Board with: 10 and: (OrderedCollection with: (Player with: aSpaceshipRed ) with: (Player with: aSpaceshipBlue)).
-	aBoard movePlayer: (OrderedCollection with: aLoadedDie).
-	aBoard movePlayer: (OrderedCollection with: aLoadedDie).
-	self assert: aBoard nextPlayer asSymbol identicalTo: 'red' asSymbol.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame  nextPlayer asSymbol identicalTo: 'red' asSymbol.
 ]

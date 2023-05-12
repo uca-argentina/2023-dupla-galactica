@@ -12,9 +12,9 @@ Class {
 }
 
 { #category : #'instance creation' }
-Board class >> with: aValue and: aCollectionOfSpaceships [
+Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection [
 	(aValue <0 or: aValue==0) ifTrue: [Error signal: 'Cannot create a board with that value'].
-	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships.
+	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection .
 ]
 
 { #category : #Players }
@@ -26,16 +26,12 @@ Board >> changeTurn [
 ]
 
 { #category : #Initialization }
-Board >> initializeWithSizeOf:aValue and: aPlayersCollection [
+Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection [ 
 	length:=aValue.
 	players:=aPlayersCollection.
 	turn:= 1.
 	parsecs:=100.
-	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: -2) with:(HyperJumpBox with: (OrderedCollection with: 40 with:20))).
-	boxes addLast: (AtomicBombBox new).
-	boxes addLast:(NoEffectBox new).
-	boxes addLast:(NoEffectBox new).
-	boxes addLast: (NoEffectBox new).
+	boxes:= aBoxCollection.
 ]
 
 { #category : #Information }

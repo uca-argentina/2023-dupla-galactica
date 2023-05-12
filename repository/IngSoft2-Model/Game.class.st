@@ -11,8 +11,8 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
-	^self new initializeWith: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps.
+Game class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [
+	^self new initializeWith: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection.
 ]
 
 { #category : #Information }
@@ -43,10 +43,10 @@ Game >> goalLaps [
 ]
 
 { #category : #Initialization }
-Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [ 
 	| aPlayerCollection |
 	aPlayerCollection := (self createPlayers: aColorsCollection).
-	board := Board with: aValue and: aPlayerCollection.
+	board := Board with: aValue and: aPlayerCollection effects: aBoxCollection.
 	players := aPlayerCollection.
 	dice := aDiceCollection.
 	goalLaps := laps.
