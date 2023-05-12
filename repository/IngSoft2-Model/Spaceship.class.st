@@ -14,11 +14,6 @@ Spaceship class >> with: aColor [
 	^(self new) initializeWith: aColor.
 ]
 
-{ #category : #Move }
-Spaceship >> changeLap: aValue [
-	lap:=lap +aValue.
-]
-
 { #category : #Information }
 Spaceship >> color [
 	^color.
@@ -62,7 +57,7 @@ Spaceship >> updateLap: aLength [
 			lap := lap + entireLaps ]
 		ifFalse: [ 
 			self position < 0 ifTrue: [ 
-				entireLaps := self position abs // aLength + 1.
+				entireLaps := (self position abs // aLength) + 1.
 				lap := lap - entireLaps.
-				position := aLength - self position abs] ]
+				position := aLength - self position abs ] ]
 ]
