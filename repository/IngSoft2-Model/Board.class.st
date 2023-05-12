@@ -17,61 +17,66 @@ Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection
 	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection .
 ]
 
-{ #category : #Players }
-Board >> changeTurn [
+{ #category : #Information }
+Board >> boxes [
 
-	turn := turn == self players size
-		        ifTrue: [ 1 ]
-		        ifFalse: [ turn + 1 ]
+	^ boxes
 ]
 
 { #category : #Initialization }
-Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection [ 
-	length:=aValue.
-	players:=aPlayersCollection.
-	turn:= 1.
-	parsecs:=100.
-	boxes:= aBoxCollection.
+Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection [
+
+	length := aValue.
+	players := aPlayersCollection.
+	turn := 1.
+	parsecs := 100.
+	boxes := aBoxCollection
 ]
 
 { #category : #Information }
 Board >> length [
-	^length.
+
+	^ length
 ]
 
-{ #category : #Players }
+{ #category : #ManageTurns }
 Board >> movePlayer: aDiceCollection [
 
 	self passTurn: aDiceCollection.
+	self updateTurn
 ]
 
 { #category : #Information }
 Board >> nextOne [
-	^turn.
-]
 
-{ #category : #Players }
-Board >> nextPlayer [
-	^ (self players at: turn) color .
-	 
+	^ self players at: turn.
 ]
 
 { #category : #Information }
-Board >> parsecsAmount [
-	^parsecs.
+Board >> parsecs [
+
+	^ parsecs
 ]
 
-{ #category : #Players }
+{ #category : #ManageTurns }
 Board >> passTurn: aDiceCollection [
 
-	(self players at: turn) move: aDiceCollection.
-	(self players at: turn) updateLap: (self length).
-	(boxes at: ((self players at: turn) position)) effect: self. 
-	(self players at: turn) updateLap: (self length).
-	self changeTurn.
+	self nextOne move: aDiceCollection.
+	self nextOne updateLap: self length.
+	(self boxes at: self nextOne position) effect: self.
+	self nextOne updateLap: self length.
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 Board >> players [
-	^ players.
+
+	^ players
+]
+
+{ #category : #ManageTurns }
+Board >> updateTurn [
+
+	turn := turn == self players size
+		        ifTrue: [ 1 ]
+		        ifFalse: [ turn + 1 ]
 ]

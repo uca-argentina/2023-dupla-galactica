@@ -15,10 +15,12 @@ HyperJumpBox class >> with: aParsecsCollection [
 
 { #category : #Effect }
 HyperJumpBox >> effect: aBoard [
+
 	| position |
-	position := (parsecs at: nextParsec) // ((aBoard parsecsAmount) // (aBoard length)).
+	position := (parsecs at: nextParsec)
+	            // (aBoard parsecs // aBoard length).
 	self updateParsec.
-	(aBoard players at: aBoard nextOne) effect: position.
+	aBoard nextOne effect: position
 ]
 
 { #category : #Initialization }

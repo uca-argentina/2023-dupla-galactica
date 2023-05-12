@@ -5,6 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-SpeedUpBox >> effect: aBoard [ 
-	(aBoard players at: aBoard nextOne) effect: 4.
+SpeedUpBox >> effect: aBoard [
+
+	aBoard nextOne effect: 4
 ]

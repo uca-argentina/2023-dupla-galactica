@@ -97,11 +97,12 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM001AskSpaceshipForTheLap [
+MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLap [
 
-	| aSpaceship |
+	| aSpaceship aPlayer |
 	aSpaceship := Spaceship with: 'red'.
-	self assert: aSpaceship lap equals: 0
+	aPlayer := Player with: aSpaceship.
+	self assert: aPlayer lap equals: 0
 ]
 
 { #category : #tests }
@@ -240,7 +241,7 @@ MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	self assert: aGame parsecsAmount equals: 100.
+	self assert: aGame parsecs equals: 100.
 ]
 
 { #category : #tests }

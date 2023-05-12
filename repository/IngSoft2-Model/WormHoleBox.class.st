@@ -5,6 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-WormHoleBox >> effect: aBoard [ 
-	(aBoard players at: aBoard nextOne) effect: -4.
+WormHoleBox >> effect: aBoard [
+
+	aBoard nextOne effect: -4
 ]
