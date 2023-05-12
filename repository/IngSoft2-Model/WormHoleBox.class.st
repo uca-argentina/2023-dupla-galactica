@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-WormHoleBox >> effect: aPlayerCollection affects: aPlayer parsecs: aValue [
+WormHoleBox >> effect: aBoard [
 
-	aPlayer effect: -4
+	aBoard nextOne effect: -4
 ]

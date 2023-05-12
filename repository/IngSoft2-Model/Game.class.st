@@ -11,8 +11,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-Game class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
-	^self new initializeWith: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps.
+Game class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [
+
+	^ self new
+		  initializeWith: aColorCollection
+		  and: aValue
+		  throwing: aDiceCollection
+		  winningWhen: laps
+		  effects: aBoxCollection
 ]
 
 { #category : #Information }
@@ -24,7 +30,7 @@ Game >> board [
 { #category : #Initialization }
 Game >> createPlayers: aColorsCollection [
 
-	| aPlayerCollection|
+	| aPlayerCollection |
 	aPlayerCollection := OrderedCollection new.
 	aColorsCollection do: [ :color | 
 		aPlayerCollection addLast: (Player with: (Spaceship with: color)) ].
@@ -39,54 +45,54 @@ Game >> dice [
 
 { #category : #Information }
 Game >> goalLaps [
+
 	^ goalLaps
 ]
 
 { #category : #Initialization }
-Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [ 
 	| aPlayerCollection |
 	aPlayerCollection := (self createPlayers: aColorsCollection).
-	board := Board with: aValue and: aPlayerCollection.
+	board := Board with: aValue and: aPlayerCollection effects: aBoxCollection.
 	players := aPlayerCollection.
 	dice := aDiceCollection.
 	goalLaps := laps.
 ]
 
-{ #category : #Player }
+{ #category : #Information }
 Game >> laps [
-	|laps|
-	laps:=(OrderedCollection new).
-	self players do: [ :player | laps addLast: (player lap) ].
-	^laps
+
+	^ self players collect: [ :player | player lap ]
 ]
 
 { #category : #Player }
 Game >> moveNextPlayer [
-	(self winnerExists) ifFalse: [(self board movePlayer: self dice)].
+
+	self winnerExists ifFalse: [ self board movePlayer: self dice ]
 ]
 
 { #category : #Player }
 Game >> nextPlayer [
-	^(self board nextPlayer).
+
+	^ self board nextOne
 ]
 
 { #category : #Information }
-Game >> parsecsAmount [
-	^self board parsecsAmount.
+Game >> parsecs [
+
+	^ self board parsecs
 ]
 
 { #category : #Information }
 Game >> players [
+
 	^ players
 ]
 
-{ #category : #Finalization }
+{ #category : #Information }
 Game >> positions [
 
-	| positions |
-	positions := OrderedCollection new.
-	self players do: [ :player | positions addLast: player position ].
-	^ positions
+	^ self players collect: [ :player | player spaceship position ]
 ]
 
 { #category : #Finalization }
@@ -94,20 +100,19 @@ Game >> winner [
 
 	self winnerExists
 		ifTrue: [ 
-			^ (self players detect: [ :player | 
-				   self winningCondition: player ]) color ]
-		ifFalse: [ Error signal: 'There is no winner']
+			^ (self players detect: [ :player | self winningCondition: player ])
+				  color ]
+		ifFalse: [ Error signal: 'There is no winner' ]
 ]
 
 { #category : #Finalization }
 Game >> winnerExists [
 
-	^ self players anySatisfy: [ :player | 
-		  self winningCondition: player ]
+	^ self players anySatisfy: [ :player | self winningCondition: player ]
 ]
 
 { #category : #Finalization }
 Game >> winningCondition: aPlayer [
 
-	 ^ ((aPlayer lap == (self goalLaps)) or: (aPlayer lap > (self goalLaps)) ).
+	^ aPlayer lap >= self goalLaps
 ]

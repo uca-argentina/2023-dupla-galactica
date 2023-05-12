@@ -5,64 +5,78 @@ Class {
 		'players',
 		'turn',
 		'length',
-		'parsecs'
+		'parsecs',
+		'boxes'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-Board class >> with: aValue and: aCollectionOfSpaceships [
+Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection [
 	(aValue <0 or: aValue==0) ifTrue: [Error signal: 'Cannot create a board with that value'].
-	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships.
+	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection .
 ]
 
-{ #category : #Players }
-Board >> changeTurn [
+{ #category : #Information }
+Board >> boxes [
 
-	turn := turn == self players size
-		        ifTrue: [ 1 ]
-		        ifFalse: [ turn + 1 ]
+	^ boxes
 ]
 
 { #category : #Initialization }
-Board >> initializeWithSizeOf:aValue and: aPlayersCollection [
-	length:=aValue.
-	players:=aPlayersCollection.
-	turn:= 1.
-	parsecs:=100.
+Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection [
+
+	length := aValue.
+	players := aPlayersCollection.
+	turn := 1.
+	parsecs := 100.
+	boxes := aBoxCollection
 ]
 
 { #category : #Information }
 Board >> length [
-	^length.
+
+	^ length
 ]
 
-{ #category : #Players }
+{ #category : #ManageTurns }
 Board >> movePlayer: aDiceCollection [
 
 	self passTurn: aDiceCollection.
-]
-
-{ #category : #Players }
-Board >> nextPlayer [
-	^ (self players at: turn) color .
-	 
+	self updateTurn
 ]
 
 { #category : #Information }
-Board >> parsecsAmount [
-	^parsecs.
+Board >> nextOne [
+
+	^ self players at: turn.
 ]
 
-{ #category : #Players }
+{ #category : #Information }
+Board >> parsecs [
+
+	^ parsecs
+]
+
+{ #category : #ManageTurns }
 Board >> passTurn: aDiceCollection [
 
-	(self players at: turn) move: aDiceCollection.
-	(self players at: turn) updateLap: (self length).
-	self changeTurn.
+	self nextOne move: aDiceCollection.
+	self nextOne updateLap: self length.
+	(self boxes at: self nextOne position) effect: self.
+	self nextOne updateLap: self length.
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 Board >> players [
-	^ players.
+
+	^ players
+]
+
+{ #category : #ManageTurns }
+Board >> updateTurn [
+
+	turn := turn == self players size
+		        ifTrue: [ 1 ]
+		        ifFalse: [ turn + 1 ]
 ]

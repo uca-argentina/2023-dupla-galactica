@@ -2,7 +2,8 @@ Class {
 	#name : #Player,
 	#superclass : #Object,
 	#instVars : [
-		'spaceship'
+		'spaceship',
+		'lap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,52 +15,82 @@ Player class >> with: aSpaceship [
 
 { #category : #Information }
 Player >> color [
-	^(self spaceship) color.
+
+	^ self spaceship color
 ]
 
-{ #category : #Move }
+{ #category : #LapControl }
 Player >> effect: aValue [
 
-	self spaceship move: aValue
+	self lap == 0
+		ifTrue: [ 
+			aValue abs < self spaceship position
+				ifTrue: [ self spaceship move: aValue ]
+				ifFalse: [ 
+					aValue > 0
+						ifTrue: [ self spaceship move: aValue ]
+						ifFalse: [ self spaceship move: spaceship position * -1 ] ] ]
+		ifFalse: [ self spaceship move: aValue ]
 ]
 
 { #category : #Initialization }
-Player >> initializeWith: aSpaceship [ 
-	spaceship:= aSpaceship.
+Player >> initializeWith: aSpaceship [
+
+	spaceship := aSpaceship.
+	lap := 0
 ]
 
 { #category : #Information }
 Player >> lap [
-	^self spaceship lap.
+
+	^ lap
 ]
 
-{ #category : #Move }
+{ #category : #LapControl }
 Player >> move: aDiceCollection [
-	(self spaceship) move: (self throwDice: aDiceCollection).
+
+	self spaceship move: (self throwDice: aDiceCollection)
 ]
 
-{ #category : #Move }
+{ #category : #LapControl }
 Player >> moveToTheBeginning [
-	self spaceship moveToTheBeginning.
+
+	self spaceship moveTo: 1
 ]
 
 { #category : #Information }
 Player >> position [
-	^(self spaceship ) position.
+
+	^ self spaceship position
 ]
 
 { #category : #Information }
 Player >> spaceship [
+
 	^ spaceship
 ]
 
-{ #category : #Move }
+{ #category : #LapControl }
 Player >> throwDice: aDiceCollection [
 
 	^ aDiceCollection sumNumbers: [ :die | die throw ]
 ]
 
-{ #category : #Move }
+{ #category : #LapControl }
 Player >> updateLap: aLength [
-	self spaceship updateLap: aLength.
+
+	| entireLaps position |
+	position := self position.
+	entireLaps := position // aLength.
+	position > aLength
+		ifTrue: [ 
+			position := position - (aLength * entireLaps).
+			self spaceship moveTo: position.
+			lap := lap + entireLaps ]
+		ifFalse: [ 
+			self position < 0 ifTrue: [ 
+				entireLaps := self position abs // aLength + 1.
+				lap := lap - entireLaps.
+				position := aLength - self position abs.
+				self spaceship moveTo: position ] ]
 ]
