@@ -5,5 +5,6 @@ Class {
 }
 
 { #category : #Effect }
-NoEffectBox >> effect: aPlayerCollection affects: aPlayer parsecs: aValue [
+NoEffectBox >> effect: aBoard [ 
+	
 ]

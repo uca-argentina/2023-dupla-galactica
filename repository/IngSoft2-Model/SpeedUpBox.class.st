@@ -5,7 +5,6 @@ Class {
 }
 
 { #category : #Effect }
-SpeedUpBox >> effect: aPlayerCollection affects: aPlayer parsecs: aValue [
-
-	aPlayer effect: 4
+SpeedUpBox >> effect: aBoard [ 
+	(aBoard players at: aBoard nextOne) effect: 4.
 ]

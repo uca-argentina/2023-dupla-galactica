@@ -257,7 +257,7 @@ MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithBoxes [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFistLap [
+MoveSpaceshipFromTheBoardTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirstLap [
 
 	| aColorCollection aLoadedDie aGame |
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.

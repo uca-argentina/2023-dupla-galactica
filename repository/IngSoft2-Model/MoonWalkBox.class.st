@@ -13,10 +13,10 @@ MoonWalkBox class >> with: aValue [
 ]
 
 { #category : #Effect }
-MoonWalkBox >> effect: aPlayerCollection affects: aPlayer parsecs: aValue [
-
-	aPlayerCollection do: [ :player | 
-		player == aPlayer ifFalse: [ player effect: effectValue ] ]
+MoonWalkBox >> effect: aBoard [ 
+	
+	(aBoard players) do: [ :player | 
+		player == (aBoard players at: aBoard nextOne) ifFalse: [ player effect: effectValue ] ].
 ]
 
 { #category : #Initialization }

@@ -56,7 +56,13 @@ Spaceship >> updateLap: aLength [
 
 	| entireLaps |
 	entireLaps := self position // aLength.
-	self position > aLength ifFalse: [ ^ self ].
-	position := position - (aLength * entireLaps).
-	lap := lap + entireLaps
+	self position > aLength
+		ifTrue: [ 
+			position := position - (aLength * entireLaps).
+			lap := lap + entireLaps ]
+		ifFalse: [ 
+			self position < 0 ifTrue: [ 
+				entireLaps := self position abs // aLength + 1.
+				lap := lap - entireLaps.
+				position := aLength - self position abs] ]
 ]

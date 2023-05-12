@@ -7,106 +7,170 @@ Class {
 { #category : #tests }
 CreateBoxesTest >> testN001NoEffectBox [
 
-	| aBox aSpaceship aPlayer aLoadedDie players |
-	aSpaceship := Spaceship with: 'red'.
-	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 8 with: 9 with: 10).
-	aPlayer := Player with: aSpaceship.
-	aBox := NoEffectBox new.
-	aPlayer move: (OrderedCollection with: aLoadedDie).
-	players := OrderedCollection with: aPlayer.
-	aBox effect: players affects: aPlayer parsecs: 20.
-	self assert: aPlayer position equals: 8
+| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 8
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 7
+			                     with: 1
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: aLoadedDiceCollection
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame positions equals: (OrderedCollection with: 8 with: 9).
 ]
 
 { #category : #tests }
 CreateBoxesTest >> testN002WormHoleBox [
 
-	| aBox aSpaceship aPlayer aLoadedDie players |
-	aSpaceship := Spaceship with: 'red'.
-	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 8 with: 9 with: 10).
-	aPlayer := Player with: aSpaceship.
-	aBox := WormHoleBox new.
-	aPlayer move: (OrderedCollection with: aLoadedDie).
-	players := OrderedCollection with: aPlayer.
-	aBox effect: players affects: aPlayer parsecs: 20.
-	self assert: aPlayer position equals: 4
+	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 1
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 7
+			                     with: 2
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: aLoadedDiceCollection
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame positions equals: (OrderedCollection with: 8 with: 0).
 ]
 
 { #category : #tests }
 CreateBoxesTest >> testN003SpeedUpBox [
 
-	| aBox aSpaceship aPlayer aLoadedDie players |
-	aSpaceship := Spaceship with: 'red'.
-	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 8 with: 9 with: 10).
-	aPlayer := Player with: aSpaceship.
-	aBox := SpeedUpBox new.
-	aPlayer move: (OrderedCollection with: aLoadedDie).
-	players := OrderedCollection with: aPlayer.
-	aBox effect: players affects: aPlayer parsecs: 20.
-	self assert: aPlayer position equals: 12
+	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 1
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 7
+			                     with: 1
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: aLoadedDiceCollection
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame positions equals: (OrderedCollection with: 8 with: 6).
 ]
 
 { #category : #tests }
 CreateBoxesTest >> testN004MoonWalkBox [
 
-	| aBox aSpaceship anotherSpaceship aPlayer anotherPlayer aLoadedDie players |
-	aSpaceship := Spaceship with: 'red'.
-	anotherSpaceship := Spaceship with: 'blue'.
-	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 8 with: 9 with: 10).
-	aPlayer := Player with: aSpaceship.
-	anotherPlayer := Player with: anotherSpaceship.
-	players:= (OrderedCollection with: aPlayer with:anotherPlayer).
-	aBox := MoonWalkBox with: -2.
-	aPlayer move: (OrderedCollection with: aLoadedDie).
-	anotherPlayer move:(OrderedCollection with: aLoadedDie).
-	aBox effect: players affects: aPlayer parsecs: 20.
-	self assert:  anotherPlayer position equals: 7.
-	self assert: aPlayer position equals: 8.
+	
+	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 7
+			                     with: 3
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: aLoadedDiceCollection
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame positions equals: (OrderedCollection with: 6 with: 5).
 ]
 
 { #category : #tests }
 CreateBoxesTest >> testN005AtomicBombBox [
 
-	| aBox aSpaceship anotherSpaceship aPlayer anotherPlayer aLoadedDie players |
-	aSpaceship := Spaceship with: 'red'.
-	anotherSpaceship := Spaceship with: 'blue'.
-
-	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 8 with: 9 with: 10).
-
-	aPlayer := Player with: aSpaceship.
-	anotherPlayer := Player with: anotherSpaceship.
-	players := OrderedCollection with: aPlayer with: anotherPlayer.
-	aPlayer move: (OrderedCollection with: aLoadedDie).
-	anotherPlayer move: (OrderedCollection with: aLoadedDie).
-
-	aBox := AtomicBombBox new.
-	aBox effect: players affects: aPlayer parsecs: 5.
-	self assert: anotherPlayer position equals: 1.
-	self assert: aPlayer position equals: 1
+	
+	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 7
+			                     with: 5
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: aLoadedDiceCollection
+					winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame positions equals: (OrderedCollection with: 1 with: 1).
 ]
 
 { #category : #tests }
 CreateBoxesTest >> testN006HyperJumpBox [
 
-	| aBox aSpaceship aPlayer aLoadedDie players aBoard |
-	aSpaceship := Spaceship with: 'red'.
-
-	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 3 with: 2 with: 1).
-
-	aPlayer := Player with: aSpaceship.
-	players := OrderedCollection with: aPlayer.
-	aPlayer move: (OrderedCollection with: aLoadedDie).
-	
-	aBoard:= Board with: 10 and: players.
-
-	aBox := HyperJumpBox with: (OrderedCollection with: 40 with: 10 with: 2).
-	aBox effect: players affects: aPlayer parsecs: (aBoard parsecsAmount / aBoard length).
-	self assert: aPlayer position equals: 7.
+	| aColorCollection aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 3
+			               with: 7
+			               with: 9).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 5
+			                     with: 3
+			                     with: 5
+			                     with: 8).
+	aLoadedDiceCollection := OrderedCollection
+		                         with: aLoadedDie
+		                         with: aSecondLoadedDie.
+	aGame := Game
+		         with: aColorCollection
+		         and: 10
+		         throwing: aLoadedDiceCollection
+					winningWhen: 2.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame positions equals: (OrderedCollection with: 10 with: 8).
 	
 ]

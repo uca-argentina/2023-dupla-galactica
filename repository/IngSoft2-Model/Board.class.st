@@ -49,6 +49,11 @@ Board >> movePlayer: aDiceCollection [
 	self passTurn: aDiceCollection.
 ]
 
+{ #category : #Information }
+Board >> nextOne [
+	^turn.
+]
+
 { #category : #Players }
 Board >> nextPlayer [
 	^ (self players at: turn) color .
@@ -65,7 +70,8 @@ Board >> passTurn: aDiceCollection [
 
 	(self players at: turn) move: aDiceCollection.
 	(self players at: turn) updateLap: (self length).
-	(boxes at: ((self players at: turn) position)) effect: (self players) affects: (self players at: turn) parsecs: self parsecsAmount. 
+	(boxes at: ((self players at: turn) position)) effect: self. 
+	(self players at: turn) updateLap: (self length).
 	self changeTurn.
 ]
 
