@@ -1,17 +1,17 @@
 Class {
-	#name : #Game,
+	#name : #LoadedGame,
 	#superclass : #Object,
 	#instVars : [
-		'players',
 		'board',
+		'players',
 		'dice',
 		'goalLaps'
 	],
-	#category : #'IngSoft2-Model'
+	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #'instance creation' }
-Game class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [
+{ #category : #'Instance creation' }
+LoadedGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [
 
 	^ self new
 		  initializeWith: aColorCollection
@@ -22,13 +22,12 @@ Game class >> with: aColorCollection and: aValue throwing: aDiceCollection winni
 ]
 
 { #category : #Information }
-Game >> board [
-
+LoadedGame >> board [
 	^ board
 ]
 
 { #category : #Initialization }
-Game >> createPlayers: aColorsCollection [
+LoadedGame >> createPlayers: aColorsCollection [
 
 	| aPlayerCollection |
 	aPlayerCollection := OrderedCollection new.
@@ -38,19 +37,17 @@ Game >> createPlayers: aColorsCollection [
 ]
 
 { #category : #Information }
-Game >> dice [
-
+LoadedGame >> dice [
 	^ dice
 ]
 
 { #category : #Information }
-Game >> goalLaps [
-
+LoadedGame >> goalLaps [
 	^ goalLaps
 ]
 
 { #category : #Initialization }
-Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [ 
+LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [ 
 	| aPlayerCollection |
 	aPlayerCollection := (self createPlayers: aColorsCollection).
 	board := Board with: aValue and: aPlayerCollection effects: aBoxCollection.
@@ -60,43 +57,41 @@ Game >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection 
 ]
 
 { #category : #Information }
-Game >> laps [
+LoadedGame >> laps [
 
 	^ self players collect: [ :player | player lap ]
 ]
 
 { #category : #Player }
-Game >> moveNextPlayer [
+LoadedGame >> moveNextPlayer [
 
 	self winnerExists ifFalse: [ self board movePlayer: self dice ]
 ]
 
 { #category : #Player }
-Game >> nextPlayer [
+LoadedGame >> nextPlayer [
 
 	^ self board nextOne
 ]
 
 { #category : #Information }
-Game >> parsecs [
-
+LoadedGame >> parsecs [
 	^ self board parsecs
 ]
 
 { #category : #Information }
-Game >> players [
-
+LoadedGame >> players [
 	^ players
 ]
 
 { #category : #Information }
-Game >> positions [
+LoadedGame >> positions [
 
 	^ self players collect: [ :player | player spaceship position ]
 ]
 
 { #category : #Finalization }
-Game >> winner [
+LoadedGame >> winner [
 
 	self winnerExists
 		ifTrue: [ 
@@ -106,13 +101,13 @@ Game >> winner [
 ]
 
 { #category : #Finalization }
-Game >> winnerExists [
+LoadedGame >> winnerExists [
 
 	^ self players anySatisfy: [ :player | self winningCondition: player ]
 ]
 
 { #category : #Finalization }
-Game >> winningCondition: aPlayer [
+LoadedGame >> winningCondition: aPlayer [
 
 	^ aPlayer lap >= self goalLaps
 ]

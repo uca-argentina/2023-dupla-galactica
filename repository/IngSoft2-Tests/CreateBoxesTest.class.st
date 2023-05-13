@@ -16,7 +16,7 @@ CreateBoxesTest >> gameWith: aSecondLoadedDie [
 	aLoadedDiceCollection := OrderedCollection
 		                         with: aLoadedDie
 		                         with: aSecondLoadedDie.
-	aGame := Game
+	aGame := LoadedGame
 		         with: aColorCollection
 		         and: 10
 		         throwing: aLoadedDiceCollection
@@ -37,8 +37,8 @@ CreateBoxesTest >> setUp [
 	boxes addLast:(NoEffectBox new).
 	boxes addLast: (NoEffectBox new).
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 1
-			               with: 1
+			               with: 0
+			               with: 0
 			               with: 7
 			               with: 9).
 ]
@@ -70,7 +70,7 @@ CreateBoxesTest >> testN002WormHoleBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 8 with: 0).
+	self assert: aGame positions equals: (OrderedCollection with: 8 with: 1).
 ]
 
 { #category : #tests }

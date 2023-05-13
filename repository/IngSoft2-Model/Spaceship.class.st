@@ -21,7 +21,7 @@ Spaceship >> color [
 { #category : #Initialization }
 Spaceship >> initializeWith: aColor [
 
-	position := 0.
+	position := 1.
 	color := aColor
 ]
 

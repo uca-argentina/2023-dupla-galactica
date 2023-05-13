@@ -30,7 +30,7 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 	
 	aLoadedDie:= LoadedDie with: (OrderedCollection with: 1 with:2 with:3).
 
-	aGame := Game
+	aGame := LoadedGame
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
