@@ -19,6 +19,11 @@ MoonWalkBox >> effect: aBoard [
 		player == aBoard nextOne ifFalse: [ player effect: effectValue ] ]
 ]
 
+{ #category : #Information }
+MoonWalkBox >> effectValue [
+	^ effectValue.
+]
+
 { #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue [ 
 	effectValue:= aValue.

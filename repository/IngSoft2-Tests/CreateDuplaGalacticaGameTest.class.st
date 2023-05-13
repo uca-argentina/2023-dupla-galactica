@@ -125,3 +125,23 @@ CreateDuplaGalacticaGameTest >> testP009MovePlayersAndAskForRanking [
 	aGame moveNextPlayer.
 	self assert: (aGame ranking ) equals: (OrderedCollection with: 'blue' with: 'red').
 ]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP011CreateHyperJumpRandomly [
+	|aGame anHyperJumpBox|	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	anHyperJumpBox:= (aGame createRandomHyperJump: 10 with: 100). 
+	self assert: (anHyperJumpBox parsecs size) <= 10.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP012CreateMoonWalkRandomly [
+	|aGame aMoonWalkBox|	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aMoonWalkBox:= (aGame createMoonWalkRandom: 10). 
+	self assert: ((aMoonWalkBox effectValue) abs) <=10.
+]

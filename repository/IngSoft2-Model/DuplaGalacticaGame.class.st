@@ -27,14 +27,20 @@ DuplaGalacticaGame >> boxes [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> createBoxes: aValue with: aFlag [
+DuplaGalacticaGame >> createBoxes: aValue with: aFlag measure: aParsecs [ 
 	|boxes|
 	boxes:= OrderedCollection new.
 	aFlag == 0 
 		ifTrue: [ 1 to: aValue do: [ :i | boxes addLast: NoEffectBox new ] ]
-		ifFalse: [ 1 to: aValue do: [ :i | boxes addLast: (self randomBox) ] ].
+		ifFalse: [ 1 to: aValue do: [ :i | boxes addLast: (self randomBox: aValue measure: aParsecs) ] ].
 
 	^boxes
+]
+
+{ #category : #Initialization }
+DuplaGalacticaGame >> createMoonWalkRandom: aValue [
+
+	^ (MoonWalkBox with: aValue atRandom * -1)
 ]
 
 { #category : #Initialization }
@@ -47,6 +53,15 @@ DuplaGalacticaGame >> createPlayers: aColorsCollection [
 	^ aPlayerCollection
 ]
 
+{ #category : #Initialization }
+DuplaGalacticaGame >> createRandomHyperJump: aValue with: parsecs [ 
+	|randomValue1 randomValue2 values|
+	values:= OrderedCollection new.
+	randomValue1 := aValue atRandom.
+	1 to: randomValue1 do:[:i | (2 atRandom)==1 ifTrue:[values addLast: (parsecs atRandom)] ifFalse:[values addLast: ((parsecs atRandom)*(-1))]].
+	^ (HyperJumpBox with: values).
+]
+
 { #category : #Information }
 DuplaGalacticaGame >> goalLaps [
 
@@ -57,7 +72,7 @@ DuplaGalacticaGame >> goalLaps [
 DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aFlag [
 	| aPlayerCollection aBoxesCollection|
 	aPlayerCollection := (self createPlayers: aColorsCollection).
-	aBoxesCollection := (self createBoxes: aValue with: aFlag).
+	aBoxesCollection := (self createBoxes: aValue with: aFlag measure: 100).
 	board:= Board with: aValue and: aPlayerCollection effects: aBoxesCollection.
 	players := aPlayerCollection.
 	dice := aDiceCollection.
@@ -95,11 +110,10 @@ DuplaGalacticaGame >> positions [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> randomBox [
+DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 
-	| box aDie aRandomValue |
-	aDie := Die with: 100.
-	aRandomValue := aDie throw.
+	| box aRandomValue |
+	aRandomValue := 100 atRandom.
 	box := aRandomValue <= 40
 		       ifTrue: [ NoEffectBox new ]
 		       ifFalse: [ 
@@ -110,12 +124,11 @@ DuplaGalacticaGame >> randomBox [
 						       ifTrue: [ SpeedUpBox new ]
 						       ifFalse: [ 
 							       aRandomValue <= 90
-								       ifTrue: [ MoonWalkBox with: -2 ]
+								       ifTrue: [ self createMoonWalkRandom: aValue ]
 								       ifFalse: [ 
 									       aRandomValue <= 98
 										       ifTrue: [ 
-										       HyperJumpBox with:
-											       (OrderedCollection with: 40 with: 20 with: 10) ]
+										       self createRandomHyperJump: aValue with: parsecs ]
 										       ifFalse: [ AtomicBombBox new ] ] ] ] ].
 
 	^ box
