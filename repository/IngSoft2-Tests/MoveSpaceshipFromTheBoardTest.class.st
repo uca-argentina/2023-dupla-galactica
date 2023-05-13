@@ -12,7 +12,7 @@ Class {
 MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 
 	| aGame |
-	aGame := Game
+	aGame := LoadedGame
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
@@ -26,7 +26,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
 
 	| aGame |
-	aGame := Game
+	aGame := LoadedGame
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
@@ -69,7 +69,7 @@ MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 
 	| aSpaceship |
 	aSpaceship := Spaceship with: 'red'.
-	self assert: aSpaceship position identicalTo: 0
+	self assert: aSpaceship position identicalTo: 1
 ]
 
 { #category : #tests }
@@ -78,7 +78,7 @@ MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovin
 	| aSpaceship|
 	aSpaceship := Spaceship with: 'red'.
 	aSpaceship move: 8 .
-	self assert: aSpaceship position identicalTo: 8
+	self assert: aSpaceship position identicalTo: 9
 ]
 
 { #category : #tests }
@@ -155,7 +155,7 @@ MoveSpaceshipFromTheBoardTest >> testM005MoveSpaceshipTwoEntireLapsInOnlyOneThro
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 22
+			               with: 23
 			               with: 9
 			               with: 7
 			               with: 9).
@@ -186,7 +186,7 @@ MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 	| aLoadedDie aGame |
 	
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 10
+			               with: 9
 			               with: 11
 			               with: 9
 			               with: 6).
@@ -227,7 +227,7 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions  equals: (OrderedCollection with:1 with:1).
+	self assert: aGame positions  equals: (OrderedCollection with:2 with:2).
 	self assert: aGame winner asSymbol equals: 'blue' asSymbol 
 ]
 
@@ -259,5 +259,5 @@ MoveSpaceshipFromTheBoardTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheF
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 9 with: 9)
+		equals: (OrderedCollection with: 4 with: 10)
 ]

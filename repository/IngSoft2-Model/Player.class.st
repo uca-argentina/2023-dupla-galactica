@@ -29,7 +29,7 @@ Player >> effect: aValue [
 				ifFalse: [ 
 					aValue > 0
 						ifTrue: [ self spaceship move: aValue ]
-						ifFalse: [ self spaceship move: spaceship position * -1 ] ] ]
+						ifFalse: [ self spaceship moveTo: 1 ] ] ]
 		ifFalse: [ self spaceship move: aValue ]
 ]
 

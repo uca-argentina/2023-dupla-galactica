@@ -49,7 +49,7 @@ Board >> movePlayer: aDiceCollection [
 { #category : #Information }
 Board >> nextOne [
 
-	^ self players at: turn.
+	^ players at: turn.
 ]
 
 { #category : #Information }
@@ -69,14 +69,13 @@ Board >> passTurn: aDiceCollection [
 
 { #category : #Information }
 Board >> players [
-
 	^ players
 ]
 
 { #category : #ManageTurns }
 Board >> updateTurn [
 
-	turn := turn == self players size
+	turn := turn == players size
 		        ifTrue: [ 1 ]
 		        ifFalse: [ turn + 1 ]
 ]

@@ -33,9 +33,9 @@ CreatingSpaceshipsFromTheGameTest >> setUp [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 
-	aGame := Game
+	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 8
+		         and: 9
 		         throwing: (OrderedCollection with: aLoadedDie)
 		         winningWhen: 1
 		         effects: boxes
@@ -47,5 +47,5 @@ CreatingSpaceshipsFromTheGameTest >> testI001CreatingSpaceshipsFromTheGame [
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 8)
+		equals: (OrderedCollection with: 9)
 ]
