@@ -21,11 +21,6 @@ LoadedGame class >> with: aColorCollection and: aValue throwing: aDiceCollection
 		  effects: aBoxCollection
 ]
 
-{ #category : #Information }
-LoadedGame >> board [
-	^ board
-]
-
 { #category : #Initialization }
 LoadedGame >> createPlayers: aColorsCollection [
 
@@ -34,11 +29,6 @@ LoadedGame >> createPlayers: aColorsCollection [
 	aColorsCollection do: [ :color | 
 		aPlayerCollection addLast: (Player with: (Spaceship with: color)) ].
 	^ aPlayerCollection
-]
-
-{ #category : #Information }
-LoadedGame >> dice [
-	^ dice
 ]
 
 { #category : #Information }
@@ -59,35 +49,30 @@ LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceColle
 { #category : #Information }
 LoadedGame >> laps [
 
-	^ self players collect: [ :player | player lap ]
+	^  players collect: [ :player | player lap ]
 ]
 
 { #category : #Player }
 LoadedGame >> moveNextPlayer [
 
-	self winnerExists ifFalse: [ self board movePlayer: self dice ]
+	self winnerExists ifFalse: [ board movePlayer: dice ]
 ]
 
 { #category : #Player }
 LoadedGame >> nextPlayer [
 
-	^ self board nextOne
+	^ board nextOne color
 ]
 
 { #category : #Information }
 LoadedGame >> parsecs [
-	^ self board parsecs
-]
-
-{ #category : #Information }
-LoadedGame >> players [
-	^ players
+	^ board parsecs
 ]
 
 { #category : #Information }
 LoadedGame >> positions [
 
-	^ self players collect: [ :player | player spaceship position ]
+	^ players collect: [ :player | player spaceship position ]
 ]
 
 { #category : #Finalization }
@@ -95,7 +80,7 @@ LoadedGame >> winner [
 
 	self winnerExists
 		ifTrue: [ 
-			^ (self players detect: [ :player | self winningCondition: player ])
+			^ (players detect: [ :player | self winningCondition: player ])
 				  color ]
 		ifFalse: [ Error signal: 'There is no winner' ]
 ]
@@ -103,7 +88,7 @@ LoadedGame >> winner [
 { #category : #Finalization }
 LoadedGame >> winnerExists [
 
-	^ self players anySatisfy: [ :player | self winningCondition: player ]
+	^ players anySatisfy: [ :player | self winningCondition: player ]
 ]
 
 { #category : #Finalization }

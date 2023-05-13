@@ -38,7 +38,7 @@ CreateDuplaGalacticaGameTest >> setUp [
 	super setUp.
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 9
+			               with: 10
 			               with: 5
 			               with: 7
 			               with: 9).
@@ -50,7 +50,7 @@ CreateDuplaGalacticaGameTest >> testP001VerifyTheCorrectCreationOfTheBoardWithEf
 	
 	aGame := self createGameWithEffects.
 
-	self assert: ((aGame board) boxes) size identicalTo:  10.
+	self assert: (aGame  boxes) size identicalTo:  10.
 ]
 
 { #category : #tests }
@@ -59,5 +59,59 @@ CreateDuplaGalacticaGameTest >> testP002VerifyTheCorrectCreationOfTheBoardWithNo
 	
 	aGame := self createGameWithNoEffects.
 
-	self assert: ((aGame board) boxes) size identicalTo:  10.
+	self assert: (aGame boxes) size identicalTo:  10.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
+	|aGame|	
+	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	self assert: (aGame nextPlayer) asSymbol identicalTo: 'blue' asSymbol.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP004VerifyTheCorrectCreationOfGoalLaps [
+	|aGame|	
+	
+	aGame := self createGameWithEffects.
+	self assert: (aGame goalLaps) identicalTo: 1.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP005VerifyTheLapsOfPlayers [
+	|aGame|	
+	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: (aGame laps) equals: (OrderedCollection with: 1 with: 0).
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP006VerifyThePositionsOfThePlayersAfterMovingThem [
+	|aGame|	
+	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: (aGame positions) equals: (OrderedCollection with: 1 with: 1).
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
+	|aGame|	
+	
+	aGame := self createGameWithEffects.
+	self assert: (aGame parsecs) equals: 100.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP008MovePlayerInARandomGameAndVerifyTheWinner [
+	|aGame|	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	self assert: (aGame winner asSymbol) equals: 'red' asSymbol.
 ]

@@ -22,9 +22,8 @@ DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCo
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> board [
-
-	^ board
+DuplaGalacticaGame >> boxes [
+	^board boxes.
 ]
 
 { #category : #Initialization }
@@ -49,12 +48,6 @@ DuplaGalacticaGame >> createPlayers: aColorsCollection [
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> dice [
-
-	^ dice
-]
-
-{ #category : #Information }
 DuplaGalacticaGame >> goalLaps [
 
 	^ goalLaps
@@ -74,37 +67,31 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aD
 { #category : #Information }
 DuplaGalacticaGame >> laps [
 
-	^ self players collect: [ :player | player lap ]
+	^ players collect: [ :player | player lap ]
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveNextPlayer [
 
-	self winnerExists ifFalse: [ self board movePlayer: self dice ]
+	self winnerExists ifFalse: [ board movePlayer:  dice ]
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> nextPlayer [
 
-	^ self board nextOne
+	^ ( board nextOne) color.
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> parsecs [
 
-	^ self board parsecs
-]
-
-{ #category : #Information }
-DuplaGalacticaGame >> players [
-
-	^ players
+	^  board parsecs
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> positions [
 
-	^ self players collect: [ :player | player spaceship position ]
+	^ players collect: [ :player | player spaceship position ]
 ]
 
 { #category : #Initialization }
@@ -113,23 +100,23 @@ DuplaGalacticaGame >> randomBox [
 	| box aDie aRandomValue |
 	aDie := Die with: 100.
 	aRandomValue := aDie throw.
-	aRandomValue <= 40
-		ifTrue: [ box := NoEffectBox new ]
-		ifFalse: [ 
-			aRandomValue <= 60
-				ifTrue: [ box := WormHoleBox new ]
-				ifFalse: [ 
-					aRandomValue <= 80
-						ifTrue: [ box := SpeedUpBox new ]
-						ifFalse: [ 
-							aRandomValue <= 90
-								ifTrue: [ box := MoonWalkBox with: -2 ]
-								ifFalse: [ 
-									aRandomValue <= 98
-										ifTrue: [ 
-											box := HyperJumpBox with:
-												       (OrderedCollection with: 40 with: 20 with: 10) ]
-										ifFalse: [ box := AtomicBombBox new ] ] ] ] ].
+	box := aRandomValue <= 40
+		       ifTrue: [ NoEffectBox new ]
+		       ifFalse: [ 
+			       aRandomValue <= 60
+				       ifTrue: [ WormHoleBox new ]
+				       ifFalse: [ 
+					       aRandomValue <= 80
+						       ifTrue: [ SpeedUpBox new ]
+						       ifFalse: [ 
+							       aRandomValue <= 90
+								       ifTrue: [ MoonWalkBox with: -2 ]
+								       ifFalse: [ 
+									       aRandomValue <= 98
+										       ifTrue: [ 
+										       HyperJumpBox with:
+											       (OrderedCollection with: 40 with: 20 with: 10) ]
+										       ifFalse: [ AtomicBombBox new ] ] ] ] ].
 
 	^ box
 ]
@@ -139,7 +126,7 @@ DuplaGalacticaGame >> winner [
 
 	self winnerExists
 		ifTrue: [ 
-			^ (self players detect: [ :player | self winningCondition: player ])
+			^ (players detect: [ :player | self winningCondition: player ])
 				  color ]
 		ifFalse: [ Error signal: 'There is no winner' ]
 ]
@@ -147,7 +134,7 @@ DuplaGalacticaGame >> winner [
 { #category : #Finalization }
 DuplaGalacticaGame >> winnerExists [
 
-	^ self players anySatisfy: [ :player | self winningCondition: player ]
+	^ players anySatisfy: [ :player | self winningCondition: player ]
 ]
 
 { #category : #Finalization }

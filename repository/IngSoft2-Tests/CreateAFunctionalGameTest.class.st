@@ -97,7 +97,7 @@ CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
 	self
-		assert: aLoadedGame nextPlayer color asSymbol
+		assert: aLoadedGame nextPlayer asSymbol
 		identicalTo: 'red' asSymbol
 ]
 
