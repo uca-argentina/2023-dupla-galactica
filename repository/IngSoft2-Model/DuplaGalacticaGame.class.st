@@ -28,6 +28,17 @@ DuplaGalacticaGame >> board [
 ]
 
 { #category : #Initialization }
+DuplaGalacticaGame >> createBoxes: aValue with: aFlag [
+	|boxes|
+	boxes:= OrderedCollection new.
+	aFlag == 0 
+		ifTrue: [ 1 to: aValue do: [ :i | boxes addLast: NoEffectBox new ] ]
+		ifFalse: [ 1 to: aValue do: [ :i | boxes addLast: (self randomBox) ] ].
+
+	^boxes
+]
+
+{ #category : #Initialization }
 DuplaGalacticaGame >> createPlayers: aColorsCollection [
 
 	| aPlayerCollection |
@@ -50,10 +61,11 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [ 
-	| aPlayerCollection |
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aFlag [
+	| aPlayerCollection aBoxesCollection|
 	aPlayerCollection := (self createPlayers: aColorsCollection).
-	board := Board with: aValue and: aPlayerCollection effects: aBoxCollection.
+	aBoxesCollection := (self createBoxes: aValue with: aFlag).
+	board:= Board with: aValue and: aPlayerCollection effects: aBoxesCollection.
 	players := aPlayerCollection.
 	dice := aDiceCollection.
 	goalLaps := laps.
@@ -93,6 +105,33 @@ DuplaGalacticaGame >> players [
 DuplaGalacticaGame >> positions [
 
 	^ self players collect: [ :player | player spaceship position ]
+]
+
+{ #category : #Initialization }
+DuplaGalacticaGame >> randomBox [
+
+	| box aDie aRandomValue |
+	aDie := Die with: 100.
+	aRandomValue := aDie throw.
+	aRandomValue <= 40
+		ifTrue: [ box := NoEffectBox new ]
+		ifFalse: [ 
+			aRandomValue <= 60
+				ifTrue: [ box := WormHoleBox new ]
+				ifFalse: [ 
+					aRandomValue <= 80
+						ifTrue: [ box := SpeedUpBox new ]
+						ifFalse: [ 
+							aRandomValue <= 90
+								ifTrue: [ box := MoonWalkBox with: -2 ]
+								ifFalse: [ 
+									aRandomValue <= 98
+										ifTrue: [ 
+											box := HyperJumpBox with:
+												       (OrderedCollection with: 40 with: 20 with: 10) ]
+										ifFalse: [ box := AtomicBombBox new ] ] ] ] ].
+
+	^ box
 ]
 
 { #category : #Finalization }
