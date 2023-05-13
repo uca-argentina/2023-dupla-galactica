@@ -181,3 +181,12 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
 	aGame moveNextPlayer.
 	self should: [ aGame winner ] raise: Error withMessage: 'There is no winner'.
 ]
+
+{ #category : #tests }
+CreateAFunctionalGameTest >> testP010VerifyRankingAtLoadedGame [
+	| aGame |
+	aGame:= self gameWithTwoLoadedDie.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: aGame ranking equals: (OrderedCollection with: 'blue' with: 'red').
+]
