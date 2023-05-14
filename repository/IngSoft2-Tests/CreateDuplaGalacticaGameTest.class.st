@@ -83,14 +83,6 @@ CreateDuplaGalacticaGameTest >> testP011CreateHyperJumpRandomly [
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP012CreateMoonWalkRandomly [
-	|aGame aMoonWalkBox|	
-	aGame := self createGameWithEffects.
-	aMoonWalkBox:= (aGame createMoonWalkRandom: 10). 
-	self assert: ((aMoonWalkBox effectValue) abs) <=10.
-]
-
-{ #category : #tests }
 CreateDuplaGalacticaGameTest >> testP013VerifyTheCorrectUseOfRankingInRandomGame [
 
 	| aGame |

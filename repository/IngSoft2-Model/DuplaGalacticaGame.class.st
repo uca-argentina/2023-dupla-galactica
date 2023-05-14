@@ -34,17 +34,10 @@ DuplaGalacticaGame >> createBoxes: aValue measure: aParsecs [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> createMoonWalkRandom: aValue [
-
-	^ (MoonWalkBox with: aValue atRandom * -1)
-]
-
-{ #category : #Initialization }
 DuplaGalacticaGame >> createRandomHyperJump: aValue with: parsecs [ 
-	|randomValue1 randomValue2 values|
+	|values|
 	values:= OrderedCollection new.
-	randomValue1 := aValue atRandom.
-	1 to: randomValue1 do:[:i | (2 atRandom)==1 ifTrue:[values addLast: (parsecs atRandom)] ifFalse:[values addLast: ((parsecs atRandom)*(-1))]].
+	1 to: (aValue atRandom) do: [:i | (2 atRandom)==1 ifTrue:[values addLast: (parsecs atRandom)] ifFalse:[values addLast: ((parsecs atRandom)*(-1))]].
 	^ (HyperJumpBox with: values).
 ]
 
@@ -57,10 +50,8 @@ DuplaGalacticaGame >> goalLaps [
 { #category : #Initialization }
 DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
 
-	| aBoxesCollection |
 	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color) ].
-	aBoxesCollection := self createBoxes: aValue measure: 100.
-	board := Board with: aValue and: players effects: aBoxesCollection.
+	board := Board with: aValue and: players effects: (self createBoxes: aValue measure: 100).
 	dice := aDiceCollection.
 	goalLaps := laps
 ]
@@ -110,7 +101,7 @@ DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 						       ifTrue: [ SpeedUpBox new ]
 						       ifFalse: [ 
 							       aRandomValue <= 90
-								       ifTrue: [ self createMoonWalkRandom: aValue ]
+								       ifTrue: [ MoonWalkBox with: (aValue atRandom * -1) ]
 								       ifFalse: [ 
 									       aRandomValue <= 98
 										       ifTrue: [ 
