@@ -20,8 +20,7 @@ CreateBoxesTest >> gameWith: aSecondLoadedDie [
 		         with: aColorCollection
 		         and: 10
 		         throwing: aLoadedDiceCollection
-		         winningWhen: 1
-		         effects: boxes.
+		         winningWhen: 1.
 
 	^ aGame
 ]
@@ -31,11 +30,6 @@ CreateBoxesTest >> setUp [
 	super setUp.
 	
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: -2) with:(HyperJumpBox with: (OrderedCollection with: 40 with:20))).
-	boxes addLast: (AtomicBombBox new).
-	boxes addLast:(NoEffectBox new).
-	boxes addLast:(NoEffectBox new).
-	boxes addLast: (NoEffectBox new).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 0
 			               with: 0
@@ -48,7 +42,7 @@ CreateBoxesTest >> testN001NoEffectBox [
 
 	| aGame |
 	aGame := self gameWith: (LoadedDie with: (OrderedCollection
-				           with: 7
+				           with: 6
 				           with: 8
 				           with: 5
 				           with: 8)).
@@ -56,7 +50,7 @@ CreateBoxesTest >> testN001NoEffectBox [
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 8 with: 9)
+		equals: (OrderedCollection with: 7 with: 9)
 ]
 
 { #category : #tests }
@@ -64,13 +58,13 @@ CreateBoxesTest >> testN002WormHoleBox [
 
 	| aGame |
 	aGame := self gameWith: (LoadedDie with: (OrderedCollection
-				           with: 7
+				           with: 6
 				           with: 2
 				           with: 5
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 8 with: 1).
+	self assert: aGame positions equals: (OrderedCollection with: 7 with: 1).
 ]
 
 { #category : #tests }
@@ -78,13 +72,13 @@ CreateBoxesTest >> testN003SpeedUpBox [
 
 	| aGame |
 	aGame := self gameWith: (LoadedDie with: (OrderedCollection
-				           with: 7
+				           with: 6
 				           with: 1
 				           with: 5
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 8 with: 6).
+	self assert: aGame positions equals: (OrderedCollection with: 7 with: 6).
 ]
 
 { #category : #tests }
@@ -93,13 +87,13 @@ CreateBoxesTest >> testN004MoonWalkBox [
 	
 	| aGame |
 	aGame := self gameWith: (LoadedDie with: (OrderedCollection
-				           with: 7
+				           with: 6
 				           with: 4
 				           with: 5
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 6 with: 5).
+	self assert: aGame positions equals: (OrderedCollection with: 5 with: 5).
 ]
 
 { #category : #tests }
@@ -108,8 +102,8 @@ CreateBoxesTest >> testN005AtomicBombBox [
 	
 	| aGame |
 	aGame := self gameWith: (LoadedDie with: (OrderedCollection
-				           with: 7
 				           with: 6
+				           with: 7
 				           with: 5
 				           with: 8)).
 	aGame moveNextPlayer.

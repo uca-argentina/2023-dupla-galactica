@@ -21,24 +21,12 @@ CreatingSpaceshipsFromTheGameTest >> setUp [
 			               with: 5
 			               with: 7
 			               with: 9).
-	boxes := OrderedCollection
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
 
 	aGame := LoadedGame
 		         with: aColorCollection
 		         and: 9
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
-		         effects: boxes
+		         winningWhen: 1.
 ]
 
 { #category : #tests }

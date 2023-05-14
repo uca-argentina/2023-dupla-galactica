@@ -11,14 +11,13 @@ Class {
 }
 
 { #category : #'instance creation' }
-DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [
+DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
 
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aValue
 		  throwing: aDiceCollection
 		  winningWhen: laps
-		  effects: aBoxCollection
 ]
 
 { #category : #Information }
@@ -27,13 +26,10 @@ DuplaGalacticaGame >> boxes [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> createBoxes: aValue with: aFlag measure: aParsecs [ 
+DuplaGalacticaGame >> createBoxes: aValue measure: aParsecs [ 
 	|boxes|
 	boxes:= OrderedCollection new.
-	aFlag == 0 
-		ifTrue: [ 1 to: aValue do: [ :i | boxes addLast: NoEffectBox new ] ]
-		ifFalse: [ 1 to: aValue do: [ :i | boxes addLast: (self randomBox: aValue measure: aParsecs) ] ].
-
+	1 to: aValue do: [ :i | boxes addLast: (self randomBox: aValue measure: aParsecs) ].
 	^boxes
 ]
 
@@ -69,10 +65,10 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aFlag [
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
 	| aPlayerCollection aBoxesCollection|
 	aPlayerCollection := (self createPlayers: aColorsCollection).
-	aBoxesCollection := (self createBoxes: aValue with: aFlag measure: 100).
+	aBoxesCollection := (self createBoxes: aValue measure: 100).
 	board:= Board with: aValue and: aPlayerCollection effects: aBoxesCollection.
 	players := aPlayerCollection.
 	dice := aDiceCollection.

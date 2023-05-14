@@ -9,66 +9,42 @@ Class {
 
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithLoadedDie [
-| aLoadedGame aLoadedDie boxesCollection |
+| aLoadedGame aLoadedDie |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 5
 			               with: 7
 			               with: 9).
-	boxesCollection := OrderedCollection
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new
-		                   with: NoEffectBox new.
-	boxesCollection addLast: NoEffectBox new.
-	boxesCollection addLast: NoEffectBox new.
-	boxesCollection addLast: NoEffectBox new.
-	boxesCollection addLast: NoEffectBox new.
 	aLoadedGame := LoadedGame
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
-		         effects: boxesCollection.
+		         winningWhen: 1.
 	^ aLoadedGame
 ]
 
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 
-	| aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame aBoxesCollection |
+	| aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
-			               with: 7
+			               with: 1
 			               with: 9).
 	aSecondLoadedDie := LoadedDie with: (OrderedCollection
 			                     with: 5
 			                     with: 7
-			                     with: 5
+			                     with: 0
 			                     with: 8).
 	aLoadedDiceCollection := OrderedCollection
 		                         with: aLoadedDie
 		                         with: aSecondLoadedDie.
-	aBoxesCollection := OrderedCollection
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
 	aGame := LoadedGame
 		         with: aColorCollection
 		         and: 10
 		         throwing: aLoadedDiceCollection
-		         winningWhen: 1
-		         effects: aBoxesCollection.
+		         winningWhen: 2.
 	^ aGame
 ]
 
@@ -133,7 +109,7 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 7 with: 6)
+		equals: (OrderedCollection with: 7 with: 10)
 ]
 
 { #category : #tests }
@@ -157,7 +133,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 		
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 10 with: 3)
+		equals: (OrderedCollection with: 10 with: 9)
 ]
 
 { #category : #tests }
@@ -171,7 +147,7 @@ CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
 
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 10 with: 3)
+		equals: (OrderedCollection with: 1 with: 9)
 ]
 
 { #category : #tests }
@@ -186,6 +162,8 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
 CreateAFunctionalGameTest >> testP010VerifyRankingAtLoadedGame [
 	| aGame |
 	aGame:= self gameWithTwoLoadedDie.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	self assert: aGame ranking equals: (OrderedCollection with: 'blue' with: 'red').
