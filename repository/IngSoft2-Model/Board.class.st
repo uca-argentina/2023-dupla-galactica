@@ -63,7 +63,7 @@ Board >> passTurn: aDiceCollection [
 
 	self nextOne move: aDiceCollection.
 	self nextOne updateLap: self length.
-	(self boxes at: self nextOne position) effect: self.
+	(self boxes at: (self nextOne spaceship position)) effect: self.
 	self nextOne updateLap: self length.
 ]
 

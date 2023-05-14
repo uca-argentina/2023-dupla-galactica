@@ -116,8 +116,8 @@ DuplaGalacticaGame >> ranking [
 	ranking := OrderedCollection new.
 	players do: [ :player | ranking addLast: player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position + (player1 lap * self boxes size)
-		> (player2 position + (player2 lap * self boxes size)) ].
+		(player1 spaceship position) + (player1 lap * self boxes size)
+		> ((player2 spaceship position) + (player2 lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
 ]
 

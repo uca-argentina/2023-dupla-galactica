@@ -59,12 +59,6 @@ Player >> moveToTheBeginning [
 ]
 
 { #category : #Information }
-Player >> position [
-
-	^ self spaceship position
-]
-
-{ #category : #Information }
 Player >> spaceship [
 
 	^ spaceship
@@ -80,7 +74,7 @@ Player >> throwDice: aDiceCollection [
 Player >> updateLap: aLength [
 
 	| entireLaps position |
-	position := self position.
+	position := self spaceship position.
 	entireLaps := position // aLength.
 	position > aLength
 		ifTrue: [ 
@@ -88,9 +82,9 @@ Player >> updateLap: aLength [
 			self spaceship moveTo: position.
 			lap := lap + entireLaps ]
 		ifFalse: [ 
-			self position < 0 ifTrue: [ 
-				entireLaps := self position abs // aLength + 1.
+			self spaceship position < 0 ifTrue: [ 
+				entireLaps := (self spaceship position) abs // aLength + 1.
 				lap := lap - entireLaps.
-				position := aLength - self position abs.
+				position := aLength - (self spaceship position) abs.
 				self spaceship moveTo: position ] ]
 ]
