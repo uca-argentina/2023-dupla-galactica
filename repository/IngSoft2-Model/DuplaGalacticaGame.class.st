@@ -98,9 +98,9 @@ DuplaGalacticaGame >> positions [
 { #category : #Initialization }
 DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 
-	| box aRandomValue |
+	| aRandomValue |
 	aRandomValue := 100 atRandom.
-	box := aRandomValue <= 40
+	^ (aRandomValue <= 40
 		       ifTrue: [ NoEffectBox new ]
 		       ifFalse: [ 
 			       aRandomValue <= 60
@@ -115,9 +115,7 @@ DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 									       aRandomValue <= 98
 										       ifTrue: [ 
 										       self createRandomHyperJump: aValue with: parsecs ]
-										       ifFalse: [ AtomicBombBox new ] ] ] ] ].
-
-	^ box
+										       ifFalse: [ AtomicBombBox new ] ] ] ] ]).
 ]
 
 { #category : #Finalization }
