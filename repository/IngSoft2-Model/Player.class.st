@@ -22,14 +22,9 @@ Player >> color [
 { #category : #LapControl }
 Player >> effect: aValue [
 
-	self lap == 0
-		ifTrue: [ 
-			aValue abs < self spaceship position
-				ifTrue: [ self spaceship move: aValue ]
-				ifFalse: [ 
-					aValue > 0
-						ifTrue: [ self spaceship move: aValue ]
-						ifFalse: [ self spaceship moveTo: 1 ] ] ]
+	(self lap == 0 and:
+		 (aValue < 0 and: aValue abs > self spaceship position))
+		ifTrue: [ self moveToTheBeginning ]
 		ifFalse: [ self spaceship move: aValue ]
 ]
 
