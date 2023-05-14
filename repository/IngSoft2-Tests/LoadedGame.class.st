@@ -21,6 +21,11 @@ LoadedGame class >> with: aColorCollection and: aValue throwing: aDiceCollection
 		  effects: aBoxCollection
 ]
 
+{ #category : #Information }
+LoadedGame >> boxes [
+	^(board boxes).
+]
+
 { #category : #Initialization }
 LoadedGame >> createPlayers: aColorsCollection [
 
@@ -73,6 +78,17 @@ LoadedGame >> parsecs [
 LoadedGame >> positions [
 
 	^ players collect: [ :player | player spaceship position ]
+]
+
+{ #category : #Finalization }
+LoadedGame >> ranking [
+	| ranking |
+	ranking := OrderedCollection new.
+	players do: [ :player | ranking addLast: player ].
+	ranking sort: [ :player1 :player2 | 
+		player1 position + (player1 lap * self boxes size)
+		> (player2 position + (player2 lap * self boxes size)) ].
+	^ ranking collect: [ :player | player color ].
 ]
 
 { #category : #Finalization }

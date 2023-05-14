@@ -38,8 +38,8 @@ CreateDuplaGalacticaGameTest >> setUp [
 	super setUp.
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 9
 			               with: 10
-			               with: 5
 			               with: 7
 			               with: 9).
 ]
@@ -87,7 +87,7 @@ CreateDuplaGalacticaGameTest >> testP005VerifyTheLapsOfPlayers [
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: (aGame laps) equals: (OrderedCollection with: 1 with: 0).
+	self assert: (aGame laps) equals: (OrderedCollection with: 0 with: 1).
 ]
 
 { #category : #tests }
@@ -97,7 +97,7 @@ CreateDuplaGalacticaGameTest >> testP006VerifyThePositionsOfThePlayersAfterMovin
 	aGame := self createGameWithNoEffects.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: (aGame positions) equals: (OrderedCollection with: 1 with: 1).
+	self assert: (aGame positions) equals: (OrderedCollection with: 10 with: 1).
 ]
 
 { #category : #tests }
@@ -113,5 +113,35 @@ CreateDuplaGalacticaGameTest >> testP008MovePlayerInARandomGameAndVerifyTheWinne
 	|aGame|	
 	aGame := self createGameWithNoEffects.
 	aGame moveNextPlayer.
-	self assert: (aGame winner asSymbol) equals: 'red' asSymbol.
+	aGame moveNextPlayer.
+	self assert: (aGame winner asSymbol) equals: 'blue' asSymbol.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP009MovePlayersAndAskForRanking [
+	|aGame|	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self assert: (aGame ranking ) equals: (OrderedCollection with: 'blue' with: 'red').
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP011CreateHyperJumpRandomly [
+	|aGame anHyperJumpBox|	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	anHyperJumpBox:= (aGame createRandomHyperJump: 10 with: 100). 
+	self assert: (anHyperJumpBox parsecs size) <= 10.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP012CreateMoonWalkRandomly [
+	|aGame aMoonWalkBox|	
+	aGame := self createGameWithNoEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aMoonWalkBox:= (aGame createMoonWalkRandom: 10). 
+	self assert: ((aMoonWalkBox effectValue) abs) <=10.
 ]

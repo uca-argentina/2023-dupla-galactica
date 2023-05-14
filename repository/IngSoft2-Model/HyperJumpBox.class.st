@@ -29,6 +29,11 @@ HyperJumpBox >> initializeWith: aParsecsCollection [
 	nextParsec:= 1.
 ]
 
+{ #category : #Information }
+HyperJumpBox >> parsecs [
+	^ parsecs
+]
+
 { #category : #Effect }
 HyperJumpBox >> updateParsec [
 
