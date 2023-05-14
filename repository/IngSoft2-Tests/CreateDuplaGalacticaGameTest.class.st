@@ -32,6 +32,15 @@ CreateDuplaGalacticaGameTest >> setUp [
 ]
 
 { #category : #tests }
+CreateDuplaGalacticaGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+	self
+		should: anErrorBlock
+		raise: anExceptionClass 
+		withExceptionDo: [ :error|
+			self assert: error messageText equals: anErrorMessage ].
+]
+
+{ #category : #tests }
 CreateDuplaGalacticaGameTest >> testP001VerifyTheCorrectCreationOfTheBoardWithEffectsLength [
 	|aGame|	
 	
@@ -87,4 +96,28 @@ CreateDuplaGalacticaGameTest >> testP013VerifyTheCorrectUseOfRankingInRandomGame
 	| aGame |
 	aGame := self createGameWithEffects.
 	self assert: aGame ranking size identicalTo: 2
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP014VerifyTheCorrectUseOfLaps [
+
+	| aGame |
+	aGame := self createGameWithEffects.
+	self assert: aGame laps size identicalTo: 2
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP015VerifyTheCorrectUseOfPositions [
+
+	| aGame |
+	aGame := self createGameWithEffects.
+	self assert: aGame positions size identicalTo: 2
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP016VerifyTheCorrectUseOfWinner [
+
+	| aGame |
+	aGame := self createGameWithEffects.
+	self should: [ aGame winner ] raise: Error withMessage: 'There is no winner'.
 ]
