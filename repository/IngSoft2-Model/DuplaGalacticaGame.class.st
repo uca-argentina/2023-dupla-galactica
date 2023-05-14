@@ -42,11 +42,9 @@ DuplaGalacticaGame >> createMoonWalkRandom: aValue [
 { #category : #Initialization }
 DuplaGalacticaGame >> createPlayers: aColorsCollection [
 
-	| aPlayerCollection |
-	aPlayerCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | 
-		aPlayerCollection addLast: (Player with: (Spaceship with: color)) ].
-	^ aPlayerCollection
+	^aColorsCollection collect: [ :color | 
+		Player with: (Spaceship with: color)].
+	
 ]
 
 { #category : #Initialization }

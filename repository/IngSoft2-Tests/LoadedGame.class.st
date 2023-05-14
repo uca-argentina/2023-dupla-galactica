@@ -27,12 +27,8 @@ LoadedGame >> boxes [
 
 { #category : #Initialization }
 LoadedGame >> createPlayers: aColorsCollection [
-
-	| aPlayerCollection |
-	aPlayerCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | 
-		aPlayerCollection addLast: (Player with: (Spaceship with: color)) ].
-	^ aPlayerCollection
+	^aColorsCollection collect: [ :color | Player with: (Spaceship with: color)].
+	
 ]
 
 { #category : #Information }
