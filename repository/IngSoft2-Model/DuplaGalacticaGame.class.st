@@ -40,14 +40,6 @@ DuplaGalacticaGame >> createMoonWalkRandom: aValue [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> createPlayers: aColorsCollection [
-
-	^aColorsCollection collect: [ :color | 
-		Player with: (Spaceship with: color)].
-	
-]
-
-{ #category : #Initialization }
 DuplaGalacticaGame >> createRandomHyperJump: aValue with: parsecs [ 
 	|randomValue1 randomValue2 values|
 	values:= OrderedCollection new.
@@ -64,13 +56,13 @@ DuplaGalacticaGame >> goalLaps [
 
 { #category : #Initialization }
 DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
-	| aPlayerCollection aBoxesCollection|
-	aPlayerCollection := (self createPlayers: aColorsCollection).
-	aBoxesCollection := (self createBoxes: aValue measure: 100).
-	board:= Board with: aValue and: aPlayerCollection effects: aBoxesCollection.
-	players := aPlayerCollection.
+
+	| aBoxesCollection |
+	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color) ].
+	aBoxesCollection := self createBoxes: aValue measure: 100.
+	board := Board with: aValue and: players effects: aBoxesCollection.
 	dice := aDiceCollection.
-	goalLaps := laps.
+	goalLaps := laps
 ]
 
 { #category : #Information }

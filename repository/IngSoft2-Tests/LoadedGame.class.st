@@ -25,12 +25,6 @@ LoadedGame >> boxes [
 	^(board boxes).
 ]
 
-{ #category : #Initialization }
-LoadedGame >> createPlayers: aColorsCollection [
-	^aColorsCollection collect: [ :color | Player with: (Spaceship with: color)].
-	
-]
-
 { #category : #Information }
 LoadedGame >> goalLaps [
 	^ goalLaps
@@ -38,15 +32,14 @@ LoadedGame >> goalLaps [
 
 { #category : #Initialization }
 LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
-	| aPlayerCollection boxes|
+	| boxes|
 	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: -2) with:(HyperJumpBox with: (OrderedCollection with: 40 with:20))).
 	boxes addLast: (NoEffectBox new).
 	boxes addLast:(AtomicBombBox new).
 	boxes addLast:(NoEffectBox new).
 	boxes addLast: (NoEffectBox new).
-	aPlayerCollection := (self createPlayers: aColorsCollection).
-	board := Board with: aValue and: aPlayerCollection effects: boxes.
-	players := aPlayerCollection.
+	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color)].
+	board := Board with: aValue and: players effects: boxes.
 	dice := aDiceCollection.
 	goalLaps := laps.
 ]
