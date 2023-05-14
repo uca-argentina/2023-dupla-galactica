@@ -113,3 +113,31 @@ CreateDuplaGalacticaGameTest >> testP016VerifyTheCorrectUseOfWinner [
 	aGame := self createGameWithEffects.
 	self should: [ aGame winner ] raise: Error withMessage: 'There is no winner'.
 ]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColorHasBennPass [
+
+	self
+		should: [ 
+			DuplaGalacticaGame
+				with: OrderedCollection new
+				and: 10
+				throwing: (OrderedCollection with: aLoadedDie)
+				winningWhen: 1 ]
+		raise: Error
+		withMessage: 'Cannot create a game with no players'
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoalLapsAreInvalid [
+
+	self
+		should: [ 
+			DuplaGalacticaGame
+				with: aColorCollection
+				and: 10
+				throwing: (OrderedCollection with: aLoadedDie)
+				winningWhen: -1 ]
+		raise: Error
+		withMessage: 'Cannot create a game with that goal laps'
+]

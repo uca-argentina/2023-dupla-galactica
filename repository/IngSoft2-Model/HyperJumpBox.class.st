@@ -9,18 +9,16 @@ Class {
 }
 
 { #category : #'instance creation' }
-HyperJumpBox class >> with: aParsecsCollection [ 
+HyperJumpBox class >> with: aParsecsCollection [
 	^(self new) initializeWith: aParsecsCollection.
 ]
 
 { #category : #Effect }
 HyperJumpBox >> effect: aBoard [
 
-	| position |
-	position := (parsecs at: nextParsec)
-	            // (aBoard parsecs // aBoard length).
 	self updateParsec.
-	aBoard nextOne effect: position
+	aBoard nextOne effect:
+		(parsecs at: nextParsec) // (aBoard parsecs // aBoard length)
 ]
 
 { #category : #Initialization }
