@@ -49,7 +49,7 @@ Player >> lap [
 { #category : #LapControl }
 Player >> move: aDiceCollection [
 
-	self spaceship move: (self throwDice: aDiceCollection)
+	self spaceship move: (aDiceCollection sumNumbers: [ :die | die throw ]).
 ]
 
 { #category : #LapControl }
@@ -62,12 +62,6 @@ Player >> moveToTheBeginning [
 Player >> spaceship [
 
 	^ spaceship
-]
-
-{ #category : #LapControl }
-Player >> throwDice: aDiceCollection [
-
-	^ aDiceCollection sumNumbers: [ :die | die throw ]
 ]
 
 { #category : #LapControl }
