@@ -10,6 +10,7 @@ Class {
 
 { #category : #'instance creation' }
 HyperJumpBox class >> with: aParsecsCollection [
+	aParsecsCollection sort: [:a :b | a>b].
 	^(self new) initializeWith: aParsecsCollection.
 ]
 
