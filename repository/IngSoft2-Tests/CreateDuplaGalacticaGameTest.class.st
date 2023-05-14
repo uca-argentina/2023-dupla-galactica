@@ -16,20 +16,7 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
-					effects: 1.
-	^aGame.
-]
-
-{ #category : #Games }
-CreateDuplaGalacticaGameTest >> createGameWithNoEffects [
-	|aGame|
-	aGame := DuplaGalacticaGame 
-		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
-					effects: 0.
+		         winningWhen: 1.
 	^aGame.
 ]
 
@@ -45,6 +32,15 @@ CreateDuplaGalacticaGameTest >> setUp [
 ]
 
 { #category : #tests }
+CreateDuplaGalacticaGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+	self
+		should: anErrorBlock
+		raise: anExceptionClass 
+		withExceptionDo: [ :error|
+			self assert: error messageText equals: anErrorMessage ].
+]
+
+{ #category : #tests }
 CreateDuplaGalacticaGameTest >> testP001VerifyTheCorrectCreationOfTheBoardWithEffectsLength [
 	|aGame|	
 	
@@ -54,19 +50,10 @@ CreateDuplaGalacticaGameTest >> testP001VerifyTheCorrectCreationOfTheBoardWithEf
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP002VerifyTheCorrectCreationOfTheBoardWithNoEffectsLength [
-	|aGame|	
-	
-	aGame := self createGameWithNoEffects.
-
-	self assert: (aGame boxes) size identicalTo:  10.
-]
-
-{ #category : #tests }
 CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
 	|aGame|	
 	
-	aGame := self createGameWithNoEffects.
+	aGame := self createGameWithEffects.
 	aGame moveNextPlayer.
 	self assert: (aGame nextPlayer) asSymbol identicalTo: 'blue' asSymbol.
 ]
@@ -80,27 +67,6 @@ CreateDuplaGalacticaGameTest >> testP004VerifyTheCorrectCreationOfGoalLaps [
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP005VerifyTheLapsOfPlayers [
-	|aGame|	
-	
-	aGame := self createGameWithNoEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: (aGame laps) equals: (OrderedCollection with: 0 with: 1).
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP006VerifyThePositionsOfThePlayersAfterMovingThem [
-	|aGame|	
-	
-	aGame := self createGameWithNoEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: (aGame positions) equals: (OrderedCollection with: 10 with: 1).
-]
-
-{ #category : #tests }
 CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
 	|aGame|	
 	
@@ -109,39 +75,69 @@ CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP008MovePlayerInARandomGameAndVerifyTheWinner [
-	|aGame|	
-	aGame := self createGameWithNoEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: (aGame winner asSymbol) equals: 'blue' asSymbol.
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP009MovePlayersAndAskForRanking [
-	|aGame|	
-	aGame := self createGameWithNoEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: (aGame ranking ) equals: (OrderedCollection with: 'blue' with: 'red').
-]
-
-{ #category : #tests }
 CreateDuplaGalacticaGameTest >> testP011CreateHyperJumpRandomly [
 	|aGame anHyperJumpBox|	
-	aGame := self createGameWithNoEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame := self createGameWithEffects.
 	anHyperJumpBox:= (aGame createRandomHyperJump: 10 with: 100). 
 	self assert: (anHyperJumpBox parsecs size) <= 10.
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP012CreateMoonWalkRandomly [
-	|aGame aMoonWalkBox|	
-	aGame := self createGameWithNoEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aMoonWalkBox:= (aGame createMoonWalkRandom: 10). 
-	self assert: ((aMoonWalkBox effectValue) abs) <=10.
+CreateDuplaGalacticaGameTest >> testP013VerifyTheCorrectUseOfRankingInRandomGame [
+
+	| aGame |
+	aGame := self createGameWithEffects.
+	self assert: aGame ranking size identicalTo: 2
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP014VerifyTheCorrectUseOfLaps [
+
+	| aGame |
+	aGame := self createGameWithEffects.
+	self assert: aGame laps size identicalTo: 2
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP015VerifyTheCorrectUseOfPositions [
+
+	| aGame |
+	aGame := self createGameWithEffects.
+	self assert: aGame positions size identicalTo: 2
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP016VerifyTheCorrectUseOfWinner [
+
+	| aGame |
+	aGame := self createGameWithEffects.
+	self should: [ aGame winner ] raise: Error withMessage: 'There is no winner'.
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColorHasBennPass [
+
+	self
+		should: [ 
+			DuplaGalacticaGame
+				with: OrderedCollection new
+				and: 10
+				throwing: (OrderedCollection with: aLoadedDie)
+				winningWhen: 1 ]
+		raise: Error
+		withMessage: 'Cannot create a game with no players'
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoalLapsAreInvalid [
+
+	self
+		should: [ 
+			DuplaGalacticaGame
+				with: aColorCollection
+				and: 10
+				throwing: (OrderedCollection with: aLoadedDie)
+				winningWhen: -1 ]
+		raise: Error
+		withMessage: 'Cannot create a game with that goal laps'
 ]

@@ -16,18 +16,6 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aBoxesCollection := OrderedCollection
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: WormHoleBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	
 	aLoadedDie:= LoadedDie with: (OrderedCollection with: 1 with:2 with:3).
 
 	aGame := LoadedGame
@@ -35,7 +23,6 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
 		         winningWhen: 1
-		         effects: aBoxesCollection
 ]
 
 { #category : #tests }

@@ -11,14 +11,14 @@ Class {
 }
 
 { #category : #'instance creation' }
-DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [
-
+DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+	(aColorCollection size <= 0) ifTrue:[Error signal: 'Cannot create a game with no players'].
+	(laps <= 0) ifTrue:[Error signal: 'Cannot create a game with that goal laps'].
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aValue
 		  throwing: aDiceCollection
 		  winningWhen: laps
-		  effects: aBoxCollection
 ]
 
 { #category : #Information }
@@ -27,38 +27,18 @@ DuplaGalacticaGame >> boxes [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> createBoxes: aValue with: aFlag measure: aParsecs [ 
+DuplaGalacticaGame >> createBoxes: aValue measure: aParsecs [ 
 	|boxes|
 	boxes:= OrderedCollection new.
-	aFlag == 0 
-		ifTrue: [ 1 to: aValue do: [ :i | boxes addLast: NoEffectBox new ] ]
-		ifFalse: [ 1 to: aValue do: [ :i | boxes addLast: (self randomBox: aValue measure: aParsecs) ] ].
-
+	1 to: aValue do: [ :i | boxes addLast: (self randomBox: aValue measure: aParsecs) ].
 	^boxes
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> createMoonWalkRandom: aValue [
-
-	^ (MoonWalkBox with: aValue atRandom * -1)
-]
-
-{ #category : #Initialization }
-DuplaGalacticaGame >> createPlayers: aColorsCollection [
-
-	| aPlayerCollection |
-	aPlayerCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | 
-		aPlayerCollection addLast: (Player with: (Spaceship with: color)) ].
-	^ aPlayerCollection
-]
-
-{ #category : #Initialization }
 DuplaGalacticaGame >> createRandomHyperJump: aValue with: parsecs [ 
-	|randomValue1 randomValue2 values|
+	|values|
 	values:= OrderedCollection new.
-	randomValue1 := aValue atRandom.
-	1 to: randomValue1 do:[:i | (2 atRandom)==1 ifTrue:[values addLast: (parsecs atRandom)] ifFalse:[values addLast: ((parsecs atRandom)*(-1))]].
+	1 to: (aValue atRandom) do: [:i | (2 atRandom)==1 ifTrue:[values addLast: (parsecs atRandom)] ifFalse:[values addLast: ((parsecs atRandom)*(-1))]].
 	^ (HyperJumpBox with: values).
 ]
 
@@ -69,14 +49,11 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aFlag [
-	| aPlayerCollection aBoxesCollection|
-	aPlayerCollection := (self createPlayers: aColorsCollection).
-	aBoxesCollection := (self createBoxes: aValue with: aFlag measure: 100).
-	board:= Board with: aValue and: aPlayerCollection effects: aBoxesCollection.
-	players := aPlayerCollection.
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color) ].
+	board := Board with: aValue and: players effects: (self createBoxes: aValue measure: 100).
 	dice := aDiceCollection.
-	goalLaps := laps.
+	goalLaps := laps
 ]
 
 { #category : #Information }
@@ -112,9 +89,9 @@ DuplaGalacticaGame >> positions [
 { #category : #Initialization }
 DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 
-	| box aRandomValue |
+	| aRandomValue |
 	aRandomValue := 100 atRandom.
-	box := aRandomValue <= 40
+	^ (aRandomValue <= 40
 		       ifTrue: [ NoEffectBox new ]
 		       ifFalse: [ 
 			       aRandomValue <= 60
@@ -124,14 +101,12 @@ DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 						       ifTrue: [ SpeedUpBox new ]
 						       ifFalse: [ 
 							       aRandomValue <= 90
-								       ifTrue: [ self createMoonWalkRandom: aValue ]
+								       ifTrue: [ MoonWalkBox with: (aValue atRandom * -1) ]
 								       ifFalse: [ 
 									       aRandomValue <= 98
 										       ifTrue: [ 
 										       self createRandomHyperJump: aValue with: parsecs ]
-										       ifFalse: [ AtomicBombBox new ] ] ] ] ].
-
-	^ box
+										       ifFalse: [ AtomicBombBox new ] ] ] ] ]).
 ]
 
 { #category : #Finalization }
@@ -141,8 +116,8 @@ DuplaGalacticaGame >> ranking [
 	ranking := OrderedCollection new.
 	players do: [ :player | ranking addLast: player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position + (player1 lap * self boxes size)
-		> (player2 position + (player2 lap * self boxes size)) ].
+		(player1 spaceship position) + (player1 lap * self boxes size)
+		> ((player2 spaceship position) + (player2 lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
 ]
 

@@ -16,8 +16,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
-		         effects: aBoxesCollection.
+		         winningWhen: 1.
 
 	^ aGame
 ]
@@ -30,9 +29,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 2
-		         effects: aBoxesCollection.
-
+		         winningWhen: 2.
 	^ aGame
 ]
 
@@ -42,17 +39,6 @@ MoveSpaceshipFromTheBoardTest >> setUp [
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aBoxesCollection := OrderedCollection
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: WormHoleBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new
-		                    with: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new.
-	aBoxesCollection addLast: NoEffectBox new
 ]
 
 { #category : #tests }
@@ -227,7 +213,7 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions  equals: (OrderedCollection with:2 with:2).
+	self assert: aGame positions  equals: (OrderedCollection with:6 with:6).
 	self assert: aGame winner asSymbol equals: 'blue' asSymbol 
 ]
 

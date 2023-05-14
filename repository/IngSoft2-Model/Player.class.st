@@ -22,14 +22,9 @@ Player >> color [
 { #category : #LapControl }
 Player >> effect: aValue [
 
-	self lap == 0
-		ifTrue: [ 
-			aValue abs < self spaceship position
-				ifTrue: [ self spaceship move: aValue ]
-				ifFalse: [ 
-					aValue > 0
-						ifTrue: [ self spaceship move: aValue ]
-						ifFalse: [ self spaceship moveTo: 1 ] ] ]
+	(self lap == 0 and:
+		 (aValue < 0 and: aValue abs > self spaceship position))
+		ifTrue: [ self moveToTheBeginning ]
 		ifFalse: [ self spaceship move: aValue ]
 ]
 
@@ -49,7 +44,7 @@ Player >> lap [
 { #category : #LapControl }
 Player >> move: aDiceCollection [
 
-	self spaceship move: (self throwDice: aDiceCollection)
+	self spaceship move: (aDiceCollection sumNumbers: [ :die | die throw ]).
 ]
 
 { #category : #LapControl }
@@ -59,38 +54,32 @@ Player >> moveToTheBeginning [
 ]
 
 { #category : #Information }
-Player >> position [
-
-	^ self spaceship position
-]
-
-{ #category : #Information }
 Player >> spaceship [
 
 	^ spaceship
 ]
 
 { #category : #LapControl }
-Player >> throwDice: aDiceCollection [
-
-	^ aDiceCollection sumNumbers: [ :die | die throw ]
-]
-
-{ #category : #LapControl }
 Player >> updateLap: aLength [
 
 	| entireLaps position |
-	position := self position.
+	position := self spaceship position.
 	entireLaps := position // aLength.
+
 	position > aLength
 		ifTrue: [ 
 			position := position - (aLength * entireLaps).
 			self spaceship moveTo: position.
 			lap := lap + entireLaps ]
 		ifFalse: [ 
-			self position < 0 ifTrue: [ 
-				entireLaps := self position abs // aLength + 1.
+			self spaceship position <= 0 ifTrue: [ 
+				entireLaps := ((self spaceship position +1)  abs) // aLength + 1.
 				lap := lap - entireLaps.
-				position := aLength - self position abs.
-				self spaceship moveTo: position ] ]
+				lap < 0
+					ifTrue: [ 
+						lap := 0.
+						self spaceship moveTo: 1 ]
+					ifFalse: [ 
+						position := aLength - self spaceship position abs.
+						self spaceship moveTo: position ] ] ]
 ]

@@ -11,29 +11,18 @@ Class {
 }
 
 { #category : #'Instance creation' }
-LoadedGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [
+LoadedGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
 
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aValue
 		  throwing: aDiceCollection
 		  winningWhen: laps
-		  effects: aBoxCollection
 ]
 
 { #category : #Information }
 LoadedGame >> boxes [
 	^(board boxes).
-]
-
-{ #category : #Initialization }
-LoadedGame >> createPlayers: aColorsCollection [
-
-	| aPlayerCollection |
-	aPlayerCollection := OrderedCollection new.
-	aColorsCollection do: [ :color | 
-		aPlayerCollection addLast: (Player with: (Spaceship with: color)) ].
-	^ aPlayerCollection
 ]
 
 { #category : #Information }
@@ -42,11 +31,15 @@ LoadedGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps effects: aBoxCollection [ 
-	| aPlayerCollection |
-	aPlayerCollection := (self createPlayers: aColorsCollection).
-	board := Board with: aValue and: aPlayerCollection effects: aBoxCollection.
-	players := aPlayerCollection.
+LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+	| boxes|
+	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: -2) with:(HyperJumpBox with: (OrderedCollection with: 20 with:40))).
+	boxes addLast: (NoEffectBox new).
+	boxes addLast:(AtomicBombBox new).
+	boxes addLast:(NoEffectBox new).
+	boxes addLast: (NoEffectBox new).
+	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color)].
+	board := Board with: aValue and: players effects: boxes.
 	dice := aDiceCollection.
 	goalLaps := laps.
 ]
@@ -86,8 +79,8 @@ LoadedGame >> ranking [
 	ranking := OrderedCollection new.
 	players do: [ :player | ranking addLast: player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position + (player1 lap * self boxes size)
-		> (player2 position + (player2 lap * self boxes size)) ].
+		(player1 spaceship position) + (player1 lap * self boxes size)
+		> ((player2 spaceship position) + (player2 lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ].
 ]
 

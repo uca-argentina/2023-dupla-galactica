@@ -13,7 +13,7 @@ Class {
 
 { #category : #'instance creation' }
 Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection [
-	(aValue <0 or: aValue==0) ifTrue: [Error signal: 'Cannot create a board with that value'].
+	(aValue <=0) ifTrue: [Error signal: 'Cannot create a board with that value'].
 	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection .
 ]
 
@@ -63,7 +63,7 @@ Board >> passTurn: aDiceCollection [
 
 	self nextOne move: aDiceCollection.
 	self nextOne updateLap: self length.
-	(self boxes at: self nextOne position) effect: self.
+	(self boxes at: (self nextOne spaceship position)) effect: self.
 	self nextOne updateLap: self length.
 ]
 
