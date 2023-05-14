@@ -65,15 +65,21 @@ Player >> updateLap: aLength [
 	| entireLaps position |
 	position := self spaceship position.
 	entireLaps := position // aLength.
+
 	position > aLength
 		ifTrue: [ 
 			position := position - (aLength * entireLaps).
 			self spaceship moveTo: position.
 			lap := lap + entireLaps ]
 		ifFalse: [ 
-			self spaceship position < 0 ifTrue: [ 
-				entireLaps := (self spaceship position) abs // aLength + 1.
+			self spaceship position <= 0 ifTrue: [ 
+				entireLaps := ((self spaceship position +1)  abs) // aLength + 1.
 				lap := lap - entireLaps.
-				position := aLength - (self spaceship position) abs.
-				self spaceship moveTo: position ] ]
+				lap < 0
+					ifTrue: [ 
+						lap := 0.
+						self spaceship moveTo: 1 ]
+					ifFalse: [ 
+						position := aLength - self spaceship position abs.
+						self spaceship moveTo: position ] ] ]
 ]
