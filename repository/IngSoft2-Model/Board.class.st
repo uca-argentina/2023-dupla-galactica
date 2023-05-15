@@ -68,7 +68,7 @@ Board >> parsecs [
 Board >> passTurn: aDiceCollection [
 
 	self nextOne move: aDiceCollection check: self length.
-	(self boxes at: (self nextOne spaceship position)) effect: self.
+	(self boxes at: self nextOne spaceship position) effect: self
 ]
 
 { #category : #Information }

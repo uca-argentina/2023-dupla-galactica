@@ -26,14 +26,15 @@ CreateBoxesTest >> gameWith: aSecondLoadedDie [
 
 { #category : #running }
 CreateBoxesTest >> setUp [
+
 	super setUp.
-	
+
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 0
 			               with: 0
 			               with: 7
-			               with: 9).
+			               with: 9)
 ]
 
 { #category : #tests }
@@ -63,7 +64,9 @@ CreateBoxesTest >> testN002WormHoleBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 7 with: 1).
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 7 with: 1)
 ]
 
 { #category : #tests }
@@ -77,13 +80,14 @@ CreateBoxesTest >> testN003SpeedUpBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 7 with: 6).
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 7 with: 6)
 ]
 
 { #category : #tests }
 CreateBoxesTest >> testN004MoonWalkBox [
 
-	
 	| aGame |
 	aGame := self gameWith: (LoadedDie with: (OrderedCollection
 				           with: 6
@@ -92,13 +96,14 @@ CreateBoxesTest >> testN004MoonWalkBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self deny: aGame positions equals: (OrderedCollection with: 7 with: 5).
+	self
+		deny: aGame positions
+		equals: (OrderedCollection with: 7 with: 5)
 ]
 
 { #category : #tests }
 CreateBoxesTest >> testN005AtomicBombBox [
 
-	
 	| aGame |
 	aGame := self gameWith: (LoadedDie with: (OrderedCollection
 				           with: 6
@@ -107,7 +112,9 @@ CreateBoxesTest >> testN005AtomicBombBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 1 with: 1).
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 1 with: 1)
 ]
 
 { #category : #tests }
@@ -121,6 +128,7 @@ CreateBoxesTest >> testN006HyperJumpBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self deny: aGame positions equals: (OrderedCollection with: 6 with: 6).
-	
+	self
+		deny: aGame positions
+		equals: (OrderedCollection with: 6 with: 6)
 ]

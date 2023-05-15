@@ -7,9 +7,10 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-MoonWalkBox class >> with: aValue [ 
-	^(self new) initializeWith: aValue.
+{ #category : #'Instance creation' }
+MoonWalkBox class >> with: aValue [
+
+	^ self new initializeWith: aValue
 ]
 
 { #category : #Effect }
@@ -21,6 +22,7 @@ MoonWalkBox >> effect: aBoard [
 ]
 
 { #category : #Initialization }
-MoonWalkBox >> initializeWith: aValue [ 
-	effectValue:= (aValue atRandom) *(-1).
+MoonWalkBox >> initializeWith: aValue [
+
+	effectValue := aValue atRandom * -1
 ]

@@ -7,5 +7,5 @@ Class {
 { #category : #Effect }
 WormHoleBox >> effect: aBoard [
 
-	aBoard nextOne effect: -4 check: aBoard length.
+	aBoard nextOne effect: -4 check: aBoard length
 ]

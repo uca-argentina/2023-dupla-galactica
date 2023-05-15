@@ -8,9 +8,10 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-Player class >> with: aSpaceship [ 
-	^(self new) initializeWith: aSpaceship.
+{ #category : #'Instance creation' }
+Player class >> with: aSpaceship [
+
+	^ self new initializeWith: aSpaceship
 ]
 
 { #category : #Information }
@@ -20,12 +21,12 @@ Player >> color [
 ]
 
 { #category : #LapControl }
-Player >> effect: aPosition check: aValue [
+Player >> effect: aPositionToMove check: aValue [
 
 	(self lap == 0 and:
-		 (aPosition < 0 and: aPosition abs > self spaceship position))
+		 (aPositionToMove  < 0 and: aPositionToMove abs > self spaceship position))
 		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ self spaceship move: aPosition ].
+		ifFalse: [ self spaceship move: aPositionToMove ].
 	self updateLap: aValue
 ]
 
@@ -75,7 +76,7 @@ Player >> updateLap: aLength [
 			lap := lap + entireLaps ]
 		ifFalse: [ 
 			self spaceship position <= 0 ifTrue: [ 
-				entireLaps := ((self spaceship position +1)  abs) // aLength + 1.
+				entireLaps := (self spaceship position + 1) abs // aLength + 1.
 				lap := lap - entireLaps.
 				lap < 0
 					ifTrue: [ 

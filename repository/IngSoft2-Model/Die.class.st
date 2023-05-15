@@ -7,15 +7,19 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #'Instance creation' }
 Die class >> with: aValue [
-	(aValue<3) ifTrue: [Error signal: 'Cannot create with negative values at faces or less than 2 faces'].
+
+	aValue < 3 ifTrue: [ 
+		Error signal:
+			'Cannot create with negative values at faces or less than 2 faces' ].
 	^ self new initializeWith: aValue
 ]
 
 { #category : #Information }
 Die >> faces [
-	^ faces.
+
+	^ faces
 ]
 
 { #category : #Initialization }
@@ -26,5 +30,6 @@ Die >> initializeWith: aValue [
 
 { #category : #Throw }
 Die >> throw [
-	^ faces atRandom.
+
+	^ faces atRandom
 ]
