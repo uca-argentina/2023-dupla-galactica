@@ -9,17 +9,17 @@ Class {
 
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithLoadedDie [
-| aLoadedGame aLoadedDie |
+
+	| aLoadedGame aLoadedDie |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
-			               with: 5
+			               with: 6
 			               with: 7
 			               with: 9).
 	aLoadedGame := LoadedGame
-		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1.
+		               with: aColorCollection
+		               and: (OrderedCollection with: 10 with: 1)
+		               throwing: (OrderedCollection with: aLoadedDie).
 	^ aLoadedGame
 ]
 
@@ -42,29 +42,28 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 		                         with: aSecondLoadedDie.
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: aLoadedDiceCollection
-		         winningWhen: 2.
+		         and: (OrderedCollection with: 10 with: 2)
+		         throwing: aLoadedDiceCollection.
 	^ aGame
 ]
 
 { #category : #running }
 CreateAFunctionalGameTest >> setUp [
-	
+
 	super setUp.
 
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
 	self
 		should: anErrorBlock
-		raise: anExceptionClass 
-		withExceptionDo: [ :error|
-			self assert: error messageText equals: anErrorMessage ].
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+		self assert: error messageText equals: anErrorMessage ]
 ]
 
 { #category : #tests }
@@ -81,7 +80,7 @@ CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
 CreateAFunctionalGameTest >> testD002CreateGameAndAskForWinner [
 
 	| aLoadedGame |
-	aLoadedGame:= self gameWithLoadedDie.
+	aLoadedGame := self gameWithLoadedDie.
 	aLoadedGame moveNextPlayer.
 	aLoadedGame moveNextPlayer.
 	aLoadedGame moveNextPlayer.
@@ -92,7 +91,7 @@ CreateAFunctionalGameTest >> testD002CreateGameAndAskForWinner [
 CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 
 	| aGame |
-	aGame:= self gameWithLoadedDie.
+	aGame := self gameWithLoadedDie.
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
@@ -109,14 +108,14 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 7 with: 10)
+		equals: (OrderedCollection with: 7 with: 7)
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 
 	| aGame |
-	aGame:= self gameWithTwoLoadedDie.	
+	aGame := self gameWithTwoLoadedDie.
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
@@ -127,10 +126,10 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 
 	| aGame |
-	aGame:= self gameWithTwoLoadedDie.
+	aGame := self gameWithTwoLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-		
+
 	self
 		assert: aGame positions
 		equals: (OrderedCollection with: 10 with: 9)
@@ -140,7 +139,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
 
 	| aGame |
-	aGame:= self gameWithTwoLoadedDie.
+	aGame := self gameWithTwoLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -152,19 +151,26 @@ CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
+
 	| aGame |
-	aGame:= self gameWithLoadedDie.
+	aGame := self gameWithLoadedDie.
 	aGame moveNextPlayer.
-	self should: [ aGame winner ] raise: Error withMessage: 'There is no winner'.
+	self
+		should: [ aGame winner ]
+		raise: Error
+		withMessage: 'There is no winner'
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testP010VerifyRankingAtLoadedGame [
+
 	| aGame |
-	aGame:= self gameWithTwoLoadedDie.
+	aGame := self gameWithTwoLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame ranking equals: (OrderedCollection with: 'blue' with: 'red').
+	self
+		assert: aGame ranking
+		equals: (OrderedCollection with: 'blue' with: 'red')
 ]

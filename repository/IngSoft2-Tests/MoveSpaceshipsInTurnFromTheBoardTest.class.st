@@ -16,26 +16,26 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with: 1 with:2 with:3).
+	aLoadedDie := LoadedDie with:
+		              (OrderedCollection with: 1 with: 2 with: 3).
 
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
+		         and: (OrderedCollection with: 10 with: 1)
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
 ]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ001CheckTheNextSpacheshipToPlay [
 
-	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol.
+	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
 ]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfterMovingOne [
 
 	aGame moveNextPlayer.
-	self assert: aGame nextPlayer asSymbol identicalTo: 'blue' asSymbol.
+	self assert: aGame nextPlayer asSymbol identicalTo: 'blue' asSymbol
 ]
 
 { #category : #tests }
@@ -43,5 +43,5 @@ MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnce
 
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame  nextPlayer asSymbol identicalTo: 'red' asSymbol.
+	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
 ]

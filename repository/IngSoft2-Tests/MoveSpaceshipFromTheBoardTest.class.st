@@ -14,9 +14,8 @@ MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 	| aGame |
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1.
+		         and: (OrderedCollection with: 10 with: 1)
+		         throwing: (OrderedCollection with: aLoadedDie).
 
 	^ aGame
 ]
@@ -27,9 +26,8 @@ MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
 	| aGame |
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 2.
+		         and: (OrderedCollection with: 10 with: 2)
+		         throwing: (OrderedCollection with: aLoadedDie).
 	^ aGame
 ]
 
@@ -38,16 +36,17 @@ MoveSpaceshipFromTheBoardTest >> setUp [
 
 	super setUp.
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [ 
+MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
 	self
 		should: anErrorBlock
-		raise: anExceptionClass 
-		withExceptionDo: [ :error|
-			self assert: error messageText equals: anErrorMessage ].
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+		self assert: error messageText equals: anErrorMessage ]
 ]
 
 { #category : #tests }
@@ -61,9 +60,9 @@ MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovingIt [
 
-	| aSpaceship|
+	| aSpaceship |
 	aSpaceship := Spaceship with: 'red'.
-	aSpaceship move: 8 .
+	aSpaceship move: 8.
 	self assert: aSpaceship position identicalTo: 9
 ]
 
@@ -71,15 +70,27 @@ MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovin
 MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 
 	| aBoard aSpaceshipCollection |
-	aSpaceshipCollection:= OrderedCollection new.
-	aBoard := Board with: 9 and: aSpaceshipCollection effects: aBoxesCollection.
+	aSpaceshipCollection := OrderedCollection new.
+	aBoard := Board
+		          with: 9
+		          and: aSpaceshipCollection
+		          effects: aBoxesCollection
+		          measure: 100.
 	self assert: aBoard length identicalTo: 9
 ]
 
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
 
-	self should: [Board with: -1 and: OrderedCollection new effects: aBoxesCollection.] raise: Error withMessage: 'Cannot create a board with that value'.
+	self
+		should: [ 
+			Board
+				with: -1
+				and: OrderedCollection new
+				effects: aBoxesCollection
+				measure: 100 ]
+		raise: Error
+		withMessage: 'Cannot create a board with that value'
 ]
 
 { #category : #tests }
@@ -111,7 +122,7 @@ MoveSpaceshipFromTheBoardTest >> testM003MoveTwoSpaceshipOneEntireLapAndThenAskF
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 11
-			               with: 15
+			               with: 16
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
@@ -125,7 +136,7 @@ MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskFor
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 11
+			               with: 10
 			               with: 6
 			               with: 10
 			               with: 9).
@@ -170,7 +181,6 @@ MoveSpaceshipFromTheBoardTest >> testM006MoveSpaceshipToTheLastBox [
 MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 
 	| aLoadedDie aGame |
-	
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 11
@@ -179,7 +189,7 @@ MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 	aGame := self gameWithOneLap: aLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame winner asSymbol equals: 'blue' asSymbol 
+	self assert: aGame winner asSymbol equals: 'blue' asSymbol
 ]
 
 { #category : #tests }
@@ -191,12 +201,12 @@ MoveSpaceshipFromTheBoardTest >> testM008MoveSpaceshipALotOfTimesAndVerifyThatIt
 			               with: 1
 			               with: 9
 			               with: 6).
-	aGame:= self gameWithOneLap: aLoadedDie.
+	aGame := self gameWithOneLap: aLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame laps  equals: (OrderedCollection with:1 with:0)
+	self assert: aGame laps equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
@@ -213,8 +223,10 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions  equals: (OrderedCollection with:6 with:6).
-	self assert: aGame winner asSymbol equals: 'blue' asSymbol 
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 6 with: 6).
+	self assert: aGame winner asSymbol equals: 'blue' asSymbol
 ]
 
 { #category : #tests }
@@ -227,7 +239,7 @@ MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	self assert: aGame parsecs equals: 100.
+	self assert: aGame parsecs equals: 100
 ]
 
 { #category : #tests }

@@ -11,10 +11,16 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection [
-	(aValue <=0) ifTrue: [Error signal: 'Cannot create a board with that value'].
-	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection .
+{ #category : #'Intance creation' }
+Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection measure: aParsecAmount [
+
+	aValue < 4 ifTrue: [ 
+		Error signal: 'Cannot create a board with that value' ].
+	^ self new
+		  initializeWithSizeOf: aValue
+		  and: aCollectionOfSpaceships
+		  effects: aBoxCollection
+		  measure: aParsecAmount
 ]
 
 { #category : #Information }
@@ -24,12 +30,12 @@ Board >> boxes [
 ]
 
 { #category : #Initialization }
-Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection [
+Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection measure: aParsecAmount [
 
 	length := aValue.
 	players := aPlayersCollection.
 	turn := 1.
-	parsecs := 100.
+	parsecs := aParsecAmount.
 	boxes := aBoxCollection
 ]
 
@@ -49,7 +55,7 @@ Board >> movePlayer: aDiceCollection [
 { #category : #Information }
 Board >> nextOne [
 
-	^ players at: turn.
+	^ players at: turn
 ]
 
 { #category : #Information }
@@ -61,14 +67,13 @@ Board >> parsecs [
 { #category : #ManageTurns }
 Board >> passTurn: aDiceCollection [
 
-	self nextOne move: aDiceCollection.
-	self nextOne updateLap: self length.
-	(self boxes at: (self nextOne spaceship position)) effect: self.
-	self nextOne updateLap: self length.
+	self nextOne move: aDiceCollection check: self length.
+	(self boxes at: self nextOne spaceship position) effect: self
 ]
 
 { #category : #Information }
 Board >> players [
+
 	^ players
 ]
 

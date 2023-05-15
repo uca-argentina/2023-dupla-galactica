@@ -24,16 +24,13 @@ CreatingSpaceshipsFromTheGameTest >> setUp [
 
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 9
+		         and: (OrderedCollection with: 9 with: 1)
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1.
 ]
 
 { #category : #tests }
 CreatingSpaceshipsFromTheGameTest >> testI001CreatingSpaceshipsFromTheGame [
 
 	aGame moveNextPlayer.
-	self
-		assert: aGame positions
-		equals: (OrderedCollection with: 9)
+	self assert: aGame positions equals: (OrderedCollection with: 9)
 ]

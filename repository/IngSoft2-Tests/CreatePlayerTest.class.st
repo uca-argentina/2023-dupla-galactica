@@ -10,10 +10,11 @@ Class {
 
 { #category : #running }
 CreatePlayerTest >> setUp [
+
 	super setUp.
-	
-	aSpaceship:= Spaceship with: 'red'.
-	aPlayer:= Player with: aSpaceship.
+
+	aSpaceship := Spaceship with: 'red'.
+	aPlayer := Player with: aSpaceship
 ]
 
 { #category : #tests }
@@ -24,10 +25,10 @@ CreatePlayerTest >> testK001CreateAPlayerThatHasAnSpaceship [
 
 { #category : #tests }
 CreatePlayerTest >> testK002CreateAPlayerAndThrowTheDice [
-	|aLoadedDie|
-	
-	aLoadedDie:= LoadedDie with: (OrderedCollection with: 8 with: 10 with: 11).
-	aPlayer move: (OrderedCollection with: aLoadedDie). 
-	self assert: aPlayer color asSymbol identicalTo: 'red' asSymbol.
-	
+
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with:
+		              (OrderedCollection with: 8 with: 10 with: 11).
+	aPlayer move: (OrderedCollection with: aLoadedDie) check: 10.
+	self assert: aPlayer color asSymbol identicalTo: 'red' asSymbol
 ]

@@ -8,14 +8,16 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #'Instance creation' }
 Spaceship class >> with: aColor [
-	^(self new) initializeWith: aColor.
+
+	^ self new initializeWith: aColor
 ]
 
 { #category : #Information }
 Spaceship >> color [
-	^color.
+
+	^ color
 ]
 
 { #category : #Initialization }
@@ -39,5 +41,6 @@ Spaceship >> moveTo: aValue [
 
 { #category : #Information }
 Spaceship >> position [
-	^position.
+
+	^ position
 ]
