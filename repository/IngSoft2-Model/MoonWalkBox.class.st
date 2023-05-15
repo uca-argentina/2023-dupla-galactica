@@ -17,7 +17,7 @@ MoonWalkBox >> effect: aBoard [
 
 	aBoard players do: [ :player | 
 		player color asSymbol == aBoard nextOne color asSymbol ifFalse: [ 
-			player effect: effectValue ] ]
+			player effect: effectValue check: aBoard length ] ]
 ]
 
 { #category : #Initialization }

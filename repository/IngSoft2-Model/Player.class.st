@@ -20,12 +20,13 @@ Player >> color [
 ]
 
 { #category : #LapControl }
-Player >> effect: aValue [
+Player >> effect: aPosition check: aValue [
 
 	(self lap == 0 and:
-		 (aValue < 0 and: aValue abs > self spaceship position))
+		 (aPosition < 0 and: aPosition abs > self spaceship position))
 		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ self spaceship move: aValue ]
+		ifFalse: [ self spaceship move: aPosition ].
+	self updateLap: aValue
 ]
 
 { #category : #Initialization }
@@ -42,9 +43,10 @@ Player >> lap [
 ]
 
 { #category : #LapControl }
-Player >> move: aDiceCollection [
+Player >> move: aDiceCollection check: aValue [
 
 	self spaceship move: (aDiceCollection sumNumbers: [ :die | die throw ]).
+	self updateLap: aValue.
 ]
 
 { #category : #LapControl }

@@ -7,5 +7,5 @@ Class {
 { #category : #Effect }
 SpeedUpBox >> effect: aBoard [
 
-	aBoard nextOne effect: 4
+	aBoard nextOne effect: 4 check: aBoard length.
 ]

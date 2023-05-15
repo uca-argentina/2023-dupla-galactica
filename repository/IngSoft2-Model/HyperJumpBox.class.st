@@ -17,7 +17,7 @@ HyperJumpBox class >> with: aParsecsCollection [
 { #category : #Effect }
 HyperJumpBox >> effect: aBoard [
 	aBoard nextOne effect:
-		(parsecs at: nextParsec) // (aBoard parsecs // aBoard length).
+		(parsecs at: nextParsec) // (aBoard parsecs // aBoard length) check: aBoard length.
 	self updateParsec.
 ]
 
