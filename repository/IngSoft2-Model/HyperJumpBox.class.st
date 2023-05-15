@@ -11,7 +11,6 @@ Class {
 { #category : #'Instance creation' }
 HyperJumpBox class >> with: aParsecsCollection [
 
-	aParsecsCollection sort: [ :a :b | a > b ].
 	^ self new initializeWith: aParsecsCollection
 ]
 
@@ -34,8 +33,8 @@ HyperJumpBox >> initializeWith: aParsecsCollection [
 
 	parsecs isEmpty ifTrue: [ 
 		parsecs addLast:
-			(aParsecsCollection at: aParsecsCollection size atRandom) ].
-		
+			(aParsecsCollection at: aParsecsCollection size atRandom) ]
+		ifFalse:[parsecs sort:[:a :b| a>b]].	
 	nextParsec := 1
 ]
 
