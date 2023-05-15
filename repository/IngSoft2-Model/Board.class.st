@@ -11,10 +11,10 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection [
+{ #category : #'intance creation' }
+Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection measure: aParsecAmount [ 
 	(aValue <=0) ifTrue: [Error signal: 'Cannot create a board with that value'].
-	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection .
+	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection measure: aParsecAmount.
 ]
 
 { #category : #Information }
@@ -30,6 +30,15 @@ Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxColle
 	players := aPlayersCollection.
 	turn := 1.
 	parsecs := 100.
+	boxes := aBoxCollection
+]
+
+{ #category : #Initialization }
+Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection measure: aParsecAmount [ 
+	length := aValue.
+	players := aPlayersCollection.
+	turn := 1.
+	parsecs := aParsecAmount.
 	boxes := aBoxCollection
 ]
 

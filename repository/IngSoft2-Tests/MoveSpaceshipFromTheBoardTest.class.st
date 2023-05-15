@@ -72,14 +72,14 @@ MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
 
 	| aBoard aSpaceshipCollection |
 	aSpaceshipCollection:= OrderedCollection new.
-	aBoard := Board with: 9 and: aSpaceshipCollection effects: aBoxesCollection.
+	aBoard := Board with: 9 and: aSpaceshipCollection effects: aBoxesCollection measure:100.
 	self assert: aBoard length identicalTo: 9
 ]
 
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
 
-	self should: [Board with: -1 and: OrderedCollection new effects: aBoxesCollection.] raise: Error withMessage: 'Cannot create a board with that value'.
+	self should: [Board with: -1 and: OrderedCollection new effects: aBoxesCollection measure:100.] raise: Error withMessage: 'Cannot create a board with that value'.
 ]
 
 { #category : #tests }

@@ -16,7 +16,8 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 		         with: aColorCollection
 		         and: 10
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1.
+		         winningWhen: 1
+					measure: 200.
 	^aGame.
 ]
 
@@ -71,7 +72,7 @@ CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
 	|aGame|	
 	
 	aGame := self createGameWithEffects.
-	self assert: (aGame parsecs) equals: 100.
+	self assert: (aGame parsecs) equals: 200.
 ]
 
 { #category : #tests }
@@ -115,7 +116,8 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 				with: OrderedCollection new
 				and: 10
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: 1 ]
+				winningWhen: 1
+				measure: 200]
 		raise: Error
 		withMessage: 'Cannot create a game with no players'
 ]
@@ -129,7 +131,8 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 				with: aColorCollection
 				and: 10
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: -1 ]
+				winningWhen: -1
+				measure:200]
 		raise: Error
 		withMessage: 'Cannot create a game with that goal laps'
 ]

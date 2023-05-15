@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'instance creation' }
-DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps measure: aParsecAmount [ 
 	(aColorCollection size <= 0) ifTrue:[Error signal: 'Cannot create a game with no players'].
 	(laps <= 0) ifTrue:[Error signal: 'Cannot create a game with that goal laps'].
 	^ self new
@@ -19,6 +19,7 @@ DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCo
 		  and: aValue
 		  throwing: aDiceCollection
 		  winningWhen: laps
+		  measure: aParsecAmount.
 ]
 
 { #category : #Information }
@@ -41,11 +42,11 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps measure: aParsecAmount [ 
 	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color) ].
-	board := Board with: aValue and: players effects: (self createBoxes: aValue measure: 100).
+	board := Board with: aValue and: players effects: (self createBoxes: aValue measure: 100) measure: aParsecAmount.
 	dice := aDiceCollection.
-	goalLaps := laps
+	goalLaps := laps.
 ]
 
 { #category : #Information }

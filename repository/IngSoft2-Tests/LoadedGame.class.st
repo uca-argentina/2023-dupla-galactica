@@ -39,7 +39,7 @@ LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceColle
 	boxes addLast:(NoEffectBox new).
 	boxes addLast: (NoEffectBox new).
 	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color)].
-	board := Board with: aValue and: players effects: boxes.
+	board := Board with: aValue and: players effects: boxes measure:100.
 	dice := aDiceCollection.
 	goalLaps := laps.
 ]
