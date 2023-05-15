@@ -12,7 +12,7 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 | aLoadedGame aLoadedDie |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
-			               with: 5
+			               with: 6
 			               with: 7
 			               with: 9).
 	aLoadedGame := LoadedGame
@@ -109,7 +109,7 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	aGame moveNextPlayer.
 	self
 		assert: aGame positions
-		equals: (OrderedCollection with: 7 with: 10)
+		equals: (OrderedCollection with: 7 with: 7)
 ]
 
 { #category : #tests }

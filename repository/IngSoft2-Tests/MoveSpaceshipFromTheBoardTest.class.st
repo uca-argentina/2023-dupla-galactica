@@ -111,7 +111,7 @@ MoveSpaceshipFromTheBoardTest >> testM003MoveTwoSpaceshipOneEntireLapAndThenAskF
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 11
-			               with: 15
+			               with: 16
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
@@ -125,7 +125,7 @@ MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskFor
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 11
+			               with: 10
 			               with: 6
 			               with: 10
 			               with: 9).

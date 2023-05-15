@@ -34,14 +34,6 @@ DuplaGalacticaGame >> createBoxes: aValue measure: aParsecs [
 	^boxes
 ]
 
-{ #category : #Initialization }
-DuplaGalacticaGame >> createRandomHyperJump: aValue with: parsecs [ 
-	|values|
-	values:= OrderedCollection new.
-	1 to: (aValue atRandom) do: [:i | (2 atRandom)==1 ifTrue:[values addLast: (parsecs atRandom)] ifFalse:[values addLast: ((parsecs atRandom)*(-1))]].
-	^ (HyperJumpBox with: values).
-]
-
 { #category : #Information }
 DuplaGalacticaGame >> goalLaps [
 
@@ -101,11 +93,11 @@ DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 						       ifTrue: [ SpeedUpBox new ]
 						       ifFalse: [ 
 							       aRandomValue <= 90
-								       ifTrue: [ MoonWalkBox with: (aValue atRandom * -1) ]
+								       ifTrue: [ MoonWalkBox with: aValue ]
 								       ifFalse: [ 
 									       aRandomValue <= 98
 										       ifTrue: [ 
-										       self createRandomHyperJump: aValue with: parsecs ]
+										       HyperJumpBox with: (OrderedCollection with: 40 with: 20 with: -10 with: 30 with: 40) ]
 										       ifFalse: [ AtomicBombBox new ] ] ] ] ]).
 ]
 

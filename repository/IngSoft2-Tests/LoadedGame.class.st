@@ -33,7 +33,7 @@ LoadedGame >> goalLaps [
 { #category : #Initialization }
 LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
 	| boxes|
-	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: -2) with:(HyperJumpBox with: (OrderedCollection with: 20 with:40))).
+	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: 10) with:(HyperJumpBox with: (OrderedCollection with: 20 with:40 with:30 with: -10 with: 50))).
 	boxes addLast: (NoEffectBox new).
 	boxes addLast:(AtomicBombBox new).
 	boxes addLast:(NoEffectBox new).

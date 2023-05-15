@@ -75,14 +75,6 @@ CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP011CreateHyperJumpRandomly [
-	|aGame anHyperJumpBox|	
-	aGame := self createGameWithEffects.
-	anHyperJumpBox:= (aGame createRandomHyperJump: 10 with: 100). 
-	self assert: (anHyperJumpBox parsecs size) <= 10.
-]
-
-{ #category : #tests }
 CreateDuplaGalacticaGameTest >> testP013VerifyTheCorrectUseOfRankingInRandomGame [
 
 	| aGame |

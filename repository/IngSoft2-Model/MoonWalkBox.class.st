@@ -22,5 +22,5 @@ MoonWalkBox >> effect: aBoard [
 
 { #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue [ 
-	effectValue:= aValue.
+	effectValue:= (aValue atRandom) *(-1).
 ]

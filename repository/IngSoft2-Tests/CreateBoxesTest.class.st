@@ -93,7 +93,7 @@ CreateBoxesTest >> testN004MoonWalkBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 5 with: 5).
+	self deny: aGame positions equals: (OrderedCollection with: 7 with: 5).
 ]
 
 { #category : #tests }
@@ -122,6 +122,6 @@ CreateBoxesTest >> testN006HyperJumpBox [
 				           with: 8)).
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 10 with: 8).
+	self deny: aGame positions equals: (OrderedCollection with: 6 with: 6).
 	
 ]

@@ -22,9 +22,16 @@ HyperJumpBox >> effect: aBoard [
 ]
 
 { #category : #Initialization }
-HyperJumpBox >> initializeWith: aParsecsCollection [ 
-	parsecs:= aParsecsCollection.
-	nextParsec:= 1.
+HyperJumpBox >> initializeWith: aParsecsCollection [
+
+	parsecs := OrderedCollection new.
+	aParsecsCollection size atRandom to: aParsecsCollection size atRandom
+	do: [ :i | parsecs addLast: (aParsecsCollection at: i) ].
+	parsecs isEmpty ifTrue: [ 
+		parsecs addLast:
+			(aParsecsCollection at: aParsecsCollection size atRandom) ].
+	parsecs sort: [ :a :b | a > b ].
+	nextParsec := 1
 ]
 
 { #category : #Information }
