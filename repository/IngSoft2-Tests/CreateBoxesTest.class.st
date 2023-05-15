@@ -18,9 +18,8 @@ CreateBoxesTest >> gameWith: aSecondLoadedDie [
 		                         with: aSecondLoadedDie.
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: aLoadedDiceCollection
-		         winningWhen: 1.
+		         and: (OrderedCollection with: 10 with: 1)
+		         throwing: aLoadedDiceCollection.
 
 	^ aGame
 ]

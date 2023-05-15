@@ -24,9 +24,8 @@ CreatingSpaceshipsFromTheGameTest >> setUp [
 
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 9
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1.
+		         and: (OrderedCollection with: 9 with: 1)
+		         throwing: (OrderedCollection with: aLoadedDie).
 ]
 
 { #category : #tests }

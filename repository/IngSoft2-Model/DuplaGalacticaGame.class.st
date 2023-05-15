@@ -10,16 +10,17 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-DuplaGalacticaGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps measure: aParsecAmount [ 
-	(aColorCollection size <= 0) ifTrue:[Error signal: 'Cannot create a game with no players'].
-	(laps <= 0) ifTrue:[Error signal: 'Cannot create a game with that goal laps'].
+{ #category : #'Instance creation' }
+DuplaGalacticaGame class >> with: aColorCollection and: aDataBoardCollection throwing: aDiceCollection [
+
+	aColorCollection size <= 0 ifTrue: [ 
+		Error signal: 'Cannot create a game with no players' ].
+	(aDataBoardCollection at: 2) <= 0 ifTrue: [ 
+		Error signal: 'Cannot create a game with that goal laps' ].
 	^ self new
 		  initializeWith: aColorCollection
-		  and: aValue
-		  throwing: aDiceCollection
-		  winningWhen: laps
-		  measure: aParsecAmount.
+		  and: aDataBoardCollection
+		  throwing: aDiceCollection.
 ]
 
 { #category : #Information }
@@ -42,11 +43,12 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps measure: aParsecAmount [ 
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aDataBoardCollection throwing: aDiceCollection [ 
+	
 	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color) ].
-	board := Board with: aValue and: players effects: (self createBoxes: aValue measure: 100) measure: aParsecAmount.
+	board := Board with: (aDataBoardCollection at: 1) and: players effects: (self createBoxes: (aDataBoardCollection at: 1) measure: 100) measure: (aDataBoardCollection at: 3).
 	dice := aDiceCollection.
-	goalLaps := laps.
+	goalLaps := (aDataBoardCollection at: 2).
 ]
 
 { #category : #Information }

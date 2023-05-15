@@ -14,10 +14,8 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 	|aGame|
 	aGame := DuplaGalacticaGame 
 		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
-					measure: 200.
+		         and: (OrderedCollection with: 10 with: 1 with: 200)
+		         throwing: (OrderedCollection with: aLoadedDie).
 	^aGame.
 ]
 
@@ -114,10 +112,8 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 		should: [ 
 			DuplaGalacticaGame
 				with: OrderedCollection new
-				and: 10
-				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: 1
-				measure: 200]
+				and: (OrderedCollection with: 10 with:1 with:200)
+				throwing: (OrderedCollection with: aLoadedDie).]
 		raise: Error
 		withMessage: 'Cannot create a game with no players'
 ]
@@ -128,11 +124,22 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 	self
 		should: [ 
 			DuplaGalacticaGame
-				with: aColorCollection
-				and: 10
-				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: -1
-				measure:200]
+				with: aColorCollection 
+				and: (OrderedCollection with: 10 with:-1 with:200)
+				throwing: (OrderedCollection with: aLoadedDie).]
 		raise: Error
 		withMessage: 'Cannot create a game with that goal laps'
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenTheParsecsAmountAreInvalid [
+
+	self
+		should: [ 
+			DuplaGalacticaGame
+				with: aColorCollection 
+				and: (OrderedCollection with: 10 with:1 with:0)
+				throwing: (OrderedCollection with: aLoadedDie).]
+		raise: Error
+		withMessage: 'Cannot create a game a negative parsec amount'.
 ]

@@ -16,13 +16,13 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aLoadedDie:= LoadedDie with: (OrderedCollection with: 1 with:2 with:3).
+	aLoadedDie := LoadedDie with:
+		              (OrderedCollection with: 1 with: 2 with: 3).
 
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
+		         and: (OrderedCollection with: 10 with: 1)
 		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1
 ]
 
 { #category : #tests }

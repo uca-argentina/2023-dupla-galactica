@@ -14,9 +14,8 @@ MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 	| aGame |
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1.
+		         and: (OrderedCollection with: 10 with: 1)
+		         throwing: (OrderedCollection with: aLoadedDie).
 
 	^ aGame
 ]
@@ -27,9 +26,8 @@ MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
 	| aGame |
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 2.
+		         and: (OrderedCollection with: 10 with: 2)
+		         throwing: (OrderedCollection with: aLoadedDie).
 	^ aGame
 ]
 

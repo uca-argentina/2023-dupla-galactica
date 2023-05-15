@@ -17,9 +17,8 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 			               with: 9).
 	aLoadedGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: (OrderedCollection with: aLoadedDie)
-		         winningWhen: 1.
+		         and: (OrderedCollection with:10 with: 1)
+		         throwing: (OrderedCollection with: aLoadedDie).
 	^ aLoadedGame
 ]
 
@@ -42,9 +41,8 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 		                         with: aSecondLoadedDie.
 	aGame := LoadedGame
 		         with: aColorCollection
-		         and: 10
-		         throwing: aLoadedDiceCollection
-		         winningWhen: 2.
+		         and: (OrderedCollection with: 10 with: 2)
+		         throwing: aLoadedDiceCollection.
 	^ aGame
 ]
 

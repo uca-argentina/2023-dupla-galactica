@@ -11,13 +11,12 @@ Class {
 }
 
 { #category : #'Instance creation' }
-LoadedGame class >> with: aColorCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+LoadedGame class >> with: aColorCollection and: aBoardDataCollection throwing: aDiceCollection [
 
 	^ self new
 		  initializeWith: aColorCollection
-		  and: aValue
+		  and: aBoardDataCollection
 		  throwing: aDiceCollection
-		  winningWhen: laps
 ]
 
 { #category : #Information }
@@ -31,7 +30,7 @@ LoadedGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceCollection winningWhen: laps [
+LoadedGame >> initializeWith: aColorsCollection and: aBoardDateCollection throwing: aDiceCollection [
 	| boxes|
 	boxes:= (OrderedCollection with:(NoEffectBox new) with:(SpeedUpBox new) with:(WormHoleBox new) with:(NoEffectBox new) with:(MoonWalkBox with: 10) with:(HyperJumpBox with: (OrderedCollection with: 20 with:40 with:30 with: -10 with: 50))).
 	boxes addLast: (NoEffectBox new).
@@ -39,9 +38,9 @@ LoadedGame >> initializeWith: aColorsCollection and: aValue throwing: aDiceColle
 	boxes addLast:(NoEffectBox new).
 	boxes addLast: (NoEffectBox new).
 	players := aColorsCollection collect: [ :color | Player with: (Spaceship with: color)].
-	board := Board with: aValue and: players effects: boxes measure:100.
+	board := Board with: (aBoardDateCollection at: 1) and: players effects: boxes measure:100.
 	dice := aDiceCollection.
-	goalLaps := laps.
+	goalLaps := (aBoardDateCollection at: 2).
 ]
 
 { #category : #Information }

@@ -14,6 +14,7 @@ Class {
 { #category : #'intance creation' }
 Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection measure: aParsecAmount [ 
 	(aValue <=0) ifTrue: [Error signal: 'Cannot create a board with that value'].
+	(aParsecAmount <=0 ) ifTrue: [Error signal: 'Cannot create a game a negative parsec amount'].
 	^(self new) initializeWithSizeOf:aValue and: aCollectionOfSpaceships effects: aBoxCollection measure: aParsecAmount.
 ]
 
@@ -21,16 +22,6 @@ Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection
 Board >> boxes [
 
 	^ boxes
-]
-
-{ #category : #Initialization }
-Board >> initializeWithSizeOf: aValue and: aPlayersCollection effects: aBoxCollection [
-
-	length := aValue.
-	players := aPlayersCollection.
-	turn := 1.
-	parsecs := 100.
-	boxes := aBoxCollection
 ]
 
 { #category : #Initialization }
