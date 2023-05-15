@@ -14,7 +14,7 @@ Class {
 { #category : #'Intance creation' }
 Board class >> with: aValue and: aCollectionOfSpaceships effects: aBoxCollection measure: aParsecAmount [
 
-	aValue <= 0 ifTrue: [ 
+	aValue < 4 ifTrue: [ 
 		Error signal: 'Cannot create a board with that value' ].
 	^ self new
 		  initializeWithSizeOf: aValue

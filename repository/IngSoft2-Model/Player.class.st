@@ -56,6 +56,24 @@ Player >> moveToTheBeginning [
 	self spaceship moveTo: 1
 ]
 
+{ #category : #LapControl }
+Player >> negativePosition: aLength [
+
+	| entireLaps |
+	entireLaps := (self spaceship position + 1) abs // aLength + 1.
+	lap := lap - entireLaps.
+	^ aLength - self spaceship position abs
+]
+
+{ #category : #LapControl }
+Player >> positivePosition: aLength [
+
+	| entireLaps |
+	entireLaps := self spaceship position // aLength.
+	lap := lap + entireLaps.
+	^ self spaceship position - (aLength * entireLaps)
+]
+
 { #category : #Information }
 Player >> spaceship [
 
@@ -65,24 +83,13 @@ Player >> spaceship [
 { #category : #LapControl }
 Player >> updateLap: aLength [
 
-	| entireLaps position |
-	position := self spaceship position.
-	entireLaps := position // aLength.
+	| position |
 
-	position > aLength
-		ifTrue: [ 
-			position := position - (aLength * entireLaps).
-			self spaceship moveTo: position.
-			lap := lap + entireLaps ]
-		ifFalse: [ 
-			self spaceship position <= 0 ifTrue: [ 
-				entireLaps := (self spaceship position + 1) abs // aLength + 1.
-				lap := lap - entireLaps.
-				lap < 0
-					ifTrue: [ 
-						lap := 0.
-						self spaceship moveTo: 1 ]
-					ifFalse: [ 
-						position := aLength - self spaceship position abs.
-						self spaceship moveTo: position ] ] ]
+	self spaceship position > aLength ifTrue: [ 
+		position := self positivePosition: aLength.
+		self spaceship moveTo: position ].
+
+	self spaceship position <= 0 ifFalse: [ ^ self ].
+	position := self negativePosition: aLength.
+	self spaceship moveTo: position
 ]
