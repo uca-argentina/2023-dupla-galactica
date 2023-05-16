@@ -15,7 +15,12 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 	| aGame |
 	aGame := DuplaGalacticaGame
 		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 1 with: 200)
+		         and: (OrderedCollection with: 10 with: 1 with: 200 with: (OrderedCollection
+													   with: 40
+													   with: 20
+													   with: -10
+													   with: 30
+													   with: 40))
 		         throwing: (OrderedCollection with: aLoadedDie).
 	^ aGame
 ]

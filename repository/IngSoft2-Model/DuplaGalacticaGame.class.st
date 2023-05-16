@@ -32,12 +32,12 @@ DuplaGalacticaGame >> boxes [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> createBoxes: aValue measure: aParsecs [
+DuplaGalacticaGame >> createBoxes: aDataBoardCollection [
 
 	| boxes |
 	boxes := OrderedCollection new.
-	aValue timesRepeat: [ 
-		boxes addLast: (self randomBox: aValue measure: aParsecs) ].
+	(aDataBoardCollection at: 1) timesRepeat: [ 
+		boxes addLast: (self randomBox: aDataBoardCollection) ].
 	^ boxes
 ]
 
@@ -55,9 +55,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aDataBoardCollectio
 	board := Board
 		         with: (aDataBoardCollection at: 1)
 		         and: players
-		         effects: (self
-				          createBoxes: (aDataBoardCollection at: 1)
-				          measure: (aDataBoardCollection at: 3))
+		         effects: (self createBoxes: aDataBoardCollection)
 		         measure: (aDataBoardCollection at: 3).
 	dice := aDiceCollection.
 	goalLaps := aDataBoardCollection at: 2
@@ -94,7 +92,7 @@ DuplaGalacticaGame >> positions [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
+DuplaGalacticaGame >> randomBox: aDataBoardCollection [
 
 	| aRandomValue |
 	aRandomValue := 100 atRandom.
@@ -108,16 +106,10 @@ DuplaGalacticaGame >> randomBox: aValue measure: parsecs [
 						  ifTrue: [ SpeedUpBox new ]
 						  ifFalse: [ 
 							  aRandomValue <= 90
-								  ifTrue: [ MoonWalkBox with: aValue ]
+								  ifTrue: [ MoonWalkBox with: (aDataBoardCollection at: 1) ]
 								  ifFalse: [ 
 									  aRandomValue <= 98
-										  ifTrue: [ 
-											  HyperJumpBox with: (OrderedCollection
-													   with: 40
-													   with: 20
-													   with: -10
-													   with: 30
-													   with: 40) ]
+										  ifTrue: [ HyperJumpBox with: (aDataBoardCollection at: 4) ]
 										  ifFalse: [ AtomicBombBox new ] ] ] ] ]
 ]
 
