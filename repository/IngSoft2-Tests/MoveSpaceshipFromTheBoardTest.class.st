@@ -2,33 +2,97 @@ Class {
 	#name : #MoveSpaceshipFromTheBoardTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aBoxesCollection',
 		'aColorCollection'
 	],
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #Game }
+MoveSpaceshipFromTheBoardTest >> gameWithMoreParsecs: aLoadedDie [ 
+	| boxes aBoard aLoadedGame|
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 200.
+	aLoadedGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: (OrderedCollection with: aLoadedDie)
+							winningWhen: 2.
+	^ aLoadedGame
+]
+
 { #category : #Games }
 MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 
-	| aGame |
-	aGame := LoadedGame
-		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 1)
-		         throwing: (OrderedCollection with: aLoadedDie).
+	| aGame boxes aBoard |
+	boxes := OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: (OrderedCollection with: aLoadedDie)
+		               winningWhen: 1.
 
 	^ aGame
 ]
 
 { #category : #Games }
 MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
+	
 
-	| aGame |
-	aGame := LoadedGame
-		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 2)
-		         throwing: (OrderedCollection with: aLoadedDie).
-	^ aGame
+	| boxes aBoard aLoadedGame|
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aLoadedGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: (OrderedCollection with: aLoadedDie)
+							winningWhen: 2.
+	^ aLoadedGame
 ]
 
 { #category : #running }
@@ -50,44 +114,13 @@ MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass wi
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
-
-	| aSpaceship |
-	aSpaceship := Spaceship with: 'red'.
-	self assert: aSpaceship position identicalTo: 1
-]
-
-{ #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovingIt [
-
-	| aSpaceship |
-	aSpaceship := Spaceship with: 'red'.
-	aSpaceship move: 8.
-	self assert: aSpaceship position identicalTo: 9
-]
-
-{ #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
-
-	| aBoard aSpaceshipCollection |
-	aSpaceshipCollection := OrderedCollection new.
-	aBoard := Board
-		          with: 9
-		          and: aSpaceshipCollection
-		          effects: aBoxesCollection
-		          measure: 100.
-	self assert: aBoard length identicalTo: 9
-]
-
-{ #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
 
 	self
 		should: [ 
 			Board
 				with: -1
-				and: OrderedCollection new
-				effects: aBoxesCollection
+				effects: OrderedCollection new
 				measure: 100 ]
 		raise: Error
 		withMessage: 'Cannot create a board with that value'
@@ -96,9 +129,8 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLap [
 
-	| aSpaceship aPlayer |
-	aSpaceship := Spaceship with: 'red'.
-	aPlayer := Player with: aSpaceship.
+	| aPlayer |
+	aPlayer := Player with: 'red'.
 	self assert: aPlayer lap equals: 0
 ]
 
@@ -189,7 +221,7 @@ MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 	aGame := self gameWithOneLap: aLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame winner asSymbol equals: 'blue' asSymbol
+	self assert: aGame winner equals: 'blue'
 ]
 
 { #category : #tests }
@@ -226,7 +258,7 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 	self
 		assert: aGame positions
 		equals: (OrderedCollection with: 6 with: 6).
-	self assert: aGame winner asSymbol equals: 'blue' asSymbol
+	self assert: aGame winner equals: 'blue'
 ]
 
 { #category : #tests }
@@ -240,6 +272,19 @@ MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
 	self assert: aGame parsecs equals: 100
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithAnSpecificAmountOfParsec [
+
+	| aLoadedDie aGame |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 8
+			               with: 9
+			               with: 6).
+	aGame := self gameWithMoreParsecs: aLoadedDie.
+	self assert: aGame parsecs equals: 200
 ]
 
 { #category : #tests }

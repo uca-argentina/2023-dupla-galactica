@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-AtomicBombBox >> effect: aBoard [
+AtomicBombBox >> effect: aGame [
 
-	aBoard players do: [ :player | player moveToTheBeginning ]
+	aGame moveAllToTheStart.
 ]

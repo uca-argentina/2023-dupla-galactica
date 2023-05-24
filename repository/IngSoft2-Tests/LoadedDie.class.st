@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'faces',
-		'positionValue'
+		'valueManager'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -15,14 +15,6 @@ LoadedDie class >> with: aValuesCollection [
 	^ self new initializeWith: aValuesCollection
 ]
 
-{ #category : #Throw }
-LoadedDie >> changeValue [
-
-	positionValue := positionValue == self faces size
-		                 ifTrue: [ 1 ]
-		                 ifFalse: [ positionValue + 1 ]
-]
-
 { #category : #Information }
 LoadedDie >> faces [
 
@@ -31,8 +23,8 @@ LoadedDie >> faces [
 
 { #category : #Initialization }
 LoadedDie >> initializeWith: aValue [
-	positionValue := 1.
 	faces := aValue.
+	valueManager:= TurnManager with: (aValue size).
 ]
 
 { #category : #Information }
@@ -43,8 +35,8 @@ LoadedDie >> numberOffaces [
 
 { #category : #Throw }
 LoadedDie >> throw [
-| value |
-	value:= (self faces at: positionValue).
-	self changeValue.
+	| value |
+	value:= (self faces at: (valueManager current)).
+	valueManager updateTurn.
 	^value.
 ]

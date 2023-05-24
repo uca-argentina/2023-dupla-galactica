@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-SpeedUpBox >> effect: aBoard [
+SpeedUpBox >> effect: aGame [
 
-	aBoard nextOne effect: 4 check: aBoard length
+	aGame moveNext: 4.
 ]

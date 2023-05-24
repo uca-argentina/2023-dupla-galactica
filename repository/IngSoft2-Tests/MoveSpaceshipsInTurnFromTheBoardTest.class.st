@@ -3,9 +3,10 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
-		'aBoxesCollection',
 		'aLoadedDie',
-		'aGame'
+		'aGame',
+		'boxes',
+		'aBoard'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -19,23 +20,41 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
 
-	aGame := LoadedGame
-		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 1)
-		         throwing: (OrderedCollection with: aLoadedDie)
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: (OrderedCollection with: aLoadedDie)
+							winningWhen: 1.
 ]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ001CheckTheNextSpacheshipToPlay [
 
-	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
+	self assert: aGame currentPlayer equals: 'red'
 ]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfterMovingOne [
 
 	aGame moveNextPlayer.
-	self assert: aGame nextPlayer asSymbol identicalTo: 'blue' asSymbol
+	self assert: aGame currentPlayer equals: 'blue'
 ]
 
 { #category : #tests }
@@ -43,5 +62,5 @@ MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnce
 
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
+	self assert: aGame currentPlayer equals: 'red'
 ]
