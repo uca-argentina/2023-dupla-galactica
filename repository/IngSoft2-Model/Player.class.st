@@ -2,8 +2,9 @@ Class {
 	#name : #Player,
 	#superclass : #Object,
 	#instVars : [
-		'spaceship',
-		'lap'
+		'lap',
+		'color',
+		'position'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,23 +18,23 @@ Player class >> with: aSpaceship [
 { #category : #Information }
 Player >> color [
 
-	^ self spaceship color
+	^color
 ]
 
 { #category : #LapControl }
 Player >> effect: aPositionToMove check: aValue [
 
 	(self lap == 0 and:
-		 (aPositionToMove  < 0 and: aPositionToMove abs > self spaceship position))
+		 (aPositionToMove  < 0 and: aPositionToMove abs > position))
 		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ self spaceship move: aPositionToMove ].
+		ifFalse: [ self move: aPositionToMove ].
 	self updateLap: aValue
 ]
 
 { #category : #Initialization }
-Player >> initializeWith: aSpaceship [
-
-	spaceship := aSpaceship.
+Player >> initializeWith: aColor [
+	color:= aColor.
+	position:=1.
 	lap := 0
 ]
 
@@ -44,52 +45,63 @@ Player >> lap [
 ]
 
 { #category : #LapControl }
+Player >> move: value [
+
+	position := position + value
+]
+
+{ #category : #LapControl }
 Player >> move: aDiceCollection check: aValue [
 
-	self spaceship move: (aDiceCollection sumNumbers: [ :die | die throw ]).
+	self move: (aDiceCollection sumNumbers: [ :die | die throw ]).
 	self updateLap: aValue.
+]
+
+{ #category : #LapControl }
+Player >> moveTo: aValue [
+
+	position := aValue
 ]
 
 { #category : #LapControl }
 Player >> moveToTheBeginning [
 
-	self spaceship moveTo: 1
+	self moveTo: 1
 ]
 
 { #category : #LapControl }
 Player >> negativePosition: aLength [
 
 	| entireLaps |
-	entireLaps := (self spaceship position + 1) abs // aLength + 1.
+	entireLaps := (position + 1) abs // aLength + 1.
 	lap := lap - entireLaps.
-	^ aLength - self spaceship position abs
+	^ aLength - position abs
+]
+
+{ #category : #Information }
+Player >> position [
+	^ position
 ]
 
 { #category : #LapControl }
 Player >> positivePosition: aLength [
 
 	| entireLaps |
-	entireLaps := self spaceship position // aLength.
+	entireLaps := position // aLength.
 	lap := lap + entireLaps.
-	^ self spaceship position - (aLength * entireLaps)
-]
-
-{ #category : #Information }
-Player >> spaceship [
-
-	^ spaceship
+	^ position - (aLength * entireLaps)
 ]
 
 { #category : #LapControl }
 Player >> updateLap: aLength [
 
-	| position |
+	| aPosition |
 
-	self spaceship position > aLength ifTrue: [ 
-		position := self positivePosition: aLength.
-		self spaceship moveTo: position ].
+	position > aLength ifTrue: [ 
+		aPosition := self positivePosition: aLength.
+		self moveTo: aPosition ].
 
-	self spaceship position <= 0 ifFalse: [ ^ self ].
-	position := self negativePosition: aLength.
-	self spaceship moveTo: position
+	position <= 0 ifFalse: [ ^ self ].
+	aPosition := self negativePosition: aLength.
+	self moveTo: aPosition
 ]

@@ -5,7 +5,8 @@ Class {
 		'board',
 		'players',
 		'dice',
-		'goalLaps'
+		'goalLaps',
+		'turnManager'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -52,13 +53,13 @@ LoadedGame >> initializeWith: aColorsCollection and: aBoardDateCollection throwi
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	players := aColorsCollection collect: [ :color | 
-		           Player with: (Spaceship with: color) ].
+		           Player with: color].
 	board := Board
 		         with: (aBoardDateCollection at: 1)
-		         and: players
 		         effects: boxes
 		         measure: 100.
 	dice := aDiceCollection.
+	turnManager := TurnManager with: (aColorsCollection  size).
 	goalLaps := aBoardDateCollection at: 2
 ]
 
@@ -68,16 +69,36 @@ LoadedGame >> laps [
 	^ players collect: [ :player | player lap ]
 ]
 
-{ #category : #Player }
+{ #category : #Players }
+LoadedGame >> moveAllToTheStart [ 
+	players do: [:player | player moveToTheBeginning].
+]
+
+{ #category : #Players }
+LoadedGame >> moveNext: aValue [ 
+	(players at: turnManager nextOne) effect: aValue check: board length.
+]
+
+{ #category : #Players }
 LoadedGame >> moveNextPlayer [
 
-	self winnerExists ifFalse: [ board movePlayer: dice ]
+	self winnerExists ifTrue: [ ^ self ].
+	(players at: turnManager nextOne) move: dice check: board length.
+	board effect: (players at: turnManager nextOne) with: self.
+	turnManager updateTurn
+]
+
+{ #category : #Players }
+LoadedGame >> moveOthers: aValue [
+	players do: [ :player | 
+		player color asSymbol == (players at: turnManager nextOne) color asSymbol ifFalse: [ 
+			player effect: aValue check: board length] ]
 ]
 
 { #category : #Information }
 LoadedGame >> nextPlayer [
 
-	^ board nextOne color
+	^ (players at: turnManager nextOne) color
 ]
 
 { #category : #Information }
@@ -89,7 +110,7 @@ LoadedGame >> parsecs [
 { #category : #Information }
 LoadedGame >> positions [
 
-	^ players collect: [ :player | player spaceship position ]
+	^ players collect: [ :player | player position ]
 ]
 
 { #category : #Finalization }
@@ -98,8 +119,8 @@ LoadedGame >> ranking [
 	| ranking |
 	ranking := players collect: [ :player | player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 spaceship position + (player1 lap * self boxes size)
-		> (player2 spaceship position + (player2 lap * self boxes size)) ].
+		player1 position + (player1 lap * self boxes size)
+		> (player2 position + (player2 lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
 ]
 

@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-WormHoleBox >> effect: aBoard [
+WormHoleBox >> effect: aGame [
 
-	aBoard nextOne effect: -4 check: aBoard length
+	aGame moveNext: -4.
 ]

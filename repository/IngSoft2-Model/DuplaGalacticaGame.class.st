@@ -5,7 +5,8 @@ Class {
 		'players',
 		'board',
 		'dice',
-		'goalLaps'
+		'goalLaps',
+		'turnManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -51,13 +52,13 @@ DuplaGalacticaGame >> goalLaps [
 DuplaGalacticaGame >> initializeWith: aColorsCollection and: aDataBoardCollection throwing: aDiceCollection [
 
 	players := aColorsCollection collect: [ :color | 
-		           Player with: (Spaceship with: color) ].
+		           Player with: color ].
 	board := Board
 		         with: (aDataBoardCollection at: 1)
-		         and: players
 		         effects: (self createBoxes: aDataBoardCollection)
 		         measure: (aDataBoardCollection at: 3).
 	dice := aDiceCollection.
+	turnManager := TurnManager with: (aColorsCollection  size).
 	goalLaps := aDataBoardCollection at: 2
 ]
 
@@ -68,15 +69,35 @@ DuplaGalacticaGame >> laps [
 ]
 
 { #category : #Player }
+DuplaGalacticaGame >> moveAllToTheStart [ 
+	players do: [:player | player moveToTheBeginning].
+]
+
+{ #category : #Player }
+DuplaGalacticaGame >> moveNext: aValue [ 
+	(players at: turnManager nextOne) effect: aValue check: board length.
+]
+
+{ #category : #Player }
 DuplaGalacticaGame >> moveNextPlayer [
 
-	self winnerExists ifFalse: [ board movePlayer: dice ]
+	self winnerExists ifTrue: [ ^ self ].
+	(players at: turnManager nextOne) move: dice check: board length.
+	board effect: (players at: turnManager nextOne) with: self.
+	turnManager updateTurn
+]
+
+{ #category : #Player }
+DuplaGalacticaGame >> moveOthers: aValue [
+	players do: [ :player | 
+		player color asSymbol == (players at: turnManager nextOne) color asSymbol ifFalse: [ 
+			player effect: aValue check: board length] ]
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> nextPlayer [
 
-	^ board nextOne color
+	^ (players at: (turnManager nextOne)) color.
 ]
 
 { #category : #Information }
@@ -88,7 +109,7 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> positions [
 
-	^ players collect: [ :player | player spaceship position ]
+	^ players collect: [ :player | player position ]
 ]
 
 { #category : #Initialization }
@@ -119,8 +140,8 @@ DuplaGalacticaGame >> ranking [
 	| ranking |
 	ranking := players collect: [ :player | player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 spaceship position + (player1 lap * self boxes size)
-		> (player2 spaceship position + (player2 lap * self boxes size)) ].
+		player1 position + (player1 lap * self boxes size)
+		> (player2 position + (player2 lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
 ]
 

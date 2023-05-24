@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'parsecs',
-		'nextParsec'
+		'parsecManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -32,32 +32,21 @@ HyperJumpBox >> createParsecs: possibleValues [
 ]
 
 { #category : #Effect }
-HyperJumpBox >> effect: aBoard [
+HyperJumpBox >> effect: aGame [
 
-	aBoard nextOne
-		effect:
-		(self parsecs at: nextParsec) // (aBoard parsecs // aBoard length)
-		check: aBoard length.
-	self updateParsec
+	aGame moveNext: (self parsecs at: (parsecManager nextOne)) // (aGame parsecs // (aGame boxes size)).
+	parsecManager updateTurn.
 ]
 
 { #category : #Initialization }
 HyperJumpBox >> initializeWith: aParsecsCollection [
 
 	parsecs:=self createParsecs: aParsecsCollection.
-	nextParsec := 1
+	parsecManager:= TurnManager with: (parsecs size).
 ]
 
 { #category : #Information }
 HyperJumpBox >> parsecs [
 
 	^ parsecs
-]
-
-{ #category : #Effect }
-HyperJumpBox >> updateParsec [
-
-	nextParsec := nextParsec == parsecs size
-		              ifTrue: [ 1 ]
-		              ifFalse: [ nextParsec + 1 ]
 ]

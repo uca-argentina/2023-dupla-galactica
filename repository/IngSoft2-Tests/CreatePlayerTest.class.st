@@ -12,9 +12,7 @@ Class {
 CreatePlayerTest >> setUp [
 
 	super setUp.
-
-	aSpaceship := Spaceship with: 'red'.
-	aPlayer := Player with: aSpaceship
+	aPlayer := Player with: 'red'
 ]
 
 { #category : #tests }

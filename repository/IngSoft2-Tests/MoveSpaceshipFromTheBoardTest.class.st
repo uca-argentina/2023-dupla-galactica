@@ -50,43 +50,12 @@ MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass wi
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA003AskSpaceshipForItsOwnPosition [
-
-	| aSpaceship |
-	aSpaceship := Spaceship with: 'red'.
-	self assert: aSpaceship position identicalTo: 1
-]
-
-{ #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA004AskSpaceshipForItsOwnPositionAfterMovingIt [
-
-	| aSpaceship |
-	aSpaceship := Spaceship with: 'red'.
-	aSpaceship move: 8.
-	self assert: aSpaceship position identicalTo: 9
-]
-
-{ #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA007CreateABoardWithASpecificSize [
-
-	| aBoard aSpaceshipCollection |
-	aSpaceshipCollection := OrderedCollection new.
-	aBoard := Board
-		          with: 9
-		          and: aSpaceshipCollection
-		          effects: aBoxesCollection
-		          measure: 100.
-	self assert: aBoard length identicalTo: 9
-]
-
-{ #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
 
 	self
 		should: [ 
 			Board
 				with: -1
-				and: OrderedCollection new
 				effects: aBoxesCollection
 				measure: 100 ]
 		raise: Error
@@ -96,9 +65,8 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 { #category : #tests }
 MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLap [
 
-	| aSpaceship aPlayer |
-	aSpaceship := Spaceship with: 'red'.
-	aPlayer := Player with: aSpaceship.
+	| aPlayer |
+	aPlayer := Player with: 'red'.
 	self assert: aPlayer lap equals: 0
 ]
 
