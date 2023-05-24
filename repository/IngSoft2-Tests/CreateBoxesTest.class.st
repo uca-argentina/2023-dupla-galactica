@@ -2,8 +2,7 @@ Class {
 	#name : #CreateBoxesTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aColorCollection',
-		'aLoadedDie'
+		'aColorCollection'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -12,9 +11,7 @@ Class {
 CreateBoxesTest >> gameWith: aSecondLoadedDie [
 
 	| aLoadedDiceCollection aGame boxes aBoard |
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
+	aLoadedDiceCollection := OrderedCollection with: aSecondLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: SpeedUpBox new
@@ -47,11 +44,6 @@ CreateBoxesTest >> setUp [
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 0
-			               with: 0
-			               with: 7
-			               with: 9)
 ]
 
 { #category : #tests }
