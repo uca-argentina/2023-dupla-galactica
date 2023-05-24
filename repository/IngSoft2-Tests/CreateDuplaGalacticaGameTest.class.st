@@ -154,3 +154,25 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 		raise: Error
 		withMessage: 'Cannot create a game a negative parsec amount'
 ]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP020VerifyTheCorrectFunctionalityOfMovingPlayersToTheStart [
+	
+	|aGame|
+	
+	aGame := self createGameWithEffects.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	aGame moveAllToTheStart.
+	self assert: aGame positions equals: (OrderedCollection with: 1 with: 1).
+]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP021VerifyTheCorrectFunctionalityOfMovingTheOtherPlayers [
+	
+	|aGame|
+	
+	aGame := self createGameWithEffects.
+	aGame moveOthers: 2.
+	self assert: aGame positions equals: (OrderedCollection with: 1 with: 3).
+]
