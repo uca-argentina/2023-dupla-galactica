@@ -108,8 +108,8 @@ CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
 	self
-		assert: aLoadedGame nextPlayer asSymbol
-		identicalTo: 'red' asSymbol
+		assert: aLoadedGame nextPlayer 
+		equals: 'red' 
 ]
 
 { #category : #tests }
@@ -120,7 +120,7 @@ CreateAFunctionalGameTest >> testD002CreateGameAndAskForWinner [
 	aLoadedGame moveNextPlayer.
 	aLoadedGame moveNextPlayer.
 	aLoadedGame moveNextPlayer.
-	self assert: aLoadedGame winner asSymbol identicalTo: 'red' asSymbol
+	self assert: aLoadedGame winner equals: 'red'
 ]
 
 { #category : #tests }

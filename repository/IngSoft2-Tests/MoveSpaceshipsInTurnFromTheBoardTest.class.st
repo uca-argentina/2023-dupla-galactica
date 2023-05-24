@@ -47,14 +47,14 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ001CheckTheNextSpacheshipToPlay [
 
-	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
+	self assert: aGame nextPlayer equals: 'red'
 ]
 
 { #category : #tests }
 MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfterMovingOne [
 
 	aGame moveNextPlayer.
-	self assert: aGame nextPlayer asSymbol identicalTo: 'blue' asSymbol
+	self assert: aGame nextPlayer equals: 'blue'
 ]
 
 { #category : #tests }
@@ -62,5 +62,5 @@ MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnce
 
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame nextPlayer asSymbol identicalTo: 'red' asSymbol
+	self assert: aGame nextPlayer equals: 'red'
 ]

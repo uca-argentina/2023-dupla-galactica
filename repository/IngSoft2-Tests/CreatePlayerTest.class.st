@@ -18,7 +18,7 @@ CreatePlayerTest >> setUp [
 { #category : #tests }
 CreatePlayerTest >> testK001CreateAPlayerThatHasAnSpaceship [
 
-	self assert: aPlayer color asSymbol identicalTo: 'red' asSymbol
+	self assert: aPlayer color equals: 'red'
 ]
 
 { #category : #tests }
@@ -28,5 +28,5 @@ CreatePlayerTest >> testK002CreateAPlayerAndThrowTheDice [
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 8 with: 10 with: 11).
 	aPlayer move: (OrderedCollection with: aLoadedDie) check: 10.
-	self assert: aPlayer color asSymbol identicalTo: 'red' asSymbol
+	self assert: aPlayer color equals: 'red'
 ]

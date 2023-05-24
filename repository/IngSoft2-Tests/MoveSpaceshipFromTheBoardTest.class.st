@@ -193,7 +193,7 @@ MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 	aGame := self gameWithOneLap: aLoadedDie.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
-	self assert: aGame winner asSymbol equals: 'blue' asSymbol
+	self assert: aGame winner equals: 'blue'
 ]
 
 { #category : #tests }
@@ -230,7 +230,7 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 	self
 		assert: aGame positions
 		equals: (OrderedCollection with: 6 with: 6).
-	self assert: aGame winner asSymbol equals: 'blue' asSymbol
+	self assert: aGame winner equals: 'blue'
 ]
 
 { #category : #tests }

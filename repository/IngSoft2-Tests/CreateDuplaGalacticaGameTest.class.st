@@ -65,7 +65,7 @@ CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
 	| aGame |
 	aGame := self createGameWithEffects.
 	aGame moveNextPlayer.
-	self assert: aGame nextPlayer asSymbol identicalTo: 'blue' asSymbol
+	self assert: aGame nextPlayer equals: 'blue'
 ]
 
 { #category : #tests }
@@ -120,7 +120,7 @@ CreateDuplaGalacticaGameTest >> testP016VerifyTheCorrectUseOfWinner [
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColorHasBennPass [
+CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColorHasBeenPass [
 
 	self
 		should: [ 
