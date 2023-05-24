@@ -61,14 +61,14 @@ DuplaGalacticaGame >> moveAllToTheStart [
 
 { #category : #Player }
 DuplaGalacticaGame >> moveNext: aValue [ 
-	(players at: turnManager nextOne) effect: aValue check: board length.
+	(players at: turnManager nextOne) move: aValue andCheck: board boxes size.
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveNextPlayer [
 
 	self winnerExists ifTrue: [ ^ self ].
-	(players at: turnManager nextOne) move: dice check: board length.
+	(players at: turnManager nextOne) move: (dice sumNumbers: [ :die | die throw ]) andCheck: board boxes size.
 	board effect: (players at: turnManager nextOne) with: self.
 	turnManager updateTurn
 ]
@@ -77,7 +77,7 @@ DuplaGalacticaGame >> moveNextPlayer [
 DuplaGalacticaGame >> moveOthers: aValue [
 	players do: [ :player | 
 		player color asSymbol == (players at: turnManager nextOne) color asSymbol ifFalse: [ 
-			player effect: aValue check: board length] ]
+			player move: aValue andCheck: board boxes size] ]
 ]
 
 { #category : #Information }

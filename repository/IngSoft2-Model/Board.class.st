@@ -40,12 +40,6 @@ Board >> initializeWithSizeOf: aValue effects: aBoxCollection measure: aParsecAm
 ]
 
 { #category : #Information }
-Board >> length [
-
-	^ length
-]
-
-{ #category : #Information }
 Board >> parsecs [
 
 	^ parsecs

@@ -21,16 +21,6 @@ Player >> color [
 	^color
 ]
 
-{ #category : #LapControl }
-Player >> effect: aPositionToMove check: aValue [
-
-	(self lap == 0 and:
-		 (aPositionToMove  < 0 and: aPositionToMove abs > position))
-		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ self move: aPositionToMove ].
-	self updateLap: aValue
-]
-
 { #category : #Initialization }
 Player >> initializeWith: aColor [
 	color:= aColor.
@@ -51,22 +41,19 @@ Player >> move: value [
 ]
 
 { #category : #LapControl }
-Player >> move: aDiceCollection check: aValue [
+Player >> move: aPositionToMove andCheck: aValue [
 
-	self move: (aDiceCollection sumNumbers: [ :die | die throw ]).
-	self updateLap: aValue.
-]
-
-{ #category : #LapControl }
-Player >> moveTo: aValue [
-
-	position := aValue
+	(self lap == 0 and:
+		 (aPositionToMove  < 0 and: aPositionToMove abs > position))
+		ifTrue: [ self moveToTheBeginning ]
+		ifFalse: [ self move: aPositionToMove ].
+	self updateLap: aValue
 ]
 
 { #category : #LapControl }
 Player >> moveToTheBeginning [
 
-	self moveTo: 1
+	position:=1.
 ]
 
 { #category : #LapControl }
@@ -95,13 +82,9 @@ Player >> positivePosition: aLength [
 { #category : #LapControl }
 Player >> updateLap: aLength [
 
-	| aPosition |
-
 	position > aLength ifTrue: [ 
-		aPosition := self positivePosition: aLength.
-		self moveTo: aPosition ].
+		position := self positivePosition: aLength ].
 
 	position <= 0 ifFalse: [ ^ self ].
-	aPosition := self negativePosition: aLength.
-	self moveTo: aPosition
+	position := self negativePosition: aLength
 ]

@@ -7,6 +7,34 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #Game }
+MoveSpaceshipFromTheBoardTest >> gameWithMoreParsecs: aLoadedDie [ 
+	| boxes aBoard aLoadedGame|
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 200.
+	aLoadedGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: (OrderedCollection with: aLoadedDie)
+							winningWhen: 2.
+	^ aLoadedGame
+]
+
 { #category : #Games }
 MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 
@@ -244,6 +272,19 @@ MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
 	self assert: aGame parsecs equals: 100
+]
+
+{ #category : #tests }
+MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithAnSpecificAmountOfParsec [
+
+	| aLoadedDie aGame |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 8
+			               with: 9
+			               with: 6).
+	aGame := self gameWithMoreParsecs: aLoadedDie.
+	self assert: aGame parsecs equals: 200
 ]
 
 { #category : #tests }

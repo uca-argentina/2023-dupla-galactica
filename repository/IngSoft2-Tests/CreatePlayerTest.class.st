@@ -27,6 +27,6 @@ CreatePlayerTest >> testK002CreateAPlayerAndThrowTheDice [
 	| aLoadedDie |
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 8 with: 10 with: 11).
-	aPlayer move: (OrderedCollection with: aLoadedDie) check: 10.
+	aPlayer move: (aLoadedDie throw ) andCheck: 10.
 	self assert: aPlayer color equals: 'red'
 ]
