@@ -26,5 +26,5 @@ MoonWalkBox >> effect: aGame [
 { #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue [
 
-	effectValue := aValue atRandom * -1
+	effectValue := aValue.
 ]

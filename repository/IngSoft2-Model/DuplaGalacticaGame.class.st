@@ -32,6 +32,12 @@ DuplaGalacticaGame >> boxes [
 ]
 
 { #category : #Information }
+DuplaGalacticaGame >> currentPlayer [
+
+	^ (players at: (turnManager current)) color.
+]
+
+{ #category : #Information }
 DuplaGalacticaGame >> goalLaps [
 
 	^ goalLaps
@@ -61,29 +67,23 @@ DuplaGalacticaGame >> moveAllToTheStart [
 
 { #category : #Player }
 DuplaGalacticaGame >> moveNext: aValue [ 
-	(players at: turnManager nextOne) move: aValue andCheck: board boxes size.
+	(players at: turnManager current) move: aValue andCheck: board boxes size.
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveNextPlayer [
 
 	self winnerExists ifTrue: [ ^ self ].
-	(players at: turnManager nextOne) move: (dice sumNumbers: [ :die | die throw ]) andCheck: board boxes size.
-	board effect: (players at: turnManager nextOne) with: self.
+	(players at: turnManager current) move: (dice sumNumbers: [ :die | die throw ]) andCheck: board boxes size.
+	board effect: (players at: turnManager current) with: self.
 	turnManager updateTurn
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveOthers: aValue [
 	players do: [ :player | 
-		player color asSymbol == (players at: turnManager nextOne) color asSymbol ifFalse: [ 
+		player color asSymbol == (players at: turnManager current) color asSymbol ifFalse: [ 
 			player move: aValue andCheck: board boxes size] ]
-]
-
-{ #category : #Information }
-DuplaGalacticaGame >> nextPlayer [
-
-	^ (players at: (turnManager nextOne)) color.
 ]
 
 { #category : #Information }

@@ -13,15 +13,15 @@ TurnManager class >> with: anAmount [
 	^(self new) initializeWith: anAmount.
 ]
 
+{ #category : #ManageTurns }
+TurnManager >> current [
+	^ current.
+]
+
 { #category : #Initialization }
 TurnManager >> initializeWith: anAmount [ 
 	max:=anAmount.
 	current:=1.
-]
-
-{ #category : #ManageTurns }
-TurnManager >> nextOne [
-	^ current.
 ]
 
 { #category : #ManageTurns }

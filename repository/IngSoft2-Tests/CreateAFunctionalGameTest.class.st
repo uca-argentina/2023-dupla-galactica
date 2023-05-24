@@ -108,7 +108,7 @@ CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
 	self
-		assert: aLoadedGame nextPlayer 
+		assert: aLoadedGame currentPlayer 
 		equals: 'red' 
 ]
 

@@ -65,7 +65,7 @@ CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
 	| aGame |
 	aGame := self createGameWithEffects.
 	aGame moveNextPlayer.
-	self assert: aGame nextPlayer equals: 'blue'
+	self assert: aGame currentPlayer equals: 'blue'
 ]
 
 { #category : #tests }

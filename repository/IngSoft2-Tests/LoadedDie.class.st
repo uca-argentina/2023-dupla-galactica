@@ -36,7 +36,7 @@ LoadedDie >> numberOffaces [
 { #category : #Throw }
 LoadedDie >> throw [
 	| value |
-	value:= (self faces at: (valueManager nextOne)).
+	value:= (self faces at: (valueManager current)).
 	valueManager updateTurn.
 	^value.
 ]

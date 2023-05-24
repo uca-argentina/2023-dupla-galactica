@@ -44,7 +44,7 @@ Player >> move: value [
 Player >> move: aPositionToMove andCheck: aValue [
 
 	(self lap == 0 and:
-		 (aPositionToMove  < 0 and: aPositionToMove abs > position))
+		 (aPositionToMove  < 0 and: aPositionToMove abs >= position))
 		ifTrue: [ self moveToTheBeginning ]
 		ifFalse: [ self move: aPositionToMove ].
 	self updateLap: aValue

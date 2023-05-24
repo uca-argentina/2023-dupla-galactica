@@ -34,14 +34,14 @@ HyperJumpBox >> createParsecs: possibleValues [
 { #category : #Effect }
 HyperJumpBox >> effect: aGame [
 
-	aGame moveNext: (self parsecs at: (parsecManager nextOne)) // (aGame parsecs // (aGame boxes size)).
+	aGame moveNext: (self parsecs at: (parsecManager current)) // (aGame parsecs // (aGame boxes size)).
 	parsecManager updateTurn.
 ]
 
 { #category : #Initialization }
 HyperJumpBox >> initializeWith: aParsecsCollection [
 
-	parsecs:=self createParsecs: aParsecsCollection.
+	parsecs:=aParsecsCollection.
 	parsecManager:= TurnManager with: (parsecs size).
 ]
 
