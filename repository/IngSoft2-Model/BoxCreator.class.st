@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #Creation }
-BoxCreator >> create: aLength and: aParsecCollection [
+BoxCreator >> create: aLength and: aParsecCollection [ 
 
 	| boxes |
 	boxes := OrderedCollection new.
@@ -16,7 +16,6 @@ BoxCreator >> create: aLength and: aParsecCollection [
 
 { #category : #Creation }
 BoxCreator >> createRandomParsecs: possibleValues [
-
 	| aParsecsCollection |
 	aParsecsCollection := OrderedCollection new.
 	possibleValues size atRandom to: possibleValues size atRandom do: [ 
