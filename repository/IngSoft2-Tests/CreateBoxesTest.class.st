@@ -2,7 +2,6 @@ Class {
 	#name : #CreateBoxesTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'boxes',
 		'aColorCollection',
 		'aLoadedDie'
 	],
@@ -12,14 +11,32 @@ Class {
 { #category : #Games }
 CreateBoxesTest >> gameWith: aSecondLoadedDie [
 
-	| aLoadedDiceCollection aGame |
+	| aLoadedDiceCollection aGame boxes aBoard |
 	aLoadedDiceCollection := OrderedCollection
 		                         with: aLoadedDie
 		                         with: aSecondLoadedDie.
-	aGame := LoadedGame
-		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 1)
-		         throwing: aLoadedDiceCollection.
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: aLoadedDiceCollection
+							winningWhen: 1.
 
 	^ aGame
 ]

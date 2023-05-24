@@ -2,7 +2,6 @@ Class {
 	#name : #MoveSpaceshipFromTheBoardTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aBoxesCollection',
 		'aColorCollection'
 	],
 	#category : #'IngSoft2-Tests'
@@ -11,24 +10,61 @@ Class {
 { #category : #Games }
 MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 
-	| aGame |
-	aGame := LoadedGame
-		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 1)
-		         throwing: (OrderedCollection with: aLoadedDie).
+	| aGame boxes aBoard |
+	boxes := OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: (OrderedCollection with: aLoadedDie)
+		               winningWhen: 1.
 
 	^ aGame
 ]
 
 { #category : #Games }
 MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
+	
 
-	| aGame |
-	aGame := LoadedGame
-		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 2)
-		         throwing: (OrderedCollection with: aLoadedDie).
-	^ aGame
+	| boxes aBoard aLoadedGame|
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: 10)
+		         with: (HyperJumpBox with: (OrderedCollection
+					           with: 20
+					           with: 40
+					           with: 30
+					           with: -10
+					           with: 50)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aLoadedGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: (OrderedCollection with: aLoadedDie)
+							winningWhen: 2.
+	^ aLoadedGame
 ]
 
 { #category : #running }

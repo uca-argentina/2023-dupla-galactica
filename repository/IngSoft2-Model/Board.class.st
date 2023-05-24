@@ -11,7 +11,8 @@ Class {
 
 { #category : #'Intance creation' }
 Board class >> with: aValue effects: aBoxCollection measure: aParsecAmount [
-
+	(aParsecAmount) <= 0 ifTrue: [ 
+		Error signal: 'Cannot create a game a negative parsec amount' ].
 	aValue < 4 ifTrue: [ 
 		Error signal: 'Cannot create a board with that value' ].
 	^ self new

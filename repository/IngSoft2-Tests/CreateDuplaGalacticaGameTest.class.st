@@ -2,7 +2,6 @@ Class {
 	#name : #CreateDuplaGalacticaGameTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'boxes',
 		'aColorCollection',
 		'aLoadedDie'
 	],
@@ -12,16 +11,20 @@ Class {
 { #category : #Games }
 CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
-	| aGame |
+	| aGame aBoard aBoxCreator boxes |
+	aBoxCreator := BoxCreator new.
+	boxes := aBoxCreator create: 10 and: (OrderedCollection
+			          with: 40
+			          with: 20
+			          with: -10
+			          with: 30
+			          with: 40).
+	aBoard := Board with: 10 effects: boxes measure: 200.
 	aGame := DuplaGalacticaGame
 		         with: aColorCollection
-		         and: (OrderedCollection with: 10 with: 1 with: 200 with: (OrderedCollection
-													   with: 40
-													   with: 20
-													   with: -10
-													   with: 30
-													   with: 40))
-		         throwing: (OrderedCollection with: aLoadedDie).
+		         and: aBoard
+		         throwing: (OrderedCollection with: aLoadedDie)
+				   winningWhen: 1.
 	^ aGame
 ]
 
@@ -123,8 +126,9 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 		should: [ 
 			DuplaGalacticaGame
 				with: OrderedCollection new
-				and: (OrderedCollection with: 10 with: 1 with: 200)
-				throwing: (OrderedCollection with: aLoadedDie) ]
+				and: (Board with: 10 effects: OrderedCollection new measure: 200)
+				throwing: (OrderedCollection with: aLoadedDie)
+				winningWhen: 1]
 		raise: Error
 		withMessage: 'Cannot create a game with no players'
 ]
@@ -136,8 +140,9 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 		should: [ 
 			DuplaGalacticaGame
 				with: aColorCollection
-				and: (OrderedCollection with: 10 with: -1 with: 200)
-				throwing: (OrderedCollection with: aLoadedDie) ]
+				and: (Board with: 10 effects: OrderedCollection new measure: 200)
+				throwing: (OrderedCollection with: aLoadedDie)
+				winningWhen: -1]
 		raise: Error
 		withMessage: 'Cannot create a game with that goal laps'
 ]
@@ -149,8 +154,9 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 		should: [ 
 			DuplaGalacticaGame
 				with: aColorCollection
-				and: (OrderedCollection with: 10 with: 1 with: 0)
-				throwing: (OrderedCollection with: aLoadedDie) ]
+				and: (Board with: 10 effects: OrderedCollection new measure: 0)
+				throwing: (OrderedCollection with: aLoadedDie)
+				winningWhen: 1]
 		raise: Error
 		withMessage: 'Cannot create a game a negative parsec amount'
 ]
