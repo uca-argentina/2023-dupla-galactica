@@ -92,7 +92,7 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 		should: [ 
 			Board
 				with: -1
-				effects: aBoxesCollection
+				effects: OrderedCollection new
 				measure: 100 ]
 		raise: Error
 		withMessage: 'Cannot create a board with that value'
