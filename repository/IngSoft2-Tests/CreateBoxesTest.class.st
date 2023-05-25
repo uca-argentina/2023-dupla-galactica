@@ -17,9 +17,8 @@ CreateBoxesTest >> setUp [
 
 { #category : #tests }
 CreateBoxesTest >> testN001NoEffectBox [
-	|aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 6 with: 8 with: 5 with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -35,7 +34,7 @@ CreateBoxesTest >> testN001NoEffectBox [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDiceCollection
+		               throwing: aLoadedDie
 							winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -47,9 +46,8 @@ CreateBoxesTest >> testN001NoEffectBox [
 { #category : #tests }
 CreateBoxesTest >> testN002WormHoleBox [
 
-	|aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 5 with: 8 with: 5 with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -65,7 +63,7 @@ CreateBoxesTest >> testN002WormHoleBox [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDiceCollection
+		               throwing: aLoadedDie 
 							winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -77,9 +75,8 @@ CreateBoxesTest >> testN002WormHoleBox [
 { #category : #tests }
 CreateBoxesTest >> testN003SpeedUpBox [
 
-	|aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 1 with: 8 with: 5 with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: SpeedUpBox new
@@ -95,7 +92,7 @@ CreateBoxesTest >> testN003SpeedUpBox [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDiceCollection
+		               throwing: aLoadedDie
 							winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -107,9 +104,8 @@ CreateBoxesTest >> testN003SpeedUpBox [
 { #category : #tests }
 CreateBoxesTest >> testN004MoonWalkBox [
 
-	|aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 8 with: 3 with: 5 with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -125,7 +121,7 @@ CreateBoxesTest >> testN004MoonWalkBox [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDiceCollection
+		               throwing: aLoadedDie 
 							winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -137,9 +133,8 @@ CreateBoxesTest >> testN004MoonWalkBox [
 { #category : #tests }
 CreateBoxesTest >> testN005AtomicBombBox [
 
-	|aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 8 with: 7 with: 5 with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -155,7 +150,7 @@ CreateBoxesTest >> testN005AtomicBombBox [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDiceCollection
+		               throwing: aLoadedDie 
 							winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -167,9 +162,8 @@ CreateBoxesTest >> testN005AtomicBombBox [
 { #category : #tests }
 CreateBoxesTest >> testN006HyperJumpBox [
 
-	|aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -185,7 +179,7 @@ CreateBoxesTest >> testN006HyperJumpBox [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDiceCollection
+		               throwing: aLoadedDie 
 							winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -197,13 +191,12 @@ CreateBoxesTest >> testN006HyperJumpBox [
 { #category : #tests }
 CreateBoxesTest >> testN007WormHoleBoxWhenPlayerIsInTheFirstLap [
 
-	| aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 8
 			               with: 5
 			               with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: WormHoleBox new
@@ -219,7 +212,7 @@ CreateBoxesTest >> testN007WormHoleBoxWhenPlayerIsInTheFirstLap [
 	aGame := DuplaGalacticaGame
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDiceCollection
+		         throwing: aLoadedDie 
 		         winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -231,13 +224,12 @@ CreateBoxesTest >> testN007WormHoleBoxWhenPlayerIsInTheFirstLap [
 { #category : #tests }
 CreateBoxesTest >> testN008MoonWalkBoxWhenPlayerIsInTheFirstLap [
 
-	| aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 5
 			               with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -253,7 +245,7 @@ CreateBoxesTest >> testN008MoonWalkBoxWhenPlayerIsInTheFirstLap [
 	aGame := DuplaGalacticaGame
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDiceCollection
+		         throwing: aLoadedDie 
 		         winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.
@@ -265,9 +257,8 @@ CreateBoxesTest >> testN008MoonWalkBoxWhenPlayerIsInTheFirstLap [
 { #category : #tests }
 CreateBoxesTest >> testN009HyperJumpBoxWhenPlayerIsInTheFirstLap [
 
-	|aLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
-	aLoadedDiceCollection := OrderedCollection with: aLoadedDie.
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -283,7 +274,7 @@ CreateBoxesTest >> testN009HyperJumpBoxWhenPlayerIsInTheFirstLap [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDiceCollection
+		               throwing: aLoadedDie
 							winningWhen: 1.
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.

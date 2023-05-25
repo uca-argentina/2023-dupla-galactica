@@ -43,7 +43,7 @@ CreatingSpaceshipsFromTheGameTest >> setUp [
 	aGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie 
 							winningWhen: 1.
 ]
 

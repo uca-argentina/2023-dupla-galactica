@@ -73,8 +73,14 @@ DuplaGalacticaGame >> moveNext: aValue [
 { #category : #Player }
 DuplaGalacticaGame >> moveNextPlayer [
 
+	| aValue |
+	aValue := dice size == 1
+		          ifTrue: [ dice throw ]
+		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
 	self winnerExists ifTrue: [ ^ self ].
-	(players at: turnManager current) move: (dice sumNumbers: [ :die | die throw ]) andCheck: board boxes size.
+	(players at: turnManager current)
+		move: aValue
+		andCheck: board boxes size.
 	board effect: (players at: turnManager current) with: self.
 	turnManager updateTurn
 ]

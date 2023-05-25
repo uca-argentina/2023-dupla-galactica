@@ -30,7 +30,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithMoreParsecs: aLoadedDie [
 	aLoadedGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie 
 							winningWhen: 2.
 	^ aLoadedGame
 ]
@@ -59,7 +59,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 	aGame := DuplaGalacticaGame
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie
 		               winningWhen: 1.
 
 	^ aGame
@@ -90,7 +90,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
 	aLoadedGame := DuplaGalacticaGame 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie
 							winningWhen: 2.
 	^ aLoadedGame
 ]
@@ -114,7 +114,7 @@ MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass wi
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
+MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeLengthThenRaiseAnError [
 
 	self
 		should: [ 
@@ -127,7 +127,7 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLap [
+MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLapThenValid [
 
 	| aPlayer |
 	aPlayer := Player with: 'red'.
@@ -135,7 +135,7 @@ MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLap [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM002MoveSpaceshipOneEntireLapAndThenAskForItsPosition [
+MoveSpaceshipFromTheBoardTest >> testM002MovePlayerOneEntireLapAndAskForItsPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -149,7 +149,7 @@ MoveSpaceshipFromTheBoardTest >> testM002MoveSpaceshipOneEntireLapAndThenAskForI
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM003MoveTwoSpaceshipOneEntireLapAndThenAskForTheirPosition [
+MoveSpaceshipFromTheBoardTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheirPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
