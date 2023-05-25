@@ -28,12 +28,14 @@ Board >> boxes [
 ]
 
 { #category : #BoxManager }
-Board >> effect: aPlayer with: aGame [ 
-	(self boxes at: aPlayer position) effect: aGame. 
+Board >> effectAt: aPlayerPosition In: aGame [
+
+	(self boxes at: aPlayerPosition) effect: aGame
 ]
 
 { #category : #Initialization }
 Board >> initializeWithSizeOf: aValue effects: aBoxCollection measure: aParsecAmount [
+
 	length := aValue.
 	parsecs := aParsecAmount.
 	boxes := aBoxCollection

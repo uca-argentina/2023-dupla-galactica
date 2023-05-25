@@ -16,11 +16,11 @@ MoonWalkBox class >> with: aValue [
 { #category : #Effect }
 MoonWalkBox >> effect: aGame [
 
-	aGame moveOthers: effectValue.
+	aGame moveOthers: effectValue
 ]
 
 { #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue [
 
-	effectValue := aValue.
+	effectValue := aValue
 ]

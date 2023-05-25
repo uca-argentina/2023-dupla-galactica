@@ -9,55 +9,74 @@ Class {
 
 { #category : #'Instance creation' }
 DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aDice winningWhen: aValue [
-	^(self new) initializeWith: aColorCollection and: aBoard throwing: aDice winningWhen: aValue.
+
+	^ self new
+		  initializeWith: aColorCollection
+		  and: aBoard
+		  throwing: aDice
+		  winningWhen: aValue
 ]
 
 { #category : #Information }
 DuplaGalacticaGameProxy >> boxes [
-	^game boxes.
+
+	^ game boxes
 ]
 
 { #category : #Information }
 DuplaGalacticaGameProxy >> currentPlayer [
-	^ game currentPlayer.
+
+	^ game currentPlayerColor
 ]
 
 { #category : #Information }
 DuplaGalacticaGameProxy >> goalLaps [
-	^game goalLaps.
+
+	^ game goalLaps
 ]
 
 { #category : #Initialization }
 DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue [
-	game:= DuplaGalacticaGame with: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue.
-]
 
-{ #category : #Information }
-DuplaGalacticaGameProxy >> laps [
-	^game laps.
+	game := DuplaGalacticaGame
+		        with: aColorsCollection
+		        and: aBoard
+		        throwing: aDiceCollection
+		        winningWhen: aValue
 ]
 
 { #category : #Movement }
-DuplaGalacticaGameProxy >> moveNextPlayer [
-	^game moveNextPlayer.
+DuplaGalacticaGameProxy >> movePlayer [
+
+	^ game movePlayer
 ]
 
 { #category : #Information }
 DuplaGalacticaGameProxy >> parsecs [
-	^game parsecs.
+
+	^ game parsecs
 ]
 
 { #category : #Information }
-DuplaGalacticaGameProxy >> positions [
-	^ game positions.
+DuplaGalacticaGameProxy >> playersLaps [
+
+	^ game playersLaps
+]
+
+{ #category : #Information }
+DuplaGalacticaGameProxy >> playersPositions [
+
+	^ game playersPositions
 ]
 
 { #category : #Finalization }
 DuplaGalacticaGameProxy >> ranking [
-	^game ranking.
+
+	^ game ranking
 ]
 
 { #category : #Finalization }
 DuplaGalacticaGameProxy >> winner [
-	^ game winner.
+
+	^ game winner
 ]

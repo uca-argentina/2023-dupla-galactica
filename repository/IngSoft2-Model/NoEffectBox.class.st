@@ -5,6 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-NoEffectBox >> effect: aBoard [ 
+NoEffectBox >> effect: aBoard [
+
 	
 ]

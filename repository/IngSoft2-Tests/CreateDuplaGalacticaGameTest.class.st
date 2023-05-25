@@ -13,7 +13,7 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
 	| aGame aBoard aBoxCreator boxes |
 	aBoxCreator := BoxCreator new.
-	boxes := aBoxCreator create: 10 and: (OrderedCollection
+	boxes := aBoxCreator create: 10 with: (OrderedCollection
 			          with: 40
 			          with: 20
 			          with: -10
@@ -64,7 +64,7 @@ CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self assert: aGame currentPlayer equals: 'blue'
 ]
 
@@ -97,7 +97,7 @@ CreateDuplaGalacticaGameTest >> testP014VerifyTheCorrectUseOfLaps [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	self assert: aGame laps size identicalTo: 2
+	self assert: aGame playersLaps size identicalTo: 2
 ]
 
 { #category : #tests }
@@ -105,7 +105,7 @@ CreateDuplaGalacticaGameTest >> testP015VerifyTheCorrectUseOfPositions [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	self assert: aGame positions size identicalTo: 2
+	self assert: aGame playersPositions size identicalTo: 2
 ]
 
 { #category : #tests }

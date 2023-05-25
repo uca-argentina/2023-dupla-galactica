@@ -53,14 +53,14 @@ MovePlayersInTurnFromTheGameTest >> testJ001CheckTheCurrentPlayerTurn [
 { #category : #tests }
 MovePlayersInTurnFromTheGameTest >> testJ002CheckTheCurrentPlayerAfterMovingTheFirstOne [
 
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self assert: aGame currentPlayer equals: 'blue'
 ]
 
 { #category : #tests }
 MovePlayersInTurnFromTheGameTest >> testJ003CheckTheCurrentPlayerOnceAllThePlayersThrowOneTime [
 
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self assert: aGame currentPlayer equals: 'red'
 ]

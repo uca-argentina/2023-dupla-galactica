@@ -46,10 +46,10 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
 		               and: aBoard
 		               throwing: aLoadedDie
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 7 with: 9)
 ]
 
@@ -75,10 +75,10 @@ BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
 		               and: aBoard
 		               throwing: aLoadedDie 
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 2 with: 9)
 ]
 
@@ -104,10 +104,10 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 		               and: aBoard
 		               throwing: aLoadedDie
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 6 with: 9)
 ]
 
@@ -133,10 +133,10 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 		               and: aBoard
 		               throwing: aLoadedDie 
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 7 with: 4)
 ]
 
@@ -162,10 +162,10 @@ BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 		               and: aBoard
 		               throwing: aLoadedDie 
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 1 with: 1)
 ]
 
@@ -191,10 +191,10 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 		               and: aBoard
 		               throwing: aLoadedDie 
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 8 with: 7)
 ]
 
@@ -224,10 +224,10 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowThePlayerToBeInANegativePositio
 		         and: aBoard
 		         throwing: aLoadedDie 
 		         winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 1 with: 9)
 ]
 
@@ -257,10 +257,10 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePositi
 		         and: aBoard
 		         throwing: aLoadedDie 
 		         winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 1 with: 5)
 ]
 
@@ -286,10 +286,10 @@ BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosit
 		               and: aBoard
 		               throwing: aLoadedDie
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 1 with: 3)
 ]
 
@@ -315,7 +315,7 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 		               and: aBoard
 		               throwing: aLoadedDie
 							winningWhen: 1.
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self
 		should: [ 
 			aGame winner]
@@ -345,9 +345,9 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 		               and: aBoard
 		               throwing: aLoadedDie 
 							winningWhen: 1.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 8 with: 7)
 ]

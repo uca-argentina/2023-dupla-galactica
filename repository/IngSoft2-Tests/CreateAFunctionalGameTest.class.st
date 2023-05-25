@@ -117,9 +117,9 @@ CreateAFunctionalGameTest >> testD002CreateGameMoveThePlayersAndAskForWinner [
 
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
-	aLoadedGame moveNextPlayer.
-	aLoadedGame moveNextPlayer.
-	aLoadedGame moveNextPlayer.
+	aLoadedGame movePlayer.
+	aLoadedGame movePlayer.
+	aLoadedGame movePlayer.
 	self assert: aLoadedGame winner equals: 'red'
 ]
 
@@ -128,9 +128,9 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 
 	| aGame |
 	aGame := self gameWithLoadedDie.
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
@@ -139,11 +139,11 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 
 	| aGame |
 	aGame := self gameWithLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 7 with: 7)
 ]
 
@@ -152,9 +152,9 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
@@ -163,11 +163,11 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 10 with: 9)
 ]
 
@@ -176,12 +176,12 @@ CreateAFunctionalGameTest >> testH001VerifyThatTeMovesDoNotHaveEffectAfterSomeon
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 1 with: 9)
 ]
 
@@ -190,7 +190,7 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndRaiseAnError [
 
 	| aGame |
 	aGame := self gameWithLoadedDie.
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self
 		should: [ aGame winner ]
 		raise: Error
@@ -202,10 +202,10 @@ CreateAFunctionalGameTest >> testL003VerifyTheCorrectUseOfTheRankingAtASuplaGala
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
 		assert: aGame ranking
 		equals: (OrderedCollection with: 'blue' with: 'red')

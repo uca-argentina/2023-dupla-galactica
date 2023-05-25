@@ -7,5 +7,5 @@ Class {
 { #category : #Effect }
 AtomicBombBox >> effect: aGame [
 
-	aGame moveAllToTheStart.
+	aGame moveAllToTheStart
 ]

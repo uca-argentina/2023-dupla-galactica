@@ -144,8 +144,8 @@ MovePlayersFromTheGameTest >> testM002MovePlayerOneEntireLapAndAskForItsPosition
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 0)
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
@@ -158,9 +158,9 @@ MovePlayersFromTheGameTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheirPos
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 1)
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 1)
 ]
 
 { #category : #tests }
@@ -173,10 +173,10 @@ MovePlayersFromTheGameTest >> testM004MovePlayerTwoEntireLapsAndAskForItsPositio
 			               with: 10
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 2 with: 0)
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 2 with: 0)
 ]
 
 { #category : #tests }
@@ -189,8 +189,8 @@ MovePlayersFromTheGameTest >> testM005MovePlayersTwoEntireLapsInOnlyOneThrowThen
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 2 with: 0)
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 2 with: 0)
 ]
 
 { #category : #tests }
@@ -203,10 +203,10 @@ MovePlayersFromTheGameTest >> testM006MovePlayerToTheLastBox [
 			               with: 1
 			               with: 9).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 0)
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
@@ -219,8 +219,8 @@ MovePlayersFromTheGameTest >> testM007MovePlayerToTheGoalAndAskForWinner [
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self assert: aGame winner equals: 'blue'
 ]
 
@@ -234,11 +234,11 @@ MovePlayersFromTheGameTest >> testM008MovePlayerALotOfTimesAndVerifyThatItDoesNo
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 0)
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
@@ -251,12 +251,12 @@ MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 6 with: 6).
 	self assert: aGame winner equals: 'blue'
 ]
@@ -297,10 +297,10 @@ MovePlayersFromTheGameTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirs
 			               with: 5
 			               with: 6).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 4 with: 10)
 ]

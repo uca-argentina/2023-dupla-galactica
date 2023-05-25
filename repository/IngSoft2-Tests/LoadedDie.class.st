@@ -43,6 +43,6 @@ LoadedDie >> size [
 LoadedDie >> throw [
 	| value |
 	value:= (self faces at: (valueManager current)).
-	valueManager updateTurn.
+	valueManager goNext.
 	^value.
 ]
