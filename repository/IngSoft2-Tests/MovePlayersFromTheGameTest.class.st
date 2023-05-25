@@ -27,7 +27,7 @@ MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 200.
-	aLoadedGame := DuplaGalacticaGame 
+	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 
@@ -56,7 +56,7 @@ MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
@@ -87,7 +87,7 @@ MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aLoadedGame := DuplaGalacticaGame 
+	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie

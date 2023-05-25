@@ -41,7 +41,7 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
@@ -70,7 +70,7 @@ BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 
@@ -99,7 +99,7 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
@@ -128,7 +128,7 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 
@@ -157,7 +157,7 @@ BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 
@@ -186,7 +186,7 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 
@@ -219,7 +219,7 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowThePlayerToBeInANegativePositio
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie 
@@ -252,7 +252,7 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePositi
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie 
@@ -281,7 +281,7 @@ BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosit
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
@@ -310,7 +310,7 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
@@ -340,7 +340,7 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 

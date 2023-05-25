@@ -33,7 +33,7 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aLoadedGame := DuplaGalacticaGame 
+	aLoadedGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
@@ -75,7 +75,7 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: (OrderedCollection with: aLoadedDie with: aSecondLoadedDie)

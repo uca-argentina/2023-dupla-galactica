@@ -20,7 +20,7 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 			          with: 30
 			          with: 40).
 	aBoard := Board with: 10 effects: boxes measure: 200.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
@@ -159,26 +159,4 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 				winningWhen: 1]
 		raise: Error
 		withMessage: 'Cannot create a game a negative parsec amount'
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP020VerifyTheCorrectFunctionalityOfMovingPlayersToTheStart [
-	
-	|aGame|
-	
-	aGame := self createGameWithEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveAllToTheStart.
-	self assert: aGame positions equals: (OrderedCollection with: 1 with: 1).
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP021VerifyTheCorrectFunctionalityOfMovingTheOtherPlayers [
-	
-	|aGame|
-	
-	aGame := self createGameWithEffects.
-	aGame moveOthers: 2.
-	self assert: aGame positions equals: (OrderedCollection with: 1 with: 3).
 ]
