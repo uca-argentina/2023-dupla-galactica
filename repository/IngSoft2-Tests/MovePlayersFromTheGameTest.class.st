@@ -1,5 +1,5 @@
 Class {
-	#name : #MoveSpaceshipFromTheBoardTest,
+	#name : #MovePlayersFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection'
@@ -7,8 +7,8 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #Game }
-MoveSpaceshipFromTheBoardTest >> gameWithMoreParsecs: aLoadedDie [ 
+{ #category : #Games }
+MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [ 
 	| boxes aBoard aLoadedGame|
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
@@ -36,7 +36,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithMoreParsecs: aLoadedDie [
 ]
 
 { #category : #Games }
-MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
+MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
 	| aGame boxes aBoard |
 	boxes := OrderedCollection
@@ -66,7 +66,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 ]
 
 { #category : #Games }
-MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
+MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 	
 
 	| boxes aBoard aLoadedGame|
@@ -96,7 +96,7 @@ MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
 ]
 
 { #category : #running }
-MoveSpaceshipFromTheBoardTest >> setUp [
+MovePlayersFromTheGameTest >> setUp [
 
 	super setUp.
 
@@ -104,7 +104,7 @@ MoveSpaceshipFromTheBoardTest >> setUp [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+MovePlayersFromTheGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
 
 	self
 		should: anErrorBlock
@@ -114,7 +114,7 @@ MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass wi
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeLengthThenRaiseAnError [
+MovePlayersFromTheGameTest >> testA009CreateABoardWithNegativeLengthThenRaiseAnError [
 
 	self
 		should: [ 
@@ -127,7 +127,7 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeLengthThenRaise
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLapThenValid [
+MovePlayersFromTheGameTest >> testM001AskPlayerForTheLapThenValid [
 
 	| aPlayer |
 	aPlayer := Player with: 'red'.
@@ -135,7 +135,7 @@ MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLapThenValid [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM002MovePlayerOneEntireLapAndAskForItsPositionThenValid [
+MovePlayersFromTheGameTest >> testM002MovePlayerOneEntireLapAndAskForItsPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -149,7 +149,7 @@ MoveSpaceshipFromTheBoardTest >> testM002MovePlayerOneEntireLapAndAskForItsPosit
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheirPositionThenValid [
+MovePlayersFromTheGameTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheirPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -164,7 +164,7 @@ MoveSpaceshipFromTheBoardTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheir
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskForItsPosition [
+MovePlayersFromTheGameTest >> testM004MovePlayerTwoEntireLapsAndAskForItsPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -180,7 +180,7 @@ MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskFor
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM005MoveSpaceshipTwoEntireLapsInOnlyOneThrow [
+MovePlayersFromTheGameTest >> testM005MovePlayersTwoEntireLapsInOnlyOneThrowThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -194,7 +194,7 @@ MoveSpaceshipFromTheBoardTest >> testM005MoveSpaceshipTwoEntireLapsInOnlyOneThro
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM006MoveSpaceshipToTheLastBox [
+MovePlayersFromTheGameTest >> testM006MovePlayerToTheLastBox [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -210,7 +210,7 @@ MoveSpaceshipFromTheBoardTest >> testM006MoveSpaceshipToTheLastBox [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
+MovePlayersFromTheGameTest >> testM007MovePlayerToTheGoalAndAskForWinner [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -225,7 +225,7 @@ MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM008MoveSpaceshipALotOfTimesAndVerifyThatItDoesNotMove [
+MovePlayersFromTheGameTest >> testM008MovePlayerALotOfTimesAndVerifyThatItDoesNotMoveAfterItWins [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -242,7 +242,7 @@ MoveSpaceshipFromTheBoardTest >> testM008MoveSpaceshipALotOfTimesAndVerifyThatIt
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions [
+MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -262,7 +262,7 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
+MovePlayersFromTheGameTest >> testO001CreateBoardWithParsecs [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -275,7 +275,7 @@ MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithAnSpecificAmountOfParsec [
+MovePlayersFromTheGameTest >> testO002CreateBoardWithAnotherAmountOfParsecThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -288,7 +288,7 @@ MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithAnSpecificAmountOfParsec
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirstLap [
+MovePlayersFromTheGameTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirstLap [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection

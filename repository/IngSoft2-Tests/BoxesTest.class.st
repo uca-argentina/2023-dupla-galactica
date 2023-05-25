@@ -1,5 +1,5 @@
 Class {
-	#name : #CreateBoxesTest,
+	#name : #BoxesTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection'
@@ -8,7 +8,7 @@ Class {
 }
 
 { #category : #running }
-CreateBoxesTest >> setUp [
+BoxesTest >> setUp [
 
 	super setUp.
 
@@ -16,7 +16,17 @@ CreateBoxesTest >> setUp [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN001NoEffectBox [
+BoxesTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+		self assert: error messageText equals: anErrorMessage ]
+]
+
+{ #category : #tests }
+BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
 	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 6 with: 8 with: 5 with: 8).
 	boxes:= OrderedCollection
@@ -44,7 +54,7 @@ CreateBoxesTest >> testN001NoEffectBox [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN002WormHoleBox [
+BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
 
 	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 5 with: 8 with: 5 with: 8).
@@ -73,7 +83,7 @@ CreateBoxesTest >> testN002WormHoleBox [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN003SpeedUpBox [
+BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 
 	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 1 with: 8 with: 5 with: 8).
@@ -102,7 +112,7 @@ CreateBoxesTest >> testN003SpeedUpBox [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN004MoonWalkBox [
+BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 
 	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 8 with: 3 with: 5 with: 8).
@@ -131,7 +141,7 @@ CreateBoxesTest >> testN004MoonWalkBox [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN005AtomicBombBox [
+BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 
 	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 8 with: 7 with: 5 with: 8).
@@ -160,7 +170,7 @@ CreateBoxesTest >> testN005AtomicBombBox [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN006HyperJumpBox [
+BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEntireValues [
 
 	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
@@ -189,7 +199,7 @@ CreateBoxesTest >> testN006HyperJumpBox [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN007WormHoleBoxWhenPlayerIsInTheFirstLap [
+BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowThePlayerToBeInANegativePosition [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -222,7 +232,7 @@ CreateBoxesTest >> testN007WormHoleBoxWhenPlayerIsInTheFirstLap [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN008MoonWalkBoxWhenPlayerIsInTheFirstLap [
+BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePosition [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -255,7 +265,7 @@ CreateBoxesTest >> testN008MoonWalkBoxWhenPlayerIsInTheFirstLap [
 ]
 
 { #category : #tests }
-CreateBoxesTest >> testN009HyperJumpBoxWhenPlayerIsInTheFirstLap [
+BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosition [
 
 	|aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
@@ -281,4 +291,63 @@ CreateBoxesTest >> testN009HyperJumpBoxWhenPlayerIsInTheFirstLap [
 	self
 		assert: aGame positions
 		equals: (OrderedCollection with: 1 with: 3)
+]
+
+{ #category : #tests }
+BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
+
+	|aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection  with: 11 with: 3 with: 5 with: 8).
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: WormHoleBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: aLoadedDie
+							winningWhen: 1.
+	aGame moveNextPlayer.
+	self
+		should: [ 
+			aGame winner]
+		raise: Error
+		withMessage: 'There is no winner'
+]
+
+{ #category : #tests }
+BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNotEntireValues [
+
+	|aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: (HyperJumpBox with: (OrderedCollection with: 45.5 with: 34.9))
+		         with: NoEffectBox new
+		         with: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: aLoadedDie 
+							winningWhen: 1.
+	aGame moveNextPlayer.
+	aGame moveNextPlayer.
+	self
+		assert: aGame positions
+		equals: (OrderedCollection with: 8 with: 7)
 ]

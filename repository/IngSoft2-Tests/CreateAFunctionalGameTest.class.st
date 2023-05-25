@@ -103,7 +103,7 @@ CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMe
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
+CreateAFunctionalGameTest >> testD001CreateGameAndAskForCurrentPlayer [
 
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
@@ -113,7 +113,7 @@ CreateAFunctionalGameTest >> testD001CreateGameAndAskForNextPlayer [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testD002CreateGameAndAskForWinner [
+CreateAFunctionalGameTest >> testD002CreateGameMoveThePlayersAndAskForWinner [
 
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
@@ -172,7 +172,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
+CreateAFunctionalGameTest >> testH001VerifyThatTeMovesDoNotHaveEffectAfterSomeoneWins [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.
@@ -186,7 +186,7 @@ CreateAFunctionalGameTest >> testH001TheMovesDoNotHaveEffectAfterSomeoneWins [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
+CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndRaiseAnError [
 
 	| aGame |
 	aGame := self gameWithLoadedDie.
@@ -198,7 +198,7 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndReturnAnError [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testP010VerifyRankingAtLoadedGame [
+CreateAFunctionalGameTest >> testL003VerifyTheCorrectUseOfTheRankingAtASuplaGalacticaGameThenValid [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.

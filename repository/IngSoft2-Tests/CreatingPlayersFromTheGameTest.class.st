@@ -1,5 +1,5 @@
 Class {
-	#name : #CreatingSpaceshipsFromTheGameTest,
+	#name : #CreatingPlayersFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #running }
-CreatingSpaceshipsFromTheGameTest >> setUp [
+CreatingPlayersFromTheGameTest >> setUp [
 
 	super setUp.
 
@@ -48,7 +48,7 @@ CreatingSpaceshipsFromTheGameTest >> setUp [
 ]
 
 { #category : #tests }
-CreatingSpaceshipsFromTheGameTest >> testI001CreatingSpaceshipsFromTheGame [
+CreatingPlayersFromTheGameTest >> testI001CreatingPlayersFromTheGame [
 
 	aGame moveNextPlayer.
 	self assert: aGame positions equals: (OrderedCollection with: 9)

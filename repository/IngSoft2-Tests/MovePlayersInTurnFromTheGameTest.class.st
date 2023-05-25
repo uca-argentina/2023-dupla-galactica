@@ -1,5 +1,5 @@
 Class {
-	#name : #MoveSpaceshipsInTurnFromTheBoardTest,
+	#name : #MovePlayersInTurnFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #running }
-MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
+MovePlayersInTurnFromTheGameTest >> setUp [
 
 	super setUp.
 
@@ -45,20 +45,20 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 ]
 
 { #category : #tests }
-MoveSpaceshipsInTurnFromTheBoardTest >> testJ001CheckTheNextSpacheshipToPlay [
+MovePlayersInTurnFromTheGameTest >> testJ001CheckTheCurrentPlayerTurn [
 
 	self assert: aGame currentPlayer equals: 'red'
 ]
 
 { #category : #tests }
-MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfterMovingOne [
+MovePlayersInTurnFromTheGameTest >> testJ002CheckTheCurrentPlayerAfterMovingTheFirstOne [
 
 	aGame moveNextPlayer.
 	self assert: aGame currentPlayer equals: 'blue'
 ]
 
 { #category : #tests }
-MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnceAllTheSpaceshipsThrowOneTime [
+MovePlayersInTurnFromTheGameTest >> testJ003CheckTheCurrentPlayerOnceAllThePlayersThrowOneTime [
 
 	aGame moveNextPlayer.
 	aGame moveNextPlayer.

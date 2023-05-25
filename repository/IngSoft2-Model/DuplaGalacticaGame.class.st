@@ -61,8 +61,9 @@ DuplaGalacticaGame >> laps [
 ]
 
 { #category : #Player }
-DuplaGalacticaGame >> moveAllToTheStart [ 
-	players do: [:player | player moveToTheBeginning].
+DuplaGalacticaGame >> moveAllToTheStart [
+
+	players do: [ :player | player moveToTheBeginning ]
 ]
 
 { #category : #Player }
