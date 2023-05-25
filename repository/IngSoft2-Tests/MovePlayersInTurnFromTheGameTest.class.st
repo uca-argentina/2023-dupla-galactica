@@ -1,5 +1,5 @@
 Class {
-	#name : #MoveSpaceshipsInTurnFromTheBoardTest,
+	#name : #MovePlayersInTurnFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #running }
-MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
+MovePlayersInTurnFromTheGameTest >> setUp [
 
 	super setUp.
 
@@ -37,30 +37,30 @@ MoveSpaceshipsInTurnFromTheBoardTest >> setUp [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie
 							winningWhen: 1.
 ]
 
 { #category : #tests }
-MoveSpaceshipsInTurnFromTheBoardTest >> testJ001CheckTheNextSpacheshipToPlay [
+MovePlayersInTurnFromTheGameTest >> testJ001CheckTheCurrentPlayerTurn [
 
 	self assert: aGame currentPlayer equals: 'red'
 ]
 
 { #category : #tests }
-MoveSpaceshipsInTurnFromTheBoardTest >> testJ002CheckTheNextSpacheshipToPlayAfterMovingOne [
+MovePlayersInTurnFromTheGameTest >> testJ002CheckTheCurrentPlayerAfterMovingTheFirstOne [
 
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self assert: aGame currentPlayer equals: 'blue'
 ]
 
 { #category : #tests }
-MoveSpaceshipsInTurnFromTheBoardTest >> testJ003CheckTheNextSpacheshipToPlayOnceAllTheSpaceshipsThrowOneTime [
+MovePlayersInTurnFromTheGameTest >> testJ003CheckTheCurrentPlayerOnceAllThePlayersThrowOneTime [
 
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self assert: aGame currentPlayer equals: 'red'
 ]

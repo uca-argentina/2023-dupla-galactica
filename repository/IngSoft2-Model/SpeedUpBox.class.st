@@ -7,5 +7,5 @@ Class {
 { #category : #Effect }
 SpeedUpBox >> effect: aGame [
 
-	aGame moveNext: 4.
+	aGame moveCurrent: 4.
 ]

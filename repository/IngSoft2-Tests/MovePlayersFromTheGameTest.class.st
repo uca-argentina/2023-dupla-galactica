@@ -1,5 +1,5 @@
 Class {
-	#name : #MoveSpaceshipFromTheBoardTest,
+	#name : #MovePlayersFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection'
@@ -7,8 +7,8 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #Game }
-MoveSpaceshipFromTheBoardTest >> gameWithMoreParsecs: aLoadedDie [ 
+{ #category : #Games }
+MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [ 
 	| boxes aBoard aLoadedGame|
 	boxes:= OrderedCollection
 		         with: NoEffectBox new
@@ -27,16 +27,16 @@ MoveSpaceshipFromTheBoardTest >> gameWithMoreParsecs: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 200.
-	aLoadedGame := DuplaGalacticaGame 
+	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie 
 							winningWhen: 2.
 	^ aLoadedGame
 ]
 
 { #category : #Games }
-MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
+MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
 	| aGame boxes aBoard |
 	boxes := OrderedCollection
@@ -56,17 +56,17 @@ MoveSpaceshipFromTheBoardTest >> gameWithOneLap: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie
 		               winningWhen: 1.
 
 	^ aGame
 ]
 
 { #category : #Games }
-MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
+MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 	
 
 	| boxes aBoard aLoadedGame|
@@ -87,16 +87,16 @@ MoveSpaceshipFromTheBoardTest >> gameWithTwoLaps: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aLoadedGame := DuplaGalacticaGame 
+	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie
 							winningWhen: 2.
 	^ aLoadedGame
 ]
 
 { #category : #running }
-MoveSpaceshipFromTheBoardTest >> setUp [
+MovePlayersFromTheGameTest >> setUp [
 
 	super setUp.
 
@@ -104,7 +104,7 @@ MoveSpaceshipFromTheBoardTest >> setUp [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+MovePlayersFromTheGameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
 
 	self
 		should: anErrorBlock
@@ -114,7 +114,7 @@ MoveSpaceshipFromTheBoardTest >> should: anErrorBlock raise: anExceptionClass wi
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInvalid [
+MovePlayersFromTheGameTest >> testA009CreateABoardWithNegativeLengthThenRaiseAnError [
 
 	self
 		should: [ 
@@ -127,7 +127,7 @@ MoveSpaceshipFromTheBoardTest >> testA009CreateABoardWithNegativeValuesThenInval
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLap [
+MovePlayersFromTheGameTest >> testM001AskPlayerForTheLapThenValid [
 
 	| aPlayer |
 	aPlayer := Player with: 'red'.
@@ -135,7 +135,7 @@ MoveSpaceshipFromTheBoardTest >> testM001AskPlayerForTheLap [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM002MoveSpaceshipOneEntireLapAndThenAskForItsPosition [
+MovePlayersFromTheGameTest >> testM002MovePlayerOneEntireLapAndAskForItsPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -144,12 +144,12 @@ MoveSpaceshipFromTheBoardTest >> testM002MoveSpaceshipOneEntireLapAndThenAskForI
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 0)
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM003MoveTwoSpaceshipOneEntireLapAndThenAskForTheirPosition [
+MovePlayersFromTheGameTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheirPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -158,13 +158,13 @@ MoveSpaceshipFromTheBoardTest >> testM003MoveTwoSpaceshipOneEntireLapAndThenAskF
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 1)
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 1)
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskForItsPosition [
+MovePlayersFromTheGameTest >> testM004MovePlayerTwoEntireLapsAndAskForItsPositionThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -173,14 +173,14 @@ MoveSpaceshipFromTheBoardTest >> testM004MoveSpaceshipTwoEntireLapsAndThenAskFor
 			               with: 10
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 2 with: 0)
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 2 with: 0)
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM005MoveSpaceshipTwoEntireLapsInOnlyOneThrow [
+MovePlayersFromTheGameTest >> testM005MovePlayersTwoEntireLapsInOnlyOneThrowThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -189,12 +189,12 @@ MoveSpaceshipFromTheBoardTest >> testM005MoveSpaceshipTwoEntireLapsInOnlyOneThro
 			               with: 7
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 2 with: 0)
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 2 with: 0)
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM006MoveSpaceshipToTheLastBox [
+MovePlayersFromTheGameTest >> testM006MovePlayerToTheLastBox [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -203,14 +203,14 @@ MoveSpaceshipFromTheBoardTest >> testM006MoveSpaceshipToTheLastBox [
 			               with: 1
 			               with: 9).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 0)
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
+MovePlayersFromTheGameTest >> testM007MovePlayerToTheGoalAndAskForWinner [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -219,13 +219,13 @@ MoveSpaceshipFromTheBoardTest >> testM007MoveSpaceshipToTheGoalAndAskForWinner [
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self assert: aGame winner equals: 'blue'
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM008MoveSpaceshipALotOfTimesAndVerifyThatItDoesNotMove [
+MovePlayersFromTheGameTest >> testM008MovePlayerALotOfTimesAndVerifyThatItDoesNotMoveAfterItWins [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -234,15 +234,15 @@ MoveSpaceshipFromTheBoardTest >> testM008MoveSpaceshipALotOfTimesAndVerifyThatIt
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	self assert: aGame laps equals: (OrderedCollection with: 1 with: 0)
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions [
+MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -251,18 +251,18 @@ MoveSpaceshipFromTheBoardTest >> testM009MoveSpaceshipTwoTimesAndAskForPositions
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 6 with: 6).
 	self assert: aGame winner equals: 'blue'
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
+MovePlayersFromTheGameTest >> testO001CreateBoardWithParsecs [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -275,7 +275,7 @@ MoveSpaceshipFromTheBoardTest >> testO001CreateBoardWithParsecs [
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithAnSpecificAmountOfParsec [
+MovePlayersFromTheGameTest >> testO002CreateBoardWithAnotherAmountOfParsecThenValid [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -288,7 +288,7 @@ MoveSpaceshipFromTheBoardTest >> testO002CreateBoardWithAnSpecificAmountOfParsec
 ]
 
 { #category : #tests }
-MoveSpaceshipFromTheBoardTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirstLap [
+MovePlayersFromTheGameTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirstLap [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -297,10 +297,10 @@ MoveSpaceshipFromTheBoardTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheF
 			               with: 5
 			               with: 6).
 	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
 	self
-		assert: aGame positions
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 4 with: 10)
 ]

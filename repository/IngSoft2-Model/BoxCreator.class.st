@@ -5,17 +5,19 @@ Class {
 }
 
 { #category : #Creation }
-BoxCreator >> create: aLength and: aParsecCollection [ 
+BoxCreator >> create: aNumberOfBoxes with: aParsecCollection [
 
 	| boxes |
 	boxes := OrderedCollection new.
-	aLength timesRepeat: [ 
-		boxes addLast: (self randomBox: aLength and: aParsecCollection) ].
+	aNumberOfBoxes timesRepeat: [ 
+		boxes addLast:
+			(self oneRandomBoxOf: aNumberOfBoxes with: aParsecCollection) ].
 	^ boxes
 ]
 
 { #category : #Creation }
 BoxCreator >> createRandomParsecs: possibleValues [
+
 	| aParsecsCollection |
 	aParsecsCollection := OrderedCollection new.
 	possibleValues size atRandom to: possibleValues size atRandom do: [ 
@@ -26,11 +28,12 @@ BoxCreator >> createRandomParsecs: possibleValues [
 			aParsecsCollection addLast:
 				(possibleValues at: possibleValues size atRandom) ]
 		ifFalse: [ aParsecsCollection sort: [ :a :b | a > b ] ].
-	^aParsecsCollection.
+	^ aParsecsCollection
 ]
 
 { #category : #Creation }
-BoxCreator >> randomBox: aLength and: aParsecCollection [ 
+BoxCreator >> oneRandomBoxOf: aNumberOfBoxes with: aParsecCollection [
+
 	| aRandomValue |
 	aRandomValue := 100 atRandom.
 	^ aRandomValue <= 40
@@ -43,9 +46,11 @@ BoxCreator >> randomBox: aLength and: aParsecCollection [
 						  ifTrue: [ SpeedUpBox new ]
 						  ifFalse: [ 
 							  aRandomValue <= 90
-								  ifTrue: [ MoonWalkBox with: (aLength atRandom * -1) ]
+								  ifTrue: [ MoonWalkBox with: aNumberOfBoxes atRandom * -1 ]
 								  ifFalse: [ 
 									  aRandomValue <= 98
-										  ifTrue: [ HyperJumpBox with: (self createRandomParsecs: aParsecCollection) ]
+										  ifTrue: [ 
+										  HyperJumpBox with:
+											  (self createRandomParsecs: aParsecCollection) ]
 										  ifFalse: [ AtomicBombBox new ] ] ] ] ]
 ]

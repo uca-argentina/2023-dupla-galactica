@@ -13,17 +13,17 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
 	| aGame aBoard aBoxCreator boxes |
 	aBoxCreator := BoxCreator new.
-	boxes := aBoxCreator create: 10 and: (OrderedCollection
+	boxes := aBoxCreator create: 10 with: (OrderedCollection
 			          with: 40
 			          with: 20
 			          with: -10
 			          with: 30
 			          with: 40).
 	aBoard := Board with: 10 effects: boxes measure: 200.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: (OrderedCollection with: aLoadedDie)
+		         throwing: aLoadedDie
 				   winningWhen: 1.
 	^ aGame
 ]
@@ -64,7 +64,7 @@ CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	aGame moveNextPlayer.
+	aGame movePlayer.
 	self assert: aGame currentPlayer equals: 'blue'
 ]
 
@@ -97,7 +97,7 @@ CreateDuplaGalacticaGameTest >> testP014VerifyTheCorrectUseOfLaps [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	self assert: aGame laps size identicalTo: 2
+	self assert: aGame playersLaps size identicalTo: 2
 ]
 
 { #category : #tests }
@@ -105,7 +105,7 @@ CreateDuplaGalacticaGameTest >> testP015VerifyTheCorrectUseOfPositions [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	self assert: aGame positions size identicalTo: 2
+	self assert: aGame playersPositions size identicalTo: 2
 ]
 
 { #category : #tests }
@@ -159,26 +159,4 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 				winningWhen: 1]
 		raise: Error
 		withMessage: 'Cannot create a game a negative parsec amount'
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP020VerifyTheCorrectFunctionalityOfMovingPlayersToTheStart [
-	
-	|aGame|
-	
-	aGame := self createGameWithEffects.
-	aGame moveNextPlayer.
-	aGame moveNextPlayer.
-	aGame moveAllToTheStart.
-	self assert: aGame positions equals: (OrderedCollection with: 1 with: 1).
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP021VerifyTheCorrectFunctionalityOfMovingTheOtherPlayers [
-	
-	|aGame|
-	
-	aGame := self createGameWithEffects.
-	aGame moveOthers: 2.
-	self assert: aGame positions equals: (OrderedCollection with: 1 with: 3).
 ]

@@ -16,15 +16,11 @@ MoonWalkBox class >> with: aValue [
 { #category : #Effect }
 MoonWalkBox >> effect: aGame [
 
-	aGame moveOthers: effectValue.
-
-	"aBoard players do: [ :player | 
-		player color asSymbol == aBoard nextOne color asSymbol ifFalse: [ 
-			player effect: effectValue check: aBoard length ] ]"
+	aGame moveOthers: effectValue
 ]
 
 { #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue [
 
-	effectValue := aValue.
+	effectValue := aValue
 ]

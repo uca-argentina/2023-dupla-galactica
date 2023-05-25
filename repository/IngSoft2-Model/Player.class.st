@@ -18,13 +18,14 @@ Player class >> with: aSpaceship [
 { #category : #Information }
 Player >> color [
 
-	^color
+	^ color
 ]
 
 { #category : #Initialization }
 Player >> initializeWith: aColor [
-	color:= aColor.
-	position:=1.
+
+	color := aColor.
+	position := 1.
 	lap := 0
 ]
 
@@ -41,50 +42,51 @@ Player >> move: value [
 ]
 
 { #category : #LapControl }
-Player >> move: aPositionToMove andCheck: aValue [
+Player >> move: aPositionToMove andUpdateLap: aValue [
 
 	(self lap == 0 and:
-		 (aPositionToMove  < 0 and: aPositionToMove abs >= position))
+		 (aPositionToMove < 0 and: aPositionToMove abs >= position))
 		ifTrue: [ self moveToTheBeginning ]
 		ifFalse: [ self move: aPositionToMove ].
 	self updateLap: aValue
 ]
 
 { #category : #LapControl }
-Player >> moveToTheBeginning [
-
-	position:=1.
-]
-
-{ #category : #LapControl }
-Player >> negativePosition: aLength [
+Player >> moveBackwardsLaps: aLength [
 
 	| entireLaps |
 	entireLaps := (position + 1) abs // aLength + 1.
 	lap := lap - entireLaps.
-	^ aLength - position abs
-]
-
-{ #category : #Information }
-Player >> position [
-	^ position
+	position:= aLength - position abs
 ]
 
 { #category : #LapControl }
-Player >> positivePosition: aLength [
+Player >> moveForwardLaps: aLength [
 
 	| entireLaps |
 	entireLaps := position // aLength.
 	lap := lap + entireLaps.
-	^ position - (aLength * entireLaps)
+	position:= position - (aLength * entireLaps)
+]
+
+{ #category : #LapControl }
+Player >> moveToTheBeginning [
+
+	position := 1
+]
+
+{ #category : #Information }
+Player >> position [
+
+	^ position
 ]
 
 { #category : #LapControl }
 Player >> updateLap: aLength [
 
 	position > aLength ifTrue: [ 
-		position := self positivePosition: aLength ].
+		self moveForwardLaps: aLength ].
 
 	position <= 0 ifFalse: [ ^ self ].
-	position := self negativePosition: aLength
+		self moveBackwardsLaps: aLength
 ]

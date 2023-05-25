@@ -1,5 +1,5 @@
 Class {
-	#name : #CreatingSpaceshipsFromTheGameTest,
+	#name : #CreatingPlayersFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
@@ -12,7 +12,7 @@ Class {
 }
 
 { #category : #running }
-CreatingSpaceshipsFromTheGameTest >> setUp [
+CreatingPlayersFromTheGameTest >> setUp [
 
 	super setUp.
 
@@ -40,16 +40,16 @@ CreatingSpaceshipsFromTheGameTest >> setUp [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard:= Board with: 9 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame 
+	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie)
+		               throwing: aLoadedDie 
 							winningWhen: 1.
 ]
 
 { #category : #tests }
-CreatingSpaceshipsFromTheGameTest >> testI001CreatingSpaceshipsFromTheGame [
+CreatingPlayersFromTheGameTest >> testI001CreatingPlayersFromTheGame [
 
-	aGame moveNextPlayer.
-	self assert: aGame positions equals: (OrderedCollection with: 9)
+	aGame movePlayer.
+	self assert: aGame playersPositions equals: (OrderedCollection with: 9)
 ]

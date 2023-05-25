@@ -33,10 +33,16 @@ LoadedDie >> numberOffaces [
 	^ (faces size).
 ]
 
+{ #category : #accessing }
+LoadedDie >> size [
+
+	^ 1.
+]
+
 { #category : #Throw }
 LoadedDie >> throw [
 	| value |
 	value:= (self faces at: (valueManager current)).
-	valueManager updateTurn.
+	valueManager goNext.
 	^value.
 ]

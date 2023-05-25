@@ -15,19 +15,21 @@ TurnManager class >> with: anAmount [
 
 { #category : #ManageTurns }
 TurnManager >> current [
-	^ current.
-]
 
-{ #category : #Initialization }
-TurnManager >> initializeWith: anAmount [ 
-	max:=anAmount.
-	current:=1.
+	^ current
 ]
 
 { #category : #ManageTurns }
-TurnManager >> updateTurn [
+TurnManager >> goNext [
 
 	current := current == max
-		        ifTrue: [ 1 ]
-		        ifFalse: [ current + 1 ]
+		           ifTrue: [ 1 ]
+		           ifFalse: [ current + 1 ]
+]
+
+{ #category : #Initialization }
+TurnManager >> initializeWith: anAmount [
+
+	max := anAmount.
+	current := 1
 ]

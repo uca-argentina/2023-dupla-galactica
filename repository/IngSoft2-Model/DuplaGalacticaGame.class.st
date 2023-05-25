@@ -16,13 +16,13 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 
 	aColorCollection size <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with no players' ].
-	(aValue) <= 0 ifTrue: [ 
+	aValue <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with that goal laps' ].
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aBoard
 		  throwing: aDiceCollection
-		  winningWhen: aValue.
+		  winningWhen: aValue
 ]
 
 { #category : #Information }
@@ -34,7 +34,13 @@ DuplaGalacticaGame >> boxes [
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
-	^ (players at: (turnManager current)) color.
+	^ (players at: (turnManager current)).
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> currentPlayerColor [
+
+	^ self currentPlayer color
 ]
 
 { #category : #Information }
@@ -54,36 +60,37 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	goalLaps :=  aValue.
 ]
 
-{ #category : #Information }
-DuplaGalacticaGame >> laps [
+{ #category : #Player }
+DuplaGalacticaGame >> moveAllToTheStart [
 
-	^ players collect: [ :player | player lap ]
+	players do: [ :player | player moveToTheBeginning ]
 ]
 
 { #category : #Player }
-DuplaGalacticaGame >> moveAllToTheStart [ 
-	players do: [:player | player moveToTheBeginning].
-]
+DuplaGalacticaGame >> moveCurrent: aValue [
 
-{ #category : #Player }
-DuplaGalacticaGame >> moveNext: aValue [ 
-	(players at: turnManager current) move: aValue andCheck: board boxes size.
-]
-
-{ #category : #Player }
-DuplaGalacticaGame >> moveNextPlayer [
-
-	self winnerExists ifTrue: [ ^ self ].
-	(players at: turnManager current) move: (dice sumNumbers: [ :die | die throw ]) andCheck: board boxes size.
-	board effect: (players at: turnManager current) with: self.
-	turnManager updateTurn
+	self currentPlayer move: aValue andUpdateLap: board boxes size
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveOthers: aValue [
+
 	players do: [ :player | 
-		player color asSymbol == (players at: turnManager current) color asSymbol ifFalse: [ 
-			player move: aValue andCheck: board boxes size] ]
+		player color == self currentPlayer color ifFalse: [ 
+			player move: aValue andUpdateLap: board boxes size ] ]
+]
+
+{ #category : #Player }
+DuplaGalacticaGame >> movePlayer [
+
+	| aValue |
+	aValue := dice size == 1
+		          ifTrue: [ dice throw ]
+		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
+	self winnerExists ifTrue: [ ^ self ].
+	self currentPlayer move: aValue andUpdateLap: board boxes size.
+	board effectAt: (self currentPlayer position) In: self.
+	turnManager goNext
 ]
 
 { #category : #Information }
@@ -93,7 +100,13 @@ DuplaGalacticaGame >> parsecs [
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> positions [
+DuplaGalacticaGame >> playersLaps [
+
+	^ players collect: [ :player | player lap ]
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> playersPositions [
 
 	^ players collect: [ :player | player position ]
 ]
@@ -114,7 +127,7 @@ DuplaGalacticaGame >> winner [
 
 	self winnerExists
 		ifTrue: [ 
-			^ (players detect: [ :player | self winningCondition: player ])
+			^ (players detect: [ :player | self wins: player ])
 				  color ]
 		ifFalse: [ Error signal: 'There is no winner' ]
 ]
@@ -122,11 +135,11 @@ DuplaGalacticaGame >> winner [
 { #category : #Finalization }
 DuplaGalacticaGame >> winnerExists [
 
-	^ players anySatisfy: [ :player | self winningCondition: player ]
+	^ players anySatisfy: [ :player | self wins: player ]
 ]
 
 { #category : #Finalization }
-DuplaGalacticaGame >> winningCondition: aPlayer [
+DuplaGalacticaGame >> wins: aPlayer [
 
 	^ aPlayer lap >= self goalLaps
 ]
