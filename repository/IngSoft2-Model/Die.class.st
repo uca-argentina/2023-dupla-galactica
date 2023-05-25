@@ -28,6 +28,12 @@ Die >> initializeWith: aValue [
 	faces := aValue
 ]
 
+{ #category : #accessing }
+Die >> size [
+
+	^ 1
+]
+
 { #category : #Throw }
 Die >> throw [
 
