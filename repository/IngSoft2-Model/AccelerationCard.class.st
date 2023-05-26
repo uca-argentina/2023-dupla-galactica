@@ -9,3 +9,8 @@ AccelerationCard >> applyEffect: aPosition [
 
 	^ aPosition + 1
 ]
+
+{ #category : #Information }
+AccelerationCard >> toString [
+	^'Acceleration'.
+]

@@ -26,9 +26,26 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyAccelerationCard [
+DuplaGalacticaGame >> addAccelerationCardTo: aPlayer [
 
-	players do: [ :player | player applyAccelerationCard ]
+	players do: [:player | player color = aPlayer ifTrue: [player addAccelerationCard]].
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> addOverLoadCardTo: aPlayer [
+	players do: [:player | player color = aPlayer ifTrue: [player addOverLoadCardTo]].
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> addSpeedCardTo: aPlayer [
+		players do: [:player | player color = aPlayer ifTrue: [player addSpeedCard]].
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> applyAccelerationCardFrom: aPlayer [
+	|source|
+	players do: [: player| player color = aPlayer ifTrue: [ source:= player] ].
+	(source hasAccelerationCard) ifTrue: [players do: [:player | player applyAccelerationCard]]
 ]
 
 { #category : #Cards }
@@ -39,18 +56,20 @@ DuplaGalacticaGame >> applyCancellationCardTo: aPlayer number: aNumberOfPermanen
 			player cancellCard: aNumberOfPermanentCard ] ]
 ]
 
-{ #category : #Player }
-DuplaGalacticaGame >> applyOverloadCardTo: aPlayer [
-
-	players do: [ :player | 
-		player color = aPlayer ifTrue: [ player applyOverloadCard ] ]
+{ #category : #Cards }
+DuplaGalacticaGame >> applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer [ 
+	|objective source|
+	players do: [: player| player color = anObjectivePlayer ifTrue: [ objective:= player] ].
+	players do: [: player| player color = aSourcePlayer ifTrue: [ source:= player] ].
+	(source hasOverLoadCard) ifTrue: [objective applyOverloadCard]
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applySpeedCardTo: aPlayer [
-
-	players do: [ :player | 
-		player color = aPlayer ifTrue: [ player applySpeedCard ] ]
+DuplaGalacticaGame >> applySpeedCardTo: anObjectivePlayer from: aSourcePlayer [
+	|objective source|
+	players do: [: player| player color = anObjectivePlayer ifTrue: [ objective:= player] ].
+	players do: [: player| player color = aSourcePlayer ifTrue: [ source:= player] ].
+	(source hasSpeedCard) ifTrue: [objective applySpeedCard]
 ]
 
 { #category : #Information }

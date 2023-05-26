@@ -57,7 +57,8 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -74,7 +75,8 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -93,7 +95,8 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 				           with: 5
 				           with: 3
 				           with: 0)).
-	aGame applyOverloadCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -112,7 +115,8 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 				           with: 0
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -129,7 +133,8 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 				           with: 4
 				           with: 3
 				           with: 4)).
-	aGame applySpeedCardTo: 'red'.
+	aGame addSpeedCardTo: 'blue'.
+	aGame applySpeedCardTo: 'red' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -146,7 +151,8 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 				           with: 2
 				           with: 3
 				           with: 5)).
-	aGame applySpeedCardTo: 'red'.
+	aGame addSpeedCardTo: 'blue'.
+	aGame applySpeedCardTo: 'red' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -165,7 +171,8 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 				           with: 2
 				           with: 3
 				           with: 5)).
-	aGame applySpeedCardTo: 'red'.
+	aGame addSpeedCardTo: 'blue'.
+	aGame applySpeedCardTo: 'red' from: 'blue'.
 	aGame movePlayer.
 	self
 		assert: aGame playersLaps
@@ -181,12 +188,14 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 				           with: 2
 				           with: 3
 				           with: 5)).
-	aGame applySpeedCardTo: 'red'.
-	aGame applyOverloadCardTo: 'red'.
+	aGame addSpeedCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'blue'.
+	aGame applySpeedCardTo: 'red' from: 'blue'.
+	aGame applyOverloadCardTo: 'red' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions 
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 5 with: 3)
 ]
 
@@ -199,7 +208,8 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyAccelerationCard.
+	aGame addAccelerationCardTo: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -216,7 +226,8 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 				           with: 9
 				           with: 3
 				           with: 4)).
-	aGame applyAccelerationCard.
+	aGame addAccelerationCardTo: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -233,7 +244,8 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame applyCancellationCardTo: 'blue' number: 1.
@@ -253,8 +265,10 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
-	aGame applySpeedCardTo: 'blue'.
+	aGame addSpeedCardTo: 'red'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame applySpeedCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame applyCancellationCardTo: 'blue' number: 2.
@@ -274,8 +288,10 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
-	aGame applySpeedCardTo: 'blue'.
+	aGame addSpeedCardTo: 'red'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame applySpeedCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame applyCancellationCardTo: 'blue' number: 2.
@@ -313,7 +329,8 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithAnInvalidIndex [
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	self
 		should: [ aGame applyCancellationCardTo: 'blue' number: 2 ]
 		raise: Error
@@ -329,9 +346,64 @@ CardsTest >> testQ016TryToCancellAPermanentCardWithANegativeIndex [
 				           with: 2
 				           with: 3
 				           with: 4)).
-	aGame applyOverloadCardTo: 'blue'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	self
 		should: [ aGame applyCancellationCardTo: 'blue' number: -1 ]
 		raise: Error
 		withMessage: 'There are no cards in that index'
+]
+
+{ #category : #tests }
+CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame addOverLoadCardTo: 'blue'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame addSpeedCardTo: 'blue'.
+	aGame applySpeedCardTo: 'blue' from: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame addAccelerationCardTo: 'blue'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 3)
 ]

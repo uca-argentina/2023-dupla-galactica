@@ -5,7 +5,8 @@ Class {
 		'lap',
 		'color',
 		'position',
-		'permanentCards'
+		'permanentCards',
+		'cardsInPosetion'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,6 +15,21 @@ Class {
 Player class >> with: aSpaceship [
 
 	^ self new initializeWith: aSpaceship
+]
+
+{ #category : #Cards }
+Player >> addAccelerationCard [
+	cardsInPosetion addLast: AccelerationCard new.
+]
+
+{ #category : #Cards }
+Player >> addOverLoadCardTo [
+	cardsInPosetion addLast: OverloadCard new.
+]
+
+{ #category : #Cards }
+Player >> addSpeedCard [
+	cardsInPosetion addLast: SpeedCard new.
 ]
 
 { #category : #Cards }
@@ -61,13 +77,40 @@ Player >> color [
 	^ color
 ]
 
+{ #category : #Cards }
+Player >> hasAccelerationCard [
+
+	| res |
+	res := false.
+	cardsInPosetion do: [ :card | 
+		card toString = 'Acceleration' ifTrue: [ res := true ] ].
+	^ res
+]
+
+{ #category : #Cards }
+Player >> hasOverLoadCard [
+	|res|
+	res:=false.
+	cardsInPosetion do: [:card | card toString = 'Overload' ifTrue:[res:= true]].
+	^res.
+]
+
+{ #category : #Cards }
+Player >> hasSpeedCard [
+	|res|
+	res:=false.
+	cardsInPosetion do: [:card | card toString = 'Speed' ifTrue:[res:= true]].
+	^res.
+]
+
 { #category : #Initialization }
 Player >> initializeWith: aColor [
 
 	color := aColor.
 	position := 1.
 	lap := 0.
-	permanentCards := OrderedCollection new
+	permanentCards := OrderedCollection new.
+	cardsInPosetion:= OrderedCollection new.
 ]
 
 { #category : #Information }

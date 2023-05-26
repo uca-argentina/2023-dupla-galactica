@@ -9,3 +9,8 @@ OverloadCard >> applyEffect: aPosition [
 
 	^ aPosition - 2
 ]
+
+{ #category : #Information }
+OverloadCard >> toString [
+	^'Overload'.
+]

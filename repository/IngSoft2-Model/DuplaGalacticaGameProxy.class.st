@@ -18,9 +18,31 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aD
 ]
 
 { #category : #Movement }
+DuplaGalacticaGameProxy >> addAccelerationCardTo: aPlayer [
+
+	game addAccelerationCardTo: aPlayer
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> addOverLoadCardTo: aPlayer [
+	game addOverLoadCardTo: aPlayer.
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> addSpeedCardTo: aPlayer [
+	game addSpeedCardTo: aPlayer.
+]
+
+{ #category : #Movement }
 DuplaGalacticaGameProxy >> applyAccelerationCard [
 
 	game applyAccelerationCard
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyAccelerationCardFrom: aPlayer [
+
+	game applyAccelerationCardFrom: aPlayer
 ]
 
 { #category : #Movement }
@@ -30,15 +52,19 @@ DuplaGalacticaGameProxy >> applyCancellationCardTo: aPlayer number: aNumberOfPer
 ]
 
 { #category : #Movement }
-DuplaGalacticaGameProxy >> applyOverloadCardTo: aPlayer [
-
-	game applyOverloadCardTo: aPlayer
+DuplaGalacticaGameProxy >> applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer [ 
+	game applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer 
 ]
 
 { #category : #Cards }
 DuplaGalacticaGameProxy >> applySpeedCardTo: aPlayer [
 
 	game applySpeedCardTo: aPlayer
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applySpeedCardTo: anObjectivePlayer from: aSourcePlayer [
+	game applySpeedCardTo: anObjectivePlayer from: aSourcePlayer
 ]
 
 { #category : #Information }
