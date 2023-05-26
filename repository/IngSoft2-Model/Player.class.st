@@ -80,27 +80,49 @@ Player >> color [
 { #category : #Cards }
 Player >> hasAccelerationCard [
 
-	| res |
+	| res i cardCollection |
+	i := 1.
 	res := false.
+	cardCollection := OrderedCollection new.
+	i := 1.
 	cardsInPosetion do: [ :card | 
-		card toString = 'Acceleration' ifTrue: [ res := true ] ].
+		(card toString = 'Acceleration' and: i = 1)
+			ifTrue: [ i := 2. res:=true ]
+			ifFalse: [ cardCollection addLast: card ] ].
+	cardsInPosetion:= cardCollection.
 	^ res
 ]
 
 { #category : #Cards }
 Player >> hasOverLoadCard [
-	|res|
-	res:=false.
-	cardsInPosetion do: [:card | card toString = 'Overload' ifTrue:[res:= true]].
-	^res.
+
+	| res i cardCollection |
+	i := 1.
+	res := false.
+	cardCollection := OrderedCollection new.
+	i := 1.
+	cardsInPosetion do: [ :card | 
+		(card toString = 'Overload' and: i = 1)
+			ifTrue: [ i := 2. res:=true ]
+			ifFalse: [ cardCollection addLast: card ] ].
+	cardsInPosetion:= cardCollection.
+	^ res
 ]
 
 { #category : #Cards }
 Player >> hasSpeedCard [
-	|res|
-	res:=false.
-	cardsInPosetion do: [:card | card toString = 'Speed' ifTrue:[res:= true]].
-	^res.
+
+	| res i cardCollection |
+	i := 1.
+	res := false.
+	cardCollection := OrderedCollection new.
+	i := 1.
+	cardsInPosetion do: [ :card | 
+		(card toString = 'Speed' and: i = 1)
+			ifTrue: [ i := 2. res:=true]
+			ifFalse: [ cardCollection addLast: card ] ].
+	cardsInPosetion:= cardCollection.
+	^ res
 ]
 
 { #category : #Initialization }

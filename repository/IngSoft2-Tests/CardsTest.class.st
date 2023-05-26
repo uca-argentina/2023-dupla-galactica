@@ -190,6 +190,7 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 				           with: 5)).
 	aGame addSpeedCardTo: 'blue'.
 	aGame addOverLoadCardTo: 'blue'.
+
 	aGame applySpeedCardTo: 'red' from: 'blue'.
 	aGame applyOverloadCardTo: 'red' from: 'blue'.
 	aGame movePlayer.
@@ -406,4 +407,125 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 	self
 		assert: aGame playersPositions
 		equals: (OrderedCollection with: 2 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
+
+	
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 1)
+]
+
+{ #category : #tests }
+CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
+
+	
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addSpeedCardTo: 'red'.
+	aGame applySpeedCardTo: 'blue' from: 'red'.
+	aGame addSpeedCardTo: 'red'.
+	aGame applySpeedCardTo: 'blue' from: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 7)
+]
+
+{ #category : #tests }
+CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addSpeedCardTo: 'red'.
+	aGame applySpeedCardTo: 'blue' from: 'red'.
+	aGame applySpeedCardTo: 'blue' from: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 6)
+]
+
+{ #category : #tests }
+CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
+
+	
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addAccelerationCardTo: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame addAccelerationCardTo: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 4 with: 7)
+]
+
+{ #category : #tests }
+CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway [
+
+	
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addAccelerationCardTo: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 3 with: 6)
 ]
