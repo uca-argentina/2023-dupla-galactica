@@ -17,6 +17,18 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aD
 		  winningWhen: aValue
 ]
 
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyOverloadCardTo: aPlayer [
+
+	game applyOverloadCardTo: aPlayer
+]
+
+{ #category : #Cards }
+DuplaGalacticaGameProxy >> applySpeedCardTo: aPlayer [
+
+	game applySpeedCardTo: aPlayer
+]
+
 { #category : #Information }
 DuplaGalacticaGameProxy >> boxes [
 

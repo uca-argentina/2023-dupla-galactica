@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'lap',
 		'color',
-		'position'
+		'position',
+		'permanentCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -13,6 +14,28 @@ Class {
 Player class >> with: aSpaceship [
 
 	^ self new initializeWith: aSpaceship
+]
+
+{ #category : #Cards }
+Player >> applyOverloadCard [
+	
+	permanentCards addLast: OverloadCard new.
+]
+
+{ #category : #Cards }
+Player >> applyPermanentCards: aPosition [
+
+	| positionToMove |
+	positionToMove := aPosition.
+	permanentCards do: [ :card | 
+		positionToMove := card applyEffect: positionToMove ].
+	^ positionToMove
+]
+
+{ #category : #Cards }
+Player >> applySpeedCard [
+
+	permanentCards addLast: SpeedCard new
 ]
 
 { #category : #Information }
@@ -26,7 +49,8 @@ Player >> initializeWith: aColor [
 
 	color := aColor.
 	position := 1.
-	lap := 0
+	lap := 0.
+	permanentCards := OrderedCollection new
 ]
 
 { #category : #Information }
@@ -42,8 +66,10 @@ Player >> move: value [
 ]
 
 { #category : #LapControl }
-Player >> move: aPositionToMove andUpdateLap: aValue [
+Player >> move: aPosition andUpdateLap: aValue [
 
+	|aPositionToMove|
+	aPositionToMove:= self applyPermanentCards: aPosition.
 	(self lap == 0 and:
 		 (aPositionToMove < 0 and: aPositionToMove abs >= position))
 		ifTrue: [ self moveToTheBeginning ]
