@@ -34,12 +34,6 @@ DuplaGalacticaGameProxy >> addSpeedCardTo: aPlayer [
 ]
 
 { #category : #Movement }
-DuplaGalacticaGameProxy >> applyAccelerationCard [
-
-	game applyAccelerationCard
-]
-
-{ #category : #Movement }
 DuplaGalacticaGameProxy >> applyAccelerationCardFrom: aPlayer [
 
 	game applyAccelerationCardFrom: aPlayer
@@ -54,12 +48,6 @@ DuplaGalacticaGameProxy >> applyCancellationCardTo: aPlayer number: aNumberOfPer
 { #category : #Movement }
 DuplaGalacticaGameProxy >> applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer [ 
 	game applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer 
-]
-
-{ #category : #Cards }
-DuplaGalacticaGameProxy >> applySpeedCardTo: aPlayer [
-
-	game applySpeedCardTo: aPlayer
 ]
 
 { #category : #Movement }
