@@ -25,6 +25,20 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 		  winningWhen: aValue
 ]
 
+{ #category : #Cards }
+DuplaGalacticaGame >> applyAccelerationCard [
+
+	players do: [ :player | player applyAccelerationCard ]
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> applyCancellationCardTo: aPlayer number: aNumberOfPermanentCard [
+
+	players do: [ :player | 
+		player color = aPlayer ifTrue: [ 
+			player cancellCard: aNumberOfPermanentCard ] ]
+]
+
 { #category : #Player }
 DuplaGalacticaGame >> applyOverloadCardTo: aPlayer [
 

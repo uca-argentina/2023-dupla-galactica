@@ -17,6 +17,12 @@ Player class >> with: aSpaceship [
 ]
 
 { #category : #Cards }
+Player >> applyAccelerationCard [
+
+	permanentCards addLast: AccelerationCard new
+]
+
+{ #category : #Cards }
 Player >> applyOverloadCard [
 	
 	permanentCards addLast: OverloadCard new.
@@ -36,6 +42,17 @@ Player >> applyPermanentCards: aPosition [
 Player >> applySpeedCard [
 
 	permanentCards addLast: SpeedCard new
+]
+
+{ #category : #Cards }
+Player >> cancellCard: aNumberOfPermanentCard [
+
+	permanentCards isEmpty ifTrue: [ 
+		Error signal: 'There are no permanent cards' ].
+	(aNumberOfPermanentCard > permanentCards size or:
+		 aNumberOfPermanentCard < 1) ifTrue: [ 
+		Error signal: 'There are no cards in that index' ].
+	permanentCards removeAt: aNumberOfPermanentCard
 ]
 
 { #category : #Information }

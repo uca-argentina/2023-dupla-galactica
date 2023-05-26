@@ -18,6 +18,18 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aD
 ]
 
 { #category : #Movement }
+DuplaGalacticaGameProxy >> applyAccelerationCard [
+
+	game applyAccelerationCard
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyCancellationCardTo: aPlayer number: aNumberOfPermanentCard [
+
+	game applyCancellationCardTo: aPlayer number: aNumberOfPermanentCard
+]
+
+{ #category : #Movement }
 DuplaGalacticaGameProxy >> applyOverloadCardTo: aPlayer [
 
 	game applyOverloadCardTo: aPlayer

@@ -39,6 +39,16 @@ CardsTest >> setUp [
 ]
 
 { #category : #tests }
+CardsTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+		self assert: error messageText equals: anErrorMessage ]
+]
+
+{ #category : #tests }
 CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 
 	| aGame |
@@ -178,4 +188,150 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 	self
 		assert: aGame playersPositions 
 		equals: (OrderedCollection with: 5 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame applyAccelerationCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions 
+		equals: (OrderedCollection with: 3 with: 4)
+]
+
+{ #category : #tests }
+CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 8
+				           with: 9
+				           with: 3
+				           with: 4)).
+	aGame applyAccelerationCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 10 with: 1)
+]
+
+{ #category : #tests }
+CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame applyOverloadCardTo: 'blue'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyCancellationCardTo: 'blue' number: 1.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 5 with: 5)
+]
+
+{ #category : #tests }
+CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreThanOneCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame applyOverloadCardTo: 'blue'.
+	aGame applySpeedCardTo: 'blue'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyCancellationCardTo: 'blue' number: 2.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 5 with: 4)
+]
+
+{ #category : #tests }
+CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame applyOverloadCardTo: 'blue'.
+	aGame applySpeedCardTo: 'blue'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyCancellationCardTo: 'blue' number: 2.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyCancellationCardTo: 'blue' number: 1.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 6 with: 6)
+]
+
+{ #category : #tests }
+CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	self
+		should: [ aGame applyCancellationCardTo: 'blue' number: 1 ]
+		raise: Error
+		withMessage: 'There are no permanent cards'
+]
+
+{ #category : #tests }
+CardsTest >> testQ015TryToCancellAPermanentCardWithAnInvalidIndex [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame applyOverloadCardTo: 'blue'.
+	self
+		should: [ aGame applyCancellationCardTo: 'blue' number: 2 ]
+		raise: Error
+		withMessage: 'There are no cards in that index'
+]
+
+{ #category : #tests }
+CardsTest >> testQ016TryToCancellAPermanentCardWithANegativeIndex [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame applyOverloadCardTo: 'blue'.
+	self
+		should: [ aGame applyCancellationCardTo: 'blue' number: -1 ]
+		raise: Error
+		withMessage: 'There are no cards in that index'
 ]
