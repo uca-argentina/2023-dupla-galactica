@@ -32,8 +32,13 @@ DuplaGalacticaGame >> addAccelerationCardTo: aPlayer [
 ]
 
 { #category : #Cards }
+DuplaGalacticaGame >> addCancellationCardTo: aPlayer [
+	players do: [:player | player color = aPlayer ifTrue: [player addCancellationCard]].
+]
+
+{ #category : #Cards }
 DuplaGalacticaGame >> addOverLoadCardTo: aPlayer [
-	players do: [:player | player color = aPlayer ifTrue: [player addOverLoadCardTo]].
+	players do: [:player | player color = aPlayer ifTrue: [player addOverLoadCard]].
 ]
 
 { #category : #Cards }
@@ -49,11 +54,12 @@ DuplaGalacticaGame >> applyAccelerationCardFrom: aPlayer [
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyCancellationCardTo: aPlayer number: aNumberOfPermanentCard [
-
-	players do: [ :player | 
-		player color = aPlayer ifTrue: [ 
-			player cancellCard: aNumberOfPermanentCard ] ]
+DuplaGalacticaGame >> applyCancellationCardTo: anObjectivePlayer from: aSourcePlayer ofCard: aCardName [ 
+	
+	|objective source|
+	players do: [: player| player color = anObjectivePlayer ifTrue: [ objective:= player] ].
+	players do: [: player| player color = aSourcePlayer ifTrue: [ source:= player] ].
+	(source hasCancellationCard) ifTrue: [objective cancellCard: aCardName]
 ]
 
 { #category : #Cards }

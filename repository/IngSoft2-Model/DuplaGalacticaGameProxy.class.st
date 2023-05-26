@@ -24,6 +24,11 @@ DuplaGalacticaGameProxy >> addAccelerationCardTo: aPlayer [
 ]
 
 { #category : #Movement }
+DuplaGalacticaGameProxy >> addCancellationCardTo: aPlayer [ 
+	game addCancellationCardTo: aPlayer.
+]
+
+{ #category : #Movement }
 DuplaGalacticaGameProxy >> addOverLoadCardTo: aPlayer [
 	game addOverLoadCardTo: aPlayer.
 ]
@@ -40,9 +45,8 @@ DuplaGalacticaGameProxy >> applyAccelerationCardFrom: aPlayer [
 ]
 
 { #category : #Movement }
-DuplaGalacticaGameProxy >> applyCancellationCardTo: aPlayer number: aNumberOfPermanentCard [
-
-	game applyCancellationCardTo: aPlayer number: aNumberOfPermanentCard
+DuplaGalacticaGameProxy >> applyCancellationCardTo: anObjectivePlayer from: aSourcePlayer ofCard: aCardName [ 
+	game applyCancellationCardTo: anObjectivePlayer from: aSourcePlayer ofCard: aCardName.
 ]
 
 { #category : #Movement }

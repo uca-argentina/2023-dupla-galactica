@@ -245,11 +245,13 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 				           with: 2
 				           with: 3
 				           with: 4)).
+				
+	aGame addCancellationCardTo: 'blue'.
 	aGame addOverLoadCardTo: 'red'.
 	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' number: 1.
+	aGame applyCancellationCardTo: 'blue' from: 'blue' ofCard: 'Overload'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -268,11 +270,12 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 				           with: 4)).
 	aGame addSpeedCardTo: 'red'.
 	aGame addOverLoadCardTo: 'red'.
+	aGame addCancellationCardTo: 'red'.
 	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame applySpeedCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' number: 2.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard: 'Speed'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -291,14 +294,16 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 				           with: 4)).
 	aGame addSpeedCardTo: 'red'.
 	aGame addOverLoadCardTo: 'red'.
+	aGame addCancellationCardTo: 'red'.
+	aGame addCancellationCardTo: 'blue'.
 	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	aGame applySpeedCardTo: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' number: 2.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard: 'Speed'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' number: 1.
+	aGame applyCancellationCardTo: 'blue' from: 'blue' ofCard: 'Overload'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -315,14 +320,15 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 				           with: 2
 				           with: 3
 				           with: 4)).
+	aGame addCancellationCardTo: 'red'.
 	self
-		should: [ aGame applyCancellationCardTo: 'blue' number: 1 ]
+		should: [ aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Overload' ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
 ]
 
 { #category : #tests }
-CardsTest >> testQ015TryToCancellAPermanentCardWithAnInvalidIndex [
+CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate [
 
 	| aGame |
 	aGame := self createGame: (LoadedDie with: (OrderedCollection
@@ -331,28 +337,12 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithAnInvalidIndex [
 				           with: 3
 				           with: 4)).
 	aGame addOverLoadCardTo: 'red'.
+	aGame addCancellationCardTo: 'red'.
 	aGame applyOverloadCardTo: 'blue' from: 'red'.
 	self
-		should: [ aGame applyCancellationCardTo: 'blue' number: 2 ]
+		should: [aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Speed' ]
 		raise: Error
-		withMessage: 'There are no cards in that index'
-]
-
-{ #category : #tests }
-CardsTest >> testQ016TryToCancellAPermanentCardWithANegativeIndex [
-
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addOverLoadCardTo: 'red'.
-	aGame applyOverloadCardTo: 'blue' from: 'red'.
-	self
-		should: [ aGame applyCancellationCardTo: 'blue' number: -1 ]
-		raise: Error
-		withMessage: 'There are no cards in that index'
+		withMessage: 'There are no that type of cards activate in this player'
 ]
 
 { #category : #tests }
@@ -528,4 +518,72 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 	self
 		assert: aGame playersPositions
 		equals: (OrderedCollection with: 3 with: 6)
+]
+
+{ #category : #tests }
+CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 2
+				           with: 3
+				           with: 4)).
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard: 'Overload'. 
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 2 with: 1)
+]
+
+{ #category : #tests }
+CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
+
+	
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addCancellationCardTo: 'red'.
+	aGame addCancellationCardTo: 'red'.
+	aGame addAccelerationCardTo: 'red'.
+	aGame addAccelerationCardTo: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Acceleration'.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Acceleration'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 4 with: 5)
+]
+
+{ #category : #tests }
+CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
+
+	
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 1
+				           with: 4
+				           with: 3
+				           with: 4)).
+	aGame addCancellationCardTo: 'red'.
+	aGame addAccelerationCardTo: 'red'.
+	aGame addAccelerationCardTo: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Acceleration'.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Acceleration'.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 4 with: 6)
 ]
