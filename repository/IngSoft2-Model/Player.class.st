@@ -60,11 +60,6 @@ Player >> applyPermanentCards: aPosition [
 	^ positionToMove
 ]
 
-{ #category : #Cards }
-Player >> applyRedoCard: aCard ofCard: cardName [
-	aCard isPermanent ifTrue: [ permanentCards addLast: aCard] ifFalse: [self applyCancellCard: cardName].
-]
-
 { #category : #Information }
 Player >> color [
 
