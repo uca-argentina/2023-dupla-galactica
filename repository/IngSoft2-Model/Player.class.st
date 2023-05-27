@@ -19,22 +19,36 @@ Player class >> with: aSpaceship [
 
 { #category : #Cards }
 Player >> addAccelerationCard [
-	cardsInPosetion addLast: AccelerationCard new.
+
+	cardsInPosetion addLast: AccelerationCard new
 ]
 
 { #category : #Cards }
 Player >> addCancellationCard [
-	cardsInPosetion addLast: CancellationCard new.
+
+	cardsInPosetion addLast: CancellationCard new
 ]
 
 { #category : #Cards }
 Player >> addOverLoadCard [
-	cardsInPosetion addLast: OverloadCard new.
+
+	cardsInPosetion addLast: OverloadCard new
+]
+
+{ #category : #Cards }
+Player >> addRedoCard [
+	cardsInPosetion addLast: RedoCard new.
+]
+
+{ #category : #Cards }
+Player >> addRepeatCard [
+	cardsInPosetion addLast: RepeatCard new.
 ]
 
 { #category : #Cards }
 Player >> addSpeedCard [
-	cardsInPosetion addLast: SpeedCard new.
+
+	cardsInPosetion addLast: SpeedCard new
 ]
 
 { #category : #Cards }
@@ -44,12 +58,33 @@ Player >> applyAccelerationCard [
 ]
 
 { #category : #Cards }
+Player >> applyCancellCard: aCardName [
+
+	| i cardCollection |
+	i := 1.
+	cardCollection := OrderedCollection new.
+
+	permanentCards isEmpty ifTrue: [ 
+		Error signal: 'There are no permanent cards' ].
+
+	permanentCards do: [ :card | 
+		(card toString = aCardName and: i = 1)
+			ifTrue: [ i := 2 ]
+			ifFalse: [ cardCollection addLast: card ] ].
+	permanentCards := cardCollection.
+	
+	i = 1 ifTrue: [ 
+		Error signal:
+			'There are no that type of cards activate in this player' ]
+]
+
+{ #category : #Cards }
 Player >> applyOverloadCard [
 	
 	permanentCards addLast: OverloadCard new.
 ]
 
-{ #category : #Cards }
+{ #category : #LapControl }
 Player >> applyPermanentCards: aPosition [
 
 	| positionToMove |
@@ -60,26 +95,14 @@ Player >> applyPermanentCards: aPosition [
 ]
 
 { #category : #Cards }
-Player >> applySpeedCard [
-
-	permanentCards addLast: SpeedCard new
+Player >> applyRedoCard: aCard ofCard: cardName [
+	aCard isPermanent ifTrue: [ permanentCards addLast: aCard] ifFalse: [self applyCancellCard: cardName].
 ]
 
 { #category : #Cards }
-Player >> cancellCard: aCardName [
+Player >> applySpeedCard [
 
-	| i cardCollection |
-	i := 1.
-	cardCollection := OrderedCollection new.
-	permanentCards isEmpty ifTrue: [ 
-		Error signal: 'There are no permanent cards' ].
-	i := 1.
-	permanentCards  do: [ :card | 
-		(card toString = aCardName and: i = 1)
-			ifTrue: [ i := 2.]
-			ifFalse: [ cardCollection addLast: card ] ].
-	permanentCards := cardCollection.
-	i= 1 ifTrue: [ Error signal: 'There are no that type of cards activate in this player' ]
+	permanentCards addLast: SpeedCard new
 ]
 
 { #category : #Information }
@@ -95,7 +118,6 @@ Player >> hasAccelerationCard [
 	i := 1.
 	res := false.
 	cardCollection := OrderedCollection new.
-	i := 1.
 	cardsInPosetion do: [ :card | 
 		(card toString = 'Acceleration' and: i = 1)
 			ifTrue: [ i := 2. res:=true ]
@@ -129,6 +151,34 @@ Player >> hasOverLoadCard [
 	i := 1.
 	cardsInPosetion do: [ :card | 
 		(card toString = 'Overload' and: i = 1)
+			ifTrue: [ i := 2. res:=true ]
+			ifFalse: [ cardCollection addLast: card ] ].
+	cardsInPosetion:= cardCollection.
+	^ res
+]
+
+{ #category : #Cards }
+Player >> hasRedoCard [
+	| res i cardCollection |
+	i := 1.
+	res := false.
+	cardCollection := OrderedCollection new.
+	cardsInPosetion do: [ :card | 
+		(card toString = 'Redo' and: i = 1)
+			ifTrue: [ i := 2. res:=true]
+			ifFalse: [ cardCollection addLast: card ] ].
+	cardsInPosetion:= cardCollection.
+	^ res
+]
+
+{ #category : #Cards }
+Player >> hasRepeatCard [
+		| res i cardCollection |
+	i := 1.
+	res := false.
+	cardCollection := OrderedCollection new.
+	cardsInPosetion do: [ :card | 
+		(card toString = 'Repeat' and: i = 1)
 			ifTrue: [ i := 2. res:=true ]
 			ifFalse: [ cardCollection addLast: card ] ].
 	cardsInPosetion:= cardCollection.

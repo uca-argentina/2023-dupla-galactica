@@ -6,7 +6,10 @@ Class {
 		'board',
 		'dice',
 		'goalLaps',
-		'turnManager'
+		'turnManager',
+		'lastCardPlay',
+		'lastPosition',
+		'current'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -28,54 +31,94 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 { #category : #Cards }
 DuplaGalacticaGame >> addAccelerationCardTo: aPlayer [
 
-	players do: [:player | player color = aPlayer ifTrue: [player addAccelerationCard]].
+	(self findPlayer: aPlayer) addAccelerationCard.
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> addCancellationCardTo: aPlayer [
-	players do: [:player | player color = aPlayer ifTrue: [player addCancellationCard]].
+
+	(self findPlayer: aPlayer) addCancellationCard.
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> addOverLoadCardTo: aPlayer [
-	players do: [:player | player color = aPlayer ifTrue: [player addOverLoadCard]].
+
+		(self findPlayer: aPlayer) addOverLoadCard.
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> addRedoCardTo: aPlayer [ 
+	(self findPlayer: aPlayer) addRedoCard.
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> addRepeatCardTo: aPlayer [ 
+	(self findPlayer: aPlayer) addRepeatCard.
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> addSpeedCardTo: aPlayer [
-		players do: [:player | player color = aPlayer ifTrue: [player addSpeedCard]].
+
+	(self findPlayer: aPlayer) addSpeedCard.
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> applyAccelerationCardFrom: aPlayer [
-	|source|
-	players do: [: player| player color = aPlayer ifTrue: [ source:= player] ].
-	(source hasAccelerationCard) ifTrue: [players do: [:player | player applyAccelerationCard]]
+
+	| source |
+	source := self findPlayer: aPlayer.
+	source hasAccelerationCard ifFalse: [ ^ self ].
+	players do: [ :player | player applyAccelerationCard ].
+	lastCardPlay := AccelerationCard new
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyCancellationCardTo: anObjectivePlayer from: aSourcePlayer ofCard: aCardName [ 
-	
-	|objective source|
-	players do: [: player| player color = anObjectivePlayer ifTrue: [ objective:= player] ].
-	players do: [: player| player color = aSourcePlayer ifTrue: [ source:= player] ].
-	(source hasCancellationCard) ifTrue: [objective cancellCard: aCardName]
+DuplaGalacticaGame >> applyCancellationCardTo: anObjectivePlayer from: aSourcePlayer ofCard: aCardName [
+
+	| objective source |
+	objective := self findPlayer: anObjectivePlayer.
+	source := self findPlayer: aSourcePlayer.
+	source hasCancellationCard ifFalse: [ ^ self ].
+	objective applyCancellCard: aCardName.
+	lastCardPlay := CancellationCard new
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer [ 
+DuplaGalacticaGame >> applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer [
+
+	| objective source |
+	objective := self findPlayer: anObjectivePlayer.
+	source := self findPlayer: aSourcePlayer.
+	source hasOverLoadCard ifFalse: [ ^ self ].
+	objective applyOverloadCard.
+	lastCardPlay := OverloadCard new
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> applyRedoCardTo: anObjectivePlayer from: aSourcePlayer ofCard: cardName [
 	|objective source|
-	players do: [: player| player color = anObjectivePlayer ifTrue: [ objective:= player] ].
-	players do: [: player| player color = aSourcePlayer ifTrue: [ source:= player] ].
-	(source hasOverLoadCard) ifTrue: [objective applyOverloadCard]
+	objective:= self findPlayer: anObjectivePlayer.
+	source:= self findPlayer: aSourcePlayer.
+	source hasRedoCard ifTrue: [(lastCardPlay toString = 'Acceleration') ifTrue:[players do: [:player | player applyAccelerationCard]] ifFalse:[objective applyRedoCard: lastCardPlay ofCard: cardName]].
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> applyRepeatCardTo: anObjectivePlayer from: aSourcePlayer [
+	|objective source|
+	objective:= self findPlayer: anObjectivePlayer.
+	source:= self findPlayer: aSourcePlayer.
+	source hasRepeatCard ifTrue: [self repeatEffectTo: objective].
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> applySpeedCardTo: anObjectivePlayer from: aSourcePlayer [
-	|objective source|
-	players do: [: player| player color = anObjectivePlayer ifTrue: [ objective:= player] ].
-	players do: [: player| player color = aSourcePlayer ifTrue: [ source:= player] ].
-	(source hasSpeedCard) ifTrue: [objective applySpeedCard]
+
+	| objective source |
+	objective := self findPlayer: anObjectivePlayer.
+	source := self findPlayer: aSourcePlayer.
+	source hasSpeedCard ifFalse: [ ^ self ].
+	objective applySpeedCard.
+	lastCardPlay := SpeedCard new
 ]
 
 { #category : #Information }
@@ -87,13 +130,19 @@ DuplaGalacticaGame >> boxes [
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
-	^ (players at: (turnManager current)).
+	^ current.
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayerColor [
 
 	^ self currentPlayer color
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> findPlayer: aPlayer [
+
+	^ players detect: [ :player | player color = aPlayer ]
 ]
 
 { #category : #Information }
@@ -111,6 +160,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	dice := aDiceCollection.
 	turnManager := TurnManager with: (aColorsCollection  size).
 	goalLaps :=  aValue.
+	current:= players at:1.
 ]
 
 { #category : #Player }
@@ -141,9 +191,11 @@ DuplaGalacticaGame >> movePlayer [
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
 	self winnerExists ifTrue: [ ^ self ].
-	self currentPlayer move: aValue andUpdateLap: board boxes size.
+	current move: aValue andUpdateLap: board boxes size.
+	lastPosition:= current position.
 	board effectAt: (self currentPlayer position) In: self.
-	turnManager goNext
+	turnManager goNext.
+	current:= players at: turnManager current.
 ]
 
 { #category : #Information }
@@ -173,6 +225,13 @@ DuplaGalacticaGame >> ranking [
 		player1 position + (player1 lap * self boxes size)
 		> (player2 position + (player2 lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
+]
+
+{ #category : #Player }
+DuplaGalacticaGame >> repeatEffectTo: aPlayer [ 
+	current:= aPlayer.
+	board effectAt: (lastPosition) In: self.
+	current:= players at: turnManager current.
 ]
 
 { #category : #Finalization }

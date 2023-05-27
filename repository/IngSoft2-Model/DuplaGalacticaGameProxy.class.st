@@ -18,27 +18,6 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aD
 ]
 
 { #category : #Movement }
-DuplaGalacticaGameProxy >> addAccelerationCardTo: aPlayer [
-
-	game addAccelerationCardTo: aPlayer
-]
-
-{ #category : #Movement }
-DuplaGalacticaGameProxy >> addCancellationCardTo: aPlayer [ 
-	game addCancellationCardTo: aPlayer.
-]
-
-{ #category : #Movement }
-DuplaGalacticaGameProxy >> addOverLoadCardTo: aPlayer [
-	game addOverLoadCardTo: aPlayer.
-]
-
-{ #category : #Movement }
-DuplaGalacticaGameProxy >> addSpeedCardTo: aPlayer [
-	game addSpeedCardTo: aPlayer.
-]
-
-{ #category : #Movement }
 DuplaGalacticaGameProxy >> applyAccelerationCardFrom: aPlayer [
 
 	game applyAccelerationCardFrom: aPlayer
@@ -52,6 +31,22 @@ DuplaGalacticaGameProxy >> applyCancellationCardTo: anObjectivePlayer from: aSou
 { #category : #Movement }
 DuplaGalacticaGameProxy >> applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer [ 
 	game applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer 
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyRedoCardTo: anObjectivePlayer from: aSourcePlayer ofCard: cardName [
+	game applyRedoCardTo: anObjectivePlayer from: aSourcePlayer ofCard: cardName.
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyRepeatCardFrom: aSourcePlayer [
+
+	game applyRepeatCardFrom: aSourcePlayer
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyRepeatCardTo: anObjectivePlayer from: aSourcePlayer [ 
+	game applyRepeatCardTo: anObjectivePlayer from: aSourcePlayer
 ]
 
 { #category : #Movement }

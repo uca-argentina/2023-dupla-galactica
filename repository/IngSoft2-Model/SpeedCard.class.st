@@ -11,6 +11,12 @@ SpeedCard >> applyEffect: aPosition [
 ]
 
 { #category : #Information }
+SpeedCard >> isPermanent [
+	^true.
+]
+
+{ #category : #Information }
 SpeedCard >> toString [
-	^'Speed'.
+
+	^ 'Speed'
 ]

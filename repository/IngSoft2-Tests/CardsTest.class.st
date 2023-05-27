@@ -23,7 +23,7 @@ CardsTest >> createGame: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	^ aGame := DuplaGalacticaGameProxy
+	^ aGame := DuplaGalacticaGame
 		           with: aColorCollection
 		           and: aBoard
 		           throwing: aLoadedDie
@@ -586,4 +586,306 @@ CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 	self
 		assert: aGame playersPositions
 		equals: (OrderedCollection with: 4 with: 6)
+]
+
+{ #category : #tests }
+CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 8
+				           with: 3
+				           with: 4)).
+	aGame addOverLoadCardTo: 'red'.
+	aGame applyOverloadCardTo: 'blue' from: 'red'.
+	aGame addRedoCardTo: 'blue'.
+	aGame applyRedoCardTo: 'red' from: 'blue' ofCard: ''.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 3 with: 7)
+]
+
+{ #category : #tests }
+CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellationCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 8
+				           with: 3
+				           with: 4)).
+	aGame addCancellationCardTo: 'red'.
+	aGame addRedoCardTo: 'blue'.
+	aGame addAccelerationCardTo: 'red'.
+
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Acceleration'.
+	aGame applyRedoCardTo: 'red' from: 'blue' ofCard: 'Acceleration'.
+	
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 5 with: 9)
+]
+
+{ #category : #tests }
+CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 8
+				           with: 3
+				           with: 4)).
+	aGame addRedoCardTo: 'blue'.
+	aGame addSpeedCardTo: 'red'.
+
+	aGame applySpeedCardTo:'red'  from:'red' . 
+	aGame applyRedoCardTo: 'blue' from: 'blue' ofCard: ''.
+	
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 6 with: 10)
+]
+
+{ #category : #tests }
+CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelerationCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 8
+				           with: 3
+				           with: 4)).
+	aGame addRedoCardTo: 'blue'.
+	aGame addAccelerationCardTo: 'red'.
+
+	aGame applyAccelerationCardFrom: 'red'. 
+	aGame applyRedoCardTo: 'blue' from: 'blue' ofCard: ''.
+	
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 7 with: 1)
+]
+
+{ #category : #tests }
+CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard [
+
+	| aGame |
+	aGame := self createGame: (LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 8
+				           with: 3
+				           with: 4)).
+	aGame addRedoCardTo: 'blue'.
+	aGame addRedoCardTo: 'red'.
+	aGame addAccelerationCardTo: 'red'.
+
+	aGame applyAccelerationCardFrom: 'red'.
+	aGame applyRedoCardTo: 'blue' from: 'blue' ofCard: ''.
+	aGame applyRedoCardTo: 'red' from: 'red' ofCard: ''.
+
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 8 with: 2)
+]
+
+{ #category : #tests }
+CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
+
+	| aGame aLoadedDie boxes aBoard|
+	aLoadedDie:= LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 1
+				           with: 3
+				           with: 4).
+	boxes := OrderedCollection
+		         with: NoEffectBox new
+		         with: SpeedUpBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame
+		           with: aColorCollection
+		           and: aBoard
+		           throwing: aLoadedDie
+		           winningWhen: 1.
+				
+				
+	aGame addRepeatCardTo: 'blue'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyRepeatCardTo: 'blue' from: 'blue'.
+
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 5 with: 10)
+]
+
+{ #category : #tests }
+CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
+
+	| aGame aLoadedDie boxes aBoard|
+	aLoadedDie:= LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 9
+				           with: 3
+				           with: 4).
+	boxes := OrderedCollection
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: WormHoleBox new.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame
+		           with: aColorCollection
+		           and: aBoard
+		           throwing: aLoadedDie
+		           winningWhen: 1.
+				
+				
+	aGame addRepeatCardTo: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyRepeatCardTo: 'blue' from: 'red'.
+
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 5 with: 2)
+]
+
+{ #category : #tests }
+CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
+
+	| aGame aLoadedDie boxes aBoard|
+	aLoadedDie:= LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 5
+				           with: 3
+				           with: 4).
+	boxes := OrderedCollection
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: (MoonWalkBox with: -2).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame
+		           with: aColorCollection
+		           and: aBoard
+		           throwing: aLoadedDie
+		           winningWhen: 1.
+				
+				
+	aGame addRepeatCardTo: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyRepeatCardTo: 'red' from: 'red'.
+
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 3 with: 4)
+]
+
+{ #category : #tests }
+CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne [
+
+	| aGame aLoadedDie boxes aBoard|
+	aLoadedDie:= LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 5
+				           with: 3
+				           with: 4).
+	boxes := OrderedCollection
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: AtomicBombBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame
+		           with: aColorCollection
+		           and: aBoard
+		           throwing: aLoadedDie
+		           winningWhen: 1.
+				
+				
+	aGame addRepeatCardTo: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyRepeatCardTo: 'red' from: 'red'.
+
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 1 with: 1)
+]
+
+{ #category : #tests }
+CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
+
+	| aGame aLoadedDie boxes aBoard|
+	aLoadedDie:= LoadedDie with: (OrderedCollection
+				           with: 4
+				           with: 5
+				           with: 3
+				           with: 4).
+	boxes := OrderedCollection
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: (HyperJumpBox with: (OrderedCollection with: 40 with: 30)).
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGame
+		           with: aColorCollection
+		           and: aBoard
+		           throwing: aLoadedDie
+		           winningWhen: 1.
+				
+				
+	aGame addRepeatCardTo: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame applyRepeatCardTo: 'red' from: 'red'.
+
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 8 with: 10)
 ]
