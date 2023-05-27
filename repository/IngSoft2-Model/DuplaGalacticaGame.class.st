@@ -10,7 +10,10 @@ Class {
 		'lastCardPlay',
 		'lastPosition',
 		'current',
-		'possibleCards'
+		'possibleCards',
+		'objective',
+		'source',
+		'objectiveCard'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -36,56 +39,43 @@ DuplaGalacticaGame >> addCard: aCard to: aPlayer [
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyCancellationCardTo: anObjectivePlayer from: aSourcePlayer ofCard: aCardName [
+DuplaGalacticaGame >> applyCard: aCardName from: aSourcePlayer [
 
-	| objective source |
-	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
-	(source has: 'Cancellation') ifFalse: [ ^ self ].
-	objective applyCancellCard: aCardName.
-	lastCardPlay := CancellationCard new
+	(source has: aCardName) ifFalse: [ ^ self ].
+	(self findCard: aCardName) applyCards: self.
+	aCardName = 'Redo' ifFalse:[lastCardPlay := self findCard: aCardName].
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyPermanentCard: aCardName to: anObjectivePlayer from: aSourcePlayer [
+DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePlayer [
 
-	| objective source |
 	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
 	(source has: aCardName) ifFalse: [ ^ self ].
-	aCardName  = 'Acceleration'
-		ifTrue: [ 
-			players do: [ :player | 
-				player applyCard: (self findCard: aCardName) ] ]
-		ifFalse: [ objective applyCard: (self findCard: aCardName) ].
-	lastCardPlay := self findCard: aCardName
+	(self findCard: aCardName) applyCards: self.
+	aCardName = 'Redo' ifFalse:[lastCardPlay := self findCard: aCardName].
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyRedoCardTo: anObjectivePlayer from: aSourcePlayer ofCard: cardName [
-
-	| objective source |
+DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePlayer ofCard: anObjectiveCard [ 
 	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
-	(source has: 'Redo') ifTrue: [ 
-		lastCardPlay toString = 'Acceleration'
-			ifTrue: [ players do: [ :player | player applyCard: lastCardPlay] ]
-			ifFalse: [ objective applyRedoCard: lastCardPlay ofCard: cardName ] ]
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> applyRepeatCardTo: anObjectivePlayer from: aSourcePlayer [
-
-	| objective source |
-	objective := self findPlayer: anObjectivePlayer.
-	source := self findPlayer: aSourcePlayer.
-	(source has: 'Repeat') ifTrue: [ self repeatEffectTo: objective ]
+	objectiveCard:= anObjectiveCard.
+	(source has: aCardName) ifFalse: [ ^ self ].
+	(self findCard: aCardName) applyCards: self.
+	aCardName = 'Redo' ifFalse:[lastCardPlay := self findCard: aCardName].
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> boxes [
 
 	^ board boxes
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> cardObjective [
+	^objectiveCard .
 ]
 
 { #category : #Information }
@@ -127,6 +117,8 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
 	current := players at: 1.
+	objective := players at: 1.
+	objectiveCard:= AccelerationCard new.
 	possibleCards := OrderedCollection
 		                 with: OverloadCard new
 		                 with: SpeedCard new
@@ -134,6 +126,11 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 		                 with: AccelerationCard new
 		                 with: RedoCard new
 		                 with: CancellationCard new
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> lastCardPlay [
+	^ lastCardPlay
 ]
 
 { #category : #Player }
@@ -172,9 +169,19 @@ DuplaGalacticaGame >> movePlayer [
 ]
 
 { #category : #Information }
+DuplaGalacticaGame >> objective [
+	^ objective
+]
+
+{ #category : #Information }
 DuplaGalacticaGame >> parsecs [
 
 	^ board parsecs
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> players [
+	^ players
 ]
 
 { #category : #Information }

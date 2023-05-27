@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #Effect }
+SpeedCard >> applyCards: aGame [ 
+	aGame objective applyCard: self.
+]
+
+{ #category : #Effect }
 SpeedCard >> applyEffect: aPosition [
 
 	^ aPosition + 1

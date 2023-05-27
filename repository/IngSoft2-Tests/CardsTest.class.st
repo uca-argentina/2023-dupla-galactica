@@ -58,7 +58,7 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -76,7 +76,7 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
-aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -96,7 +96,7 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 				           with: 3
 				           with: 0)).
 	aGame addCard: 'Overload' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -116,7 +116,7 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -134,7 +134,7 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Speed' to: 'blue'.
-	aGame applyPermanentCard: 'Speed' to: 'red' from: 'blue'.
+	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -152,7 +152,7 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 				           with: 3
 				           with: 5)).
 	aGame addCard: 'Speed' to: 'blue'.
-	aGame applyPermanentCard: 'Speed' to: 'red' from: 'blue'.
+	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -172,7 +172,7 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 				           with: 3
 				           with: 5)).
 	aGame addCard: 'Speed' to: 'blue'.
-	aGame applyPermanentCard: 'Speed' to: 'red' from: 'blue'.
+	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
 	aGame movePlayer.
 	self
 		assert: aGame playersLaps
@@ -191,8 +191,8 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 	aGame addCard: 'Speed' to: 'blue'.
 	aGame addCard: 'Overload' to: 'blue'.
 
-	aGame applyPermanentCard: 'Speed' to: 'red' from: 'blue'.
-	aGame applyPermanentCard: 'Overload' to: 'red' from: 'blue'.
+	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
+	aGame applyCard: 'Overload' to: 'red' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -210,7 +210,7 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Acceleration' to: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -228,7 +228,7 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Acceleration' to: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -248,10 +248,10 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 
 	aGame addCard: 'Cancellation' to: 'blue'.
 	aGame addCard: 'Overload' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' from: 'blue' ofCard: 'Overload'.
+	aGame applyCard: 'Cancellation' to: 'blue' from: 'blue' ofCard: 'Overload'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -271,11 +271,15 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 	aGame addCard: 'Cancellation' to: 'red'.
 	aGame addCard: 'Overload' to: 'red'.
 	aGame addCard: 'Speed' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard: 'Speed'.
+	aGame
+		applyCard: 'Cancellation'
+		to: 'blue'
+		from: 'red'
+		ofCard: 'Speed'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -296,14 +300,22 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 	aGame addCard: 'Cancellation' to: 'red'.
 	aGame addCard: 'Overload' to: 'red'.
 	aGame addCard: 'Speed' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard: 'Speed'.
+	aGame
+		applyCard: 'Cancellation'
+		to: 'blue'
+		from: 'red'
+		ofCard: 'Speed'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCancellationCardTo: 'blue' from: 'blue' ofCard: 'Overload'.
+	aGame
+		applyCard: 'Cancellation'
+		to: 'blue'
+		from: 'blue'
+		ofCard: 'Overload'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -322,7 +334,12 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 				           with: 4)).
 	aGame addCard: 'Cancellation' to: 'red'.
 	self
-		should: [ aGame applyCancellationCardTo: 'blue' from: 'red' ofCard:'Overload' ]
+		should: [ 
+			aGame
+				applyCard: 'Cancellation'
+				to: 'blue'
+				from: 'red'
+				ofCard: 'Overload' ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
 ]
@@ -338,11 +355,15 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
 	aGame addCard: 'Cancellation' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 
 	self
 		should: [ 
-		aGame applyCancellationCardTo: 'blue' from: 'red' ofCard: 'Speed' ]
+			aGame
+				applyCard: 'Cancellation'
+				to: 'blue'
+				from: 'red'
+				ofCard: 'Speed' ]
 		raise: Error
 		withMessage:
 		'There are no that type of cards activate in this player'
@@ -358,7 +379,7 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'blue'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -378,7 +399,7 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 				           with: 4)).
 	aGame addCard: 'Speed' to: 'blue'.
 
-	aGame applyPermanentCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -396,7 +417,7 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Acceleration' to: 'blue'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -416,8 +437,8 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
 	aGame addCard: 'Overload' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -436,8 +457,8 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -456,8 +477,8 @@ CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 				           with: 4)).
 	aGame addCard: 'Speed' to: 'red'.
 	aGame addCard: 'Speed' to: 'red'.
-	aGame applyPermanentCard: 'Speed' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -475,8 +496,8 @@ CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Speed' to: 'red'.
-	aGame applyPermanentCard: 'Speed' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -495,8 +516,8 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 				           with: 4)).
 	aGame addCard: 'Acceleration' to: 'red'.
 	aGame addCard: 'Acceleration' to: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -514,8 +535,8 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Acceleration' to: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -534,8 +555,12 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
 
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyCancellationCardTo: 'blue' from: 'red' ofCard: 'Overload'.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame
+		applyCard: 'Cancellation'
+		to: 'blue'
+		from: 'red'
+		ofCard: 'Overload'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -556,14 +581,16 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 	aGame addCard: 'Acceleration' to: 'red'.
 	aGame addCard: 'Cancellation' to: 'red'.
 	aGame addCard: 'Cancellation' to: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame
-		applyCancellationCardTo: 'blue'
+		applyCard: 'Cancellation'
+		to: 'blue'
 		from: 'red'
 		ofCard: 'Acceleration'.
 	aGame
-		applyCancellationCardTo: 'blue'
+		applyCard: 'Cancellation'
+		to: 'blue'
 		from: 'red'
 		ofCard: 'Acceleration'.
 	aGame movePlayer.
@@ -586,14 +613,16 @@ CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 	aGame addCard: 'Acceleration' to: 'red'.
 	aGame addCard: 'Cancellation' to: 'red'.
 
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame
-		applyCancellationCardTo: 'blue'
+		applyCard: 'Cancellation'
+		to: 'blue'
 		from: 'red'
 		ofCard: 'Acceleration'.
 	aGame
-		applyCancellationCardTo: 'blue'
+		applyCard: 'Cancellation'
+		to: 'blue'
 		from: 'red'
 		ofCard: 'Acceleration'.
 	aGame movePlayer.
@@ -614,8 +643,8 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 				           with: 4)).
 	aGame addCard: 'Overload' to: 'red'.
 	aGame addCard: 'Redo' to: 'blue'.
-	aGame applyPermanentCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyRedoCardTo: 'red' from: 'blue' ofCard: ''.
+	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: 'Redo' to:'red' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -635,12 +664,17 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 	aGame addCard: 'Acceleration' to: 'red'.
 	aGame addCard: 'Cancellation' to: 'red'.
 	aGame addCard: 'Redo' to: 'blue'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
+	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame
-		applyCancellationCardTo: 'blue'
+		applyCard: 'Cancellation'
+		to: 'blue'
 		from: 'red'
 		ofCard: 'Acceleration'.
-	aGame applyRedoCardTo: 'red' from: 'blue' ofCard: 'Acceleration'.
+	aGame
+		applyCard: 'Redo'
+		to: 'red'
+		from: 'blue'
+		ofCard: 'Acceleration'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -659,11 +693,10 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 				           with: 3
 				           with: 4)).
 	aGame addCard: 'Speed' to: 'red'.
-	aGame addCard: 'Redo' to: 'blue'..
+	aGame addCard: 'Redo' to: 'blue'.
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: 'Redo' to: 'blue' from: 'blue'.
 
-	aGame applyPermanentCard: 'Speed' to: 'red' from: 'red'.
-	aGame applyRedoCardTo: 'blue' from: 'blue' ofCard: ''.
-	
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -682,8 +715,8 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 				           with: 4)).
 	aGame addCard: 'Acceleration' to: 'red'.
 	aGame addCard: 'Redo' to: 'blue'.
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
-	aGame applyRedoCardTo: 'blue' from: 'blue' ofCard: ''.
+	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: 'Redo' from: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -704,11 +737,9 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 	aGame addCard: 'Acceleration' to: 'red'.
 	aGame addCard: 'Redo' to: 'red'.
 	aGame addCard: 'Redo' to: 'blue'.
-
-	aGame applyPermanentCard: 'Acceleration' to: 'blue' from: 'red'.
-
-	aGame applyRedoCardTo: 'blue' from: 'blue' ofCard: ''.
-	aGame applyRedoCardTo: 'red' from: 'red' ofCard: ''.
+	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: 'Redo' from: 'blue'.
+	aGame applyCard: 'Redo' from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -747,7 +778,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 	aGame addCard: 'Repeat' to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyRepeatCardTo: 'blue' from: 'blue'.
+	aGame applyCard: 'Repeat' to: 'blue' from: 'blue'.
 
 	self
 		assert: aGame playersPositions
@@ -785,7 +816,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 	aGame addCard: 'Repeat' to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyRepeatCardTo: 'blue' from: 'red'.
+	aGame applyCard: 'Repeat' to: 'blue' from: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -823,7 +854,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 	aGame addCard: 'Repeat' to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyRepeatCardTo: 'red' from: 'red'.
+	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -861,7 +892,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 	aGame addCard: 'Repeat' to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyRepeatCardTo: 'red' from: 'red'.
+	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -900,7 +931,7 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 	aGame addCard: 'Repeat' to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyRepeatCardTo: 'red' from: 'red'.
+	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
 
 	self
 		assert: aGame playersPositions

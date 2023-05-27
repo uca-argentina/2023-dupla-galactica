@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #Effect }
+AccelerationCard >> applyCards: aGame [
+
+	aGame players do: [ :player | player applyCard: self]
+]
+
+{ #category : #Effect }
 AccelerationCard >> applyEffect: aPosition [
 
 	^ aPosition + 1

@@ -4,6 +4,11 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #Effect }
+RedoCard >> applyCards: aGame [ 
+	aGame lastCardPlay applyCards: aGame.
+]
+
 { #category : #Information }
 RedoCard >> toString [
 

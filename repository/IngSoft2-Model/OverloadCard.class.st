@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #Effect }
+OverloadCard >> applyCards: aGame [
+	aGame objective applyCard: self.
+]
+
+{ #category : #Effect }
 OverloadCard >> applyEffect: aPosition [
 
 	^ aPosition - 2
