@@ -24,12 +24,6 @@ Player >> addCard: aCard [
 ]
 
 { #category : #Cards }
-Player >> applyAccelerationCard [
-
-	permanentCards addLast: AccelerationCard new
-]
-
-{ #category : #Cards }
 Player >> applyCancellCard: aCardName [
 
 	| i cardCollection |
@@ -51,9 +45,9 @@ Player >> applyCancellCard: aCardName [
 ]
 
 { #category : #Cards }
-Player >> applyOverloadCard [
-	
-	permanentCards addLast: OverloadCard new.
+Player >> applyCard: aCard [
+
+	permanentCards addLast: aCard
 ]
 
 { #category : #LapControl }
@@ -69,12 +63,6 @@ Player >> applyPermanentCards: aPosition [
 { #category : #Cards }
 Player >> applyRedoCard: aCard ofCard: cardName [
 	aCard isPermanent ifTrue: [ permanentCards addLast: aCard] ifFalse: [self applyCancellCard: cardName].
-]
-
-{ #category : #Cards }
-Player >> applySpeedCard [
-
-	permanentCards addLast: SpeedCard new
 ]
 
 { #category : #Information }
@@ -98,42 +86,6 @@ Player >> has: aCardName [
 			ifFalse: [ cardCollection addLast: card ] ].
 	cardsInPosetion := cardCollection.
 	^ res
-]
-
-{ #category : #Cards }
-Player >> hasAccelerationCard [
-
-	^ self has: 'Acceleration'
-]
-
-{ #category : #Cards }
-Player >> hasCancellationCard [
-
-	^ self has: 'Cancellation'
-]
-
-{ #category : #Cards }
-Player >> hasOverLoadCard [
-
-	^ self has: 'Overload'
-]
-
-{ #category : #Cards }
-Player >> hasRedoCard [
-
-	^ self has: 'Redo'
-]
-
-{ #category : #Cards }
-Player >> hasRepeatCard [
-
-	^ self has: 'Repeat'
-]
-
-{ #category : #Cards }
-Player >> hasSpeedCard [
-
-	^ self has: 'Speed'
 ]
 
 { #category : #Initialization }

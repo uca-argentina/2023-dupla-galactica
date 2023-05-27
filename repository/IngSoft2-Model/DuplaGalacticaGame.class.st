@@ -36,62 +36,50 @@ DuplaGalacticaGame >> addCard: aCard to: aPlayer [
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyAccelerationCardFrom: aPlayer [
-
-	| source |
-	source := self findPlayer: aPlayer.
-	source hasAccelerationCard ifFalse: [ ^ self ].
-	players do: [ :player | player applyAccelerationCard ].
-	lastCardPlay := AccelerationCard new
-]
-
-{ #category : #Cards }
 DuplaGalacticaGame >> applyCancellationCardTo: anObjectivePlayer from: aSourcePlayer ofCard: aCardName [
 
 	| objective source |
 	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
-	source hasCancellationCard ifFalse: [ ^ self ].
+	(source has: 'Cancellation') ifFalse: [ ^ self ].
 	objective applyCancellCard: aCardName.
 	lastCardPlay := CancellationCard new
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyOverloadCardTo: anObjectivePlayer from: aSourcePlayer [
+DuplaGalacticaGame >> applyPermanentCard: aCardName to: anObjectivePlayer from: aSourcePlayer [
 
 	| objective source |
 	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
-	source hasOverLoadCard ifFalse: [ ^ self ].
-	objective applyOverloadCard.
-	lastCardPlay := OverloadCard new
+	(source has: aCardName) ifFalse: [ ^ self ].
+	aCardName  = 'Acceleration'
+		ifTrue: [ 
+			players do: [ :player | 
+				player applyCard: (self findCard: aCardName) ] ]
+		ifFalse: [ objective applyCard: (self findCard: aCardName) ].
+	lastCardPlay := self findCard: aCardName
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> applyRedoCardTo: anObjectivePlayer from: aSourcePlayer ofCard: cardName [
-	|objective source|
-	objective:= self findPlayer: anObjectivePlayer.
-	source:= self findPlayer: aSourcePlayer.
-	source hasRedoCard ifTrue: [(lastCardPlay toString = 'Acceleration') ifTrue:[players do: [:player | player applyAccelerationCard]] ifFalse:[objective applyRedoCard: lastCardPlay ofCard: cardName]].
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> applyRepeatCardTo: anObjectivePlayer from: aSourcePlayer [
-	|objective source|
-	objective:= self findPlayer: anObjectivePlayer.
-	source:= self findPlayer: aSourcePlayer.
-	source hasRepeatCard ifTrue: [self repeatEffectTo: objective].
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> applySpeedCardTo: anObjectivePlayer from: aSourcePlayer [
 
 	| objective source |
 	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
-	source hasSpeedCard ifFalse: [ ^ self ].
-	objective applySpeedCard.
-	lastCardPlay := SpeedCard new
+	(source has: 'Redo') ifTrue: [ 
+		lastCardPlay toString = 'Acceleration'
+			ifTrue: [ players do: [ :player | player applyCard: lastCardPlay] ]
+			ifFalse: [ objective applyRedoCard: lastCardPlay ofCard: cardName ] ]
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> applyRepeatCardTo: anObjectivePlayer from: aSourcePlayer [
+
+	| objective source |
+	objective := self findPlayer: anObjectivePlayer.
+	source := self findPlayer: aSourcePlayer.
+	(source has: 'Repeat') ifTrue: [ self repeatEffectTo: objective ]
 ]
 
 { #category : #Information }
