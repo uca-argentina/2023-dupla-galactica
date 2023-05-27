@@ -139,7 +139,7 @@ DuplaGalacticaGame >> currentPlayerColor [
 	^ self currentPlayer color
 ]
 
-{ #category : #Cards }
+{ #category : #Player }
 DuplaGalacticaGame >> findPlayer: aPlayer [
 
 	^ players detect: [ :player | player color = aPlayer ]

@@ -112,93 +112,56 @@ Player >> color [
 ]
 
 { #category : #Cards }
-Player >> hasAccelerationCard [
+Player >> has: aCardName [
 
-	| res i cardCollection |
+	| cardCollection i res |
 	i := 1.
 	res := false.
 	cardCollection := OrderedCollection new.
 	cardsInPosetion do: [ :card | 
-		(card toString = 'Acceleration' and: i = 1)
-			ifTrue: [ i := 2. res:=true ]
+		(card toString = aCardName and: i = 1)
+			ifTrue: [ 
+				i := 2.
+				res := true ]
 			ifFalse: [ cardCollection addLast: card ] ].
-	cardsInPosetion:= cardCollection.
+	cardsInPosetion := cardCollection.
 	^ res
 ]
 
 { #category : #Cards }
+Player >> hasAccelerationCard [
+
+	^ self has: 'Acceleration'
+]
+
+{ #category : #Cards }
 Player >> hasCancellationCard [
-	| res i cardCollection |
-	i := 1.
-	res := false.
-	cardCollection := OrderedCollection new.
-	i := 1.
-	cardsInPosetion do: [ :card | 
-		(card toString = 'Cancellation' and: i = 1)
-			ifTrue: [ i := 2. res:=true ]
-			ifFalse: [ cardCollection addLast: card ] ].
-	cardsInPosetion:= cardCollection.
-	^ res
+
+	^ self has: 'Cancellation'
 ]
 
 { #category : #Cards }
 Player >> hasOverLoadCard [
 
-	| res i cardCollection |
-	i := 1.
-	res := false.
-	cardCollection := OrderedCollection new.
-	i := 1.
-	cardsInPosetion do: [ :card | 
-		(card toString = 'Overload' and: i = 1)
-			ifTrue: [ i := 2. res:=true ]
-			ifFalse: [ cardCollection addLast: card ] ].
-	cardsInPosetion:= cardCollection.
-	^ res
+	^ self has: 'Overload'
 ]
 
 { #category : #Cards }
 Player >> hasRedoCard [
-	| res i cardCollection |
-	i := 1.
-	res := false.
-	cardCollection := OrderedCollection new.
-	cardsInPosetion do: [ :card | 
-		(card toString = 'Redo' and: i = 1)
-			ifTrue: [ i := 2. res:=true]
-			ifFalse: [ cardCollection addLast: card ] ].
-	cardsInPosetion:= cardCollection.
-	^ res
+
+	^ self has: 'Redo'
 ]
 
 { #category : #Cards }
 Player >> hasRepeatCard [
-		| res i cardCollection |
-	i := 1.
-	res := false.
-	cardCollection := OrderedCollection new.
-	cardsInPosetion do: [ :card | 
-		(card toString = 'Repeat' and: i = 1)
-			ifTrue: [ i := 2. res:=true ]
-			ifFalse: [ cardCollection addLast: card ] ].
-	cardsInPosetion:= cardCollection.
-	^ res
+
+	^ self has: 'Repeat'
 ]
 
 { #category : #Cards }
 Player >> hasSpeedCard [
 
-	| res i cardCollection |
-	i := 1.
-	res := false.
-	cardCollection := OrderedCollection new.
-	i := 1.
-	cardsInPosetion do: [ :card | 
-		(card toString = 'Speed' and: i = 1)
-			ifTrue: [ i := 2. res:=true]
-			ifFalse: [ cardCollection addLast: card ] ].
-	cardsInPosetion:= cardCollection.
-	^ res
+	^ self has: 'Speed'
 ]
 
 { #category : #Initialization }
