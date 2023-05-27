@@ -20,14 +20,6 @@ TurnManager >> current [
 ]
 
 { #category : #ManageTurns }
-TurnManager >> goBack [
-
-	current := current == 1
-		           ifTrue: [ max ]
-		           ifFalse: [ current - 1 ]
-]
-
-{ #category : #ManageTurns }
 TurnManager >> goNext [
 
 	current := current == max
