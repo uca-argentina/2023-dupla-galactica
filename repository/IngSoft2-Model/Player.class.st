@@ -18,37 +18,9 @@ Player class >> with: aSpaceship [
 ]
 
 { #category : #Cards }
-Player >> addAccelerationCard [
+Player >> addCard: aCard [
 
-	cardsInPosetion addLast: AccelerationCard new
-]
-
-{ #category : #Cards }
-Player >> addCancellationCard [
-
-	cardsInPosetion addLast: CancellationCard new
-]
-
-{ #category : #Cards }
-Player >> addOverLoadCard [
-
-	cardsInPosetion addLast: OverloadCard new
-]
-
-{ #category : #Cards }
-Player >> addRedoCard [
-	cardsInPosetion addLast: RedoCard new.
-]
-
-{ #category : #Cards }
-Player >> addRepeatCard [
-	cardsInPosetion addLast: RepeatCard new.
-]
-
-{ #category : #Cards }
-Player >> addSpeedCard [
-
-	cardsInPosetion addLast: SpeedCard new
+	cardsInPosetion addLast: aCard.
 ]
 
 { #category : #Cards }

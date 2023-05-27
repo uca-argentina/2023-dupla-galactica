@@ -9,7 +9,8 @@ Class {
 		'turnManager',
 		'lastCardPlay',
 		'lastPosition',
-		'current'
+		'current',
+		'possibleCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -29,37 +30,9 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> addAccelerationCardTo: aPlayer [
+DuplaGalacticaGame >> addCard: aCard to: aPlayer [
 
-	(self findPlayer: aPlayer) addAccelerationCard.
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> addCancellationCardTo: aPlayer [
-
-	(self findPlayer: aPlayer) addCancellationCard.
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> addOverLoadCardTo: aPlayer [
-
-		(self findPlayer: aPlayer) addOverLoadCard.
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> addRedoCardTo: aPlayer [ 
-	(self findPlayer: aPlayer) addRedoCard.
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> addRepeatCardTo: aPlayer [ 
-	(self findPlayer: aPlayer) addRepeatCard.
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> addSpeedCardTo: aPlayer [
-
-	(self findPlayer: aPlayer) addSpeedCard.
+	(self findPlayer: aPlayer) addCard: (self findCard: aCard).
 ]
 
 { #category : #Cards }
@@ -139,6 +112,12 @@ DuplaGalacticaGame >> currentPlayerColor [
 	^ self currentPlayer color
 ]
 
+{ #category : #Cards }
+DuplaGalacticaGame >> findCard: aCardName [
+
+	^possibleCards detect: [ :card | card toString = aCardName ]
+]
+
 { #category : #Player }
 DuplaGalacticaGame >> findPlayer: aPlayer [
 
@@ -154,13 +133,19 @@ DuplaGalacticaGame >> goalLaps [
 { #category : #Initialization }
 DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue [
 
-	players := aColorsCollection collect: [ :color | 
-		           Player with: color ].
+	players := aColorsCollection collect: [ :color | Player with: color ].
 	board := aBoard.
 	dice := aDiceCollection.
-	turnManager := TurnManager with: (aColorsCollection  size).
-	goalLaps :=  aValue.
-	current:= players at:1.
+	turnManager := TurnManager with: aColorsCollection size.
+	goalLaps := aValue.
+	current := players at: 1.
+	possibleCards := OrderedCollection
+		                 with: OverloadCard new
+		                 with: SpeedCard new
+		                 with: RepeatCard new
+		                 with: AccelerationCard new
+		                 with: RedoCard new
+		                 with: CancellationCard new
 ]
 
 { #category : #Player }
