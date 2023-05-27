@@ -10,11 +10,6 @@ CancellationCard >> applyCards: aGame [
 ]
 
 { #category : #Information }
-CancellationCard >> isPermanent [
-	^false.
-]
-
-{ #category : #Information }
 CancellationCard >> toString [
 
 	^ 'Cancellation'
