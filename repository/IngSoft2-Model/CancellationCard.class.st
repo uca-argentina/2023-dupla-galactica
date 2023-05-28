@@ -5,8 +5,9 @@ Class {
 }
 
 { #category : #Effect }
-CancellationCard >> applyCards: aGame [ 
-	aGame objective applyCancellCard: aGame cardObjective.
+CancellationCard >> applyCards: aGame [
+
+	aGame objective applyCancellCard: (aGame cardObjective)
 ]
 
 { #category : #Information }

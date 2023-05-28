@@ -2,7 +2,6 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'length',
 		'parsecs',
 		'boxes'
 	],
@@ -36,7 +35,7 @@ Board >> effectAt: aPlayerPosition In: aGame [
 { #category : #Initialization }
 Board >> initializeWithSizeOf: aValue effects: aBoxCollection measure: aParsecAmount [
 
-	length := aValue.
+	"length := aValue."
 	parsecs := aParsecAmount.
 	boxes := aBoxCollection
 ]

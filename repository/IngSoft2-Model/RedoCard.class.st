@@ -5,8 +5,9 @@ Class {
 }
 
 { #category : #Effect }
-RedoCard >> applyCards: aGame [ 
-	aGame lastCardPlay applyCards: aGame.
+RedoCard >> applyCards: aGame [
+
+	aGame lastCardPlay applyCards: aGame
 ]
 
 { #category : #Information }

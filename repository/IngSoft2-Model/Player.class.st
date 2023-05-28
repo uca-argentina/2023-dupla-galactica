@@ -5,8 +5,8 @@ Class {
 		'lap',
 		'color',
 		'position',
-		'permanentCards',
-		'cardsInPosetion'
+		'cardsInPosetion',
+		'activeCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -29,16 +29,13 @@ Player >> applyCancellCard: aCardName [
 	| i cardCollection |
 	i := 1.
 	cardCollection := OrderedCollection new.
-
-	permanentCards isEmpty ifTrue: [ 
+	activeCards isEmpty ifTrue: [ 
 		Error signal: 'There are no permanent cards' ].
-
-	permanentCards do: [ :card | 
+	activeCards do: [ :card | 
 		(card toString = aCardName and: i = 1)
 			ifTrue: [ i := 2 ]
 			ifFalse: [ cardCollection addLast: card ] ].
-	permanentCards := cardCollection.
-	
+	activeCards := cardCollection.
 	i = 1 ifTrue: [ 
 		Error signal:
 			'There are no that type of cards activate in this player' ]
@@ -47,7 +44,7 @@ Player >> applyCancellCard: aCardName [
 { #category : #Cards }
 Player >> applyCard: aCard [
 
-	permanentCards addLast: aCard
+	activeCards addLast: aCard
 ]
 
 { #category : #LapControl }
@@ -55,7 +52,7 @@ Player >> applyPermanentCards: aPosition [
 
 	| positionToMove |
 	positionToMove := aPosition.
-	permanentCards do: [ :card | 
+	activeCards do: [ :card | 
 		positionToMove := card applyEffect: positionToMove ].
 	^ positionToMove
 ]
@@ -89,7 +86,7 @@ Player >> initializeWith: aColor [
 	color := aColor.
 	position := 1.
 	lap := 0.
-	permanentCards := OrderedCollection new.
+	activeCards := OrderedCollection new.
 	cardsInPosetion:= OrderedCollection new.
 ]
 

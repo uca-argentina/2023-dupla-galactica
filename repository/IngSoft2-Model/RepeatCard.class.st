@@ -5,8 +5,9 @@ Class {
 }
 
 { #category : #Effect }
-RepeatCard >> applyCards: aGame [ 
-	aGame repeatEffectTo: aGame objective.
+RepeatCard >> applyCards: aGame [
+
+	aGame repeatEffectTo: aGame objective
 ]
 
 { #category : #Information }

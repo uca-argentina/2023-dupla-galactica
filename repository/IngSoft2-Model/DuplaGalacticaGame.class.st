@@ -44,7 +44,8 @@ DuplaGalacticaGame >> applyCard: aCardName from: aSourcePlayer [
 	source := self findPlayer: aSourcePlayer.
 	(source has: aCardName) ifFalse: [ ^ self ].
 	(self findCard: aCardName) applyCards: self.
-	aCardName = 'Redo' ifFalse:[lastCardPlay := self findCard: aCardName].
+	aCardName = 'Redo' ifFalse: [ 
+		lastCardPlay := self findCard: aCardName ]
 ]
 
 { #category : #Cards }
@@ -54,17 +55,20 @@ DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePl
 	source := self findPlayer: aSourcePlayer.
 	(source has: aCardName) ifFalse: [ ^ self ].
 	(self findCard: aCardName) applyCards: self.
-	aCardName = 'Redo' ifFalse:[lastCardPlay := self findCard: aCardName].
+	aCardName = 'Redo' ifFalse: [ 
+		lastCardPlay := self findCard: aCardName ]
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePlayer ofCard: anObjectiveCard [ 
+DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePlayer ofCard: anObjectiveCard [
+
 	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
-	objectiveCard:= anObjectiveCard.
+	objectiveCard := anObjectiveCard.
 	(source has: aCardName) ifFalse: [ ^ self ].
 	(self findCard: aCardName) applyCards: self.
-	aCardName = 'Redo' ifFalse:[lastCardPlay := self findCard: aCardName].
+	aCardName = 'Redo' ifFalse: [ 
+		lastCardPlay := self findCard: aCardName ]
 ]
 
 { #category : #Information }
@@ -93,7 +97,7 @@ DuplaGalacticaGame >> currentPlayerColor [
 { #category : #Cards }
 DuplaGalacticaGame >> findCard: aCardName [
 
-	^possibleCards detect: [ :card | card toString = aCardName ]
+	^ possibleCards detect: [ :card | card toString = aCardName ]
 ]
 
 { #category : #Player }
@@ -116,8 +120,8 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	dice := aDiceCollection.
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
-	current := players at: 1.
 	objective := players at: 1.
+	current:= players at:1.
 	objectiveCard:= AccelerationCard new.
 	possibleCards := OrderedCollection
 		                 with: OverloadCard new
@@ -161,11 +165,11 @@ DuplaGalacticaGame >> movePlayer [
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
 	self winnerExists ifTrue: [ ^ self ].
-	current move: aValue andUpdateLap: board boxes size.
-	lastPosition:= current position.
-	board effectAt: (self currentPlayer position) In: self.
+	self currentPlayer move: aValue andUpdateLap: board boxes size.
+	lastPosition := self currentPlayer position.
+	board effectAt: self currentPlayer position In: self.
 	turnManager goNext.
-	current:= players at: turnManager current.
+	current := self players at: turnManager current
 ]
 
 { #category : #Information }
