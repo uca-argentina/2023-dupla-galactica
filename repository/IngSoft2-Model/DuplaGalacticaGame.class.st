@@ -44,6 +44,7 @@ DuplaGalacticaGame >> applyCard: aCardName from: aSourcePlayer [
 
 	source := self findPlayer: aSourcePlayer.
 	(source has: aCardName) ifFalse: [ ^ self ].
+	(self isPlayableNow: (self findCard: aCardName)) ifFalse: [ ^ self ].
 	(self findCard: aCardName) applyCards: self.
 	aCardName = 'Redo' ifFalse: [ 
 		lastCardPlay := self findCard: aCardName ]
@@ -55,6 +56,7 @@ DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePl
 	objective := self findPlayer: anObjectivePlayer.
 	source := self findPlayer: aSourcePlayer.
 	(source has: aCardName) ifFalse: [ ^ self ].
+	(self isPlayableNow: (self findCard: aCardName)) ifFalse: [ ^ self ].
 	(self findCard: aCardName) applyCards: self.
 	aCardName = 'Redo' ifFalse: [ 
 		lastCardPlay := self findCard: aCardName ]
@@ -67,6 +69,7 @@ DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePl
 	source := self findPlayer: aSourcePlayer.
 	objectiveCard := anObjectiveCard.
 	(source has: aCardName) ifFalse: [ ^ self ].
+	(self isPlayableNow: (self findCard: aCardName)) ifFalse: [ ^ self ].
 	(self findCard: aCardName) applyCards: self.
 	aCardName = 'Redo' ifFalse: [ 
 		lastCardPlay := self findCard: aCardName ]
@@ -126,6 +129,17 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 		                 with: AccelerationCard new
 		                 with: RedoCard new
 		                 with: CancellationCard new
+]
+
+{ #category : #Player }
+DuplaGalacticaGame >> isPlayableNow: aCard [
+
+	aCard isPermanent
+		ifTrue: [ 
+			source color = self currentPlayer color
+				ifTrue: [ ^ true ]
+				ifFalse: [ ^ false ] ]
+		ifFalse: [ ^ true ]
 ]
 
 { #category : #Information }

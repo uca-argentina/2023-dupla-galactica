@@ -16,6 +16,12 @@ OverloadCard >> applyEffect: aPosition [
 ]
 
 { #category : #Information }
+OverloadCard >> isPermanent [
+
+	^ true
+]
+
+{ #category : #Information }
 OverloadCard >> toString [
 
 	^ 'Overload'

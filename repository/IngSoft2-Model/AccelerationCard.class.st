@@ -17,6 +17,12 @@ AccelerationCard >> applyEffect: aPosition [
 ]
 
 { #category : #Information }
+AccelerationCard >> isPermanent [
+
+	^ true
+]
+
+{ #category : #Information }
 AccelerationCard >> toString [
 
 	^ 'Acceleration'

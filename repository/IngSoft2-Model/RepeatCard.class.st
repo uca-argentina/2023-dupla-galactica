@@ -11,6 +11,12 @@ RepeatCard >> applyCards: aGame [
 ]
 
 { #category : #Information }
+RepeatCard >> isPermanent [
+
+	^ false
+]
+
+{ #category : #Information }
 RepeatCard >> toString [
 	^'Repeat'.
 ]

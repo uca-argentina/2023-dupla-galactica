@@ -11,6 +11,12 @@ RedoCard >> applyCards: aGame [
 ]
 
 { #category : #Information }
+RedoCard >> isPermanent [
+
+	^ false
+]
+
+{ #category : #Information }
 RedoCard >> toString [
 
 	^ 'Redo'
