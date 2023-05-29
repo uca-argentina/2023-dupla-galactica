@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #Game }
-CardsTest >> createGame: aLoadedDie [
+CardsTest >> createBoard [
 
-	| boxes aBoard aGame |
+	| boxes aBoard |
 	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -22,12 +22,7 @@ CardsTest >> createGame: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
-	^ aGame := DuplaGalacticaGame
-		           with: aColorCollection
-		           and: aBoard
-		           throwing: aLoadedDie
-		           winningWhen: 1
+	^ aBoard := Board with: 10 effects: boxes measure: 100.
 ]
 
 { #category : #running }
@@ -51,13 +46,19 @@ CardsTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 { #category : #tests }
 CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
+	| aGame aLoadedDie aBoard|
+	aBoard := self createBoard.
+	aLoadedDie:= LoadedDie with: (OrderedCollection
 				           with: 1
 				           with: 2
 				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
+				           with: 4).
+	aGame := DuplaGalacticaGameProxy
+		           with: aColorCollection
+		           and: aBoard
+		           throwing: aLoadedDie
+		           winningWhen: 1
+		           using: (LoadedCardDealer with: (OrderedCollection with: OverloadCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -69,13 +70,21 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 { #category : #tests }
 CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTime [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: OverloadCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -89,13 +98,21 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 { #category : #tests }
 CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwardsDueToANegativeEffect [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 5
-				           with: 3
-				           with: 0)).
-	aGame addCard: 'Overload' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 5
+			               with: 3
+			               with: 0).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: OverloadCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -109,13 +126,21 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 { #category : #tests }
 CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwardsInTheFirstLapDueToANegativeEffect [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 0
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 0
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: OverloadCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -127,14 +152,22 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 { #category : #tests }
 CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Speed' to: 'blue'.
-	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: SpeedCard new)).
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -145,14 +178,22 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 { #category : #tests }
 CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 5)).
-	aGame addCard: 'Speed' to: 'blue'.
-	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 5).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: SpeedCard new)).
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -165,14 +206,22 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 { #category : #tests }
 CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 9
-				           with: 2
-				           with: 3
-				           with: 5)).
-	aGame addCard: 'Speed' to: 'blue'.
-	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 9
+			               with: 2
+			               with: 3
+			               with: 5).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: SpeedCard new)).
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
 	aGame movePlayer.
 	self
 		assert: aGame playersLaps
@@ -182,17 +231,24 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 { #category : #tests }
 CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOneActive [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 5
-				           with: 2
-				           with: 3
-				           with: 5)).
-	aGame addCard: 'Speed' to: 'blue'.
-	aGame addCard: 'Overload' to: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 5
+			               with: 2
+			               with: 3
+			               with: 5).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: SpeedCard new with: OverloadCard new)).
 
-	aGame applyCard: 'Speed' to: 'red' from: 'blue'.
-	aGame applyCard: 'Overload' to: 'red' from: 'blue'.
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: 'Overload' to: 'red' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -203,31 +259,47 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 { #category : #tests }
 CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: AccelerationCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions 
+		assert: aGame playersPositions
 		equals: (OrderedCollection with: 3 with: 4)
 ]
 
 { #category : #tests }
 CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 8
-				           with: 9
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 9
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: AccelerationCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -239,19 +311,26 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 { #category : #tests }
 CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: CancellationCard new with: OverloadCard new)).
 
-	aGame addCard: 'Cancellation' to: 'blue'.
-	aGame addCard: 'Overload' to: 'red'.
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Cancellation' to: 'blue' from: 'blue' ofCard: 'Overload'.
+	aGame applyCard: 'Cancellation' to: 'blue' from: 'red' ofCard: 'Overload'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -262,15 +341,22 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 { #category : #tests }
 CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreThanOneCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Cancellation' to: 'red'.
-	aGame addCard: 'Overload' to: 'red'.
-	aGame addCard: 'Speed' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: SpeedCard new
+					           with: OverloadCard new
+					           with: CancellationCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
 	aGame movePlayer.
@@ -278,7 +364,7 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 	aGame
 		applyCard: 'Cancellation'
 		to: 'blue'
-		from: 'red'
+		from: 'blue'
 		ofCard: 'Speed'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -290,18 +376,25 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 { #category : #tests }
 CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Cancellation' to: 'blue'.
-	aGame addCard: 'Cancellation' to: 'red'.
-	aGame addCard: 'Overload' to: 'red'.
-	aGame addCard: 'Speed' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: CancellationCard new
+					           with: OverloadCard new
+					           with: CancellationCard new
+					           with: SpeedCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: 'Speed' to: 'blue' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
@@ -326,13 +419,21 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 { #category : #tests }
 CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Cancellation' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: CancellationCard new)).
 	self
 		should: [ 
 			aGame
@@ -347,14 +448,22 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
-	aGame addCard: 'Cancellation' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection
+					           with: CancellationCard new
+					           with: OverloadCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 
 	self
@@ -372,14 +481,22 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 { #category : #tests }
 CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'blue'.
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: OverloadCard new)).
+	aGame applyCard: 'Overload' to: 'red' from: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -391,15 +508,22 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Speed' to: 'blue'.
-
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: SpeedCard new)).
+	aGame applyCard: 'Speed' to: 'blue' from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -410,14 +534,22 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'blue'.
-	aGame applyCard: 'Acceleration' from: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: AccelerationCard new)).
+	aGame applyCard: 'Acceleration' from: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -429,14 +561,22 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
-	aGame addCard: 'Overload' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection
+					           with: OverloadCard new
+					           with: OverloadCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 
@@ -450,13 +590,21 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: OverloadCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame movePlayer.
@@ -469,53 +617,76 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 { #category : #tests }
 CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Speed' to: 'red'.
-	aGame addCard: 'Speed' to: 'red'.
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection
+					           with: SpeedCard new
+					           with: SpeedCard new)).
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 2 with: 7)
+		equals: (OrderedCollection with: 4 with: 5)
 ]
 
 { #category : #tests }
 CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Speed' to: 'red'.
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: SpeedCard new)).
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: 'Speed' to: 'red' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 2 with: 6)
+		equals: (OrderedCollection with: 3 with: 5)
 ]
 
 { #category : #tests }
 CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Acceleration' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: AccelerationCard new
+					           with: AccelerationCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
@@ -528,13 +699,21 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: AccelerationCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame movePlayer.
@@ -547,13 +726,21 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 { #category : #tests }
 CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: OverloadCard new)).
 
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
 	aGame
@@ -571,80 +758,102 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Cancellation' to: 'red'.
-	aGame addCard: 'Cancellation' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: AccelerationCard new
+					           with: AccelerationCard new
+					           with: CancellationCard new
+					           with: CancellationCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame
 		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
+		to: 'red'
+		from: 'blue'
 		ofCard: 'Acceleration'.
 	aGame
 		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
+		to: 'red'
+		from: 'blue'
 		ofCard: 'Acceleration'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 4 with: 5)
+		equals: (OrderedCollection with: 2 with: 7)
 ]
 
 { #category : #tests }
 CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 4
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Cancellation' to: 'red'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: AccelerationCard new
+					           with: AccelerationCard new
+					           with: CancellationCard new)).
 
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame
 		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
+		to: 'red'
+		from: 'blue'
 		ofCard: 'Acceleration'.
 	aGame
 		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
+		to: 'red'
+		from: 'blue'
 		ofCard: 'Acceleration'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 4 with: 6)
+		equals: (OrderedCollection with: 3 with: 7)
 ]
 
 { #category : #tests }
 CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 4
-				           with: 8
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Overload' to: 'red'.
-	aGame addCard: 'Redo' to: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection
+					           with: OverloadCard new
+					           with: RedoCard new)).
 	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyCard: 'Redo' to:'red' from: 'blue'.
+	aGame applyCard: 'Redo' to: 'red' from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -655,15 +864,22 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 { #category : #tests }
 CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellationCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 4
-				           with: 8
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Cancellation' to: 'red'.
-	aGame addCard: 'Redo' to: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: AccelerationCard new
+					           with: CancellationCard new
+					           with: RedoCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame
 		applyCard: 'Cancellation'
@@ -686,16 +902,24 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 { #category : #tests }
 CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 4
-				           with: 8
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Speed' to: 'red'.
-	aGame addCard: 'Redo' to: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection
+					           with: SpeedCard new
+					           with: RedoCard new)).
 	aGame applyCard: 'Speed' to: 'red' from: 'red'.
-	aGame applyCard: 'Redo' to: 'blue' from: 'blue'.
+	aGame applyCard: 'Redo' to: 'blue' from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -707,16 +931,24 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 { #category : #tests }
 CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelerationCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 4
-				           with: 8
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Redo' to: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection
+					           with: AccelerationCard new
+					           with: RedoCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
-	aGame applyCard: 'Redo' from: 'blue'.
+	aGame applyCard: 'Redo' from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -728,15 +960,22 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 { #category : #tests }
 CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard [
 
-	| aGame |
-	aGame := self createGame: (LoadedDie with: (OrderedCollection
-				           with: 4
-				           with: 8
-				           with: 3
-				           with: 4)).
-	aGame addCard: 'Acceleration' to: 'red'.
-	aGame addCard: 'Redo' to: 'red'.
-	aGame addCard: 'Redo' to: 'blue'.
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: AccelerationCard new
+					           with: RedoCard new
+					           with: RedoCard new)).
 	aGame applyCard: 'Acceleration' from: 'red'.
 	aGame applyCard: 'Redo' from: 'blue'.
 	aGame applyCard: 'Redo' from: 'red'.
@@ -751,12 +990,12 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 { #category : #tests }
 CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 
-	| aGame aLoadedDie boxes aBoard|
-	aLoadedDie:= LoadedDie with: (OrderedCollection
-				           with: 4
-				           with: 1
-				           with: 3
-				           with: 4).
+	| aGame aLoadedDie boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 1
+			               with: 3
+			               with: 4).
 	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: SpeedUpBox new
@@ -769,20 +1008,21 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
-		           with: aColorCollection
-		           and: aBoard
-		           throwing: aLoadedDie
-		           winningWhen: 1.
-				
-	aGame addCard: 'Repeat' to: 'blue'.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: RepeatCard new)).
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Repeat' to: 'blue' from: 'blue'.
+	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
 
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 5 with: 10)
+		equals: (OrderedCollection with: 9 with: 6)
 ]
 
 { #category : #tests }
@@ -806,14 +1046,15 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: WormHoleBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
-		         winningWhen: 1.
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: RepeatCard new)).
 
-
-	aGame addCard: 'Repeat' to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame applyCard: 'Repeat' to: 'blue' from: 'red'.
@@ -844,14 +1085,16 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
-		         winningWhen: 1.
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: RepeatCard new)).
 
 
-	aGame addCard: 'Repeat' to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
@@ -882,14 +1125,14 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
-		         winningWhen: 1.
-
-
-	aGame addCard: 'Repeat' to: 'red'.
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: RepeatCard new)).
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
@@ -921,14 +1164,14 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGame
+	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
-		         winningWhen: 1.
-
-
-	aGame addCard: 'Repeat' to: 'red'.
+		         winningWhen: 1
+		         using:
+		         (LoadedCardDealer with:
+			          (OrderedCollection with: RepeatCard new)).
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame applyCard: 'Repeat' to: 'red' from: 'red'.

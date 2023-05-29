@@ -45,7 +45,8 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
-							winningWhen: 1.
+							winningWhen: 1
+							using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -56,25 +57,30 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
 { #category : #tests }
 BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 5 with: 8 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 5
+			               with: 8
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
-		         with: NoEffectBox  new
+		         with: NoEffectBox new
 		         with: WormHoleBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -85,9 +91,13 @@ BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
 { #category : #tests }
 BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 1 with: 8 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 8
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: SpeedUpBox new
 		         with: NoEffectBox new
@@ -98,12 +108,13 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -114,9 +125,13 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 { #category : #tests }
 BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 8 with: 3 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 3
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -127,12 +142,13 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -143,9 +159,13 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 { #category : #tests }
 BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 8 with: 7 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 8
+			               with: 7
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -156,12 +176,13 @@ BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 	boxes addLast: AtomicBombBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -172,25 +193,31 @@ BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 { #category : #tests }
 BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEntireValues [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 3
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
-		         with: (HyperJumpBox with: (OrderedCollection with: 40 with: 30))
+		         with:
+		         (HyperJumpBox with: (OrderedCollection with: 40 with: 30))
 		         with: NoEffectBox new
 		         with: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -222,8 +249,9 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowThePlayerToBeInANegativePositio
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie 
-		         winningWhen: 1.
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -255,8 +283,9 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePositi
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie 
-		         winningWhen: 1.
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -267,25 +296,31 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePositi
 { #category : #tests }
 BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosition [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 3
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
-		         with: (HyperJumpBox with: (OrderedCollection with: -40 with: -10))
+		         with:
+		         (HyperJumpBox with: (OrderedCollection with: -40 with: -10))
 		         with: NoEffectBox new
 		         with: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -296,9 +331,13 @@ BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosit
 { #category : #tests }
 BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 11 with: 3 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 11
+			               with: 3
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: WormHoleBox new
 		         with: NoEffectBox new
@@ -309,16 +348,16 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	self
-		should: [ 
-			aGame winner]
+		should: [ aGame winner ]
 		raise: Error
 		withMessage: 'There is no winner'
 ]
@@ -326,25 +365,32 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 { #category : #tests }
 BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNotEntireValues [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 3
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
-		         with: (HyperJumpBox with: (OrderedCollection with: 45.5 with: 34.9))
+		         with:
+		         (HyperJumpBox with:
+			          (OrderedCollection with: 45.5 with: 34.9))
 		         with: NoEffectBox new
 		         with: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -355,9 +401,13 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 { #category : #tests }
 BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 5 with: 5 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 5
+			               with: 5
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -368,25 +418,30 @@ BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersCardInPosetion
-		equals: (OrderedCollection with: 1 with: 0)
+		equals: (OrderedCollection with: 3 with: 2)
 ]
 
 { #category : #tests }
 BoxesTest >> testR002CheckRandomCardBoxGeneratesARandomCardMoreThanOneTimeIfNecessary [
 
-	|aLoadedDie aGame boxes aBoard |
-	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 3 with: 8).
-	boxes:= OrderedCollection
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 3
+			               with: 3
+			               with: 8).
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: NoEffectBox new
 		         with: NoEffectBox new
@@ -397,16 +452,17 @@ BoxesTest >> testR002CheckRandomCardBoxGeneratesARandomCardMoreThanOneTimeIfNece
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersCardInPosetion
-		equals: (OrderedCollection with: 2 with: 1)
+		equals: (OrderedCollection with: 4 with: 3)
 ]

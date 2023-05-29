@@ -24,7 +24,8 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
-				   winningWhen: 1.
+				   winningWhen: 1
+					using: CardDealer new.
 	^ aGame
 ]
 
@@ -128,7 +129,8 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 				with: OrderedCollection new
 				and: (Board with: 10 effects: OrderedCollection new measure: 200)
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: 1]
+				winningWhen: 1
+				using: CardDealer new]
 		raise: Error
 		withMessage: 'Cannot create a game with no players'
 ]
@@ -142,7 +144,8 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 				with: aColorCollection
 				and: (Board with: 10 effects: OrderedCollection new measure: 200)
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: -1]
+				winningWhen: -1
+				using: CardDealer new]
 		raise: Error
 		withMessage: 'Cannot create a game with that goal laps'
 ]

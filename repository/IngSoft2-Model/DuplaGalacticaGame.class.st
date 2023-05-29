@@ -19,8 +19,8 @@ Class {
 }
 
 { #category : #'Instance creation' }
-DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCollection winningWhen: aValue [
-
+DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
+	
 	aColorCollection size <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with no players' ].
 	aValue <= 0 ifTrue: [ 
@@ -30,6 +30,7 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 		  and: aBoard
 		  throwing: aDiceCollection
 		  winningWhen: aValue
+		  using: aCardDealer
 ]
 
 { #category : #Cards }
@@ -107,9 +108,10 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue [
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [ 
 
 	players := aColorsCollection collect: [ :color | Player with: color ].
+	aCardDealer dealCards: players.
 	board := aBoard.
 	dice := aDiceCollection.
 	turnManager := TurnManager with: aColorsCollection size.

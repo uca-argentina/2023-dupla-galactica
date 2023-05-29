@@ -31,7 +31,8 @@ MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 
-							winningWhen: 2.
+							winningWhen: 2
+							using: CardDealer new.
 	^ aLoadedGame
 ]
 
@@ -57,10 +58,11 @@ MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 	boxes addLast: NoEffectBox new.
 	aBoard := Board with: 10 effects: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie
-		               winningWhen: 1.
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 
 	^ aGame
 ]
@@ -91,7 +93,8 @@ MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
-							winningWhen: 2.
+							winningWhen: 2
+							using: CardDealer new.
 	^ aLoadedGame
 ]
 

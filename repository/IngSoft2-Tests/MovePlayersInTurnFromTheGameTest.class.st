@@ -41,7 +41,8 @@ MovePlayersInTurnFromTheGameTest >> setUp [
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
-							winningWhen: 1.
+							winningWhen: 1
+							using: CardDealer new.
 ]
 
 { #category : #tests }

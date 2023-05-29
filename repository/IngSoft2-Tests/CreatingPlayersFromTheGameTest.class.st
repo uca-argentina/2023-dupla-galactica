@@ -23,7 +23,7 @@ CreatingPlayersFromTheGameTest >> setUp [
 			               with: 7
 			               with: 9).
 
-	boxes:= OrderedCollection
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: SpeedUpBox new
 		         with: WormHoleBox new
@@ -39,12 +39,13 @@ CreatingPlayersFromTheGameTest >> setUp [
 	boxes addLast: AtomicBombBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 9 effects: boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 1.
+	aBoard := Board with: 9 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new
 ]
 
 { #category : #tests }

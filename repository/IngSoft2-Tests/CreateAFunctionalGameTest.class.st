@@ -10,13 +10,13 @@ Class {
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithLoadedDie [
 
-	| aLoadedGame aLoadedDie aBoard boxes|
+	| aLoadedGame aLoadedDie aBoard boxes |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 6
 			               with: 7
 			               with: 9).
-	boxes:= OrderedCollection
+	boxes := OrderedCollection
 		         with: NoEffectBox new
 		         with: SpeedUpBox new
 		         with: WormHoleBox new
@@ -32,12 +32,13 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 	boxes addLast: AtomicBombBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with: 10 effects: boxes measure: 100.
 	aLoadedGame := DuplaGalacticaGameProxy
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie
-							winningWhen: 1.
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 	^ aLoadedGame
 ]
 
@@ -79,7 +80,8 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: (OrderedCollection with: aLoadedDie with: aSecondLoadedDie)
-							winningWhen: 2.
+							winningWhen: 2
+							using: CardDealer new.
 	^ aGame
 ]
 

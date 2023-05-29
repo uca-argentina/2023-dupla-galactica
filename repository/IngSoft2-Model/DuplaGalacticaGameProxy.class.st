@@ -8,19 +8,36 @@ Class {
 }
 
 { #category : #'Instance creation' }
-DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aDice winningWhen: aValue [
+DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aDice winningWhen: aValue using: aCardDealer [
 
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aBoard
 		  throwing: aDice
 		  winningWhen: aValue
+		  using: aCardDealer
 ]
 
 { #category : #Movement }
 DuplaGalacticaGameProxy >> applyCard: aCardName from: aSourcePlayer [
 
 	game applyCard: aCardName from: aSourcePlayer
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyCard: aCardName to: aPlayerObjective from: aPlayerSource [
+
+	game applyCard: aCardName to: aPlayerObjective from: aPlayerSource
+]
+
+{ #category : #Movement }
+DuplaGalacticaGameProxy >> applyCard: aCardName to: aPlayerObjective from: aPlayerSource ofCard: aCardObjective [
+
+	game
+		applyCard: aCardName
+		to: aPlayerObjective
+		from: aPlayerSource
+		ofCard: aCardObjective
 ]
 
 { #category : #Information }
@@ -42,13 +59,14 @@ DuplaGalacticaGameProxy >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue [
+DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
 
 	game := DuplaGalacticaGame
 		        with: aColorsCollection
 		        and: aBoard
 		        throwing: aDiceCollection
 		        winningWhen: aValue
+		        using: aCardDealer
 ]
 
 { #category : #Movement }
