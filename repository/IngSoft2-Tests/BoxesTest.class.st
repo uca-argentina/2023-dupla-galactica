@@ -351,3 +351,62 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 		assert: aGame playersPositions
 		equals: (OrderedCollection with: 8 with: 7)
 ]
+
+{ #category : #tests }
+BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
+
+	|aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 5 with: 5 with: 8).
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: RandomCardBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: aLoadedDie 
+							winningWhen: 1.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersCardInPosetion
+		equals: (OrderedCollection with: 1 with: 0)
+]
+
+{ #category : #tests }
+BoxesTest >> testR002CheckRandomCardBoxGeneratesARandomCardMoreThanOneTimeIfNecessary [
+
+	|aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection  with: 3 with: 3 with: 3 with: 8).
+	boxes:= OrderedCollection
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new
+		         with: RandomCardBox new
+		         with: NoEffectBox new
+		         with: NoEffectBox new.
+	boxes addLast: RandomCardBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	boxes addLast: NoEffectBox new.
+	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aGame := DuplaGalacticaGameProxy 
+		               with: aColorCollection
+		               and: aBoard
+		               throwing: aLoadedDie 
+							winningWhen: 1.
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersCardInPosetion
+		equals: (OrderedCollection with: 2 with: 1)
+]

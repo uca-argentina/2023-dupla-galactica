@@ -36,21 +36,24 @@ BoxCreator >> oneRandomBoxOf: aNumberOfBoxes with: aParsecCollection [
 
 	| aRandomValue |
 	aRandomValue := 100 atRandom.
-	^ aRandomValue <= 40
+	^ aRandomValue <= 30
 		  ifTrue: [ NoEffectBox new ]
 		  ifFalse: [ 
-			  aRandomValue <= 60
-				  ifTrue: [ WormHoleBox new ]
+			  aRandomValue <= 40
+				  ifTrue: [ RandomCardBox new ]
 				  ifFalse: [ 
-					  aRandomValue <= 80
-						  ifTrue: [ SpeedUpBox new ]
+					  aRandomValue <= 60
+						  ifTrue: [ WormHoleBox new ]
 						  ifFalse: [ 
-							  aRandomValue <= 90
-								  ifTrue: [ MoonWalkBox with: aNumberOfBoxes atRandom * -1 ]
+							  aRandomValue <= 80
+								  ifTrue: [ SpeedUpBox new ]
 								  ifFalse: [ 
-									  aRandomValue <= 98
-										  ifTrue: [ 
-										  HyperJumpBox with:
-											  (self createRandomParsecs: aParsecCollection) ]
-										  ifFalse: [ AtomicBombBox new ] ] ] ] ]
+									  aRandomValue <= 90
+										  ifTrue: [ MoonWalkBox with: aNumberOfBoxes atRandom * -1 ]
+										  ifFalse: [ 
+											  aRandomValue <= 98
+												  ifTrue: [ 
+												  HyperJumpBox with:
+													  (self createRandomParsecs: aParsecCollection) ]
+												  ifFalse: [ AtomicBombBox new ] ] ] ] ] ]
 ]

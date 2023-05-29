@@ -88,12 +88,6 @@ DuplaGalacticaGame >> currentPlayer [
 	^ current.
 ]
 
-{ #category : #Information }
-DuplaGalacticaGame >> currentPlayerColor [
-
-	^ self currentPlayer color
-]
-
 { #category : #Cards }
 DuplaGalacticaGame >> findCard: aCardName [
 
@@ -186,6 +180,12 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> players [
 	^ players
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> playersCardInPosetion [
+
+	^ players collect: [ :player | player cardsInPosetion ]
 ]
 
 { #category : #Information }

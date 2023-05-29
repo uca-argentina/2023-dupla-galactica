@@ -58,6 +58,12 @@ Player >> applyPermanentCards: aPosition [
 ]
 
 { #category : #Information }
+Player >> cardsInPosetion [
+
+	^ cardsInPosetion size
+]
+
+{ #category : #Information }
 Player >> color [
 
 	^ color
