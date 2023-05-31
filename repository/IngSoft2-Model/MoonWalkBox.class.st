@@ -21,12 +21,6 @@ MoonWalkBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-MoonWalkBox >> initializeWith: aValue [
-
-	effectValue := aValue
-]
-
-{ #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue chance: aProbabilite [
 
 	effectValue := aValue.
