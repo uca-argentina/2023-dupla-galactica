@@ -10,12 +10,6 @@ Class {
 }
 
 { #category : #'Instance creation' }
-HyperJumpBox class >> with: aParsecsCollection [
-
-	^ self new initializeWith: aParsecsCollection
-]
-
-{ #category : #'Instance creation' }
 HyperJumpBox class >> with: aParsecCollection chance: aProbabilitie [
 
 	^ self new initializeWith: aParsecCollection chance: aProbabilitie

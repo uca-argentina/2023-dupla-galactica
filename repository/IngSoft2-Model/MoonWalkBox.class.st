@@ -9,12 +9,6 @@ Class {
 }
 
 { #category : #'Instance creation' }
-MoonWalkBox class >> with: aValue [
-
-	^ self new initializeWith: aValue
-]
-
-{ #category : #'Instance creation' }
 MoonWalkBox class >> with: aValue chance: aProbabilite [
 
 	^ self new initializeWith: aValue chance: aProbabilite
