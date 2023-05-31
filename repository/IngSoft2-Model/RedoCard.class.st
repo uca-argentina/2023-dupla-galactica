@@ -23,10 +23,21 @@ RedoCard class >> to: anObjectivePlayer ofCard: anObjectiveCard [
 { #category : #Effect }
 RedoCard >> applyCards: aGame [
 
-	aGame lastCardPlay toString = 'Cancellation'
-		ifTrue: [ aGame lastCardPlay changeObjectivePlayer: objective andCard: objectiveCard ]
-		ifFalse: [ aGame lastCardPlay changeObjective: objective ].
-	aGame lastCardPlay applyCards: aGame
+	| card |
+	card := aGame lastCardPlay toString = 'Cancellation'
+		        ifTrue: [ 
+		        CancellationCard to: objective ofCard: objectiveCard ]
+		        ifFalse: [ 
+			        aGame lastCardPlay toString = 'Acceleration'
+				        ifTrue: [ AccelerationCard new ]
+				        ifFalse: [ 
+					        aGame lastCardPlay toString = 'Speed'
+						        ifTrue: [ SpeedCard to: objective ]
+						        ifFalse: [ 
+							        aGame lastCardPlay toString = 'Overload'
+								        ifTrue: [ OverloadCard to: objective ]
+								        ifFalse: [ RepeatCard to: objective ] ] ] ].
+	card applyCards: aGame
 ]
 
 { #category : #Initialization }

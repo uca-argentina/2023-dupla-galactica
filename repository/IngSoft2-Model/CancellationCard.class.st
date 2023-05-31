@@ -20,13 +20,6 @@ CancellationCard >> applyCards: aGame [
 	(aGame findPlayer: objective) applyCancellCard: objectiveCard
 ]
 
-{ #category : #Information }
-CancellationCard >> changeObjectivePlayer: anObjectivePlayer andCard: anObjectiveCard [
-
-	objective := anObjectivePlayer.
-	objectiveCard := anObjectiveCard
-]
-
 { #category : #Initialization }
 CancellationCard >> initializeTo: anObjectivePlayer ofCard: anObjectiveCard [
 

@@ -174,10 +174,11 @@ DuplaGalacticaGame >> ranking [
 ]
 
 { #category : #Player }
-DuplaGalacticaGame >> repeatEffectTo: aPlayer [ 
-	current:= aPlayer.
-	board effectAt: (lastPosition) In: self.
-	current:= players at: turnManager current.
+DuplaGalacticaGame >> repeatEffectTo: aPlayer [
+
+	current := aPlayer.
+	board effectAt: lastPosition In: self.
+	current := players at: turnManager current
 ]
 
 { #category : #Finalization }

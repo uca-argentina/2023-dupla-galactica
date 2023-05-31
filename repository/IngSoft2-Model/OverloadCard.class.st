@@ -24,12 +24,6 @@ OverloadCard >> applyEffect: aPosition [
 	^ aPosition - 2
 ]
 
-{ #category : #Information }
-OverloadCard >> changeObjective: anObjectivePlayer [
-
-	objective := anObjectivePlayer
-]
-
 { #category : #Initialization }
 OverloadCard >> initializeTo: anObjectivePlayer [
 

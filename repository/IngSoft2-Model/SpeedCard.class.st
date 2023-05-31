@@ -25,12 +25,6 @@ SpeedCard >> applyEffect: aPosition [
 	^ aPosition + 1
 ]
 
-{ #category : #Information }
-SpeedCard >> changeObjective: anObjectivePlayer [
-
-	objective := anObjectivePlayer
-]
-
 { #category : #Initialization }
 SpeedCard >> initializeTo: anObjectivePlayer [
 
