@@ -20,26 +20,6 @@ RedoCard class >> to: anObjectivePlayer ofCard: anObjectiveCard [
 	^ self new initializeTo: anObjectivePlayer ofCard: anObjectiveCard
 ]
 
-{ #category : #Effect }
-RedoCard >> applyCards: aGame [
-
-	| card |
-	card := aGame lastCardPlay toString = 'Cancellation'
-		        ifTrue: [ 
-		        CancellationCard to: objective ofCard: objectiveCard ]
-		        ifFalse: [ 
-			        aGame lastCardPlay toString = 'Acceleration'
-				        ifTrue: [ AccelerationCard new ]
-				        ifFalse: [ 
-					        aGame lastCardPlay toString = 'Speed'
-						        ifTrue: [ SpeedCard to: objective ]
-						        ifFalse: [ 
-							        aGame lastCardPlay toString = 'Overload'
-								        ifTrue: [ OverloadCard to: objective ]
-								        ifFalse: [ RepeatCard to: objective ] ] ] ].
-	card applyCards: aGame
-]
-
 { #category : #Initialization }
 RedoCard >> initializeTo: anObjectivePlayer [
 
@@ -60,7 +40,32 @@ RedoCard >> isPermanent [
 ]
 
 { #category : #Information }
+RedoCard >> objective [
+	^ objective
+]
+
+{ #category : #Information }
 RedoCard >> toString [
 
 	^ 'Redo'
+]
+
+{ #category : #Effect }
+RedoCard >> transformTo: aCard [
+
+	| card |
+	card := aCard toString = 'Cancellation'
+		        ifTrue: [ 
+		        CancellationCard to: objective ofCard: objectiveCard ]
+		        ifFalse: [ 
+			        aCard toString = 'Acceleration'
+				        ifTrue: [ AccelerationCard new ]
+				        ifFalse: [ 
+					        aCard toString = 'Speed'
+						        ifTrue: [ SpeedCard to: objective ]
+						        ifFalse: [ 
+							        aCard toString = 'Overload'
+								        ifTrue: [ OverloadCard to: objective ]
+								        ifFalse: [ RepeatCard to: objective ] ] ] ].
+	^card.
 ]

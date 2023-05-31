@@ -13,12 +13,6 @@ OverloadCard class >> to: anObjectivePlayer [
 ]
 
 { #category : #Effect }
-OverloadCard >> applyCards: aGame [
-
-	(aGame findPlayer: objective) applyCard: self
-]
-
-{ #category : #Effect }
 OverloadCard >> applyEffect: aPosition [
 
 	^ aPosition - 2
@@ -34,6 +28,11 @@ OverloadCard >> initializeTo: anObjectivePlayer [
 OverloadCard >> isPermanent [
 
 	^ true
+]
+
+{ #category : #Information }
+OverloadCard >> objective [
+	^ objective
 ]
 
 { #category : #Information }

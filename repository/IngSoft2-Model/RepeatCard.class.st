@@ -13,12 +13,6 @@ RepeatCard class >> to: anObjectivePlayer [
 	^ self new initializeTo: anObjectivePlayer
 ]
 
-{ #category : #Effect }
-RepeatCard >> applyCards: aGame [
-
-	aGame repeatEffectTo: (aGame findPlayer: objective)
-]
-
 { #category : #Initialization }
 RepeatCard >> initializeTo: anObjectivePlayer [
 
@@ -29,6 +23,11 @@ RepeatCard >> initializeTo: anObjectivePlayer [
 RepeatCard >> isPermanent [
 
 	^ false
+]
+
+{ #category : #Information }
+RepeatCard >> objective [
+	^ objective
 ]
 
 { #category : #Information }

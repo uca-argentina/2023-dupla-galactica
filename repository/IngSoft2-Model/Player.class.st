@@ -44,7 +44,9 @@ Player >> applyCancellCard: aCardName [
 { #category : #Cards }
 Player >> applyCard: aCard [
 
-	activeCards addLast: aCard
+	aCard toString = 'Cancellation'
+		ifTrue: [ self applyCancellCard: (aCard objectiveCard) ]
+		ifFalse: [ activeCards addLast: aCard ]
 ]
 
 { #category : #LapControl }

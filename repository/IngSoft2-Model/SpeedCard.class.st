@@ -14,12 +14,6 @@ SpeedCard class >> to: anObjectivePlayer [
 ]
 
 { #category : #Effect }
-SpeedCard >> applyCards: aGame [
-
-	(aGame findPlayer: objective) applyCard: self
-]
-
-{ #category : #Effect }
 SpeedCard >> applyEffect: aPosition [
 
 	^ aPosition + 1
@@ -35,6 +29,11 @@ SpeedCard >> initializeTo: anObjectivePlayer [
 SpeedCard >> isPermanent [
 
 	^ true
+]
+
+{ #category : #Information }
+SpeedCard >> objective [
+	^ objective
 ]
 
 { #category : #Information }

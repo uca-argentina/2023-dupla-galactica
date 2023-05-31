@@ -14,12 +14,6 @@ CancellationCard class >> to: anObjectivePlayer ofCard: anObjectiveCard [
 	^ self new initializeTo: anObjectivePlayer ofCard: anObjectiveCard
 ]
 
-{ #category : #Effect }
-CancellationCard >> applyCards: aGame [
-
-	(aGame findPlayer: objective) applyCancellCard: objectiveCard
-]
-
 { #category : #Initialization }
 CancellationCard >> initializeTo: anObjectivePlayer ofCard: anObjectiveCard [
 
@@ -31,6 +25,16 @@ CancellationCard >> initializeTo: anObjectivePlayer ofCard: anObjectiveCard [
 CancellationCard >> isPermanent [
 
 	^ false
+]
+
+{ #category : #Information }
+CancellationCard >> objective [
+	^ objective
+]
+
+{ #category : #Information }
+CancellationCard >> objectiveCard [
+	^ objectiveCard
 ]
 
 { #category : #Information }

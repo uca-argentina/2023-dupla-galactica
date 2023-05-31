@@ -37,13 +37,23 @@ DuplaGalacticaGame >> addCard: aCard to: aPlayer [
 
 { #category : #Cards }
 DuplaGalacticaGame >> applyCard: aCard from: aSourcePlayer [
-	|source|
+
+	| source cardToUse |
 	source := self findPlayer: aSourcePlayer.
 	(source has: aCard) ifFalse: [ ^ self ].
 	(self player: source canPlay: aCard) ifFalse: [ ^ self ].
-	aCard applyCards: self.
-	(aCard toString) = 'Redo' ifFalse: [ 
-		lastCardPlay := aCard ]
+	cardToUse := aCard.
+
+	aCard toString = 'Redo' ifTrue: [ 
+		cardToUse := aCard transformTo: lastCardPlay ].
+	lastCardPlay := cardToUse.
+
+	cardToUse toString = 'Repeat'
+		ifTrue: [ 
+		self repeatEffectTo: (self findPlayer: cardToUse objective) ]
+		ifFalse: [ 
+			(self findPlayers: cardToUse objective) do: [ :player | 
+				player applyCard: cardToUse ] ]
 ]
 
 { #category : #Information }
@@ -62,6 +72,15 @@ DuplaGalacticaGame >> currentPlayer [
 DuplaGalacticaGame >> findPlayer: aPlayer [
 
 	^ players detect: [ :player | player color = aPlayer ]
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> findPlayers: aPlayer [
+	aPlayer = 'all'
+		ifTrue: [ ^ players ]
+		ifFalse: [ 
+			^ OrderedCollection with:
+				  (players detect: [ :player | player color = aPlayer ]) ]
 ]
 
 { #category : #Information }
@@ -101,7 +120,7 @@ DuplaGalacticaGame >> moveCurrent: aValue [
 
 { #category : #Player }
 DuplaGalacticaGame >> moveOthers: aValue [
-
+	
 	players do: [ :player | 
 		player color == self currentPlayer color ifFalse: [ 
 			player move: aValue andUpdateLap: board boxes size ] ]
