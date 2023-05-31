@@ -40,11 +40,6 @@ RedoCard >> isPermanent [
 ]
 
 { #category : #Information }
-RedoCard >> objective [
-	^ objective
-]
-
-{ #category : #Information }
 RedoCard >> toString [
 
 	^ 'Redo'

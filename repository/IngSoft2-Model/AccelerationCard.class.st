@@ -11,11 +11,6 @@ AccelerationCard >> applyEffect: aPosition [
 ]
 
 { #category : #Information }
-AccelerationCard >> changeObjective: anObjectivePlayer [ 
-
-]
-
-{ #category : #Information }
 AccelerationCard >> isPermanent [
 
 	^ true

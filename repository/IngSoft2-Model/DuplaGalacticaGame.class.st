@@ -101,11 +101,6 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	current:= players at:1.
 ]
 
-{ #category : #Information }
-DuplaGalacticaGame >> lastCardPlay [
-	^ lastCardPlay
-]
-
 { #category : #Player }
 DuplaGalacticaGame >> moveAllToTheStart [
 
@@ -156,11 +151,6 @@ DuplaGalacticaGame >> player: aPlayer canPlay: aCard [
 				ifTrue: [ ^ true ]
 				ifFalse: [ ^ false ] ]
 		ifFalse: [ ^ true ]
-]
-
-{ #category : #Informatio }
-DuplaGalacticaGame >> players [
-	^ players
 ]
 
 { #category : #Information }
