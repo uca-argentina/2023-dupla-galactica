@@ -172,11 +172,12 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 
 	self
 		should: [ 
-			DuplaGalacticaGame
+			DuplaGalacticaGameProxy
 				with: aColorCollection
-				and: (Board with: 10 effects: OrderedCollection new measure: 0)
+				and: (Board with: (OrderedCollection new) measure: 0)
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: 1]
+				winningWhen: 1
+				using: CardDealer new ]
 		raise: Error
 		withMessage: 'Cannot create a game a negative parsec amount'
 ]
