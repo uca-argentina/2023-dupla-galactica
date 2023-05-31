@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'parsecs',
-		'parsecManager'
+		'parsecManager',
+		'probabilitie'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -12,6 +13,12 @@ Class {
 HyperJumpBox class >> with: aParsecsCollection [
 
 	^ self new initializeWith: aParsecsCollection
+]
+
+{ #category : #'Instance creation' }
+HyperJumpBox class >> with: aParsecCollection chance: aProbabilitie [
+
+	^ self new initializeWith: aParsecCollection chance: aProbabilitie
 ]
 
 { #category : #Effect }
@@ -30,9 +37,10 @@ HyperJumpBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-HyperJumpBox >> initializeWith: aParsecsCollection [
+HyperJumpBox >> initializeWith: aParsecCollection chance: aProbabilitie [
 
-	parsecs := aParsecsCollection.
+	probabilitie := aProbabilitie.
+	parsecs := aParsecCollection.
 	parsecManager := TurnManager with: parsecs size
 ]
 
@@ -40,4 +48,9 @@ HyperJumpBox >> initializeWith: aParsecsCollection [
 HyperJumpBox >> parsecs [
 
 	^ parsecs
+]
+
+{ #category : #Information }
+HyperJumpBox >> probabilitie [
+	^ probabilitie
 ]

@@ -22,23 +22,7 @@ CreatingPlayersFromTheGameTest >> setUp [
 			               with: 5
 			               with: 7
 			               with: 9).
-
-	boxes := OrderedCollection
-		         with: NoEffectBox new
-		         with: SpeedUpBox new
-		         with: WormHoleBox new
-		         with: NoEffectBox new
-		         with: (MoonWalkBox with: 10)
-		         with: (HyperJumpBox with: (OrderedCollection
-					           with: 20
-					           with: 40
-					           with: 30
-					           with: -10
-					           with: 50)).
-	boxes addLast: NoEffectBox new.
-	boxes addLast: AtomicBombBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
+	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection

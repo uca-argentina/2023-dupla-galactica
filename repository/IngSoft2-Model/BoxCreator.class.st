@@ -9,11 +9,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-BoxCreator class >> use: aBoxesCollection withProbabilities: probabilitesCollection [
+BoxCreator class >> use: aBoxesCollection [
 
-	^ self new
-		  initializeUse: aBoxesCollection
-		  withProbabilities: probabilitesCollection
+	^ self new initializeUse: aBoxesCollection
 ]
 
 { #category : #Creation }
@@ -27,18 +25,18 @@ BoxCreator >> create: aNumberOfBoxes [
 ]
 
 { #category : #Initialization }
-BoxCreator >> initializeUse: aBoxesCollection withProbabilities: probabilitesCollection [
+BoxCreator >> initializeUse: aBoxesCollection [
 
-	boxes := aBoxesCollection.
-	probabilities := probabilitesCollection
+	boxes := aBoxesCollection
 ]
 
 { #category : #Creation }
 BoxCreator >> oneRandomBoxOf [
 
-	| aRandomValue sum i|
-	sum:= 0.
-	i:=1.
+	| aRandomValue sum|
+	sum := 0.
 	aRandomValue := 100 atRandom.
-	boxes do: [ :box | (sum:= sum+ (probabilities at:i)).aRandomValue <= sum ifTrue:[^box]. i:=i+1]
+	boxes do: [ :box | 
+		sum := sum + box probabilitie.
+		aRandomValue <= sum ifTrue: [ ^ box ] ]
 ]

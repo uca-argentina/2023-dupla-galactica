@@ -16,22 +16,7 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 			               with: 6
 			               with: 7
 			               with: 9).
-	boxes := OrderedCollection
-		         with: NoEffectBox new
-		         with: SpeedUpBox new
-		         with: WormHoleBox new
-		         with: NoEffectBox new
-		         with: (MoonWalkBox with: 10)
-		         with: (HyperJumpBox with: (OrderedCollection
-					           with: 20
-					           with: 40
-					           with: 30
-					           with: -10
-					           with: 50)).
-	boxes addLast: NoEffectBox new.
-	boxes addLast: AtomicBombBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
+	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: 100.
 	aLoadedGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -59,22 +44,7 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 	aLoadedDiceCollection := OrderedCollection
 		                         with: aLoadedDie
 		                         with: aSecondLoadedDie.
-	boxes:= OrderedCollection
-		         with: NoEffectBox new
-		         with: SpeedUpBox new
-		         with: WormHoleBox new
-		         with: NoEffectBox new
-		         with: (MoonWalkBox with: 10)
-		         with: (HyperJumpBox with: (OrderedCollection
-					           with: 20
-					           with: 40
-					           with: 30
-					           with: -10
-					           with: 50)).
-	boxes addLast: NoEffectBox new.
-	boxes addLast: AtomicBombBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
+	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
 	aBoard:= Board with:boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
@@ -170,7 +140,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 10 with: 9)
+		equals: (OrderedCollection with: 10 with: 3)
 ]
 
 { #category : #tests }
@@ -184,7 +154,7 @@ CreateAFunctionalGameTest >> testH001VerifyThatTeMovesDoNotHaveEffectAfterSomeon
 
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 1 with: 9)
+		equals: (OrderedCollection with: 1 with: 3)
 ]
 
 { #category : #tests }

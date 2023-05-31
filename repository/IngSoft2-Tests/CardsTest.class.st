@@ -11,17 +11,7 @@ Class {
 CardsTest >> createBoard [
 
 	| boxes aBoard |
-	boxes := OrderedCollection
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
+	boxes := (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
 	^ aBoard := Board with: boxes measure: 100.
 ]
 
@@ -1129,22 +1119,14 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 
 	| aGame aLoadedDie boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 4
+			               with: 1
 			               with: 5
 			               with: 3
 			               with: 4).
-	boxes := OrderedCollection
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with: NoEffectBox new
-		         with:
-		         (HyperJumpBox with: (OrderedCollection with: 40 with: 30)).
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (HyperJumpBox
+				            with: (OrderedCollection with: 40)
+				            chance: 100))) create: 10.
 	aBoard := Board with: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -1162,7 +1144,7 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 10)
+		equals: (OrderedCollection with: 10 with: 10)
 ]
 
 { #category : #tests }

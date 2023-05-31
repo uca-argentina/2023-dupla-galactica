@@ -12,23 +12,16 @@ Class {
 CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
 	| aGame aBoard aBoxCreator boxes |
-	aBoxCreator := BoxCreator
-		               use: (OrderedCollection
-				                with: NoEffectBox new
-				                with: WormHoleBox new
-				                with: SpeedUpBox new
-				                with: MoonWalkBox new
-				                with: AtomicBombBox new
-				                with:
-				                (HyperJumpBox with:
-					                 (OrderedCollection with: 40 with: 30)))
-		               withProbabilities: (OrderedCollection
-				                with: 40
-				                with: 20
-				                with: 20
-				                with: 10
-				                with: 2
-				                with: 8).
+	aBoxCreator := BoxCreator use: (OrderedCollection
+			                with: (NoEffectBox withChance: 40)
+			                with: (WormHoleBox withChance: 20)
+			                with: (SpeedUpBox withChance: 20)
+			                with: (MoonWalkBox with: -2 chance: 10)
+			                with: (AtomicBombBox withChance: 2)
+			                with:
+			                (HyperJumpBox
+				                 with: (OrderedCollection with: 40 with: 30)
+				                 chance: 8)).
 	boxes := aBoxCreator create: 10.
 	aBoard := Board with: boxes measure: 200.
 	aGame := DuplaGalacticaGameProxy

@@ -37,10 +37,10 @@ DuplaGalacticaGame >> addCard: aCard to: aPlayer [
 
 { #category : #Cards }
 DuplaGalacticaGame >> applyCard: aCard from: aSourcePlayer [
-	|source2|
-	source2 := self findPlayer: aSourcePlayer.
-	(source2 has: aCard) ifFalse: [ ^ self ].
-	(self player: source2 canPlay: aCard) ifFalse: [ ^ self ].
+	|source|
+	source := self findPlayer: aSourcePlayer.
+	(source has: aCard) ifFalse: [ ^ self ].
+	(self player: source canPlay: aCard) ifFalse: [ ^ self ].
 	aCard applyCards: self.
 	(aCard toString) = 'Redo' ifFalse: [ 
 		lastCardPlay := aCard ]
