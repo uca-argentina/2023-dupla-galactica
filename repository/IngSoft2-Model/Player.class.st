@@ -70,14 +70,14 @@ Player >> color [
 ]
 
 { #category : #Cards }
-Player >> has: aCardName [
+Player >> has: aCard [
 
 	| cardCollection i res |
 	i := 1.
 	res := false.
 	cardCollection := OrderedCollection new.
 	cardsInPosetion do: [ :card | 
-		(card toString = aCardName and: i = 1)
+		(card toString = (aCard toString) and: i = 1)
 			ifTrue: [ 
 				i := 2.
 				res := true ]

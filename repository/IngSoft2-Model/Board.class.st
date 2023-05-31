@@ -9,14 +9,13 @@ Class {
 }
 
 { #category : #'Intance creation' }
-Board class >> with: aValue effects: aBoxCollection measure: aParsecAmount [
+Board class >> with: aBoxCollection measure: aParsecAmount [
 	(aParsecAmount) <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game a negative parsec amount' ].
-	aValue < 4 ifTrue: [ 
+	(aBoxCollection size) < 4 ifTrue: [ 
 		Error signal: 'Cannot create a board with that value' ].
 	^ self new
-		  initializeWithSizeOf: aValue
-		  effects: aBoxCollection
+		  initializeWith: aBoxCollection
 		  measure: aParsecAmount
 ]
 
@@ -33,9 +32,8 @@ Board >> effectAt: aPlayerPosition In: aGame [
 ]
 
 { #category : #Initialization }
-Board >> initializeWithSizeOf: aValue effects: aBoxCollection measure: aParsecAmount [
+Board >> initializeWith: aBoxCollection measure: aParsecAmount [
 
-	"length := aValue."
 	parsecs := aParsecAmount.
 	boxes := aBoxCollection
 ]

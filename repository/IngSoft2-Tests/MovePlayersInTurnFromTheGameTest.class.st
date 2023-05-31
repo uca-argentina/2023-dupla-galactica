@@ -36,7 +36,7 @@ MovePlayersInTurnFromTheGameTest >> setUp [
 	boxes addLast: AtomicBombBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aBoard:= Board with:boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard

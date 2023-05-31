@@ -12,20 +12,31 @@ Class {
 CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
 	| aGame aBoard aBoxCreator boxes |
-	aBoxCreator := BoxCreator new.
-	boxes := aBoxCreator create: 10 with: (OrderedCollection
-			          with: 40
-			          with: 20
-			          with: -10
-			          with: 30
-			          with: 40).
-	aBoard := Board with: 10 effects: boxes measure: 200.
+	aBoxCreator := BoxCreator
+		               use: (OrderedCollection
+				                with: NoEffectBox new
+				                with: WormHoleBox new
+				                with: SpeedUpBox new
+				                with: MoonWalkBox new
+				                with: AtomicBombBox new
+				                with:
+				                (HyperJumpBox with:
+					                 (OrderedCollection with: 40 with: 30)))
+		               withProbabilities: (OrderedCollection
+				                with: 40
+				                with: 20
+				                with: 20
+				                with: 10
+				                with: 2
+				                with: 8).
+	boxes := aBoxCreator create: 10.
+	aBoard := Board with: boxes measure: 200.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
-				   winningWhen: 1
-					using: CardDealer new.
+		         winningWhen: 1
+		         using: CardDealer new.
 	^ aGame
 ]
 
@@ -125,9 +136,9 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 
 	self
 		should: [ 
-			DuplaGalacticaGame
+			DuplaGalacticaGameProxy
 				with: OrderedCollection new
-				and: (Board with: 10 effects: OrderedCollection new measure: 200)
+				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: 200)
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: 1
 				using: CardDealer new]
@@ -142,10 +153,16 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 		should: [ 
 			DuplaGalacticaGame
 				with: aColorCollection
-				and: (Board with: 10 effects: OrderedCollection new measure: 200)
+				and: (Board
+						 with: (OrderedCollection
+								  with: NoEffectBox new
+								  with: NoEffectBox new
+								  with: NoEffectBox new
+								  with: NoEffectBox new)
+						 measure: 200)
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: -1
-				using: CardDealer new]
+				using: CardDealer new ]
 		raise: Error
 		withMessage: 'Cannot create a game with that goal laps'
 ]

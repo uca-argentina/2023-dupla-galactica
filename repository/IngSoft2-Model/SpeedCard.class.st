@@ -1,18 +1,40 @@
 Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
+	#instVars : [
+		'objective'
+	],
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'Instance creation' }
+SpeedCard class >> to: anObjectivePlayer [
+
+	^ self new initializeTo: anObjectivePlayer
+]
+
 { #category : #Effect }
-SpeedCard >> applyCards: aGame [ 
-	aGame objective applyCard: self.
+SpeedCard >> applyCards: aGame [
+
+	(aGame findPlayer: objective) applyCard: self
 ]
 
 { #category : #Effect }
 SpeedCard >> applyEffect: aPosition [
 
 	^ aPosition + 1
+]
+
+{ #category : #Information }
+SpeedCard >> changeObjective: anObjectivePlayer [
+
+	objective := anObjectivePlayer
+]
+
+{ #category : #Initialization }
+SpeedCard >> initializeTo: anObjectivePlayer [
+
+	objective := anObjectivePlayer
 ]
 
 { #category : #Information }

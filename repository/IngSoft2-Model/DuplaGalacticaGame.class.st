@@ -9,11 +9,7 @@ Class {
 		'turnManager',
 		'lastCardPlay',
 		'lastPosition',
-		'current',
-		'possibleCards',
-		'objective',
-		'source',
-		'objectiveCard'
+		'current'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -36,43 +32,18 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 { #category : #Cards }
 DuplaGalacticaGame >> addCard: aCard to: aPlayer [
 
-	(self findPlayer: aPlayer) addCard: (self findCard: aCard).
+	(self findPlayer: aPlayer) addCard: aCard.
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> applyCard: aCardName from: aSourcePlayer [
-
-	source := self findPlayer: aSourcePlayer.
-	(source has: aCardName) ifFalse: [ ^ self ].
-	(self isPlayableNow: (self findCard: aCardName)) ifFalse: [ ^ self ].
-	(self findCard: aCardName) applyCards: self.
-	aCardName = 'Redo' ifFalse: [ 
-		lastCardPlay := self findCard: aCardName ]
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePlayer [
-
-	objective := self findPlayer: anObjectivePlayer.
-	source := self findPlayer: aSourcePlayer.
-	(source has: aCardName) ifFalse: [ ^ self ].
-	(self isPlayableNow: (self findCard: aCardName)) ifFalse: [ ^ self ].
-	(self findCard: aCardName) applyCards: self.
-	aCardName = 'Redo' ifFalse: [ 
-		lastCardPlay := self findCard: aCardName ]
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> applyCard: aCardName to: anObjectivePlayer from: aSourcePlayer ofCard: anObjectiveCard [
-
-	objective := self findPlayer: anObjectivePlayer.
-	source := self findPlayer: aSourcePlayer.
-	objectiveCard := anObjectiveCard.
-	(source has: aCardName) ifFalse: [ ^ self ].
-	(self isPlayableNow: (self findCard: aCardName)) ifFalse: [ ^ self ].
-	(self findCard: aCardName) applyCards: self.
-	aCardName = 'Redo' ifFalse: [ 
-		lastCardPlay := self findCard: aCardName ]
+DuplaGalacticaGame >> applyCard: aCard from: aSourcePlayer [
+	|source2|
+	source2 := self findPlayer: aSourcePlayer.
+	(source2 has: aCard) ifFalse: [ ^ self ].
+	(self player: source2 canPlay: aCard) ifFalse: [ ^ self ].
+	aCard applyCards: self.
+	(aCard toString) = 'Redo' ifFalse: [ 
+		lastCardPlay := aCard ]
 ]
 
 { #category : #Information }
@@ -82,20 +53,9 @@ DuplaGalacticaGame >> boxes [
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> cardObjective [
-	^objectiveCard .
-]
-
-{ #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
 	^ current.
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> findCard: aCardName [
-
-	^ possibleCards detect: [ :card | card toString = aCardName ]
 ]
 
 { #category : #Player }
@@ -119,27 +79,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	dice := aDiceCollection.
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
-	objective := players at: 1.
 	current:= players at:1.
-	objectiveCard:= AccelerationCard new.
-	possibleCards := OrderedCollection
-		                 with: OverloadCard new
-		                 with: SpeedCard new
-		                 with: RepeatCard new
-		                 with: AccelerationCard new
-		                 with: RedoCard new
-		                 with: CancellationCard new
-]
-
-{ #category : #Player }
-DuplaGalacticaGame >> isPlayableNow: aCard [
-
-	aCard isPermanent
-		ifTrue: [ 
-			source color = self currentPlayer color
-				ifTrue: [ ^ true ]
-				ifFalse: [ ^ false ] ]
-		ifFalse: [ ^ true ]
 ]
 
 { #category : #Information }
@@ -179,12 +119,7 @@ DuplaGalacticaGame >> movePlayer [
 	lastPosition := self currentPlayer position.
 	board effectAt: self currentPlayer position In: self.
 	turnManager goNext.
-	current := self players at: turnManager current
-]
-
-{ #category : #Information }
-DuplaGalacticaGame >> objective [
-	^ objective
+	current := players at: turnManager current
 ]
 
 { #category : #Information }
@@ -193,7 +128,18 @@ DuplaGalacticaGame >> parsecs [
 	^ board parsecs
 ]
 
-{ #category : #Information }
+{ #category : #Cards }
+DuplaGalacticaGame >> player: aPlayer canPlay: aCard [
+
+	aCard isPermanent
+		ifTrue: [ 
+			aPlayer color = self currentPlayer color
+				ifTrue: [ ^ true ]
+				ifFalse: [ ^ false ] ]
+		ifFalse: [ ^ true ]
+]
+
+{ #category : #Informatio }
 DuplaGalacticaGame >> players [
 	^ players
 ]

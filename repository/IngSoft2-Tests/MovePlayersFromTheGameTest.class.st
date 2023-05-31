@@ -26,7 +26,7 @@ MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
 	boxes addLast: AtomicBombBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 200.
+	aBoard:= Board with:boxes measure: 200.
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
@@ -56,7 +56,7 @@ MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 	boxes addLast: AtomicBombBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with:boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -88,7 +88,7 @@ MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 	boxes addLast: AtomicBombBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
+	aBoard:= Board with: boxes measure: 100.
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
@@ -114,19 +114,6 @@ MovePlayersFromTheGameTest >> should: anErrorBlock raise: anExceptionClass withM
 		raise: anExceptionClass
 		withExceptionDo: [ :error | 
 		self assert: error messageText equals: anErrorMessage ]
-]
-
-{ #category : #tests }
-MovePlayersFromTheGameTest >> testA009CreateABoardWithNegativeLengthThenRaiseAnError [
-
-	self
-		should: [ 
-			Board
-				with: -1
-				effects: OrderedCollection new
-				measure: 100 ]
-		raise: Error
-		withMessage: 'Cannot create a board with that value'
 ]
 
 { #category : #tests }

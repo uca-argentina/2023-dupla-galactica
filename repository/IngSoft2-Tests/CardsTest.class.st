@@ -22,7 +22,7 @@ CardsTest >> createBoard [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	^ aBoard := Board with: 10 effects: boxes measure: 100.
+	^ aBoard := Board with: boxes measure: 100.
 ]
 
 { #category : #running }
@@ -59,7 +59,7 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 		           throwing: aLoadedDie
 		           winningWhen: 1
 		           using: (LoadedCardDealer with: (OrderedCollection with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -85,7 +85,7 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -113,7 +113,7 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -141,7 +141,7 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -167,7 +167,7 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: SpeedCard new)).
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -193,7 +193,7 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: SpeedCard new)).
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -221,7 +221,7 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: SpeedCard new)).
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
 	aGame movePlayer.
 	self
 		assert: aGame playersLaps
@@ -247,8 +247,8 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: SpeedCard new with: OverloadCard new)).
 
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
-	aGame applyCard: 'Overload' to: 'red' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
+	aGame applyCard: (OverloadCard to: 'red') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -274,7 +274,7 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: AccelerationCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: (AccelerationCard new) from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -300,7 +300,7 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: AccelerationCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -327,10 +327,10 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: CancellationCard new with: OverloadCard new)).
 
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Cancellation' to: 'blue' from: 'red' ofCard: 'Overload'.
+	aGame applyCard: (CancellationCard to: 'blue' ofCard: 'Overload') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -357,15 +357,13 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 					           with: SpeedCard new
 					           with: OverloadCard new
 					           with: CancellationCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
+	aGame applyCard: (SpeedCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'blue'
-		ofCard: 'Speed'.
+		applyCard: (CancellationCard to: 'blue' ofCard: 'Speed')
+		from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -393,22 +391,18 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 					           with: OverloadCard new
 					           with: CancellationCard new
 					           with: SpeedCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame movePlayer.
-	aGame applyCard: 'Speed' to: 'blue' from: 'blue'.
+	aGame applyCard: (SpeedCard to: 'blue') from: 'blue'.
 	aGame movePlayer.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
-		ofCard: 'Speed'.
+		applyCard: (CancellationCard to: 'blue' ofCard: 'Speed')
+		from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'blue'
-		ofCard: 'Overload'.
+		applyCard: (CancellationCard to: 'blue' ofCard: 'Overload')
+		from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -437,10 +431,8 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 	self
 		should: [ 
 			aGame
-				applyCard: 'Cancellation'
-				to: 'blue'
-				from: 'red'
-				ofCard: 'Overload' ]
+				applyCard: (CancellationCard to: 'blue' ofCard: 'Overload')
+				from: 'red' ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
 ]
@@ -464,15 +456,13 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 				          (OrderedCollection
 					           with: CancellationCard new
 					           with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 
 	self
 		should: [ 
 			aGame
-				applyCard: 'Cancellation'
-				to: 'blue'
-				from: 'red'
-				ofCard: 'Speed' ]
+				applyCard: (CancellationCard to: 'blue' ofCard: 'Speed')
+				from: 'red' ]
 		raise: Error
 		withMessage:
 		'There are no that type of cards activate in this player'
@@ -496,7 +486,7 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'red' from: 'blue'.
+	aGame applyCard: (OverloadCard to: 'red') from: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -523,7 +513,7 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: SpeedCard new)).
-	aGame applyCard: 'Speed' to: 'blue' from: 'blue'.
+	aGame applyCard: (SpeedCard to: 'blue') from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -549,7 +539,7 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: AccelerationCard new)).
-	aGame applyCard: 'Acceleration' from: 'blue'.
+	aGame applyCard: AccelerationCard new from: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -577,8 +567,8 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 				          (OrderedCollection
 					           with: OverloadCard new
 					           with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -605,8 +595,9 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: OverloadCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
+	
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -633,8 +624,9 @@ CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 				          (OrderedCollection
 					           with: SpeedCard new
 					           with: SpeedCard new)).
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
+
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -660,8 +652,9 @@ CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: SpeedCard new)).
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
+
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -687,8 +680,8 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 		         using: (LoadedCardDealer with: (OrderedCollection
 					           with: AccelerationCard new
 					           with: AccelerationCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -714,8 +707,8 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 		         using:
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: AccelerationCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -742,12 +735,11 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: OverloadCard new)).
 
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
-		ofCard: 'Overload'.
+		applyCard: (CancellationCard to: 'blue' ofCard: 'Overload')
+		from: 'red'.
+
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -775,18 +767,14 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 					           with: AccelerationCard new
 					           with: CancellationCard new
 					           with: CancellationCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'red'
-		from: 'blue'
-		ofCard: 'Acceleration'.
+		applyCard: (CancellationCard to: 'red' ofCard: 'Acceleration')
+		from: 'blue'.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'red'
-		from: 'blue'
-		ofCard: 'Acceleration'.
+		applyCard: (CancellationCard to: 'red' ofCard: 'Acceleration')
+		from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -814,18 +802,14 @@ CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 					           with: AccelerationCard new
 					           with: CancellationCard new)).
 
-	aGame applyCard: 'Acceleration' from: 'red'.
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'red'
-		from: 'blue'
-		ofCard: 'Acceleration'.
+		applyCard: (CancellationCard to: 'red' ofCard: 'Acceleration')
+		from: 'blue'.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'red'
-		from: 'blue'
-		ofCard: 'Acceleration'.
+		applyCard: (CancellationCard to: 'red' ofCard: 'Acceleration')
+		from: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -852,8 +836,8 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 				          (OrderedCollection
 					           with: OverloadCard new
 					           with: RedoCard new)).
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
-	aGame applyCard: 'Redo' to: 'red' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
+	aGame applyCard: (RedoCard to: 'red') from: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -880,17 +864,13 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 					           with: AccelerationCard new
 					           with: CancellationCard new
 					           with: RedoCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
-		ofCard: 'Acceleration'.
+		applyCard: (CancellationCard to: 'blue' ofCard: 'Acceleration')
+		from: 'red'.
 	aGame
-		applyCard: 'Redo'
-		to: 'red'
-		from: 'blue'
-		ofCard: 'Acceleration'.
+		applyCard: (RedoCard to: 'red' ofCard: 'Acceleration')
+		from: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -918,8 +898,8 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 				          (OrderedCollection
 					           with: SpeedCard new
 					           with: RedoCard new)).
-	aGame applyCard: 'Speed' to: 'red' from: 'red'.
-	aGame applyCard: 'Redo' to: 'blue' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'red') from: 'red'.
+	aGame applyCard: (RedoCard to: 'blue') from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -947,8 +927,8 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 				          (OrderedCollection
 					           with: AccelerationCard new
 					           with: RedoCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
-	aGame applyCard: 'Redo' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
+	aGame applyCard: RedoCard new from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -976,9 +956,9 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 					           with: AccelerationCard new
 					           with: RedoCard new
 					           with: RedoCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
-	aGame applyCard: 'Redo' from: 'blue'.
-	aGame applyCard: 'Redo' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
+	aGame applyCard: RedoCard new from: 'blue'.
+	aGame applyCard: RedoCard new from: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -1007,7 +987,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1018,7 +998,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 			          (OrderedCollection with: RepeatCard new)).
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
+	aGame applyCard: (RepeatCard to: 'red') from: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -1045,7 +1025,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: WormHoleBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1057,7 +1037,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Repeat' to: 'blue' from: 'red'.
+	aGame applyCard: (RepeatCard to: 'blue') from: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -1084,7 +1064,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with:  boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1097,7 +1077,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
+	aGame applyCard: (RepeatCard to: 'red') from: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -1124,7 +1104,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1135,7 +1115,9 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 			          (OrderedCollection with: RepeatCard new)).
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
+
+	aGame applyCard: (RepeatCard to: 'red') from: 'red'.
+
 
 	self
 		assert: aGame playersPositions
@@ -1163,7 +1145,7 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1174,7 +1156,9 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 			          (OrderedCollection with: RepeatCard new)).
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
+
+	aGame applyCard: (RepeatCard to: 'red') from: 'red'.
+
 
 	self
 		assert: aGame playersPositions
@@ -1200,7 +1184,7 @@ CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: AccelerationCard new)).
 	aGame movePlayer.
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame movePlayer.
 
 	self
@@ -1227,7 +1211,7 @@ CardsTest >> testQ040VerifyThatOverloadCardCanOnlyBePlayedAtPlayersTurns [
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: OverloadCard new)).
 	aGame movePlayer.
-	aGame applyCard: 'Overload' to: 'blue' from: 'red'.
+	aGame applyCard: (OverloadCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 
 	self
@@ -1254,7 +1238,7 @@ CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: SpeedCard new)).
 	aGame movePlayer.
-	aGame applyCard: 'Speed' to: 'blue' from: 'red'.
+	aGame applyCard: (SpeedCard to: 'blue') from: 'red'.
 	aGame movePlayer.
 
 	self
@@ -1280,13 +1264,11 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 		         using: (LoadedCardDealer with: (OrderedCollection
 					           with: AccelerationCard new
 					           with: CancellationCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame movePlayer.
 	aGame
-		applyCard: 'Cancellation'
-		to: 'blue'
-		from: 'red'
-		ofCard: 'Acceleration'.
+		applyCard: (CancellationCard to: 'blue' ofCard: 'Acceleration')
+		from: 'red'.
 	aGame movePlayer.
 
 	self
@@ -1313,9 +1295,9 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 				          (OrderedCollection
 					           with: AccelerationCard new
 					           with: RedoCard new)).
-	aGame applyCard: 'Acceleration' from: 'red'.
+	aGame applyCard: AccelerationCard new from: 'red'.
 	aGame movePlayer.
-	aGame applyCard: 'Redo' from: 'red'.
+	aGame applyCard: RedoCard new from: 'red'.
 	aGame movePlayer.
 
 	self
@@ -1326,7 +1308,7 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 { #category : #tests }
 CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 
-		| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
@@ -1343,7 +1325,7 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
 	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	aBoard := Board with: boxes measure: 100.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1353,7 +1335,7 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 		         (LoadedCardDealer with:
 			          (OrderedCollection with: RepeatCard new)).
 	aGame movePlayer.
-	aGame applyCard: 'Repeat' to: 'red' from: 'red'.
+	aGame applyCard: (RepeatCard to: 'red') from: 'red'.
 	aGame movePlayer.
 
 	self

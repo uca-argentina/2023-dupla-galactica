@@ -19,25 +19,9 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aD
 ]
 
 { #category : #Movement }
-DuplaGalacticaGameProxy >> applyCard: aCardName from: aSourcePlayer [
+DuplaGalacticaGameProxy >> applyCard: aCard from: aSourcePlayer [
 
-	game applyCard: aCardName from: aSourcePlayer
-]
-
-{ #category : #Movement }
-DuplaGalacticaGameProxy >> applyCard: aCardName to: aPlayerObjective from: aPlayerSource [
-
-	game applyCard: aCardName to: aPlayerObjective from: aPlayerSource
-]
-
-{ #category : #Movement }
-DuplaGalacticaGameProxy >> applyCard: aCardName to: aPlayerObjective from: aPlayerSource ofCard: aCardObjective [
-
-	game
-		applyCard: aCardName
-		to: aPlayerObjective
-		from: aPlayerSource
-		ofCard: aCardObjective
+	game applyCard: aCard from: aSourcePlayer
 ]
 
 { #category : #Information }
