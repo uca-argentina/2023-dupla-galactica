@@ -19,14 +19,16 @@ MovePlayersInTurnFromTheGameTest >> setUp [
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
-	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
-	aBoard:= Board with:boxes measure: 100.
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie
-							winningWhen: 1
-							using: CardDealer new.
+	boxes := (BoxCreator use:
+		          (OrderedCollection with: (NoEffectBox withChance: 100))) 
+		         create: 10.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new
 ]
 
 { #category : #tests }

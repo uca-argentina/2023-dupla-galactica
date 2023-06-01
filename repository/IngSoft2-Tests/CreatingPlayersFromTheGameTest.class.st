@@ -23,7 +23,7 @@ CreatingPlayersFromTheGameTest >> setUp [
 			               with: 7
 			               with: 9).
 	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard

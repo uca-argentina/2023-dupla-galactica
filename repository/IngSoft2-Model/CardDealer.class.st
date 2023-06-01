@@ -27,6 +27,9 @@ CardDealer >> aRandomCard [
 ]
 
 { #category : #Cards }
-CardDealer >> dealCards: aPlayerCollection [ 
-	aPlayerCollection do: [:player | player addCard: self aRandomCard. player addCard: self aRandomCard]
+CardDealer >> dealCards: aPlayerCollection [
+
+	aPlayerCollection do: [ :player | 
+		player addCard: self aRandomCard.
+		player addCard: self aRandomCard ]
 ]

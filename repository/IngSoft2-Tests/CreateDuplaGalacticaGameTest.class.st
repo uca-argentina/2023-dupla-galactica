@@ -23,7 +23,7 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 				                 with: (OrderedCollection with: 40 with: 30)
 				                 chance: 8)).
 	boxes := aBoxCreator create: 10.
-	aBoard := Board with: boxes measure: 200.
+	aBoard := Board with: boxes measure: (Parsecs worth: 200).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -86,7 +86,7 @@ CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	self assert: aGame parsecs equals: 200
+	self assert: aGame parsecs nominalValue equals: 200
 ]
 
 { #category : #tests }
@@ -131,7 +131,7 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 		should: [ 
 			DuplaGalacticaGameProxy
 				with: OrderedCollection new
-				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: 200)
+				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: (Parsecs worth: 200))
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: 1
 				using: CardDealer new]
@@ -152,7 +152,7 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 								  with: NoEffectBox new
 								  with: NoEffectBox new
 								  with: NoEffectBox new)
-						 measure: 200)
+						 measure: (Parsecs worth: 200))
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: -1
 				using: CardDealer new ]
@@ -167,7 +167,7 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 		should: [ 
 			DuplaGalacticaGameProxy
 				with: aColorCollection
-				and: (Board with: (OrderedCollection new) measure: 0)
+				and: (Board with: (OrderedCollection new) measure: (Parsecs worth: 0))
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: 1
 				using: CardDealer new ]

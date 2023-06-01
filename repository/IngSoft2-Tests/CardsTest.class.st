@@ -12,7 +12,7 @@ CardsTest >> createBoard [
 
 	| boxes aBoard |
 	boxes := (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
-	^ aBoard := Board with: boxes measure: 100.
+	^ aBoard := Board with: boxes measure: (Parsecs worth: 100).
 ]
 
 { #category : #running }
@@ -967,7 +967,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use: (OrderedCollection with: (SpeedUpBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -997,7 +997,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (WormHoleBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1028,7 +1028,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with:
 			           (MoonWalkBox with: -2 chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1058,7 +1058,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use: (OrderedCollection with: (AtomicBombBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1088,7 +1088,7 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox with: (OrderedCollection with: 40) chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1258,7 +1258,7 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use: (OrderedCollection with: (SpeedUpBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1286,7 +1286,7 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use: (OrderedCollection with: (SpeedUpBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard

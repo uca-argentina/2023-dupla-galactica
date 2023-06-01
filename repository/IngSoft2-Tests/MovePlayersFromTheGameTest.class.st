@@ -11,7 +11,7 @@ Class {
 MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [ 
 	| boxes aBoard aLoadedGame|
 	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
-	aBoard:= Board with:boxes measure: 200.
+	aBoard := Board with: boxes measure: (Parsecs worth: 200).
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
@@ -26,7 +26,7 @@ MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
 	| aGame boxes aBoard |
 	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
-	aBoard := Board with:boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -43,7 +43,7 @@ MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 
 	| boxes aBoard aLoadedGame|
 	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
-	aBoard:= Board with: boxes measure: 100.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
@@ -216,7 +216,7 @@ MovePlayersFromTheGameTest >> testO001CreateBoardWithParsecs [
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	self assert: aGame parsecs equals: 100
+	self assert: aGame parsecs nominalValue equals: 100
 ]
 
 { #category : #tests }
@@ -229,7 +229,7 @@ MovePlayersFromTheGameTest >> testO002CreateBoardWithAnotherAmountOfParsecThenVa
 			               with: 9
 			               with: 6).
 	aGame := self gameWithMoreParsecs: aLoadedDie.
-	self assert: aGame parsecs equals: 200
+	self assert: aGame parsecs nominalValue equals: 200
 ]
 
 { #category : #tests }

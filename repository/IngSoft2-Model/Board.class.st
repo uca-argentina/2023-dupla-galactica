@@ -2,21 +2,20 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
-		'parsecs',
-		'boxes'
+		'boxes',
+		'lengthMeasure'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Intance creation' }
-Board class >> with: aBoxCollection measure: aParsecAmount [
-	(aParsecAmount) <= 0 ifTrue: [ 
+Board class >> with: aBoxCollection measure: aLengthMeasure [
+
+	aLengthMeasure nominalValue <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game a negative parsec amount' ].
-	(aBoxCollection size) < 4 ifTrue: [ 
+	aBoxCollection size < 4 ifTrue: [ 
 		Error signal: 'Cannot create a board with that value' ].
-	^ self new
-		  initializeWith: aBoxCollection
-		  measure: aParsecAmount
+	^ self new initializeWith: aBoxCollection measure: aLengthMeasure
 ]
 
 { #category : #Information }
@@ -32,14 +31,20 @@ Board >> effectAt: aPlayerPosition In: aGame [
 ]
 
 { #category : #Initialization }
-Board >> initializeWith: aBoxCollection measure: aParsecAmount [
+Board >> initializeWith: aBoxCollection measure: aLengthMeasure [
 
-	parsecs := aParsecAmount.
+	lengthMeasure := aLengthMeasure.
 	boxes := aBoxCollection
+]
+
+{ #category : #Information }
+Board >> lightYears [
+
+	^ lengthMeasure lightYears
 ]
 
 { #category : #Information }
 Board >> parsecs [
 
-	^ parsecs
+	^ lengthMeasure parsecs
 ]

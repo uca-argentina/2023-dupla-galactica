@@ -101,6 +101,12 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	current:= players at:1.
 ]
 
+{ #category : #Information }
+DuplaGalacticaGame >> lightYears [
+
+	^ board lightYears
+]
+
 { #category : #Player }
 DuplaGalacticaGame >> moveAllToTheStart [
 
