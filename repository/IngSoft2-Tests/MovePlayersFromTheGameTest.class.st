@@ -10,28 +10,14 @@ Class {
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [ 
 	| boxes aBoard aLoadedGame|
-	boxes:= OrderedCollection
-		         with: NoEffectBox new
-		         with: SpeedUpBox new
-		         with: WormHoleBox new
-		         with: NoEffectBox new
-		         with: (MoonWalkBox with: 10)
-		         with: (HyperJumpBox with: (OrderedCollection
-					           with: 20
-					           with: 40
-					           with: 30
-					           with: -10
-					           with: 50)).
-	boxes addLast: NoEffectBox new.
-	boxes addLast: AtomicBombBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 200.
+	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsecs worth: 200).
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie 
-							winningWhen: 2.
+							winningWhen: 2
+							using: CardDealer new.
 	^ aLoadedGame
 ]
 
@@ -39,28 +25,14 @@ MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
 MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
 	| aGame boxes aBoard |
-	boxes := OrderedCollection
-		         with: NoEffectBox new
-		         with: SpeedUpBox new
-		         with: WormHoleBox new
-		         with: NoEffectBox new
-		         with: (MoonWalkBox with: 10)
-		         with: (HyperJumpBox with: (OrderedCollection
-					           with: 20
-					           with: 40
-					           with: 30
-					           with: -10
-					           with: 50)).
-	boxes addLast: NoEffectBox new.
-	boxes addLast: AtomicBombBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	aBoard := Board with: 10 effects: boxes measure: 100.
+	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: aLoadedDie
-		               winningWhen: 1.
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
 
 	^ aGame
 ]
@@ -70,28 +42,14 @@ MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 	
 
 	| boxes aBoard aLoadedGame|
-	boxes:= OrderedCollection
-		         with: NoEffectBox new
-		         with: SpeedUpBox new
-		         with: WormHoleBox new
-		         with: NoEffectBox new
-		         with: (MoonWalkBox with: 10)
-		         with: (HyperJumpBox with: (OrderedCollection
-					           with: 20
-					           with: 40
-					           with: 30
-					           with: -10
-					           with: 50)).
-	boxes addLast: NoEffectBox new.
-	boxes addLast: AtomicBombBox new.
-	boxes addLast: NoEffectBox new.
-	boxes addLast: NoEffectBox new.
-	aBoard:= Board with: 10 effects: boxes measure: 100.
+	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
 		               and: aBoard
 		               throwing: aLoadedDie
-							winningWhen: 2.
+							winningWhen: 2
+							using: CardDealer new.
 	^ aLoadedGame
 ]
 
@@ -111,19 +69,6 @@ MovePlayersFromTheGameTest >> should: anErrorBlock raise: anExceptionClass withM
 		raise: anExceptionClass
 		withExceptionDo: [ :error | 
 		self assert: error messageText equals: anErrorMessage ]
-]
-
-{ #category : #tests }
-MovePlayersFromTheGameTest >> testA009CreateABoardWithNegativeLengthThenRaiseAnError [
-
-	self
-		should: [ 
-			Board
-				with: -1
-				effects: OrderedCollection new
-				measure: 100 ]
-		raise: Error
-		withMessage: 'Cannot create a board with that value'
 ]
 
 { #category : #tests }
@@ -257,7 +202,7 @@ MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 6 with: 6).
+		equals: (OrderedCollection with: 2 with: 2).
 	self assert: aGame winner equals: 'blue'
 ]
 
@@ -271,7 +216,7 @@ MovePlayersFromTheGameTest >> testO001CreateBoardWithParsecs [
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
-	self assert: aGame parsecs equals: 100
+	self assert: aGame parsecs nominalValue equals: 100
 ]
 
 { #category : #tests }
@@ -284,7 +229,7 @@ MovePlayersFromTheGameTest >> testO002CreateBoardWithAnotherAmountOfParsecThenVa
 			               with: 9
 			               with: 6).
 	aGame := self gameWithMoreParsecs: aLoadedDie.
-	self assert: aGame parsecs equals: 200
+	self assert: aGame parsecs nominalValue equals: 200
 ]
 
 { #category : #tests }

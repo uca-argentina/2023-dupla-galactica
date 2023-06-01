@@ -12,19 +12,24 @@ Class {
 CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
 	| aGame aBoard aBoxCreator boxes |
-	aBoxCreator := BoxCreator new.
-	boxes := aBoxCreator create: 10 with: (OrderedCollection
-			          with: 40
-			          with: 20
-			          with: -10
-			          with: 30
-			          with: 40).
-	aBoard := Board with: 10 effects: boxes measure: 200.
+	aBoxCreator := BoxCreator use: (OrderedCollection
+			                with: (NoEffectBox withChance: 40)
+			                with: (WormHoleBox withChance: 20)
+			                with: (SpeedUpBox withChance: 20)
+			                with: (MoonWalkBox with: -2 chance: 10)
+			                with: (AtomicBombBox withChance: 2)
+			                with:
+			                (HyperJumpBox
+				                 with: (OrderedCollection with: (Parsecs worth: 40) with: (Parsecs worth: 30))
+				                 chance: 8)).
+	boxes := aBoxCreator create: 10.
+	aBoard := Board with: boxes measure: (Parsecs worth: 200).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
-				   winningWhen: 1.
+		         winningWhen: 1
+		         using: CardDealer new.
 	^ aGame
 ]
 
@@ -81,7 +86,7 @@ CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	self assert: aGame parsecs equals: 200
+	self assert: aGame parsecs nominalValue equals: 200
 ]
 
 { #category : #tests }
@@ -124,11 +129,12 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 
 	self
 		should: [ 
-			DuplaGalacticaGame
+			DuplaGalacticaGameProxy
 				with: OrderedCollection new
-				and: (Board with: 10 effects: OrderedCollection new measure: 200)
+				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: (Parsecs worth: 200))
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: 1]
+				winningWhen: 1
+				using: CardDealer new]
 		raise: Error
 		withMessage: 'Cannot create a game with no players'
 ]
@@ -140,9 +146,16 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 		should: [ 
 			DuplaGalacticaGame
 				with: aColorCollection
-				and: (Board with: 10 effects: OrderedCollection new measure: 200)
+				and: (Board
+						 with: (OrderedCollection
+								  with: NoEffectBox new
+								  with: NoEffectBox new
+								  with: NoEffectBox new
+								  with: NoEffectBox new)
+						 measure: (Parsecs worth: 200))
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: -1]
+				winningWhen: -1
+				using: CardDealer new ]
 		raise: Error
 		withMessage: 'Cannot create a game with that goal laps'
 ]
@@ -152,11 +165,12 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 
 	self
 		should: [ 
-			DuplaGalacticaGame
+			DuplaGalacticaGameProxy
 				with: aColorCollection
-				and: (Board with: 10 effects: OrderedCollection new measure: 0)
+				and: (Board with: (OrderedCollection new) measure: (Parsecs worth: 0))
 				throwing: (OrderedCollection with: aLoadedDie)
-				winningWhen: 1]
+				winningWhen: 1
+				using: CardDealer new ]
 		raise: Error
 		withMessage: 'Cannot create a game a negative parsec amount'
 ]

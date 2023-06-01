@@ -1,56 +1,42 @@
 Class {
 	#name : #BoxCreator,
 	#superclass : #Object,
+	#instVars : [
+		'boxes',
+		'probabilities'
+	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #Creation }
-BoxCreator >> create: aNumberOfBoxes with: aParsecCollection [
+{ #category : #'Instance creation' }
+BoxCreator class >> use: aBoxesCollection [
 
-	| boxes |
-	boxes := OrderedCollection new.
+	^ self new initializeUse: aBoxesCollection
+]
+
+{ #category : #Creation }
+BoxCreator >> create: aNumberOfBoxes [
+
+	| boxesCreated |
+	boxesCreated := OrderedCollection new.
 	aNumberOfBoxes timesRepeat: [ 
-		boxes addLast:
-			(self oneRandomBoxOf: aNumberOfBoxes with: aParsecCollection) ].
-	^ boxes
+		boxesCreated addLast: (self oneRandomBoxOf) ].
+	^ boxesCreated
+]
+
+{ #category : #Initialization }
+BoxCreator >> initializeUse: aBoxesCollection [
+
+	boxes := aBoxesCollection
 ]
 
 { #category : #Creation }
-BoxCreator >> createRandomParsecs: possibleValues [
+BoxCreator >> oneRandomBoxOf [
 
-	| aParsecsCollection |
-	aParsecsCollection := OrderedCollection new.
-	possibleValues size atRandom to: possibleValues size atRandom do: [ 
-	:i | aParsecsCollection addLast: (possibleValues at: i) ].
-
-	aParsecsCollection isEmpty
-		ifTrue: [ 
-			aParsecsCollection addLast:
-				(possibleValues at: possibleValues size atRandom) ]
-		ifFalse: [ aParsecsCollection sort: [ :a :b | a > b ] ].
-	^ aParsecsCollection
-]
-
-{ #category : #Creation }
-BoxCreator >> oneRandomBoxOf: aNumberOfBoxes with: aParsecCollection [
-
-	| aRandomValue |
+	| aRandomValue sum|
+	sum := 0.
 	aRandomValue := 100 atRandom.
-	^ aRandomValue <= 40
-		  ifTrue: [ NoEffectBox new ]
-		  ifFalse: [ 
-			  aRandomValue <= 60
-				  ifTrue: [ WormHoleBox new ]
-				  ifFalse: [ 
-					  aRandomValue <= 80
-						  ifTrue: [ SpeedUpBox new ]
-						  ifFalse: [ 
-							  aRandomValue <= 90
-								  ifTrue: [ MoonWalkBox with: aNumberOfBoxes atRandom * -1 ]
-								  ifFalse: [ 
-									  aRandomValue <= 98
-										  ifTrue: [ 
-										  HyperJumpBox with:
-											  (self createRandomParsecs: aParsecCollection) ]
-										  ifFalse: [ AtomicBombBox new ] ] ] ] ]
+	boxes do: [ :box | 
+		sum := sum + box probabilitie.
+		aRandomValue <= sum ifTrue: [ ^ box ] ]
 ]

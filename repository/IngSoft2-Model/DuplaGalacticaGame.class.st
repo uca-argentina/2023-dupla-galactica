@@ -6,14 +6,17 @@ Class {
 		'board',
 		'dice',
 		'goalLaps',
-		'turnManager'
+		'turnManager',
+		'lastCardPlay',
+		'lastPosition',
+		'current'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCollection winningWhen: aValue [
-
+DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
+	
 	aColorCollection size <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with no players' ].
 	aValue <= 0 ifTrue: [ 
@@ -23,6 +26,34 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 		  and: aBoard
 		  throwing: aDiceCollection
 		  winningWhen: aValue
+		  using: aCardDealer
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> addCard: aCard to: aPlayer [
+
+	(self findPlayer: aPlayer) addCard: aCard.
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> applyCard: aCard from: aSourcePlayer [
+
+	| source cardToUse |
+	source := self findPlayer: aSourcePlayer.
+	(source has: aCard) ifFalse: [ ^ self ].
+	(self player: source canPlay: aCard) ifFalse: [ ^ self ].
+	cardToUse := aCard.
+
+	aCard toString = 'Redo' ifTrue: [ 
+		cardToUse := aCard transformTo: lastCardPlay ].
+	lastCardPlay := cardToUse.
+
+	cardToUse toString = 'Repeat'
+		ifTrue: [ 
+		self repeatEffectTo: (self findPlayer: cardToUse objective) ]
+		ifFalse: [ 
+			(self findPlayers: cardToUse objective) do: [ :player | 
+				player applyCard: cardToUse ] ]
 ]
 
 { #category : #Information }
@@ -34,13 +65,22 @@ DuplaGalacticaGame >> boxes [
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
-	^ (players at: (turnManager current)).
+	^ current.
+]
+
+{ #category : #Player }
+DuplaGalacticaGame >> findPlayer: aPlayer [
+
+	^ players detect: [ :player | player color = aPlayer ]
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> currentPlayerColor [
-
-	^ self currentPlayer color
+DuplaGalacticaGame >> findPlayers: aPlayer [
+	aPlayer = 'all'
+		ifTrue: [ ^ players ]
+		ifFalse: [ 
+			^ OrderedCollection with:
+				  (players detect: [ :player | player color = aPlayer ]) ]
 ]
 
 { #category : #Information }
@@ -50,14 +90,21 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue [
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [ 
 
-	players := aColorsCollection collect: [ :color | 
-		           Player with: color ].
+	players := aColorsCollection collect: [ :color | Player with: color ].
+	aCardDealer dealCards: players.
 	board := aBoard.
 	dice := aDiceCollection.
-	turnManager := TurnManager with: (aColorsCollection  size).
-	goalLaps :=  aValue.
+	turnManager := TurnManager with: aColorsCollection size.
+	goalLaps := aValue.
+	current:= players at:1.
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> lightYears [
+
+	^ board lightYears
 ]
 
 { #category : #Player }
@@ -74,7 +121,7 @@ DuplaGalacticaGame >> moveCurrent: aValue [
 
 { #category : #Player }
 DuplaGalacticaGame >> moveOthers: aValue [
-
+	
 	players do: [ :player | 
 		player color == self currentPlayer color ifFalse: [ 
 			player move: aValue andUpdateLap: board boxes size ] ]
@@ -89,14 +136,33 @@ DuplaGalacticaGame >> movePlayer [
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
 	self winnerExists ifTrue: [ ^ self ].
 	self currentPlayer move: aValue andUpdateLap: board boxes size.
-	board effectAt: (self currentPlayer position) In: self.
-	turnManager goNext
+	lastPosition := self currentPlayer position.
+	board effectAt: self currentPlayer position In: self.
+	turnManager goNext.
+	current := players at: turnManager current
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> parsecs [
 
 	^ board parsecs
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> player: aPlayer canPlay: aCard [
+
+	aCard isPermanent
+		ifTrue: [ 
+			aPlayer color = self currentPlayer color
+				ifTrue: [ ^ true ]
+				ifFalse: [ ^ false ] ]
+		ifFalse: [ ^ true ]
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> playersCardInPosetion [
+
+	^ players collect: [ :player | player cardsInPosetion ]
 ]
 
 { #category : #Information }
@@ -120,6 +186,14 @@ DuplaGalacticaGame >> ranking [
 		player1 position + (player1 lap * self boxes size)
 		> (player2 position + (player2 lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
+]
+
+{ #category : #Player }
+DuplaGalacticaGame >> repeatEffectTo: aPlayer [
+
+	current := aPlayer.
+	board effectAt: lastPosition In: self.
+	current := players at: turnManager current
 ]
 
 { #category : #Finalization }
