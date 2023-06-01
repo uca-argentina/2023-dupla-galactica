@@ -1,5 +1,5 @@
 Class {
-	#name : #BananaTest,
+	#name : #CreateAFunctionalGameWithDifferentLengthMeasuresTest,
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : #running }
-BananaTest >> setUp [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> setUp [
 	super setUp.
 	
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
@@ -23,7 +23,7 @@ BananaTest >> setUp [
 ]
 
 { #category : #tests }
-BananaTest >> testS001CreateABordWithParsecs [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithParsecs [
 
 	| aBoard oneHundredParsecs aGame |
 	oneHundredParsecs := Parsecs worth: 100.
@@ -40,7 +40,7 @@ BananaTest >> testS001CreateABordWithParsecs [
 ]
 
 { #category : #tests }
-BananaTest >> testS002CreateABordWithLigthYears [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithLigthYears [
 
 	| aBoard threeHundredLigthYears aGame |
 	threeHundredLigthYears := LigthYears worth: 300.
@@ -56,7 +56,7 @@ BananaTest >> testS002CreateABordWithLigthYears [
 ]
 
 { #category : #tests }
-BananaTest >> testS003CreateABordWithParsecsAndAskForLightYears [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithParsecsAndAskForLightYears [
 
 	| aBoard oneHundredParsecs aGame |
 	oneHundredParsecs := Parsecs worth: 100.
@@ -72,7 +72,7 @@ BananaTest >> testS003CreateABordWithParsecsAndAskForLightYears [
 ]
 
 { #category : #tests }
-BananaTest >> testS004CreateABordWithLigthYearsAndAskForParsecs [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateABordWithLigthYearsAndAskForParsecs [
 
 	| aBoard threeHundredLigthYears aGame |
 	threeHundredLigthYears := LigthYears worth: 300.

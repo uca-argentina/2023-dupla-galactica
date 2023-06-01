@@ -20,7 +20,7 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 			                with: (AtomicBombBox withChance: 2)
 			                with:
 			                (HyperJumpBox
-				                 with: (OrderedCollection with: 40 with: 30)
+				                 with: (OrderedCollection with: (Parsecs worth: 40) with: (Parsecs worth: 30))
 				                 chance: 8)).
 	boxes := aBoxCreator create: 10.
 	aBoard := Board with: boxes measure: (Parsecs worth: 200).

@@ -12,6 +12,8 @@ Class {
 { #category : #'Instance creation' }
 HyperJumpBox class >> with: aParsecCollection chance: aProbabilitie [
 
+	aParsecCollection isEmpty ifTrue: [ 
+		Error signal: 'There are no values to use in the hyper jump box' ].
 	^ self new initializeWith: aParsecCollection chance: aProbabilitie
 ]
 
@@ -24,8 +26,7 @@ HyperJumpBox >> currentValue [
 { #category : #Effect }
 HyperJumpBox >> effect: aGame [
 
-	aGame moveCurrent:
-		self currentValue
+	aGame moveCurrent: self currentValue parsecs nominalValue
 		// (aGame parsecs nominalValue // aGame boxes size).
 
 	parsecManager goNext

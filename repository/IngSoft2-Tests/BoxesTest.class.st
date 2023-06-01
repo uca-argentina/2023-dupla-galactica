@@ -162,9 +162,11 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (HyperJumpBox
-				            with: (OrderedCollection with: 40 with: 30)
+	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
+				            with:
+				            (OrderedCollection
+					             with: (Parsecs worth: 40)
+					             with: (Parsecs worth: 30))
 				            chance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -242,7 +244,7 @@ BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosit
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
-				            with: (OrderedCollection with: -40 with: -10)
+				            with: (OrderedCollection with: (Parsecs worth: -40) with: (Parsecs worth: -10))
 				            chance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -294,7 +296,7 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
-				            with: (OrderedCollection with: 45.5 with: 34.9)
+				            with: (OrderedCollection with: (Parsecs worth: 45.5) with: (Parsecs worth: 34.9))
 				            chance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -360,4 +362,72 @@ BoxesTest >> testR002CheckRandomCardBoxGeneratesARandomCardMoreThanOneTimeIfNece
 	self
 		assert: aGame playersCardInPosetion
 		equals: (OrderedCollection with: 4 with: 3)
+]
+
+{ #category : #tests }
+BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYears [
+
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 3
+			               with: 5
+			               with: 8).
+	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
+				            with: (OrderedCollection
+						             with: (LigthYears worth: 120)
+						             with: (LigthYears worth: 90))
+				            chance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 8 with: 7)
+]
+
+{ #category : #tests }
+BoxesTest >> testT002CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYearsAndParsecs [
+
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 3
+			               with: 5
+			               with: 8).
+	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
+				            with: (OrderedCollection
+						             with: (LigthYears worth: 120)
+						             with: (Parsecs worth: 30))
+				            chance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: CardDealer new.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 8 with: 7)
+]
+
+{ #category : #tests }
+BoxesTest >> testT003CheckHyperJumpBoxCannotBeCreatedIfDoesNotHaveValuesToUse [
+
+	self
+		should: [ 
+			(BoxCreator use: (OrderedCollection with:
+					  (HyperJumpBox with: OrderedCollection new chance: 100))) 
+				create: 10 ]
+		raise: Error
+		withMessage: 'There are no values to use in the hyper jump box'
 ]

@@ -1087,7 +1087,7 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 			               with: 5
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox with: (OrderedCollection with: 40) chance: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox with: (OrderedCollection with: (Parsecs worth: 40)) chance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsecs worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
