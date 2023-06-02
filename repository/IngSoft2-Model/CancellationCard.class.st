@@ -60,3 +60,9 @@ CancellationCard >> toString [
 
 	^ 'Cancellation'
 ]
+
+{ #category : #Information }
+CancellationCard >> transformTo: aCard [
+
+	^ self
+]

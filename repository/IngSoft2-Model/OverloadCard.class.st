@@ -47,3 +47,9 @@ OverloadCard >> toString [
 
 	^ 'Overload'
 ]
+
+{ #category : #Information }
+OverloadCard >> transformTo: aCard [
+
+	^ self
+]

@@ -33,3 +33,9 @@ AccelerationCard >> toString [
 
 	^ 'Acceleration'
 ]
+
+{ #category : #Information }
+AccelerationCard >> transformTo: aCard [
+
+	^ self
+]

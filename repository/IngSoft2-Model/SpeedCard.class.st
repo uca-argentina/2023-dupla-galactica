@@ -48,3 +48,9 @@ SpeedCard >> toString [
 
 	^ 'Speed'
 ]
+
+{ #category : #Information }
+SpeedCard >> transformTo: aCard [
+
+	^ self
+]

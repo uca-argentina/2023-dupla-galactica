@@ -34,3 +34,9 @@ RepeatCard >> objective [
 RepeatCard >> toString [
 	^'Repeat'.
 ]
+
+{ #category : #Information }
+RepeatCard >> transformTo: aCard [
+
+	^ self
+]
