@@ -14,6 +14,13 @@ SpeedCard class >> to: anObjectivePlayer [
 ]
 
 { #category : #Effect }
+SpeedCard >> applyCard: activeCardsCollection [
+
+	activeCardsCollection addLast: self.
+	^ activeCardsCollection
+]
+
+{ #category : #Effect }
 SpeedCard >> applyEffect: aPosition [
 
 	^ aPosition + 1

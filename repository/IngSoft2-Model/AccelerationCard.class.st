@@ -5,6 +5,13 @@ Class {
 }
 
 { #category : #Effect }
+AccelerationCard >> applyCard: activeCardsCollection [
+
+	activeCardsCollection addLast: self.
+	^ activeCardsCollection
+]
+
+{ #category : #Effect }
 AccelerationCard >> applyEffect: aPosition [
 
 	^ aPosition + 1

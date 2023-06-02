@@ -24,29 +24,9 @@ Player >> addCard: aCard [
 ]
 
 { #category : #Cards }
-Player >> applyCancellCard: aCardName [
-
-	| i cardCollection |
-	i := 1.
-	cardCollection := OrderedCollection new.
-	activeCards isEmpty ifTrue: [ 
-		Error signal: 'There are no permanent cards' ].
-	activeCards do: [ :card | 
-		(card toString = aCardName and: i = 1)
-			ifTrue: [ i := 2 ]
-			ifFalse: [ cardCollection addLast: card ] ].
-	activeCards := cardCollection.
-	i = 1 ifTrue: [ 
-		Error signal:
-			'There are no that type of cards activate in this player' ]
-]
-
-{ #category : #Cards }
 Player >> applyCard: aCard [
 
-	aCard toString = 'Cancellation'
-		ifTrue: [ self applyCancellCard: (aCard objectiveCard) ]
-		ifFalse: [ activeCards addLast: aCard ]
+	activeCards:= aCard applyCard: activeCards
 ]
 
 { #category : #LapControl }

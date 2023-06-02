@@ -13,6 +13,13 @@ OverloadCard class >> to: anObjectivePlayer [
 ]
 
 { #category : #Effect }
+OverloadCard >> applyCard: activeCardsCollection [
+
+	activeCardsCollection addLast: self.
+	^ activeCardsCollection
+]
+
+{ #category : #Effect }
 OverloadCard >> applyEffect: aPosition [
 
 	^ aPosition - 2
