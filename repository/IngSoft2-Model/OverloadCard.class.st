@@ -2,21 +2,23 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
+		'owner',
 		'objective'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> to: anObjectivePlayer [ 
-	^(self new) initializeTo: anObjectivePlayer.
+OverloadCard class >> owner: anOwner [
+
+	^ self new initializeOwner: anOwner
 ]
 
 { #category : #Effect }
-OverloadCard >> applyCard: activeCardsCollection [
+OverloadCard >> applyCard: aGame to: aPlayerColor [
 
-	activeCardsCollection addLast: self.
-	^ activeCardsCollection
+	owner := aPlayerColor.
+	aGame activeCards addLast: self.
 ]
 
 { #category : #Effect }
@@ -26,9 +28,9 @@ OverloadCard >> applyEffect: aPosition [
 ]
 
 { #category : #Initialization }
-OverloadCard >> initializeTo: anObjectivePlayer [
+OverloadCard >> initializeOwner: anOwner [
 
-	objective := anObjectivePlayer
+	owner := anOwner.
 ]
 
 { #category : #Information }
@@ -38,8 +40,9 @@ OverloadCard >> isPermanent [
 ]
 
 { #category : #Information }
-OverloadCard >> objective [
-	^ objective
+OverloadCard >> owner [
+
+	^ owner
 ]
 
 { #category : #Information }

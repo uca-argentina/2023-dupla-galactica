@@ -19,21 +19,21 @@ RandomCardBox >> effect: aGame [
 	| value |
 	value := 36 atRandom.
 	value <= 6
-		ifTrue: [ aGame addCard: 'Overload' to: aGame currentPlayer color ]
+		ifTrue: [ aGame addCard: (OverloadCard  owner: aGame currentPlayer color) ]
 		ifFalse: [ 
 			value <= 12
-				ifTrue: [ aGame addCard: 'Speed' to: aGame currentPlayer color ]
+				ifTrue: [ aGame addCard: (SpeedCard  owner: aGame currentPlayer color) ]
 				ifFalse: [ 
 					value <= 18
-						ifTrue: [ aGame addCard: 'Acceleration' to: aGame currentPlayer color]
+						ifTrue: [ aGame addCard: (AccelerationCard  owner: aGame currentPlayer color)]
 						ifFalse: [ 
 							value <= 24
 								ifTrue: [ 
-								aGame addCard: 'Cancellation' to: aGame currentPlayer color ]
+								aGame addCard: (CancellationCard owner: aGame currentPlayer color) ]
 								ifFalse: [ 
 									value <= 30
-										ifTrue: [ aGame addCard: 'Redo' to: aGame currentPlayer color ]
-										ifFalse: [ aGame addCard: 'Repeat' to: aGame currentPlayer color ] ] ] ] ]
+										ifTrue: [ aGame addCard: (RedoCard  owner: aGame currentPlayer color) ]
+										ifFalse: [ aGame addCard: (RepeatCard  owner: aGame currentPlayer color) ] ] ] ] ]
 ]
 
 { #category : #Initialization }

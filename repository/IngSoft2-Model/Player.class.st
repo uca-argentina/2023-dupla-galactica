@@ -4,9 +4,7 @@ Class {
 	#instVars : [
 		'lap',
 		'color',
-		'position',
-		'cardsInPosetion',
-		'activeCards'
+		'position'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,55 +15,10 @@ Player class >> with: aSpaceship [
 	^ self new initializeWith: aSpaceship
 ]
 
-{ #category : #Cards }
-Player >> addCard: aCard [
-
-	cardsInPosetion addLast: aCard.
-]
-
-{ #category : #Cards }
-Player >> applyCard: aCard [
-
-	activeCards:= aCard applyCard: activeCards
-]
-
-{ #category : #LapControl }
-Player >> applyPermanentCards: aPosition [
-
-	| positionToMove |
-	positionToMove := aPosition.
-	activeCards do: [ :card | 
-		positionToMove := card applyEffect: positionToMove ].
-	^ positionToMove
-]
-
-{ #category : #Information }
-Player >> cardsInPosetion [
-
-	^ cardsInPosetion size
-]
-
 { #category : #Information }
 Player >> color [
 
 	^ color
-]
-
-{ #category : #Cards }
-Player >> has: aCard [
-
-	| cardCollection i res |
-	i := 1.
-	res := false.
-	cardCollection := OrderedCollection new.
-	cardsInPosetion do: [ :card | 
-		(card toString = (aCard toString) and: i = 1)
-			ifTrue: [ 
-				i := 2.
-				res := true ]
-			ifFalse: [ cardCollection addLast: card ] ].
-	cardsInPosetion := cardCollection.
-	^ res
 ]
 
 { #category : #Initialization }
@@ -74,8 +27,6 @@ Player >> initializeWith: aColor [
 	color := aColor.
 	position := 1.
 	lap := 0.
-	activeCards := OrderedCollection new.
-	cardsInPosetion:= OrderedCollection new.
 ]
 
 { #category : #Information }
@@ -93,12 +44,10 @@ Player >> move: value [
 { #category : #LapControl }
 Player >> move: aPosition andUpdateLap: aValue [
 
-	|aPositionToMove|
-	aPositionToMove:= self applyPermanentCards: aPosition.
 	(self lap == 0 and:
-		 (aPositionToMove < 0 and: aPositionToMove abs >= position))
+		 (aPosition < 0 and: aPosition abs >= position))
 		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ self move: aPositionToMove ].
+		ifFalse: [ self move: aPosition ].
 	self updateLap: aValue
 ]
 

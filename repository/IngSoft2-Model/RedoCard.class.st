@@ -2,34 +2,34 @@ Class {
 	#name : #RedoCard,
 	#superclass : #Object,
 	#instVars : [
-		'objective',
-		'objectiveCard'
+		'objectiveCard',
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RedoCard class >> to: anObjectivePlayer [
+RedoCard class >> owner: anObjectivePlayer [
 
-	^ self new initializeTo: anObjectivePlayer
+	^ self new initializeOwner: anObjectivePlayer
 ]
 
 { #category : #'Instance creation' }
-RedoCard class >> to: anObjectivePlayer ofCard: anObjectiveCard [
+RedoCard class >> owner: anObjectivePlayer ofCard: anObjectiveCard [
 
-	^ self new initializeTo: anObjectivePlayer ofCard: anObjectiveCard
+	^ self new initializeOwner: anObjectivePlayer ofCard: anObjectiveCard
 ]
 
 { #category : #Initialization }
-RedoCard >> initializeTo: anObjectivePlayer [
+RedoCard >> initializeOwner: anOwner [
 
-	objective := anObjectivePlayer
+	owner := anOwner
 ]
 
 { #category : #Initialization }
-RedoCard >> initializeTo: anObjectivePlayer ofCard: anObjectiveCard [
+RedoCard >> initializeOwner: anObjectivePlayer ofCard: anObjectiveCard [
 
-	objective := anObjectivePlayer.
+	owner := anObjectivePlayer.
 	objectiveCard := anObjectiveCard
 ]
 
@@ -37,6 +37,11 @@ RedoCard >> initializeTo: anObjectivePlayer ofCard: anObjectiveCard [
 RedoCard >> isPermanent [
 
 	^ false
+]
+
+{ #category : #Information }
+RedoCard >> owner [
+	^ owner
 ]
 
 { #category : #Information }
@@ -51,16 +56,16 @@ RedoCard >> transformTo: aCard [
 	| card |
 	card := aCard toString = 'Cancellation'
 		        ifTrue: [ 
-		        CancellationCard to: objective ofCard: objectiveCard ]
+		        CancellationCard owner: owner ofCard: objectiveCard ]
 		        ifFalse: [ 
 			        aCard toString = 'Acceleration'
 				        ifTrue: [ AccelerationCard new ]
 				        ifFalse: [ 
 					        aCard toString = 'Speed'
-						        ifTrue: [ SpeedCard to: objective ]
+						        ifTrue: [ SpeedCard owner: owner ]
 						        ifFalse: [ 
 							        aCard toString = 'Overload'
-								        ifTrue: [ OverloadCard to: objective ]
-								        ifFalse: [ RepeatCard to: objective ] ] ] ].
+								        ifTrue: [ OverloadCard owner: owner ]
+								        ifFalse: [ RepeatCard owner: owner ] ] ] ].
 	^card.
 ]

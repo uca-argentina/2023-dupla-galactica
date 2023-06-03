@@ -1,20 +1,34 @@
 Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
+	#instVars : [
+		'owner'
+	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #Effect }
-AccelerationCard >> applyCard: activeCardsCollection [
+{ #category : #'Instance creation' }
+AccelerationCard class >> owner: anOwner [ 
+	^self new initializeOwner: anOwner
+]
 
-	activeCardsCollection addLast: self.
-	^ activeCardsCollection
+{ #category : #Effect }
+AccelerationCard >> applyCard: aGame to: aPlayerColor [
+
+	owner := aPlayerColor.
+	aGame activeCards addLast: self.
 ]
 
 { #category : #Effect }
 AccelerationCard >> applyEffect: aPosition [
 
 	^ aPosition + 1
+]
+
+{ #category : #Initialization }
+AccelerationCard >> initializeOwner: anOwner [
+
+	owner := anOwner
 ]
 
 { #category : #Information }
@@ -24,8 +38,8 @@ AccelerationCard >> isPermanent [
 ]
 
 { #category : #Information }
-AccelerationCard >> objective [
-	^'all'
+AccelerationCard >> owner [
+	^owner
 ]
 
 { #category : #Information }

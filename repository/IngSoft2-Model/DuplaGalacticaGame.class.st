@@ -8,7 +8,9 @@ Class {
 		'goalLaps',
 		'turnManager',
 		'lastCardPlay',
-		'current'
+		'current',
+		'cardsInPosetion',
+		'activeCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -28,35 +30,26 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 		  using: aCardDealer
 ]
 
-{ #category : #Cards }
-DuplaGalacticaGame >> addCard: aCard to: aPlayer [
+{ #category : #Information }
+DuplaGalacticaGame >> activeCards [
 
-	(self findPlayer: aPlayer) addCard: aCard.
+	^ activeCards
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> apply: aCard from: aSourcePlayer [
+DuplaGalacticaGame >> addCard: aCard [
 
-	| source cardToUse |
-	source := self findPlayer: aSourcePlayer.
-	(source has: aCard) ifFalse: [ ^ self ].
-	(self verify: source canUse: aCard) ifFalse: [ ^ self ].
+	cardsInPosetion addLast: aCard.
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> apply: aCard to: anObjectivePlayer [
+
+	| cardToUse |
+	(self verify: aCard owner canUse: aCard) ifFalse: [ ^ self ].
 	cardToUse := aCard transformTo: lastCardPlay.
 	lastCardPlay := cardToUse.
-	cardToUse toString = 'Repeat'
-		ifTrue: [ 
-		self repeatEffectTo: (self findPlayer: cardToUse objective) ]
-		ifFalse: [ self applyCard: cardToUse ]
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> applyCard: cardToUse [
-
-	| aPlayer |
-	aPlayer := cardToUse objective.
-	aPlayer = 'all'
-		ifTrue: [ players do: [ :player | player applyCard: cardToUse ] ]
-		ifFalse: [ (self findPlayer: aPlayer) applyCard: cardToUse ]
+	cardToUse applyCard: self to: anObjectivePlayer
 ]
 
 { #category : #Information }
@@ -84,15 +77,17 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [ 
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
 
 	players := aColorsCollection collect: [ :color | Player with: color ].
-	aCardDealer dealCards: players.
 	board := aBoard.
 	dice := aDiceCollection.
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
-	current:= players at:1.
+	current := players at: 1.
+	cardsInPosetion := OrderedCollection new.
+	activeCards := OrderedCollection new.
+	aCardDealer dealCards: cardsInPosetion to: aColorsCollection
 ]
 
 { #category : #Information }
@@ -128,6 +123,7 @@ DuplaGalacticaGame >> movePlayer [
 	aValue := dice size == 1
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
+	activeCards do: [ :card | (card owner = current color) ifTrue: [aValue:= card applyEffect: aValue ]].
 	self winnerExists ifTrue: [ ^ self ].
 	self currentPlayer move: aValue andUpdateLap: board boxes size.
 	
@@ -145,7 +141,21 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> playersCardInPosetion [
 
-	^ players collect: [ :player | player cardsInPosetion ]
+	| cardsPerPlayer aValue |
+	cardsPerPlayer := OrderedCollection new.
+	aValue := 0.
+	players do: [ :player | 
+		cardsInPosetion do: [ :card | 
+			card owner = player color ifTrue: [ aValue := aValue + 1 ] ].
+		cardsPerPlayer addLast: aValue.
+		aValue := 0 ].
+	^ cardsPerPlayer
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> playersColors [
+
+	^ players collect: [ :player | player color ]
 ]
 
 { #category : #Information }
@@ -172,21 +182,34 @@ DuplaGalacticaGame >> ranking [
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> repeatEffectTo: aPlayer [
+DuplaGalacticaGame >> repeatEffectTo: aPlayerColor [
 
-	| lastPosition|
+	| lastPosition |
 	lastPosition := current position.
-	current := aPlayer.
+	current := self findPlayer: aPlayerColor.
 	board effectAt: lastPosition In: self.
 	current := players at: turnManager current
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> verify: aPlayer canUse: aCard [
+DuplaGalacticaGame >> verify: aPlayerColor canUse: aCard [
 
+	| cardCollection i res |
+	i := 1.
+	res := false.
+	cardCollection := OrderedCollection new.
+	cardsInPosetion do: [ :card | 
+		(card toString = aCard toString and:
+			 (i = 1 and: aPlayerColor = card owner))
+			ifTrue: [ 
+				i := 2.
+				res := true ]
+			ifFalse: [ cardCollection addLast: card ] ].
+	cardsInPosetion := cardCollection.
+	res ifFalse: [ ^ res ].
 	aCard isPermanent
 		ifTrue: [ 
-			aPlayer color = self currentPlayer color
+			aPlayerColor = self currentPlayer color
 				ifTrue: [ ^ true ]
 				ifFalse: [ ^ false ] ]
 		ifFalse: [ ^ true ]

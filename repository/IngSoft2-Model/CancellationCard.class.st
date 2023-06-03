@@ -2,40 +2,49 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'objective',
-		'objectiveCard'
+		'objectiveCard',
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-CancellationCard class >> to: anObjectivePlayer ofCard: anObjectiveCard [
+CancellationCard class >> owner: anOwner [ 
 
-	^ self new initializeTo: anObjectivePlayer ofCard: anObjectiveCard
+^(self new) initializeOwner: anOwner
+]
+
+{ #category : #'Instance creation' }
+CancellationCard class >> owner: anObjectivePlayer ofCard: anObjectiveCard [
+
+	^ self new initializeOwner: anObjectivePlayer ofCard: anObjectiveCard
 ]
 
 { #category : #Effect }
-CancellationCard >> applyCard: activeCardsCollection [
+CancellationCard >> applyCard: aGame to: aPlayerColor [
 
-	| i cardCollection |
+	| i |
 	i := 1.
-	cardCollection := OrderedCollection new.
-	activeCardsCollection isEmpty ifTrue: [ 
+	aGame activeCards isEmpty ifTrue: [ 
 		Error signal: 'There are no permanent cards' ].
-	activeCardsCollection do: [ :card | 
-		(card toString = objectiveCard and: i = 1)
-			ifTrue: [ i := 2 ]
-			ifFalse: [ cardCollection addLast: card ] ].
+	aGame activeCards do: [ :card | 
+		(card toString = objectiveCard and: (i = 1 and: aPlayerColor = card owner))
+			ifTrue: [ i := 2. aGame activeCards remove: card]].
 	i = 1 ifTrue: [ 
 		Error signal:
 			'There are no that type of cards activate in this player' ].
-	^ cardCollection
 ]
 
 { #category : #Initialization }
-CancellationCard >> initializeTo: anObjectivePlayer ofCard: anObjectiveCard [
+CancellationCard >> initializeOwner: anOwner [
 
-	objective := anObjectivePlayer.
+	owner := anOwner
+]
+
+{ #category : #Initialization }
+CancellationCard >> initializeOwner: anOwner ofCard: anObjectiveCard [
+
+	owner := anOwner.
 	objectiveCard := anObjectiveCard
 ]
 
@@ -46,13 +55,13 @@ CancellationCard >> isPermanent [
 ]
 
 { #category : #Information }
-CancellationCard >> objective [
-	^ objective
+CancellationCard >> objectiveCard [
+	^ objectiveCard
 ]
 
 { #category : #Information }
-CancellationCard >> objectiveCard [
-	^ objectiveCard
+CancellationCard >> owner [
+	^ owner
 ]
 
 { #category : #Information }

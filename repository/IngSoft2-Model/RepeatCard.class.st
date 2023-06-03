@@ -2,21 +2,27 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'objective'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> to: anObjectivePlayer [
+RepeatCard class >> owner: anObjectivePlayer [
 
-	^ self new initializeTo: anObjectivePlayer
+	^ self new initializeOwner: anObjectivePlayer
+]
+
+{ #category : #Information }
+RepeatCard >> applyCard: aGame to: aPlayerColor [
+
+	aGame repeatEffectTo: aPlayerColor
 ]
 
 { #category : #Initialization }
-RepeatCard >> initializeTo: anObjectivePlayer [
+RepeatCard >> initializeOwner: anObjectivePlayer [
 
-	objective := anObjectivePlayer
+	owner := anObjectivePlayer
 ]
 
 { #category : #Information }
@@ -26,8 +32,8 @@ RepeatCard >> isPermanent [
 ]
 
 { #category : #Information }
-RepeatCard >> objective [
-	^ objective
+RepeatCard >> owner [
+	^owner .
 ]
 
 { #category : #Information }

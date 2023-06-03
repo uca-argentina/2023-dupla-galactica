@@ -13,17 +13,9 @@ LoadedCardDealer class >> with: aCardCollection [
 ]
 
 { #category : #Cards }
-LoadedCardDealer >> dealCards: aPlayerCollection [
+LoadedCardDealer >> dealCards: cardsInPosetion to: aColorsCollection [
 
-	| i k |
-	i := 1.
-	k := 1.
-	cards do: [ :card | 
-		(aPlayerCollection at: i) addCard: card.
-		k := k + 1.
-		k = 3 ifTrue: [ 
-			k := 1.
-			i := i + 1 ] ]
+	cards do: [ :card | cardsInPosetion addLast: card ]
 ]
 
 { #category : #Initialization }

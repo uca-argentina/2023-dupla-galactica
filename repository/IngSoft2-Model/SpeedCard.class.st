@@ -2,22 +2,22 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'objective'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-SpeedCard class >> to: anObjectivePlayer [
+SpeedCard class >> owner: anOwner [
 
-	^ self new initializeTo: anObjectivePlayer
+	^ self new initializeOwner: anOwner
 ]
 
 { #category : #Effect }
-SpeedCard >> applyCard: activeCardsCollection [
+SpeedCard >> applyCard: aGame to: aPlayerColor [
 
-	activeCardsCollection addLast: self.
-	^ activeCardsCollection
+	owner := aPlayerColor.
+	aGame activeCards addLast: self.
 ]
 
 { #category : #Effect }
@@ -27,9 +27,9 @@ SpeedCard >> applyEffect: aPosition [
 ]
 
 { #category : #Initialization }
-SpeedCard >> initializeTo: anObjectivePlayer [
+SpeedCard >> initializeOwner: anOwner [
 
-	objective := anObjectivePlayer
+	owner := anOwner.
 ]
 
 { #category : #Information }
@@ -39,8 +39,8 @@ SpeedCard >> isPermanent [
 ]
 
 { #category : #Information }
-SpeedCard >> objective [
-	^ objective
+SpeedCard >> owner [
+	^owner
 ]
 
 { #category : #Information }
