@@ -19,12 +19,6 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aD
 ]
 
 { #category : #Movement }
-DuplaGalacticaGameProxy >> apply: aCard [
-
-	game apply: aCard
-]
-
-{ #category : #Movement }
 DuplaGalacticaGameProxy >> apply: aCard to: anObjectivePlayer [
 
 	game apply: aCard to: anObjectivePlayer
