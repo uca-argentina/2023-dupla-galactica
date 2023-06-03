@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'objectiveCard',
-		'owner'
+		'owners'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -20,16 +20,29 @@ RedoCard class >> owner: anObjectivePlayer ofCard: anObjectiveCard [
 	^ self new initializeOwner: anObjectivePlayer ofCard: anObjectiveCard
 ]
 
+{ #category : #Effect }
+RedoCard >> addOwner: aPlayerColor [
+
+	owners addLast: aPlayerColor
+]
+
+{ #category : #Information }
+RedoCard >> eliminateOwner: aPlayerColor [
+	|i|
+	i:=0.
+	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+]
+
 { #category : #Initialization }
 RedoCard >> initializeOwner: anOwner [
 
-	owner := anOwner
+	owners := OrderedCollection with: anOwner.
 ]
 
 { #category : #Initialization }
 RedoCard >> initializeOwner: anObjectivePlayer ofCard: anObjectiveCard [
 
-	owner := anObjectivePlayer.
+	owners := OrderedCollection with: anObjectivePlayer.
 	objectiveCard := anObjectiveCard
 ]
 
@@ -40,8 +53,8 @@ RedoCard >> isPermanent [
 ]
 
 { #category : #Information }
-RedoCard >> owner [
-	^ owner
+RedoCard >> owners [
+	^ owners
 ]
 
 { #category : #Information }
@@ -56,16 +69,16 @@ RedoCard >> transformTo: aCard [
 	| card |
 	card := aCard toString = 'Cancellation'
 		        ifTrue: [ 
-		        CancellationCard owner: owner ofCard: objectiveCard ]
+		        CancellationCard owner: owners ofCard: objectiveCard ]
 		        ifFalse: [ 
 			        aCard toString = 'Acceleration'
 				        ifTrue: [ AccelerationCard new ]
 				        ifFalse: [ 
 					        aCard toString = 'Speed'
-						        ifTrue: [ SpeedCard owner: owner ]
+						        ifTrue: [ SpeedCard owner: owners ]
 						        ifFalse: [ 
 							        aCard toString = 'Overload'
-								        ifTrue: [ OverloadCard owner: owner ]
-								        ifFalse: [ RepeatCard owner: owner ] ] ] ].
+								        ifTrue: [ OverloadCard owner: owners ]
+								        ifFalse: [ RepeatCard owner: owners ] ] ] ].
 	^card.
 ]

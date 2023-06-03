@@ -2,8 +2,7 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'objective'
+		'owners'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,11 +13,24 @@ OverloadCard class >> owner: anOwner [
 	^ self new initializeOwner: anOwner
 ]
 
+{ #category : #Information }
+OverloadCard >> addOwner: aPlayerColor [
+
+	owners addLast: aPlayerColor
+]
+
 { #category : #Effect }
 OverloadCard >> applyCard: aGame to: aPlayerColor [
 
-	owner := aPlayerColor.
-	aGame activeCards addLast: self.
+	| res |
+	res := false.
+	aGame activeCards do: [ :card | 
+		card toString = 'Overload' ifTrue: [ 
+			card addOwner: aPlayerColor.
+			res := true ] ].
+	res ifTrue: [ ^ self ].
+	owners := OrderedCollection with: aPlayerColor.
+	aGame activeCards addLast: self
 ]
 
 { #category : #Effect }
@@ -27,10 +39,17 @@ OverloadCard >> applyEffect: aPosition [
 	^ aPosition - 2
 ]
 
+{ #category : #Information }
+OverloadCard >> eliminateOwner: aPlayerColor [
+	|i|
+	i:=0.
+	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+]
+
 { #category : #Initialization }
 OverloadCard >> initializeOwner: anOwner [
 
-	owner := anOwner.
+	owners := OrderedCollection with: anOwner.
 ]
 
 { #category : #Information }
@@ -40,9 +59,9 @@ OverloadCard >> isPermanent [
 ]
 
 { #category : #Information }
-OverloadCard >> owner [
+OverloadCard >> owners [
 
-	^ owner
+	^ owners
 ]
 
 { #category : #Information }

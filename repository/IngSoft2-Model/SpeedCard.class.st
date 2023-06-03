@@ -2,7 +2,7 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owners'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -13,11 +13,24 @@ SpeedCard class >> owner: anOwner [
 	^ self new initializeOwner: anOwner
 ]
 
+{ #category : #Information }
+SpeedCard >> addOwner: aPlayerColor [
+
+	owners addLast: aPlayerColor
+]
+
 { #category : #Effect }
 SpeedCard >> applyCard: aGame to: aPlayerColor [
 
-	owner := aPlayerColor.
-	aGame activeCards addLast: self.
+	| res |
+	res := false.
+	aGame activeCards do: [ :card | 
+		card toString = 'Speed' ifTrue: [ 
+			card addOwner: aPlayerColor.
+			res := true ] ].
+	res ifTrue: [ ^ self ].
+	owners := OrderedCollection with: aPlayerColor.
+	aGame activeCards addLast: self
 ]
 
 { #category : #Effect }
@@ -26,10 +39,17 @@ SpeedCard >> applyEffect: aPosition [
 	^ aPosition + 1
 ]
 
+{ #category : #Information }
+SpeedCard >> eliminateOwner: aPlayerColor [
+	|i|
+	i:=0.
+	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+]
+
 { #category : #Initialization }
 SpeedCard >> initializeOwner: anOwner [
 
-	owner := anOwner.
+	owners := OrderedCollection with: anOwner.
 ]
 
 { #category : #Information }
@@ -39,8 +59,9 @@ SpeedCard >> isPermanent [
 ]
 
 { #category : #Information }
-SpeedCard >> owner [
-	^owner
+SpeedCard >> owners [
+
+	^ owners
 ]
 
 { #category : #Information }

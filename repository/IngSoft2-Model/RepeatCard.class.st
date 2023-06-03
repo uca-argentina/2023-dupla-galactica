@@ -2,7 +2,7 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owners'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,15 +14,28 @@ RepeatCard class >> owner: anObjectivePlayer [
 ]
 
 { #category : #Information }
+RepeatCard >> addOwner: aPlayerColor [
+
+	owners addLast: aPlayerColor
+]
+
+{ #category : #Information }
 RepeatCard >> applyCard: aGame to: aPlayerColor [
 
 	aGame repeatEffectTo: aPlayerColor
 ]
 
+{ #category : #Information }
+RepeatCard >> eliminateOwner: aPlayerColor [
+	|i|
+	i:=0.
+	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+]
+
 { #category : #Initialization }
 RepeatCard >> initializeOwner: anObjectivePlayer [
 
-	owner := anObjectivePlayer
+	owners := OrderedCollection with: anObjectivePlayer.
 ]
 
 { #category : #Information }
@@ -32,8 +45,8 @@ RepeatCard >> isPermanent [
 ]
 
 { #category : #Information }
-RepeatCard >> owner [
-	^owner .
+RepeatCard >> owners [
+	^owners .
 ]
 
 { #category : #Information }

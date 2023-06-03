@@ -289,8 +289,8 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: AccelerationCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
+			          (OrderedCollection with: (AccelerationCard owner: 'red'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -530,8 +530,8 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: AccelerationCard new)).
-	aGame apply: AccelerationCard new to: 'blue'.
+			          (OrderedCollection with: (AccelerationCard owner: 'red'))).
+	aGame apply: (AccelerationCard owner: 'blue') to: 'all'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -670,10 +670,10 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: AccelerationCard new
-					           with: AccelerationCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
-	aGame apply: AccelerationCard new to: 'red'.
+					           with: (AccelerationCard owner: 'red')
+					           with: (AccelerationCard owner: 'red'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -696,11 +696,10 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using:
-		         (LoadedCardDealer with:
-			          (OrderedCollection with: AccelerationCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
-	aGame apply: AccelerationCard new to: 'red'.
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection with: (AccelerationCard owner: 'red'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -755,18 +754,18 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: AccelerationCard new
-					           with: AccelerationCard new
-					           with: CancellationCard new
-					           with: CancellationCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
-	aGame apply: AccelerationCard new to: 'red'.
+					           with: (AccelerationCard owner: 'red')
+					           with: (AccelerationCard owner: 'red')
+					           with: (CancellationCard owner: 'blue')
+					           with: (CancellationCard owner: 'blue'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
-		to: 'blue'.
+		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		to: 'red'.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
-		to: 'blue'.
+		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -790,18 +789,18 @@ CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: AccelerationCard new
-					           with: AccelerationCard new
-					           with: CancellationCard new)).
+					           with: (AccelerationCard owner: 'red')
+					           with: (AccelerationCard owner: 'red')
+					           with: (CancellationCard owner: 'blue'))).
 
-	aGame apply: AccelerationCard new to: 'red'.
-	aGame apply: AccelerationCard new to: 'red'.
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
-		to: 'blue'.
+		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		to: 'red'.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
-		to: 'blue'.
+		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -853,16 +852,16 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: AccelerationCard new
-					           with: CancellationCard new
-					           with: RedoCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
+					           with: (AccelerationCard owner: 'red')
+					           with: (CancellationCard owner: 'red')
+					           with: (RedoCard owner: 'blue'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
-		to: 'red'.
-	aGame
-		apply: (RedoCard owner: 'red' ofCard: 'Acceleration')
+		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
 		to: 'blue'.
+	aGame
+		apply: (RedoCard owner: 'blue' ofCard: 'Acceleration')
+		to: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -915,12 +914,11 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: (LoadedCardDealer with:
-				          (OrderedCollection
-					           with: AccelerationCard new
-					           with: RedoCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
-	aGame apply: RedoCard new to: 'red'.
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: (AccelerationCard owner: 'red')
+					           with: (RedoCard owner: 'red'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (RedoCard owner: 'red') to: 'all'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -945,13 +943,12 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: AccelerationCard new
-					           with: RedoCard new
-					           with: RedoCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
-	aGame apply: RedoCard new to: 'blue'.
-	aGame apply: RedoCard new to: 'red'.
-
+					           with: (AccelerationCard owner: 'red')
+					           with: (RedoCard owner: 'red')
+					           with: (RedoCard owner: 'blue'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (RedoCard owner: 'red') to: 'all'.
+	aGame apply: (RedoCard owner: 'blue') to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -1129,9 +1126,9 @@ CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: AccelerationCard new)).
+			          (OrderedCollection with:( AccelerationCard owner: 'red'))).
 	aGame movePlayer.
-	aGame apply: AccelerationCard new to: 'red'.
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame movePlayer.
 
 	self
@@ -1209,13 +1206,13 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: AccelerationCard new
-					           with: CancellationCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
+					           with: (AccelerationCard owner: 'red')
+					           with: (CancellationCard owner: 'red'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
-		to: 'red'.
+		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
+		to: 'blue'.
 	aGame movePlayer.
 
 	self
@@ -1240,11 +1237,11 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
 				          (OrderedCollection
-					           with: AccelerationCard new
-					           with: RedoCard new)).
-	aGame apply: AccelerationCard new to: 'red'.
+					           with: (AccelerationCard owner: 'red')
+					           with: (RedoCard owner: 'red'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame movePlayer.
-	aGame apply: RedoCard new to: 'red'.
+	aGame apply: (RedoCard owner: 'red') to: 'all'.
 	aGame movePlayer.
 
 	self

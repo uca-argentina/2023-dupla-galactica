@@ -2,7 +2,7 @@ Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owners'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -13,10 +13,23 @@ AccelerationCard class >> owner: anOwner [
 ]
 
 { #category : #Effect }
+AccelerationCard >> addOwner: aPlayerColor [
+
+	owners addLast: aPlayerColor
+]
+
+{ #category : #Effect }
 AccelerationCard >> applyCard: aGame to: aPlayerColor [
 
-	owner := aPlayerColor.
-	aGame activeCards addLast: self.
+	| res |
+	res := false.
+	aGame activeCards do: [ :card | 
+		card toString = 'Acceleration' ifTrue: [ 
+			card addOwner: aPlayerColor.
+			res := true ] ].
+	res ifTrue: [ ^ self ].
+	owners := OrderedCollection with: aPlayerColor.
+	aGame activeCards addLast: self
 ]
 
 { #category : #Effect }
@@ -25,10 +38,17 @@ AccelerationCard >> applyEffect: aPosition [
 	^ aPosition + 1
 ]
 
+{ #category : #Information }
+AccelerationCard >> eliminateOwner: aPlayerColor [
+	|i|
+	i:=0.
+	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+]
+
 { #category : #Initialization }
 AccelerationCard >> initializeOwner: anOwner [
 
-	owner := anOwner
+	owners := OrderedCollection with: anOwner.
 ]
 
 { #category : #Information }
@@ -38,8 +58,8 @@ AccelerationCard >> isPermanent [
 ]
 
 { #category : #Information }
-AccelerationCard >> owner [
-	^owner
+AccelerationCard >> owners [
+	^owners
 ]
 
 { #category : #Information }
