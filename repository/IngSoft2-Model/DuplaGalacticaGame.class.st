@@ -161,12 +161,6 @@ DuplaGalacticaGame >> playersCardInPosetion [
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> playersColors [
-
-	^ players collect: [ :player | player color ]
-]
-
-{ #category : #Information }
 DuplaGalacticaGame >> playersLaps [
 
 	^ players collect: [ :player | player lap ]

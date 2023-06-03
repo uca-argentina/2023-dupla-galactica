@@ -70,11 +70,6 @@ CancellationCard >> isPermanent [
 ]
 
 { #category : #Information }
-CancellationCard >> objectiveCard [
-	^ objectiveCard
-]
-
-{ #category : #Information }
 CancellationCard >> owners [
 	^ owners
 ]
