@@ -15,7 +15,15 @@ LoadedCardDealer class >> with: aCardCollection [
 { #category : #Cards }
 LoadedCardDealer >> dealCards: cardsInPosetion to: aColorsCollection [
 
-	cards do: [ :card | cardsInPosetion addLast: card ]
+	| res |
+	res := false.
+	cards do: [ :card | 
+		cardsInPosetion do: [ :addedCard | 
+			addedCard toString = card toString ifTrue: [ 
+				addedCard addOwner: (card owners at: 1).
+				res := true ] ].
+		res ifFalse: [ cardsInPosetion addLast: card ].
+		res := false ]
 ]
 
 { #category : #Initialization }
