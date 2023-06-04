@@ -2,21 +2,46 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'objective'
+		'owners'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> to: anObjectivePlayer [
+RepeatCard class >> owner: anObjectivePlayer [
 
-	^ self new initializeTo: anObjectivePlayer
+	^ self new initializeOwner: anObjectivePlayer
+]
+
+{ #category : #Information }
+RepeatCard >> addOwner: aPlayerColor [
+
+	owners addLast: aPlayerColor
+]
+
+{ #category : #Information }
+RepeatCard >> applyCardAt: aGame using: aCardManager [
+
+	aGame repeatEffectTo: aCardManager objective
+]
+
+{ #category : #Information }
+RepeatCard >> eliminateOwner: aPlayerColor [
+	|i|
+	i:=0.
+	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
 ]
 
 { #category : #Initialization }
-RepeatCard >> initializeTo: anObjectivePlayer [
+RepeatCard >> initializeOwner: anObjectivePlayer [
 
-	objective := anObjectivePlayer
+	owners := OrderedCollection with: anObjectivePlayer.
+]
+
+{ #category : #Information }
+RepeatCard >> isOwner: aPlayerColor [
+
+	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
 ]
 
 { #category : #Information }
@@ -26,11 +51,17 @@ RepeatCard >> isPermanent [
 ]
 
 { #category : #Information }
-RepeatCard >> objective [
-	^ objective
+RepeatCard >> owners [
+	^owners .
 ]
 
 { #category : #Information }
 RepeatCard >> toString [
 	^'Repeat'.
+]
+
+{ #category : #Information }
+RepeatCard >> transformTo: aCard [
+
+	^ self
 ]

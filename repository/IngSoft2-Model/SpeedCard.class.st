@@ -2,27 +2,60 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'objective'
+		'owners'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-SpeedCard class >> to: anObjectivePlayer [
+SpeedCard class >> owner: anOwner [
 
-	^ self new initializeTo: anObjectivePlayer
+	^ self new initializeOwner: anOwner
+]
+
+{ #category : #Information }
+SpeedCard >> addOwner: aPlayerColor [
+
+	owners addLast: aPlayerColor
 ]
 
 { #category : #Effect }
-SpeedCard >> applyEffect: aPosition [
+SpeedCard >> applyCardAt: aGame using: aCardManager [
 
-	^ aPosition + 1
+	| res |
+	res := false.
+	aCardManager activeCards do: [ :card | 
+		card toString = 'Speed' ifTrue: [ 
+			card addOwner: aCardManager objective.
+			res := true ] ].
+	res ifTrue: [ ^ self ].
+	owners := OrderedCollection with: aCardManager objective.
+	aCardManager activeCards addLast: self
+]
+
+{ #category : #Effect }
+SpeedCard >> applyEffect [
+
+	^ 1
+]
+
+{ #category : #Information }
+SpeedCard >> eliminateOwner: aPlayerColor [
+	|i|
+	i:=0.
+	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
 ]
 
 { #category : #Initialization }
-SpeedCard >> initializeTo: anObjectivePlayer [
+SpeedCard >> initializeOwner: anOwner [
 
-	objective := anObjectivePlayer
+	owners := OrderedCollection with: anOwner.
+]
+
+{ #category : #Information }
+SpeedCard >> isOwner: aPlayerColor [
+
+	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
 ]
 
 { #category : #Information }
@@ -32,12 +65,19 @@ SpeedCard >> isPermanent [
 ]
 
 { #category : #Information }
-SpeedCard >> objective [
-	^ objective
+SpeedCard >> owners [
+
+	^ owners
 ]
 
 { #category : #Information }
 SpeedCard >> toString [
 
 	^ 'Speed'
+]
+
+{ #category : #Information }
+SpeedCard >> transformTo: aCard [
+
+	^ self
 ]
