@@ -27,20 +27,21 @@ CancellationCard >> addOwner: aPlayerColor [
 ]
 
 { #category : #Effect }
-CancellationCard >> applyCard: aGame to: aPlayerColor [
+CancellationCard >> applyCardAt: aGame using: aCardManager [
 
-	| i res |
+	| i |
 	i := 1.
-	res:= false.
-	aGame activeCards isEmpty ifTrue: [ 
+	aCardManager activeCards do: [ :card | 
+		(card toString = objectiveCard and:
+			 (i = 1 and: (card isOwner: aCardManager objective))) ifTrue: [ 
+			i := 2.
+			card eliminateOwner: aCardManager objective ] ].
+	
+	aCardManager activeCards isEmpty ifTrue: [ 
 		Error signal: 'There are no permanent cards' ].
-	aGame activeCards do: [ :card |
-		card owners do: [ : owner | owner = aPlayerColor ifTrue: [ res:= true ] ].
-		(card toString = objectiveCard and: (i = 1 and: res))
-			ifTrue: [ i := 2. card eliminateOwner: aPlayerColor]].
 	i = 1 ifTrue: [ 
 		Error signal:
-			'There are no that type of cards activate in this player' ].
+			'There are no that type of cards activate in this player' ]
 ]
 
 { #category : #Initialization }
@@ -61,6 +62,12 @@ CancellationCard >> initializeOwner: anOwner ofCard: anObjectiveCard [
 
 	owners := OrderedCollection with: anOwner.
 	objectiveCard := anObjectiveCard
+]
+
+{ #category : #Initialization }
+CancellationCard >> isOwner: aPlayerColor [
+
+	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
 ]
 
 { #category : #Information }

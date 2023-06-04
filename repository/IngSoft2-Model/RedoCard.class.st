@@ -47,6 +47,12 @@ RedoCard >> initializeOwner: anObjectivePlayer ofCard: anObjectiveCard [
 ]
 
 { #category : #Information }
+RedoCard >> isOwner: aPlayerColor [
+
+	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+]
+
+{ #category : #Information }
 RedoCard >> isPermanent [
 
 	^ false

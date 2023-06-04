@@ -19,7 +19,7 @@ CardDealer >> aRandomCardTo: aPlayerColor [
 						  ifTrue: [ AccelerationCard owner: aPlayerColor ]
 						  ifFalse: [ 
 							  value <= 24
-								  ifTrue: [ CancellationCard owner: aPlayerColor ]
+								  ifTrue: [ (CancellationCard owner: aPlayerColor ofCard: '-') ]
 								  ifFalse: [ 
 									  value <= 30
 										  ifTrue: [ RedoCard owner: aPlayerColor ]
@@ -27,9 +27,9 @@ CardDealer >> aRandomCardTo: aPlayerColor [
 ]
 
 { #category : #Cards }
-CardDealer >> dealCards: cardsInPosetion to: aColorsCollection [
+CardDealer >> dealCards: aCardManager to: aColorsCollection [
 
 	aColorsCollection do: [ :color | 
-		cardsInPosetion addLast: (self aRandomCardTo: color).
-		cardsInPosetion addLast: (self aRandomCardTo: color) ]
+		aCardManager addCard: (self aRandomCardTo: color).
+		aCardManager addCard: (self aRandomCardTo: color) ]
 ]

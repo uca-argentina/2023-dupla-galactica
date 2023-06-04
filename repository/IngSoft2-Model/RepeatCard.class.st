@@ -20,9 +20,9 @@ RepeatCard >> addOwner: aPlayerColor [
 ]
 
 { #category : #Information }
-RepeatCard >> applyCard: aGame to: aPlayerColor [
+RepeatCard >> applyCardAt: aGame using: aCardManager [
 
-	aGame repeatEffectTo: aPlayerColor
+	aGame repeatEffectTo: aCardManager objective
 ]
 
 { #category : #Information }
@@ -36,6 +36,12 @@ RepeatCard >> eliminateOwner: aPlayerColor [
 RepeatCard >> initializeOwner: anObjectivePlayer [
 
 	owners := OrderedCollection with: anObjectivePlayer.
+]
+
+{ #category : #Information }
+RepeatCard >> isOwner: aPlayerColor [
+
+	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
 ]
 
 { #category : #Information }

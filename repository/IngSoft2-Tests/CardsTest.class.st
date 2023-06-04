@@ -233,9 +233,9 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using:
-		         (LoadedCardDealer with:
-			          (OrderedCollection with: (SpeedCard owner: 'red') with: (OverloadCard owner: 'red'))).
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: (SpeedCard owner: 'red')
+					           with: (OverloadCard owner: 'red'))).
 
 	aGame apply: (SpeedCard owner: 'red') to: 'red'.
 	aGame apply: (OverloadCard owner: 'red') to: 'red'.

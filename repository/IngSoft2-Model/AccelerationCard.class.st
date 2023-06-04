@@ -19,23 +19,23 @@ AccelerationCard >> addOwner: aPlayerColor [
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCard: aGame to: aPlayerColor [
+AccelerationCard >> applyCardAt: aGame using: aCardManager [
 
 	| res |
 	res := false.
-	aGame activeCards do: [ :card | 
+	aCardManager activeCards do: [ :card | 
 		card toString = 'Acceleration' ifTrue: [ 
-			card addOwner: aPlayerColor.
+			aGame playersColors do: [:playerColor | card addOwner: playerColor].
 			res := true ] ].
 	res ifTrue: [ ^ self ].
-	owners := OrderedCollection with: aPlayerColor.
-	aGame activeCards addLast: self
+	owners := aGame playersColors.
+	aCardManager activeCards addLast: self
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyEffect: aPosition [
+AccelerationCard >> applyEffect [
 
-	^ aPosition + 1
+	^ 1
 ]
 
 { #category : #Information }
@@ -49,6 +49,12 @@ AccelerationCard >> eliminateOwner: aPlayerColor [
 AccelerationCard >> initializeOwner: anOwner [
 
 	owners := OrderedCollection with: anOwner.
+]
+
+{ #category : #Information }
+AccelerationCard >> isOwner: aPlayerColor [
+
+	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
 ]
 
 { #category : #Information }

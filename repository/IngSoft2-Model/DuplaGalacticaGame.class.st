@@ -7,10 +7,8 @@ Class {
 		'dice',
 		'goalLaps',
 		'turnManager',
-		'lastCardPlay',
 		'current',
-		'cardsInPosetion',
-		'activeCards'
+		'cardManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,31 +28,16 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 		  using: aCardDealer
 ]
 
-{ #category : #Information }
-DuplaGalacticaGame >> activeCards [
-
-	^ activeCards
-]
-
 { #category : #Cards }
 DuplaGalacticaGame >> addCard: aCard [
-	|res|
-	res:=false.
-	cardsInPosetion do: [ :card | card toString = aCard toString ifTrue:[card addOwner: ((aCard owners) at: 1). res:= true] ].
-	res ifFalse: [cardsInPosetion addLast: aCard].
+
+	cardManager addCard: aCard.
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> apply: aCard to: anObjectivePlayer [
 
-	| cardToUse |
-	(self verify: (aCard owners at: 1) canUse: aCard) ifFalse: [ ^ self ].
-	cardToUse := aCard transformTo: lastCardPlay.
-	lastCardPlay := cardToUse.
-	anObjectivePlayer = 'all'
-		ifTrue: [ 
-			players do: [ :player | cardToUse applyCard: self to: player color ] ]
-		ifFalse: [ cardToUse applyCard: self to: anObjectivePlayer ]
+	cardManager apply: aCard to: anObjectivePlayer at: self.
 ]
 
 { #category : #Information }
@@ -67,12 +50,6 @@ DuplaGalacticaGame >> boxes [
 DuplaGalacticaGame >> currentPlayer [
 
 	^ current.
-]
-
-{ #category : #Information }
-DuplaGalacticaGame >> findPlayer: aPlayer [
-
-	^ players detect: [ :player | player color = aPlayer ]
 ]
 
 { #category : #Information }
@@ -90,9 +67,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
 	current := players at: 1.
-	cardsInPosetion := OrderedCollection new.
-	activeCards := OrderedCollection new.
-	aCardDealer dealCards: cardsInPosetion to: aColorsCollection
+	cardManager:= CardManager using: aCardDealer with: aColorsCollection.
 ]
 
 { #category : #Information }
@@ -128,9 +103,8 @@ DuplaGalacticaGame >> movePlayer [
 	aValue := dice size == 1
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
-	activeCards do: [ :card | 
-		card owners do: [ :owner | 
-			owner = current color ifTrue: [ aValue := card applyEffect: aValue ] ] ].
+	aValue:=aValue+ (cardManager calculateEffectOn: (current color)).
+	
 	self winnerExists ifTrue: [ ^ self ].
 	self currentPlayer move: aValue andUpdateLap: board boxes size.
 
@@ -148,16 +122,13 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> playersCardInPosetion [
 
-	| cardsPerPlayer aValue |
-	cardsPerPlayer := OrderedCollection new.
-	aValue := 0.
-	players do: [ :player | 
-		cardsInPosetion do: [ :card | 
-			card owners do: [ :owner | 
-				owner = player color ifTrue: [ aValue := aValue + 1 ] ] ].
-		cardsPerPlayer addLast: aValue.
-		aValue := 0 ].
-	^ cardsPerPlayer
+	^cardManager playersCardInPosetionOf: players.
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> playersColors [
+
+	^ players collect: [ :player | player color ]
 ]
 
 { #category : #Information }
@@ -188,33 +159,9 @@ DuplaGalacticaGame >> repeatEffectTo: aPlayerColor [
 
 	| lastPosition |
 	lastPosition := current position.
-	current := self findPlayer: aPlayerColor.
+	current := players detect: [ :player | player color = aPlayerColor].
 	board effectAt: lastPosition In: self.
 	current := players at: turnManager current
-]
-
-{ #category : #Cards }
-DuplaGalacticaGame >> verify: aPlayerColor canUse: aCard [
-
-	| cardCollection i res res2 |
-	i := 1.
-	res := false.
-	res2 := false.
-	cardCollection := OrderedCollection new.
-	cardsInPosetion do: [ :card | 
-		card owners do: [ :owner | 
-			owner = aPlayerColor ifTrue: [ res2 := true ] ].
-		(card toString = aCard toString and: res2) ifTrue: [ 
-			res := true.
-			card eliminateOwner: aPlayerColor ].
-		res2 := false ].
-	res ifFalse: [ ^ res ].
-	aCard isPermanent
-		ifTrue: [ 
-			aPlayerColor = self currentPlayer color
-				ifTrue: [ ^ true ]
-				ifFalse: [ ^ false ] ]
-		ifFalse: [ ^ true ]
 ]
 
 { #category : #Finalization }
