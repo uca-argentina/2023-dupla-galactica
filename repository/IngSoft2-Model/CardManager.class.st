@@ -11,12 +11,6 @@ Class {
 }
 
 { #category : #'Instance creation' }
-CardManager class >> create [
-
-	^ self new create
-]
-
-{ #category : #'Instance creation' }
 CardManager class >> using: aCardDealer with: aColorCollection [
 
 	^ self new initializeUsing: aCardDealer with: aColorCollection
