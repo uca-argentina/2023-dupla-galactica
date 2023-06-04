@@ -54,11 +54,6 @@ CardManager >> calculateEffectOn: aPlayer [
 	^ aValue
 ]
 
-{ #category : #Information }
-CardManager >> cardsInPosetion [
-	^ cardsInPosetion
-]
-
 { #category : #Initialization }
 CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 
