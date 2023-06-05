@@ -13,23 +13,10 @@ AccelerationCard class >> owner: anOwner [
 ]
 
 { #category : #Effect }
-AccelerationCard >> addOwner: aPlayerColor [
+AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	owners addLast: aPlayerColor
-]
 
-{ #category : #Effect }
-AccelerationCard >> applyCardAt: aGame using: aCardManager [
-
-	| res |
-	res := false.
-	aCardManager activeCards do: [ :card | 
-		card toString = 'Acceleration' ifTrue: [ 
-			aGame playersColors do: [:playerColor | card addOwner: playerColor].
-			res := true ] ].
-	res ifTrue: [ ^ self ].
-	owners := aGame playersColors.
-	aCardManager activeCards addLast: self
+	aGame playersColors do: [ :owner | cardManager activeCards addLast: (AccelerationCard owner: owner) ].
 ]
 
 { #category : #Effect }
@@ -38,23 +25,10 @@ AccelerationCard >> applyEffect [
 	^ 1
 ]
 
-{ #category : #Information }
-AccelerationCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
-]
-
 { #category : #Initialization }
 AccelerationCard >> initializeOwner: anOwner [
 
-	owners := OrderedCollection with: anOwner.
-]
-
-{ #category : #Information }
-AccelerationCard >> isOwner: aPlayerColor [
-
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	owners := anOwner.
 ]
 
 { #category : #Information }
@@ -64,7 +38,7 @@ AccelerationCard >> isPermanent [
 ]
 
 { #category : #Information }
-AccelerationCard >> owners [
+AccelerationCard >> owner [
 	^owners
 ]
 
@@ -72,10 +46,4 @@ AccelerationCard >> owners [
 AccelerationCard >> toString [
 
 	^ 'Acceleration'
-]
-
-{ #category : #Information }
-AccelerationCard >> transformTo: aCard [
-
-	^ self
 ]

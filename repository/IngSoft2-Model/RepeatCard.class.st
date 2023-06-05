@@ -14,34 +14,16 @@ RepeatCard class >> owner: anObjectivePlayer [
 ]
 
 { #category : #Information }
-RepeatCard >> addOwner: aPlayerColor [
+RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	owners addLast: aPlayerColor
-]
 
-{ #category : #Information }
-RepeatCard >> applyCardAt: aGame using: aCardManager [
-
-	aGame repeatEffectTo: aCardManager objective
-]
-
-{ #category : #Information }
-RepeatCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+	aGame repeatEffectTo: objective
 ]
 
 { #category : #Initialization }
 RepeatCard >> initializeOwner: anObjectivePlayer [
 
-	owners := OrderedCollection with: anObjectivePlayer.
-]
-
-{ #category : #Information }
-RepeatCard >> isOwner: aPlayerColor [
-
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	owners := anObjectivePlayer.
 ]
 
 { #category : #Information }
@@ -51,17 +33,11 @@ RepeatCard >> isPermanent [
 ]
 
 { #category : #Information }
-RepeatCard >> owners [
+RepeatCard >> owner [
 	^owners .
 ]
 
 { #category : #Information }
 RepeatCard >> toString [
 	^'Repeat'.
-]
-
-{ #category : #Information }
-RepeatCard >> transformTo: aCard [
-
-	^ self
 ]

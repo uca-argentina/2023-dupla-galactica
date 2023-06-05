@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'effectValue',
-		'probabilitie'
+		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -24,10 +24,10 @@ MoonWalkBox >> effect: aGame [
 MoonWalkBox >> initializeWith: aValue chance: aProbabilite [
 
 	effectValue := aValue.
-	probabilitie := aProbabilite
+	probability := aProbabilite
 ]
 
 { #category : #Information }
-MoonWalkBox >> probabilitie [
-	^ probabilitie
+MoonWalkBox >> probability [
+	^ probability
 ]

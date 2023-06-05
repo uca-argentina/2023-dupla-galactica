@@ -2,7 +2,7 @@ Class {
 	#name : #NoEffectBox,
 	#superclass : #Object,
 	#instVars : [
-		'probabilitie'
+		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,11 +22,11 @@ NoEffectBox >> effect: aBoard [
 { #category : #Initialization }
 NoEffectBox >> initializeWithChance: anApaearranceProbabilitie [
 
-	probabilitie := anApaearranceProbabilitie
+	probability := anApaearranceProbabilitie
 ]
 
 { #category : #Information }
-NoEffectBox >> probabilitie [
+NoEffectBox >> probability [
 
-	^ probabilitie
+	^ probability
 ]

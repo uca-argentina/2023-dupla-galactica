@@ -13,24 +13,10 @@ OverloadCard class >> owner: anOwner [
 	^ self new initializeOwner: anOwner
 ]
 
-{ #category : #Information }
-OverloadCard >> addOwner: aPlayerColor [
-
-	owners addLast: aPlayerColor
-]
-
 { #category : #Effect }
-OverloadCard >> applyCardAt: aGame using: aCardManager [
+OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| res |
-	res := false.
-	aCardManager activeCards do: [ :card | 
-		card toString = 'Overload' ifTrue: [ 
-			card addOwner: aCardManager objective.
-			res := true ] ].
-	res ifTrue: [ ^ self ].
-	owners := OrderedCollection with: aCardManager objective.
-	aCardManager activeCards addLast: self
+	cardManager activeCards addLast: (OverloadCard owner: objective).
 ]
 
 { #category : #Effect }
@@ -40,23 +26,10 @@ OverloadCard >> applyEffect [
 	^(-2)
 ]
 
-{ #category : #Information }
-OverloadCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
-]
-
 { #category : #Initialization }
 OverloadCard >> initializeOwner: anOwner [
 
-	owners := OrderedCollection with: anOwner.
-]
-
-{ #category : #Information }
-OverloadCard >> isOwner: aPlayerColor [
-
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	owners := anOwner.
 ]
 
 { #category : #Information }
@@ -66,7 +39,7 @@ OverloadCard >> isPermanent [
 ]
 
 { #category : #Information }
-OverloadCard >> owners [
+OverloadCard >> owner [
 
 	^ owners
 ]
@@ -75,10 +48,4 @@ OverloadCard >> owners [
 OverloadCard >> toString [
 
 	^ 'Overload'
-]
-
-{ #category : #Information }
-OverloadCard >> transformTo: aCard [
-
-	^ self
 ]

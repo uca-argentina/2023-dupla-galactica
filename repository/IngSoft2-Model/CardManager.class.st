@@ -5,7 +5,7 @@ Class {
 		'activeCard',
 		'cardsInPosetion',
 		'lastCardPlay',
-		'objective'
+		'objectiveCard'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,29 +18,27 @@ CardManager class >> using: aCardDealer with: aColorCollection [
 
 { #category : #Information }
 CardManager >> activeCards [
-	^activeCard.
+
+	^ activeCard
 ]
 
 { #category : #'Manage cards' }
 CardManager >> addCard: aCard [
 
-	| res |
-	res := false.
-	cardsInPosetion do: [ :card | 
-		card toString = aCard toString ifTrue: [ 
-			card addOwner: (aCard owners at: 1).
-			res := true ] ].
-	res ifFalse: [ cardsInPosetion addLast: aCard ]
+	cardsInPosetion addLast: aCard
 ]
 
 { #category : #'Manage cards' }
-CardManager >> apply: aCard to: anObjectivePlayer at: aGame [
+CardManager >> apply: aCard to: anObjectivePlayer at: aGame ofCard: anObjectiveCard [
 
-	(self isAnOwner: (aCard owners at: 1) of: aCard) ifFalse: [ ^ self ].
-	(self verify: (aCard owners at: 1) canUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ ^ self ].
-	lastCardPlay := aCard transformTo: lastCardPlay.
-	objective:= anObjectivePlayer.
-	lastCardPlay applyCardAt: aGame using: self.
+	(self
+		 verify: aCard owner
+		 canUse: aCard
+		 whenPlay: aGame currentPlayer color) ifFalse: [ ^ self ].
+	self checkThat: aCard needs: anObjectiveCard.
+	objectiveCard := anObjectiveCard.
+	aCard toString = 'Redo' ifFalse: [ lastCardPlay := aCard ].
+	aCard applyCardUsing: self at: aGame to: anObjectivePlayer
 ]
 
 { #category : #'Manage cards' }
@@ -49,14 +47,26 @@ CardManager >> calculateEffectOn: aPlayer [
 	| aValue |
 	aValue := 0.
 	activeCard do: [ :card | 
-		card owners do: [ :owner | 
-			owner = aPlayer ifTrue: [ aValue := aValue + card applyEffect ] ] ].
+		card owner = aPlayer ifTrue:[ aValue := aValue + card applyEffect] ].
 	^ aValue
+]
+
+{ #category : #'Manage cards' }
+CardManager >> checkThat: aCard needs: anObjectiveCard [
+
+	((aCard toString = 'Redo' and: lastCardPlay toString = 'Cancellation') 
+		 or: aCard toString = 'Cancellation')
+		ifTrue: [ 
+			anObjectiveCard = '-' ifTrue: [ 
+				Error signal: 'The objective card to cancell must be specified' ] ]
+		ifFalse: [ 
+			anObjectiveCard = '-' ifFalse: [ 
+				Error signal: 'The cards does not need an objective' ] ]
 ]
 
 { #category : #Initialization }
 CardManager >> initializeUsing: aCardDealer with: aColorCollection [
-
+	lastCardPlay:= OverloadCard owner: 'red'.
 	activeCard := OrderedCollection new.
 	cardsInPosetion := OrderedCollection new.
 	aCardDealer dealCards: self to: aColorCollection
@@ -65,19 +75,28 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 { #category : #'Manage cards' }
 CardManager >> isAnOwner: aPlayerColor of: aCard [
 
-	| res |
+	| res i |
 	res := false.
+	i := 0.
 	cardsInPosetion do: [ :card | 
-		(card toString = aCard toString and: (card isOwner: aPlayerColor)) 
-			ifTrue: [ 
-				res := true.
-				card eliminateOwner: aPlayerColor ] ].
+		i == 0 ifTrue: [ 
+			(card toString = aCard toString and: card owner = aPlayerColor)
+				ifTrue: [ 
+					res := true.
+					i := 1.
+					cardsInPosetion remove: card]] ].
 	^ res
 ]
 
+{ #category : #'Manage cards' }
+CardManager >> lastCardPlay [
+
+	^lastCardPlay 
+]
+
 { #category : #Information }
-CardManager >> objective [
-	^ objective
+CardManager >> objectiveCard [
+	^ objectiveCard
 ]
 
 { #category : #Information }
@@ -88,8 +107,7 @@ CardManager >> playersCardInPosetionOf: players [
 	aValue := 0.
 	players do: [ :player | 
 		cardsInPosetion do: [ :card | 
-			card owners do: [ :owner | 
-				owner = player color ifTrue: [ aValue := aValue + 1 ] ] ].
+			card owner = player color ifTrue: [ aValue := aValue + 1 ] ].
 		cardsPerPlayer addLast: aValue.
 		aValue := 0 ].
 	^ cardsPerPlayer
@@ -97,6 +115,8 @@ CardManager >> playersCardInPosetionOf: players [
 
 { #category : #'Manage cards' }
 CardManager >> verify: aPlayerColor canUse: aCard whenPlay: aPlayer [
+
+	(self isAnOwner: aCard owner of: aCard) ifFalse: [ ^ false ].
 	aCard isPermanent
 		ifTrue: [ 
 			aPlayerColor = aPlayer

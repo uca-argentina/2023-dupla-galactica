@@ -25,6 +25,6 @@ WormHoleBox >> initializeWithChance: anApaearranceProbabilitie [
 ]
 
 { #category : #Information }
-WormHoleBox >> probabilitie [
+WormHoleBox >> probability [
 	^ probabilitie
 ]

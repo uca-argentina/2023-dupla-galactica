@@ -2,7 +2,7 @@ Class {
 	#name : #AtomicBombBox,
 	#superclass : #Object,
 	#instVars : [
-		'probabilitie'
+		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,10 +22,10 @@ AtomicBombBox >> effect: aGame [
 { #category : #Initialization }
 AtomicBombBox >> initializeWithChance: aProbabilitie [
 
-	probabilitie := aProbabilitie
+	probability := aProbabilitie
 ]
 
 { #category : #Information }
-AtomicBombBox >> probabilitie [
-	^ probabilitie
+AtomicBombBox >> probability [
+	^ probability
 ]

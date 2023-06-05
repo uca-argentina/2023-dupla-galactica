@@ -35,9 +35,9 @@ DuplaGalacticaGame >> addCard: aCard [
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> apply: aCard to: anObjectivePlayer [
+DuplaGalacticaGame >> apply: aCard to: anObjectivePlayer ofCard: anObjectiveCard [
 
-	cardManager apply: aCard to: anObjectivePlayer at: self.
+	cardManager apply: aCard to: anObjectivePlayer at: self ofCard: anObjectiveCard.
 ]
 
 { #category : #Information }

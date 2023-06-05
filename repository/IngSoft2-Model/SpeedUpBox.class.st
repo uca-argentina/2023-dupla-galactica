@@ -2,7 +2,7 @@ Class {
 	#name : #SpeedUpBox,
 	#superclass : #Object,
 	#instVars : [
-		'probabilitie'
+		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,10 +22,10 @@ SpeedUpBox >> effect: aGame [
 { #category : #Initialization }
 SpeedUpBox >> initializeWithChance: anApaearranceProbabilitie [
 
-	probabilitie := anApaearranceProbabilitie
+	probability := anApaearranceProbabilitie
 ]
 
 { #category : #Information }
-SpeedUpBox >> probabilitie [
-	^ probabilitie
+SpeedUpBox >> probability [
+	^ probability
 ]

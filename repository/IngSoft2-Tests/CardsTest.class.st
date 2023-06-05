@@ -321,7 +321,7 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Overload')
+		apply: (CancellationCard owner: 'red') ofCard: 'Overload'
 		to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -354,7 +354,7 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Speed')
+		apply: (CancellationCard owner: 'blue') ofCard: 'Speed'
 		to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -388,12 +388,12 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 	aGame apply: (SpeedCard owner: 'blue') to: 'blue'.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Speed')
+		apply: (CancellationCard owner: 'red') ofCard: 'Speed'
 		to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Overload')
+		apply: (CancellationCard owner: 'blue') ofCard: 'Overload'
 		to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -423,7 +423,7 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 	self
 		should: [ 
 			aGame
-				apply: (CancellationCard owner: 'red' ofCard: 'Overload')
+				apply: (CancellationCard owner: 'red') ofCard: 'Overload'
 				to: 'blue' ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
@@ -453,7 +453,7 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 	self
 		should: [ 
 			aGame
-				apply: (CancellationCard owner: 'red' ofCard: 'Speed')
+				apply: (CancellationCard owner: 'red') ofCard: 'Speed'
 				to: 'blue' ]
 		raise: Error
 		withMessage:
@@ -728,7 +728,7 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 
 	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Overload')
+		apply: (CancellationCard owner: 'red') ofCard: 'Overload'
 		to: 'blue'.
 
 	aGame movePlayer.
@@ -761,10 +761,10 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		apply: (CancellationCard owner: 'blue') ofCard: 'Acceleration'
 		to: 'red'.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		apply: (CancellationCard owner: 'blue') ofCard: 'Acceleration'
 		to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -796,10 +796,10 @@ CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		apply: (CancellationCard owner: 'blue') ofCard: 'Acceleration'
 		to: 'red'.
 	aGame
-		apply: (CancellationCard owner: 'blue' ofCard: 'Acceleration')
+		apply: (CancellationCard owner: 'blue') ofCard: 'Acceleration'
 		to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -857,10 +857,10 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 					           with: (RedoCard owner: 'blue'))).
 	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
+		apply: (CancellationCard owner: 'red') ofCard: 'Acceleration'
 		to: 'blue'.
 	aGame
-		apply: (RedoCard owner: 'blue' ofCard: 'Acceleration')
+		apply: (RedoCard owner: 'blue') ofCard: 'Acceleration'
 		to: 'red'.
 
 	aGame movePlayer.
@@ -1211,7 +1211,7 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'red' ofCard: 'Acceleration')
+		apply: (CancellationCard owner: 'red') ofCard: 'Acceleration'
 		to: 'blue'.
 	aGame movePlayer.
 
@@ -1304,4 +1304,88 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 	self
 		assert: aGame playersPositions
 		equals: (OrderedCollection with: 10 with: 10)
+]
+
+{ #category : #tests }
+CardsTest >> testQ046VerifyThatWhenUsingARedoCardOfACancellationCardTheObjectiveCardMustBeDecleared [
+
+| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: (AccelerationCard owner: 'red')
+					           with: (CancellationCard owner: 'red')
+					           with: (RedoCard owner: 'blue'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame
+		apply: (CancellationCard owner: 'red') ofCard: 'Acceleration'
+		to: 'blue'.
+
+	self
+		should: [ 
+			aGame
+		apply: (RedoCard owner: 'blue') to: 'red'.]
+		raise: Error
+		withMessage: 'The objective card to cancell must be specified'
+]
+
+{ #category : #tests }
+CardsTest >> testQ047VerifyThatWhenUsingACancellationCardTheObjectiveCardMustBeDecleared [
+
+| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 4
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: (AccelerationCard owner: 'red')
+					           with: (CancellationCard owner: 'red')
+					           with: (RedoCard owner: 'blue'))).
+	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+
+	self
+		should: [ 
+			aGame
+		apply: (CancellationCard owner: 'red') to: 'blue'.]
+		raise: Error
+		withMessage: 'The objective card to cancell must be specified'
+]
+
+{ #category : #tests }
+CardsTest >> testQ048VerifyThatWhenUsingAnOverloadCardTheObjectiveMustNotBeSpecified [
+
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection with: (OverloadCard owner: 'red'))).
+	self
+		should: [ aGame apply: (OverloadCard owner: 'red')ofCard: 'Acceleration' to: 'blue' ]
+		raise: Error
+		withMessage: 'The cards does not need an objective'
 ]

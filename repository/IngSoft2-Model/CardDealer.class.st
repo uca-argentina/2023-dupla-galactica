@@ -19,7 +19,7 @@ CardDealer >> aRandomCardTo: aPlayerColor [
 						  ifTrue: [ AccelerationCard owner: aPlayerColor ]
 						  ifFalse: [ 
 							  value <= 24
-								  ifTrue: [ (CancellationCard owner: aPlayerColor ofCard: '-') ]
+								  ifTrue: [ (CancellationCard owner: aPlayerColor) ]
 								  ifFalse: [ 
 									  value <= 30
 										  ifTrue: [ RedoCard owner: aPlayerColor ]

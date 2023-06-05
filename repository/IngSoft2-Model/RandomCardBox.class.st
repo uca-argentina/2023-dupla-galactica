@@ -2,15 +2,14 @@ Class {
 	#name : #RandomCardBox,
 	#superclass : #Object,
 	#instVars : [
-		'probabilitie'
+		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'Instance creation' }
-RandomCardBox class >> withChance: aProbabilitie [
-
-	^ self new intializeWithChance: aProbabilitie
+{ #category : #Initialization }
+RandomCardBox class >> withChance: aProbability [ 
+	^self new initializeWithChance: aProbability.
 ]
 
 { #category : #Effect }
@@ -37,11 +36,12 @@ RandomCardBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-RandomCardBox >> intializeWithChance: aProbabilitie [ 
-	probabilitie:= aProbabilitie
+RandomCardBox >> initializeWithChance: aProbabilitie [
+
+	probability := aProbabilitie
 ]
 
 { #category : #Information }
-RandomCardBox >> probabilitie [
-	^ probabilitie
+RandomCardBox >> probability [
+	^ probability
 ]
