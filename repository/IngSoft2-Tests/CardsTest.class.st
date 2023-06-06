@@ -1451,3 +1451,26 @@ CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlaye
 		raise: Error
 		withMessage: 'That is not a valid objective for a repeat card'
 ]
+
+{ #category : #tests }
+CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
+
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection with: (RedoCard owner: 'red'))).
+	self
+		should: [ aGame apply: (RedoCard owner: 'red') to: 'all' ]
+		raise: Error
+		withMessage: 'Redo card cannot be played because there are no cards that have been played before'
+]

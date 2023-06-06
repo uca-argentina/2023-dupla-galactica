@@ -20,6 +20,7 @@ RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
 		aGame playersColors do: [ :color | 
 			color = objective ifTrue: [ 
 				Error signal: 'The objective card to cancell must be specified' ] ] ].
+	cardManager lastCardPlay toString = 'Empty' ifTrue: [ Error signal: 'Redo card cannot be played because there are no cards that have been played before' ].
 	cardManager lastCardPlay
 		applyCardUsing: cardManager
 		at: aGame
