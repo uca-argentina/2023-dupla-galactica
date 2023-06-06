@@ -36,12 +36,13 @@ RandomCardBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-RandomCardBox >> initializeWithChance: aProbabilitie [
+RandomCardBox >> initializeWithChance: aProbability [
 
-	probability := aProbabilitie
+	probability := aProbability
 ]
 
 { #category : #Information }
 RandomCardBox >> probability [
+
 	^ probability
 ]

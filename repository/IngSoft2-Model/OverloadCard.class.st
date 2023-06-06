@@ -2,7 +2,7 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,6 +16,11 @@ OverloadCard class >> owner: anOwner [
 { #category : #Effect }
 OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
 
+	| i |
+	i := false.
+	aGame playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ Error signal: 'That is not a valid objective for an overload card' ].
 	cardManager activeCards addLast: (OverloadCard owner: objective).
 ]
 
@@ -26,10 +31,16 @@ OverloadCard >> applyEffect [
 	^(-2)
 ]
 
+{ #category : #Information }
+OverloadCard >> equals: aCard [
+
+	^ 'Overload' = aCard toString and: aCard owner = owner
+]
+
 { #category : #Initialization }
 OverloadCard >> initializeOwner: anOwner [
 
-	owners := anOwner.
+	owner := anOwner.
 ]
 
 { #category : #Information }
@@ -41,7 +52,7 @@ OverloadCard >> isPermanent [
 { #category : #Information }
 OverloadCard >> owner [
 
-	^ owners
+	^ owner
 ]
 
 { #category : #Information }

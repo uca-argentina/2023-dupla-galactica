@@ -9,9 +9,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-MoonWalkBox class >> with: aValue chance: aProbabilite [
+MoonWalkBox class >> with: aValue chance: aProbability [
 
-	^ self new initializeWith: aValue chance: aProbabilite
+	^ self new initializeWith: aValue chance: aProbability
 ]
 
 { #category : #Effect }
@@ -21,13 +21,14 @@ MoonWalkBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-MoonWalkBox >> initializeWith: aValue chance: aProbabilite [
+MoonWalkBox >> initializeWith: aValue chance: aProbability [
 
 	effectValue := aValue.
-	probability := aProbabilite
+	probability := aProbability
 ]
 
 { #category : #Information }
 MoonWalkBox >> probability [
+
 	^ probability
 ]

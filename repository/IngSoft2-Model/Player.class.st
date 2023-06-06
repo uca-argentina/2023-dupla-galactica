@@ -54,19 +54,15 @@ Player >> move: aPosition andUpdateLap: aValue [
 { #category : #LapControl }
 Player >> moveBackwardsLaps: aLength [
 
-	| entireLaps |
-	entireLaps := (position + 1) abs // aLength + 1.
-	lap := lap - entireLaps.
-	position:= aLength - position abs
+	lap := lap - ((position + 1) abs // aLength + 1).
+	position := aLength - position abs
 ]
 
 { #category : #LapControl }
 Player >> moveForwardLaps: aLength [
 
-	| entireLaps |
-	entireLaps := position // aLength.
-	lap := lap + entireLaps.
-	position:= position - (aLength * entireLaps)
+	lap := lap + (position // aLength).
+	position := position % aLength
 ]
 
 { #category : #LapControl }

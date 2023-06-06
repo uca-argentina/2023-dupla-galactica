@@ -2,7 +2,7 @@ Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,8 +15,9 @@ AccelerationCard class >> owner: anOwner [
 { #category : #Effect }
 AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-
-	aGame playersColors do: [ :owner | cardManager activeCards addLast: (AccelerationCard owner: owner) ].
+	objective = 'all' ifFalse: [ Error signal: 'The objective must be all'].
+	aGame playersColors do: [ :color | 
+		cardManager activeCards addLast: (AccelerationCard owner: color) ]
 ]
 
 { #category : #Effect }
@@ -25,10 +26,16 @@ AccelerationCard >> applyEffect [
 	^ 1
 ]
 
+{ #category : #Information }
+AccelerationCard >> equals: aCard [
+
+	^ 'Acceleration' = aCard toString and: aCard owner = owner
+]
+
 { #category : #Initialization }
 AccelerationCard >> initializeOwner: anOwner [
 
-	owners := anOwner.
+	owner := anOwner.
 ]
 
 { #category : #Information }
@@ -39,7 +46,7 @@ AccelerationCard >> isPermanent [
 
 { #category : #Information }
 AccelerationCard >> owner [
-	^owners
+	^owner
 ]
 
 { #category : #Information }

@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-SpeedUpBox class >> withChance: anApaearranceProbabilitie [
+SpeedUpBox class >> withChance: aProbability [
 
-	^ self new initializeWithChance: anApaearranceProbabilitie
+	^ self new initializeWithChance: aProbability
 ]
 
 { #category : #Effect }
@@ -20,12 +20,13 @@ SpeedUpBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-SpeedUpBox >> initializeWithChance: anApaearranceProbabilitie [
+SpeedUpBox >> initializeWithChance: aProbability [
 
-	probability := anApaearranceProbabilitie
+	probability := aProbability
 ]
 
 { #category : #Information }
 SpeedUpBox >> probability [
+
 	^ probability
 ]

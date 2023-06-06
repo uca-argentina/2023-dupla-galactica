@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-NoEffectBox class >> withChance: anApaearranceProbabilitie [
+NoEffectBox class >> withChance: aProbability [
 
-	^ self new initializeWithChance: anApaearranceProbabilitie
+	^ self new initializeWithChance: aProbability
 ]
 
 { #category : #Effect }
@@ -20,9 +20,9 @@ NoEffectBox >> effect: aBoard [
 ]
 
 { #category : #Initialization }
-NoEffectBox >> initializeWithChance: anApaearranceProbabilitie [
+NoEffectBox >> initializeWithChance: aProbability [
 
-	probability := anApaearranceProbabilitie
+	probability := aProbability
 ]
 
 { #category : #Information }

@@ -19,15 +19,9 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aD
 ]
 
 { #category : #Cards }
-DuplaGalacticaGameProxy >> apply: aCard ofCard: anObjectiveCard to: anObjectivePlayer [
-
-	game apply: aCard to: anObjectivePlayer ofCard: anObjectiveCard
-]
-
-{ #category : #Cards }
 DuplaGalacticaGameProxy >> apply: aCard to: anObjectivePlayer [
 
-	game apply: aCard to: anObjectivePlayer ofCard: '-'
+	game apply: aCard to: anObjectivePlayer
 ]
 
 { #category : #Information }

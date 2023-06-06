@@ -2,8 +2,7 @@ Class {
 	#name : #RedoCard,
 	#superclass : #Object,
 	#instVars : [
-		'objectiveCard',
-		'owners'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,15 +15,27 @@ RedoCard class >> owner: anObjectivePlayer [
 
 { #category : #Effect }
 RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
-	
-	cardManager lastCardPlay applyCardUsing: cardManager at: aGame to: objective
-	
+
+	cardManager lastCardPlay toString = 'Cancellation' ifTrue: [ 
+		aGame playersColors do: [ :color | 
+			color = objective ifTrue: [ 
+				Error signal: 'The objective card to cancell must be specified' ] ] ].
+	cardManager lastCardPlay
+		applyCardUsing: cardManager
+		at: aGame
+		to: objective
+]
+
+{ #category : #Information }
+RedoCard >> equals: aCard [
+
+	^ 'Redo' = aCard toString and: aCard owner = owner
 ]
 
 { #category : #Initialization }
 RedoCard >> initializeOwner: anOwner [
 
-	owners := anOwner.
+	owner := anOwner.
 ]
 
 { #category : #Information }
@@ -35,7 +46,7 @@ RedoCard >> isPermanent [
 
 { #category : #Information }
 RedoCard >> owner [
-	^ owners
+	^ owner
 ]
 
 { #category : #Information }

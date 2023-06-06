@@ -2,14 +2,14 @@ Class {
 	#name : #WormHoleBox,
 	#superclass : #Object,
 	#instVars : [
-		'probabilitie'
+		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-WormHoleBox class >> withChance: anApaearranceProbabilitie [ 
-	^self new initializeWithChance: anApaearranceProbabilitie 
+WormHoleBox class >> withChance: aProbability [ 
+	^self new initializeWithChance: aProbability 
 ]
 
 { #category : #Effect }
@@ -19,12 +19,12 @@ WormHoleBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-WormHoleBox >> initializeWithChance: anApaearranceProbabilitie [
+WormHoleBox >> initializeWithChance: aProbability [
 
-	probabilitie := anApaearranceProbabilitie
+	probability := aProbability
 ]
 
 { #category : #Information }
 WormHoleBox >> probability [
-	^ probabilitie
+	^ probability
 ]

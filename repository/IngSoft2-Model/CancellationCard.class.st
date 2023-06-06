@@ -2,8 +2,7 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'objectiveCard',
-		'owners'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,24 +18,33 @@ CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	| i |
 	i := 1.
+	aGame playersColors do: [ :color | 
+		color = objective ifTrue: [ 
+			Error signal: 'The objective card to cancell must be specified' ] ].
 	cardManager activeCards isEmpty ifTrue: [ 
 		Error signal: 'There are no permanent cards' ].
-
+	
 	cardManager activeCards do: [ :card | 
-		(i == 1) ifTrue: [
-			(card toString = cardManager objectiveCard and: card owner = objective) ifTrue: [ 
-			i := 2.
-			cardManager activeCards remove: card ]].
-		].
+		i == 1 ifTrue: [ 
+			(card equals: objective) ifTrue: [ 
+				i := 2.
+				cardManager remove: card ] ] ].
+
 	i = 1 ifTrue: [ 
 		Error signal:
 			'There are no that type of cards activate in this player' ]
 ]
 
 { #category : #Initialization }
+CancellationCard >> equals: aCard [
+
+	^ 'Cancellation' = aCard toString and: aCard owner = owner
+]
+
+{ #category : #Initialization }
 CancellationCard >> initializeOwner: anOwner [
 
-	owners := anOwner.
+	owner := anOwner.
 ]
 
 { #category : #Information }
@@ -47,7 +55,7 @@ CancellationCard >> isPermanent [
 
 { #category : #Information }
 CancellationCard >> owner [
-	^ owners
+	^ owner
 ]
 
 { #category : #Information }

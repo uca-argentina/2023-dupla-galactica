@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-AtomicBombBox class >> withChance: aProbabilitie [
+AtomicBombBox class >> withChance: aProbability [
 
-	^ self new initializeWithChance: aProbabilitie
+	^ self new initializeWithChance: aProbability
 ]
 
 { #category : #Effect }
@@ -20,9 +20,9 @@ AtomicBombBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-AtomicBombBox >> initializeWithChance: aProbabilitie [
+AtomicBombBox >> initializeWithChance: aProbability [
 
-	probability := aProbabilitie
+	probability := aProbability
 ]
 
 { #category : #Information }

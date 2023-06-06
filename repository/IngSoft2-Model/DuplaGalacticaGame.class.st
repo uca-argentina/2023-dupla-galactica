@@ -35,9 +35,9 @@ DuplaGalacticaGame >> addCard: aCard [
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> apply: aCard to: anObjectivePlayer ofCard: anObjectiveCard [
+DuplaGalacticaGame >> apply: aCard to: anObjectivePlayer [
 
-	cardManager apply: aCard to: anObjectivePlayer at: self ofCard: anObjectiveCard.
+	cardManager apply: aCard to: anObjectivePlayer at: self.
 ]
 
 { #category : #Information }
@@ -66,8 +66,8 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	dice := aDiceCollection.
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
-	current := players at: 1.
-	cardManager:= CardManager using: aCardDealer with: aColorsCollection.
+	current := players at: turnManager current.
+	cardManager := CardManager using: aCardDealer with: aColorsCollection
 ]
 
 { #category : #Information }
@@ -106,9 +106,8 @@ DuplaGalacticaGame >> movePlayer [
 	aValue:=aValue+ (cardManager calculateEffectOn: (current color)).
 	
 	self winnerExists ifTrue: [ ^ self ].
-	self currentPlayer move: aValue andUpdateLap: board boxes size.
-
-	board effectAt: self currentPlayer position In: self.
+	current move: aValue andUpdateLap: board boxes size.
+	board effectAt: current position In: self.
 	turnManager goNext.
 	current := players at: turnManager current
 ]

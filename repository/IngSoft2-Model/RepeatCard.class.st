@@ -2,7 +2,7 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,14 +16,24 @@ RepeatCard class >> owner: anObjectivePlayer [
 { #category : #Information }
 RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-
+	| i |
+	i := false.
+	aGame playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ Error signal: 'That is not a valid objective for a repeat card' ].
 	aGame repeatEffectTo: objective
+]
+
+{ #category : #Information }
+RepeatCard >> equals: aCard [
+
+	^ 'Repeat' = aCard toString and: aCard owner = owner
 ]
 
 { #category : #Initialization }
 RepeatCard >> initializeOwner: anObjectivePlayer [
 
-	owners := anObjectivePlayer.
+	owner := anObjectivePlayer.
 ]
 
 { #category : #Information }
@@ -34,7 +44,7 @@ RepeatCard >> isPermanent [
 
 { #category : #Information }
 RepeatCard >> owner [
-	^owners .
+	^owner .
 ]
 
 { #category : #Information }

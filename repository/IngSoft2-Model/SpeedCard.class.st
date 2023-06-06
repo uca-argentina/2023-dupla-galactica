@@ -2,7 +2,7 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,6 +16,13 @@ SpeedCard class >> owner: anOwner [
 { #category : #Effect }
 SpeedCard >> applyCardUsing: cardManager at: aGame to: objective [
 
+	| i |
+	i := false.
+	aGame playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ 
+		Error signal:
+			 'That is not a valid objective for a speed card' ].
 	cardManager activeCards addLast: (SpeedCard owner: objective)
 ]
 
@@ -25,10 +32,16 @@ SpeedCard >> applyEffect [
 	^ 1
 ]
 
+{ #category : #Information }
+SpeedCard >> equals: aCard [
+
+	^ 'Speed' = aCard toString and: aCard owner = owner
+]
+
 { #category : #Initialization }
 SpeedCard >> initializeOwner: anOwner [
 
-	owners :=anOwner.
+	owner :=anOwner.
 ]
 
 { #category : #Information }
@@ -40,7 +53,7 @@ SpeedCard >> isPermanent [
 { #category : #Information }
 SpeedCard >> owner [
 
-	^ owners
+	^ owner
 ]
 
 { #category : #Information }
