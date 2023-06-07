@@ -8,7 +8,8 @@ Class {
 		'goalLaps',
 		'turnManager',
 		'current',
-		'cardManager'
+		'cardManager',
+		'numberOfCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,8 +31,9 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 
 { #category : #Cards }
 DuplaGalacticaGame >> addCard: aCard [
-
+	
 	cardManager addCard: aCard.
+	numberOfCards := numberOfCards +1.
 ]
 
 { #category : #Cards }
@@ -67,7 +69,8 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
 	current := players at: turnManager current.
-	cardManager := CardManager using: aCardDealer with: aColorsCollection
+	cardManager := CardManager using: aCardDealer with: aColorsCollection.
+	numberOfCards:= (cardManager cardsInPosetion) size.
 ]
 
 { #category : #Information }
@@ -110,6 +113,12 @@ DuplaGalacticaGame >> movePlayer [
 	board effectAt: current position In: self.
 	turnManager goNext.
 	current := players at: turnManager current
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> numberOfCards [
+
+	^ numberOfCards
 ]
 
 { #category : #Information }

@@ -30,8 +30,9 @@ CardManager >> addCard: aCard [
 { #category : #'Manage cards' }
 CardManager >> apply: aCard to: anObjective at: aGame [
 
-	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ ^ self ].
-	aCard toString = 'Redo' ifFalse: [ lastCardPlay := aCard ].
+	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
+		^ self ].
+	(aCard isKindOf: RedoCard) ifFalse: [ lastCardPlay := aCard ].
 	aCard applyCardUsing: self at: aGame to: anObjective
 ]
 
@@ -57,6 +58,12 @@ CardManager >> canBeUse: aCard whenPlay: aPlayer [
 		ifFalse: [ ^ true ]
 ]
 
+{ #category : #Information }
+CardManager >> cardsInPosetion [
+
+	^cardsInPosetion
+]
+
 { #category : #Initialization }
 CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 
@@ -70,7 +77,7 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 CardManager >> isAnOwner: aPlayerColor of: aCard [
 
 	cardsInPosetion do: [ :card | 
-		(card equals: aCard) ifTrue: [ 
+		(card = aCard) ifTrue: [ 
 			cardsInPosetion remove: card.
 			^ true ] ].
 	^ false

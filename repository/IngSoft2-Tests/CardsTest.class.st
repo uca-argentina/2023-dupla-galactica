@@ -12,7 +12,7 @@ CardsTest >> createBoard [
 
 	| boxes aBoard |
 	boxes := (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
-	^ aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	^ aBoard := Board with: boxes measure: (Parsec worth: 100).
 ]
 
 { #category : #running }
@@ -48,8 +48,8 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 		           and: aBoard
 		           throwing: aLoadedDie
 		           winningWhen: 1
-		           using: (LoadedCardDealer with: (OrderedCollection with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+		           using: (LoadedCardDealer with: (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -74,8 +74,8 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+			          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -102,8 +102,8 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+			          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -130,8 +130,8 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+			          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -156,8 +156,8 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (SpeedCard owner: 'red'))).
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
+			          (OrderedCollection with: (SpeedCard owner: 'red' number: 1))).
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -182,8 +182,8 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (SpeedCard owner: 'red'))).
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
+			          (OrderedCollection with: (SpeedCard owner: 'red' number: 1))).
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -210,8 +210,8 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (SpeedCard owner: 'red'))).
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
+			          (OrderedCollection with: (SpeedCard owner: 'red' number: 1))).
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'red'.
 	aGame movePlayer.
 	self
 		assert: aGame playersLaps
@@ -234,11 +234,11 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (SpeedCard owner: 'red')
-					           with: (OverloadCard owner: 'red'))).
+					           with: (SpeedCard owner: 'red' number: 1)
+					           with: (OverloadCard owner: 'red' number: 2))).
 
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
-	aGame apply: (OverloadCard owner: 'red') to: 'red'.
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'red'.
+	aGame apply: (OverloadCard owner: 'red' number: 2) to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -263,8 +263,8 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (AccelerationCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+			          (OrderedCollection with: (AccelerationCard owner: 'red' number: 1))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -289,8 +289,8 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (AccelerationCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+			          (OrderedCollection with: (AccelerationCard owner: 'red' number: 1))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -314,14 +314,14 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (CancellationCard owner: 'red')
-					           with: (OverloadCard owner: 'red'))).
+					           with: (CancellationCard owner: 'red' number: 1)
+					           with: (OverloadCard owner: 'red' number: 2))).
 
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+	aGame apply: (OverloadCard owner: 'red' number: 2) to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'red') to: (OverloadCard owner: 'blue').
+		apply: (CancellationCard owner: 'red' number: 1) to: (OverloadCard owner: 'blue' number: 2).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -345,15 +345,15 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (SpeedCard owner: 'red')
-					           with: (OverloadCard owner: 'red')
-					           with: (CancellationCard owner: 'blue'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
-	aGame apply: (SpeedCard owner: 'red') to: 'blue'.
+					           with: (SpeedCard owner: 'red' number: 1)
+					           with: (OverloadCard owner: 'red' number: 2)
+					           with: (CancellationCard owner: 'blue' number: 3))).
+	aGame apply: (OverloadCard owner: 'red' number: 2) to: 'blue'.
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'blue') to: (SpeedCard owner: 'blue').
+		apply: (CancellationCard owner: 'blue' number: 3) to: (SpeedCard owner: 'blue' number: 1).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -377,20 +377,22 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (CancellationCard owner: 'red')
-					           with: (OverloadCard owner: 'red')
-					           with: (CancellationCard owner: 'blue')
-					           with: (SpeedCard owner: 'blue'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+					           with: (CancellationCard owner: 'red' number: 1)
+					           with: (OverloadCard owner: 'red' number: 2)
+					           with: (CancellationCard owner: 'blue' number: 3)
+					           with: (SpeedCard owner: 'blue' number: 4))).
+	aGame apply: (OverloadCard owner: 'red' number: 2) to: 'blue'.
 	aGame movePlayer.
-	aGame apply: (SpeedCard owner: 'blue') to: 'blue'.
-	aGame movePlayer.
-	aGame
-		apply: (CancellationCard owner: 'red') to: (SpeedCard owner: 'blue').
-	aGame movePlayer.
+	aGame apply: (SpeedCard owner: 'blue' number: 4) to: 'blue'.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'blue') to: (OverloadCard owner: 'blue').
+		apply: (CancellationCard owner: 'red' number: 1)
+		to: (SpeedCard owner: 'blue' number: 4).
+	aGame movePlayer.
+	aGame movePlayer.
+	aGame
+		apply: (CancellationCard owner: 'blue' number: 3)
+		to: (OverloadCard owner: 'blue' number: 2).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -415,12 +417,12 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (CancellationCard owner: 'red'))).
+			          (OrderedCollection with: (CancellationCard owner: 'red' number: 1))).
 	self
 		should: [ 
 			aGame
-				apply: (CancellationCard owner: 'red')
-				to: (OverloadCard owner: 'red') ]
+				apply: (CancellationCard owner: 'red' number: 1)
+				to: (OverloadCard owner: 'red' number: 2) ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
 ]
@@ -442,14 +444,14 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
 				          (OrderedCollection
-					           with: (CancellationCard owner: 'red')
-					           with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+					           with: (CancellationCard owner: 'red' number: 1)
+					           with: (OverloadCard owner: 'red' number: 2))).
+	aGame apply: (OverloadCard owner: 'red' number: 2) to: 'blue'.
 
 	self
 		should: [ 
 			aGame
-				apply: (CancellationCard owner: 'red') to: (OverloadCard owner: 'red') ]
+				apply: (CancellationCard owner: 'red' number: 1) to: (OverloadCard owner: 'red' number: 2) ]
 		raise: Error
 		withMessage:
 		'There are no that type of cards activate in this player'
@@ -472,8 +474,8 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'blue') to: 'red'.
+			          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
+	aGame apply: (OverloadCard owner: 'blue' number: 1) to: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -499,8 +501,8 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (SpeedCard owner: 'red'))).
-	aGame apply: (SpeedCard owner: 'blue') to: 'blue'.
+			          (OrderedCollection with: (SpeedCard owner: 'red' number: 1))).
+	aGame apply: (SpeedCard owner: 'blue' number: 1) to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -525,8 +527,8 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (AccelerationCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'blue') to: 'all'.
+			          (OrderedCollection with: (AccelerationCard owner: 'red' number: 1))).
+	aGame apply: (AccelerationCard owner: 'blue' number: 1) to: 'all'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -552,10 +554,10 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
 				          (OrderedCollection
-					           with: (OverloadCard owner: 'red')
-					           with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+					           with: (OverloadCard owner: 'red' number: 1)
+					           with: (OverloadCard owner: 'red' number: 2))).
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
+	aGame apply: (OverloadCard owner: 'red' number: 2) to: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -581,9 +583,9 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (OverloadCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+			          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
 	
 	aGame movePlayer.
 	aGame movePlayer.
@@ -609,10 +611,10 @@ CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
 				          (OrderedCollection
-					           with:( SpeedCard owner: 'red')
-					           with: (SpeedCard owner: 'red'))).
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
+					           with:( SpeedCard owner: 'red' number: 1)
+					           with: (SpeedCard owner: 'red' number: 2))).
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'red'.
+	aGame apply: (SpeedCard owner: 'red' number: 2) to: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -638,9 +640,9 @@ CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (SpeedCard owner: 'red'))).
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
+			          (OrderedCollection with: (SpeedCard owner: 'red' number: 1))).
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'red'.
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'red'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -665,10 +667,10 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (AccelerationCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (AccelerationCard owner: 'red' number: 2))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red' number: 2) to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -692,9 +694,9 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
-				          (OrderedCollection with: (AccelerationCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+				          (OrderedCollection with: (AccelerationCard owner: 'red' number: 1))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -719,12 +721,12 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (OverloadCard owner: 'red'))).
+			          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
 
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
 	aGame
-		apply: (CancellationCard owner: 'red')
-		to: (OverloadCard owner: 'blue').
+		apply: (CancellationCard owner: 'red' number: 2)
+		to: (OverloadCard owner: 'blue' number: 1).
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -749,18 +751,18 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (AccelerationCard owner: 'red')
-					           with: (CancellationCard owner: 'blue')
-					           with: (CancellationCard owner: 'blue'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (AccelerationCard owner: 'red' number: 2)
+					           with: (CancellationCard owner: 'blue' number: 3)
+					           with: (CancellationCard owner: 'blue' number: 4))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red' number: 2) to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'blue')
-		to: (AccelerationCard owner: 'red').
+		apply: (CancellationCard owner: 'blue' number: 3)
+		to: (AccelerationCard owner: 'red' number: 1).
 		aGame
-		apply: (CancellationCard owner: 'blue')
-		to: (AccelerationCard owner: 'red').
+		apply: (CancellationCard owner: 'blue' number: 4)
+		to: (AccelerationCard owner: 'red' number: 2).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -784,18 +786,18 @@ CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (AccelerationCard owner: 'red')
-					           with: (CancellationCard owner: 'blue'))).
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (AccelerationCard owner: 'red' number: 2)
+					           with: (CancellationCard owner: 'blue' number: 3))).
 
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red' number: 2) to: 'all'.
 		aGame
-		apply: (CancellationCard owner: 'blue')
-		to: (AccelerationCard owner: 'red').
+		apply: (CancellationCard owner: 'blue' number: 3)
+		to: (AccelerationCard owner: 'red' number: 1).
 		aGame
-		apply: (CancellationCard owner: 'blue')
-		to: (AccelerationCard owner: 'red').
+		apply: (CancellationCard owner: 'blue' number: 3)
+		to: (AccelerationCard owner: 'red' number: 2).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -820,10 +822,10 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
 				          (OrderedCollection
-					           with: (OverloadCard owner: 'red')
-					           with: (RedoCard owner: 'red'))).
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
-	aGame apply: (RedoCard owner: 'red') to: 'red'.
+					           with: (OverloadCard owner: 'red' number: 1)
+					           with: (RedoCard owner: 'red' number: 2))).
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
+	aGame apply: (RedoCard owner: 'red' number: 2) to: 'red'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -847,16 +849,16 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (CancellationCard owner: 'red')
-					           with: (RedoCard owner: 'blue'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (CancellationCard owner: 'red' number: 2)
+					           with: (RedoCard owner: 'blue' number: 3))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'red')
-		to: (AccelerationCard owner: 'blue').
+		apply: (CancellationCard owner: 'red' number: 2)
+		to: (AccelerationCard owner: 'blue' number: 1).
 	aGame
-		apply: (RedoCard owner: 'blue')
-		to: (AccelerationCard owner: 'red').
+		apply: (RedoCard owner: 'blue' number: 3)
+		to: (AccelerationCard owner: 'red' number: 1).
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -882,10 +884,10 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
 				          (OrderedCollection
-					           with: (SpeedCard owner: 'red')
-					           with: (RedoCard owner: 'red'))).
-	aGame apply: (SpeedCard owner: 'red') to: 'red'.
-	aGame apply: (RedoCard owner: 'red') to: 'blue'.
+					           with: (SpeedCard owner: 'red' number: 1)
+					           with: (RedoCard owner: 'red' number: 2))).
+	aGame apply: (SpeedCard owner: 'red' number: 1 ) to: 'red'.
+	aGame apply: (RedoCard owner: 'red' number: 2) to: 'blue'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -910,10 +912,10 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (RedoCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
-	aGame apply: (RedoCard owner: 'red') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (RedoCard owner: 'red' number: 2))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
+	aGame apply: (RedoCard owner: 'red' number: 2) to: 'all'.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -938,12 +940,12 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (RedoCard owner: 'red')
-					           with: (RedoCard owner: 'blue'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
-	aGame apply: (RedoCard owner: 'red') to: 'all'.
-	aGame apply: (RedoCard owner: 'blue') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (RedoCard owner: 'red' number: 2)
+					           with: (RedoCard owner: 'blue' number: 3))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
+	aGame apply: (RedoCard owner: 'red' number: 2) to: 'all'.
+	aGame apply: (RedoCard owner: 'blue' number: 3) to: 'all'.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -961,7 +963,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use: (OrderedCollection with: (SpeedUpBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -969,10 +971,10 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red'))).
+			          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard owner: 'red') to: 'red'.
+	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -991,7 +993,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (WormHoleBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -999,11 +1001,11 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red'))).
+			          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard owner: 'red') to: 'blue'.
+	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'blue'.
 
 	self
 		assert: aGame playersPositions
@@ -1022,7 +1024,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with:
 			           (MoonWalkBox with: -2 chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1030,12 +1032,12 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red'))).
+			          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
 
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard owner: 'red') to: 'red'.
+	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
 
 	self
 		assert: aGame playersPositions
@@ -1052,7 +1054,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use: (OrderedCollection with: (AtomicBombBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1060,12 +1062,12 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red'))).
+			          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
 
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard owner: 'red') to: 'red'.
+	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
 
 
 	self
@@ -1082,8 +1084,8 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 			               with: 5
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox with: (OrderedCollection with: (Parsecs worth: 40)) chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox with: (OrderedCollection with: (Parsec worth: 40)) chance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -1091,12 +1093,12 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red'))).
+			          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
 
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard owner: 'red') to: 'red'.
+	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
 
 
 	self
@@ -1121,9 +1123,9 @@ CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with:( AccelerationCard owner: 'red'))).
+			          (OrderedCollection with:( AccelerationCard owner: 'red' number: 1))).
 	aGame movePlayer.
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame movePlayer.
 
 	self
@@ -1148,9 +1150,9 @@ CardsTest >> testQ040VerifyThatOverloadCardCanOnlyBePlayedAtPlayersTurns [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (OverloadCard owner: 'red'))).
+			          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
 	aGame movePlayer.
-	aGame apply: (OverloadCard owner: 'red') to: 'blue'.
+	aGame apply: (OverloadCard owner: 'red' number: 1) to: 'blue'.
 	aGame movePlayer.
 
 	self
@@ -1175,9 +1177,9 @@ CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 		         winningWhen: 1
 		         using:
 		         (LoadedCardDealer with:
-			          (OrderedCollection with: (SpeedCard owner: 'red'))).
+			          (OrderedCollection with: (SpeedCard owner: 'red' number: 1))).
 	aGame movePlayer.
-	aGame apply: (SpeedCard owner: 'red') to: 'blue'.
+	aGame apply: (SpeedCard owner: 'red' number: 1) to: 'blue'.
 	aGame movePlayer.
 
 	self
@@ -1201,13 +1203,13 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (CancellationCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (CancellationCard owner: 'red' number: 2))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame movePlayer.
 	aGame
-		apply: (CancellationCard owner: 'red')
-		to: (AccelerationCard owner: 'blue').
+		apply: (CancellationCard owner: 'red' number: 2)
+		to: (AccelerationCard owner: 'blue' number: 1).
 	aGame movePlayer.
 
 	self
@@ -1232,11 +1234,11 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
 				          (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (RedoCard owner: 'red'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (RedoCard owner: 'red' number: 2))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame movePlayer.
-	aGame apply: (RedoCard owner: 'red') to: 'all'.
+	aGame apply: (RedoCard owner: 'red' number: 2) to: 'all'.
 	aGame movePlayer.
 
 	self
@@ -1253,18 +1255,20 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 			               with: 1
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use: (OrderedCollection with: (SpeedUpBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	boxes := (BoxCreator use:
+		          (OrderedCollection with: (SpeedUpBox withChance: 100))) 
+		         create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using:
-		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red'))).
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection with:
+					           (RepeatCard owner: 'red' number: 1))).
 	aGame movePlayer.
-	aGame apply: (RepeatCard owner: 'red') to: 'red'.
+	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
 	aGame movePlayer.
 
 	self
@@ -1281,19 +1285,21 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 			               with: 1
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use: (OrderedCollection with: (SpeedUpBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	boxes := (BoxCreator use:
+		          (OrderedCollection with: (SpeedUpBox withChance: 100))) 
+		         create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using:
-		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red') with: (RedoCard owner: 'red'))).
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: (RepeatCard owner: 'red' number: 1)
+					           with: (RedoCard owner: 'red' number: 2))).
 	aGame movePlayer.
-	aGame apply: (RepeatCard owner: 'red') to: 'red'.
-	aGame apply: (RedoCard owner: 'red') to: 'blue'.
+	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
+	aGame apply: (RedoCard owner: 'red' number: 2) to: 'blue'.
 	aGame movePlayer.
 
 	self
@@ -1317,18 +1323,18 @@ CardsTest >> testQ046VerifyThatWhenUsingARedoCardOfACancellationCardTheObjective
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (CancellationCard owner: 'red')
-					           with: (RedoCard owner: 'blue'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (CancellationCard owner: 'red' number: 2)
+					           with: (RedoCard owner: 'blue' number: 3))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	aGame
-		apply: (CancellationCard owner: 'red')
-		to: (AccelerationCard owner: 'blue').
+		apply: (CancellationCard owner: 'red' number: 2)
+		to: (AccelerationCard owner: 'blue' number: 1).
 
 	self
-		should: [ aGame apply: (RedoCard owner: 'blue') to: 'red' ]
+		should: [ aGame apply: (RedoCard owner: 'blue' number: 3) to: 'red' ]
 		raise: Error
-		withMessage: 'The objective card to cancell must be specified'
+		withMessage: 'There are no that type of cards activate in this player'
 ]
 
 { #category : #tests }
@@ -1347,17 +1353,16 @@ CardsTest >> testQ047VerifyThatWhenUsingACancellationCardTheObjectiveCardMustBeD
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with: (OrderedCollection
-					           with: (AccelerationCard owner: 'red')
-					           with: (CancellationCard owner: 'red')
-					           with: (RedoCard owner: 'blue'))).
-	aGame apply: (AccelerationCard owner: 'red') to: 'all'.
-
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (CancellationCard owner: 'red' number: 2)
+					           with: (RedoCard owner: 'blue' number: 3))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
 	self
 		should: [ 
 			aGame
-		apply: (CancellationCard owner: 'red') to: 'blue'.]
+		apply: (CancellationCard owner: 'red' number: 2) to: 'blue'.]
 		raise: Error
-		withMessage: 'The objective card to cancell must be specified'
+		withMessage: 'There are no that type of cards activate in this player'
 ]
 
 { #category : #tests }
@@ -1376,9 +1381,9 @@ CardsTest >> testQ048VerifyThatWhenUsingAnOverloadCardTheObjectiveMustBeAValidPl
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
-				          (OrderedCollection with: (OverloadCard owner: 'red'))).
+				          (OrderedCollection with: (OverloadCard owner: 'red' number: 1))).
 	self
-		should: [ aGame apply: (OverloadCard owner: 'red') to: (AccelerationCard owner: 'red') ]
+		should: [ aGame apply: (OverloadCard owner: 'red' number: 1) to: (AccelerationCard owner: 'red' number: 2) ]
 		raise: Error
 		withMessage: 'That is not a valid objective for an overload card'
 ]
@@ -1399,9 +1404,9 @@ CardsTest >> testQ049VerifyThatWhenUsingAnAccelerationCardTheObjectiveMustBeAll 
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
-				          (OrderedCollection with: (AccelerationCard owner: 'red'))).
+				          (OrderedCollection with: (AccelerationCard owner: 'red' number: 1))).
 	self
-		should: [ aGame apply: (AccelerationCard owner: 'red') to: (AccelerationCard owner: 'red') ]
+		should: [ aGame apply: (AccelerationCard owner: 'red' number: 1) to: (AccelerationCard owner: 'red' number: 2) ]
 		raise: Error
 		withMessage: 'The objective must be all'
 ]
@@ -1422,9 +1427,9 @@ CardsTest >> testQ050VerifyThatWhenUsingASpeedCardTheObjectiveMustBeAValidPlayer
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
-				          (OrderedCollection with: (SpeedCard owner: 'red'))).
+				          (OrderedCollection with: (SpeedCard owner: 'red' number: 1))).
 	self
-		should: [ aGame apply: (SpeedCard owner: 'red') to: (AccelerationCard owner: 'red') ]
+		should: [ aGame apply: (SpeedCard owner: 'red' number: 1) to: (AccelerationCard owner: 'red' number: 2) ]
 		raise: Error
 		withMessage: 'That is not a valid objective for a speed card'
 ]
@@ -1445,9 +1450,9 @@ CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlaye
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
-				          (OrderedCollection with: (RepeatCard owner: 'red'))).
+				          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
 	self
-		should: [ aGame apply: (RepeatCard owner: 'red') to: 'all' ]
+		should: [ aGame apply: (RepeatCard owner: 'red' number: 1) to: 'all' ]
 		raise: Error
 		withMessage: 'That is not a valid objective for a repeat card'
 ]
@@ -1468,9 +1473,44 @@ CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 		         throwing: aLoadedDie
 		         winningWhen: 1
 		         using: (LoadedCardDealer with:
-				          (OrderedCollection with: (RedoCard owner: 'red'))).
+				          (OrderedCollection with: (RedoCard owner: 'red' number: 1))).
 	self
-		should: [ aGame apply: (RedoCard owner: 'red') to: 'all' ]
+		should: [ aGame apply: (RedoCard owner: 'red' number: 1) to: 'all' ]
 		raise: Error
 		withMessage: 'Redo card cannot be played because there are no cards that have been played before'
+]
+
+{ #category : #tests }
+CardsTest >> testQ053Banana [
+
+	| aGame aLoadedDie aBoard |
+	aBoard := self createBoard.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 4
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (LoadedCardDealer with: (OrderedCollection
+					           with: (AccelerationCard owner: 'red' number: 1)
+					           with: (AccelerationCard owner: 'red' number: 2)
+					           with: (CancellationCard owner: 'blue' number: 3)
+					           with: (CancellationCard owner: 'blue' number: 4))).
+	aGame apply: (AccelerationCard owner: 'red' number: 1) to: 'all'.
+	aGame apply: (AccelerationCard owner: 'red' number: 2) to: 'all'.
+	aGame
+		apply: (CancellationCard owner: 'blue' number: 3)
+		to: (AccelerationCard owner: 'red' number: 1).
+		aGame
+		apply: (CancellationCard owner: 'blue' number: 4)
+		to: (AccelerationCard owner: 'red' number: 1).
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 3 with: 7)
 ]

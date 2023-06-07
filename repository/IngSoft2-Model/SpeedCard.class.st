@@ -2,15 +2,24 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-SpeedCard class >> owner: anOwner [
+SpeedCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeOwner: anOwner number: anId
+]
+
+{ #category : #Information }
+SpeedCard >> = aCard [
+
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
@@ -23,7 +32,7 @@ SpeedCard >> applyCardUsing: cardManager at: aGame to: objective [
 	i ifFalse: [ 
 		Error signal:
 			 'That is not a valid objective for a speed card' ].
-	cardManager activeCards addLast: (SpeedCard owner: objective)
+	cardManager activeCards addLast: (SpeedCard owner: objective number: id)
 ]
 
 { #category : #Effect }
@@ -32,16 +41,17 @@ SpeedCard >> applyEffect [
 	^ 1
 ]
 
-{ #category : #Information }
-SpeedCard >> equals: aCard [
+{ #category : #Initialization }
+SpeedCard >> id [
 
-	^ 'Speed' = aCard toString and: aCard owner = owner
+	^ id
 ]
 
 { #category : #Initialization }
-SpeedCard >> initializeOwner: anOwner [
+SpeedCard >> initializeOwner: anOwner number: anId [
 
-	owner :=anOwner.
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -54,10 +64,4 @@ SpeedCard >> isPermanent [
 SpeedCard >> owner [
 
 	^ owner
-]
-
-{ #category : #Information }
-SpeedCard >> toString [
-
-	^ 'Speed'
 ]

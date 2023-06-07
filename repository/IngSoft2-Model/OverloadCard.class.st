@@ -2,15 +2,24 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> owner: anOwner [
+OverloadCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeOwner: anOwner number: anId
+]
+
+{ #category : #Information }
+OverloadCard >> = aCard [
+
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
@@ -21,7 +30,7 @@ OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
 	aGame playersColors do: [ :color | 
 		color = objective ifTrue: [ i := true ] ].
 	i ifFalse: [ Error signal: 'That is not a valid objective for an overload card' ].
-	cardManager activeCards addLast: (OverloadCard owner: objective).
+	cardManager activeCards addLast: (OverloadCard owner: objective number: id).
 ]
 
 { #category : #Effect }
@@ -32,15 +41,16 @@ OverloadCard >> applyEffect [
 ]
 
 { #category : #Information }
-OverloadCard >> equals: aCard [
+OverloadCard >> id [
 
-	^ 'Overload' = aCard toString and: aCard owner = owner
+	^ id
 ]
 
 { #category : #Initialization }
-OverloadCard >> initializeOwner: anOwner [
+OverloadCard >> initializeOwner: anOwner number: anId [
 
 	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -53,10 +63,4 @@ OverloadCard >> isPermanent [
 OverloadCard >> owner [
 
 	^ owner
-]
-
-{ #category : #Information }
-OverloadCard >> toString [
-
-	^ 'Overload'
 ]

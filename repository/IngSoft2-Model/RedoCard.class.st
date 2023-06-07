@@ -2,25 +2,29 @@ Class {
 	#name : #RedoCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RedoCard class >> owner: anObjectivePlayer [
+RedoCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anObjectivePlayer
+	^ self new initializeOwner: anOwner number: anId
+]
+
+{ #category : #Information }
+RedoCard >> = aCard [
+
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
 RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
-
-	cardManager lastCardPlay toString = 'Cancellation' ifTrue: [ 
-		aGame playersColors do: [ :color | 
-			color = objective ifTrue: [ 
-				Error signal: 'The objective card to cancell must be specified' ] ] ].
-	cardManager lastCardPlay toString = 'Empty' ifTrue: [ Error signal: 'Redo card cannot be played because there are no cards that have been played before' ].
+	
 	cardManager lastCardPlay
 		applyCardUsing: cardManager
 		at: aGame
@@ -28,15 +32,16 @@ RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
 ]
 
 { #category : #Information }
-RedoCard >> equals: aCard [
+RedoCard >> id [
 
-	^ 'Redo' = aCard toString and: aCard owner = owner
+	^ id
 ]
 
 { #category : #Initialization }
-RedoCard >> initializeOwner: anOwner [
+RedoCard >> initializeOwner: anOwner number: anId [
 
 	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -48,10 +53,4 @@ RedoCard >> isPermanent [
 { #category : #Information }
 RedoCard >> owner [
 	^ owner
-]
-
-{ #category : #Information }
-RedoCard >> toString [
-
-	^ 'Redo'
 ]

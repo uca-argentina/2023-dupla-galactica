@@ -26,7 +26,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> setUp [
 CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithParsecs [
 
 	| aBoard oneHundredParsecs aGame |
-	oneHundredParsecs := Parsecs worth: 100.
+	oneHundredParsecs := Parsec worth: 100.
 
 	aBoard := Board with: boxes measure: oneHundredParsecs.
 	aGame := DuplaGalacticaGameProxy
@@ -43,7 +43,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithP
 CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithLigthYears [
 
 	| aBoard threeHundredLigthYears aGame |
-	threeHundredLigthYears := LigthYears worth: 300.
+	threeHundredLigthYears := LigthYear worth: 300.
 	aBoard := Board with: boxes measure: threeHundredLigthYears.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -59,7 +59,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithL
 CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithParsecsAndAskForLightYears [
 
 	| aBoard oneHundredParsecs aGame |
-	oneHundredParsecs := Parsecs worth: 100.
+	oneHundredParsecs := Parsec worth: 100.
 	aBoard := Board with: boxes measure: oneHundredParsecs.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -75,7 +75,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithP
 CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateABordWithLigthYearsAndAskForParsecs [
 
 	| aBoard threeHundredLigthYears aGame |
-	threeHundredLigthYears := LigthYears worth: 300.
+	threeHundredLigthYears := LigthYear worth: 300.
 	aBoard := Board with: boxes measure: threeHundredLigthYears.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection

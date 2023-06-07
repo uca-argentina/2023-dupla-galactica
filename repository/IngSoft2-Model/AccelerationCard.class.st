@@ -2,14 +2,21 @@ Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> owner: anOwner [ 
-	^self new initializeOwner: anOwner
+AccelerationCard class >> owner: anOwner number: anId [
+	^self new initializeOwner: anOwner number: anId
+]
+
+{ #category : #Information }
+AccelerationCard >> = aCard [
+
+	(aCard isKindOf: self class) ifTrue: [ ^(id = aCard id and: aCard owner = owner) ] ifFalse: [ ^false ]
 ]
 
 { #category : #Effect }
@@ -17,7 +24,7 @@ AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	objective = 'all' ifFalse: [ Error signal: 'The objective must be all'].
 	aGame playersColors do: [ :color | 
-		cardManager activeCards addLast: (AccelerationCard owner: color) ]
+		cardManager activeCards addLast: (AccelerationCard owner: color number: id) ]
 ]
 
 { #category : #Effect }
@@ -27,15 +34,16 @@ AccelerationCard >> applyEffect [
 ]
 
 { #category : #Information }
-AccelerationCard >> equals: aCard [
+AccelerationCard >> id [
 
-	^ 'Acceleration' = aCard toString and: aCard owner = owner
+	^ id
 ]
 
 { #category : #Initialization }
-AccelerationCard >> initializeOwner: anOwner [
+AccelerationCard >> initializeOwner: anOwner number: anId [
 
 	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -47,10 +55,4 @@ AccelerationCard >> isPermanent [
 { #category : #Information }
 AccelerationCard >> owner [
 	^owner
-]
-
-{ #category : #Information }
-AccelerationCard >> toString [
-
-	^ 'Acceleration'
 ]

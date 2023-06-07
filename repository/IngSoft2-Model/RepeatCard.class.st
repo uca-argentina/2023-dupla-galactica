@@ -2,15 +2,24 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> owner: anObjectivePlayer [
+RepeatCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anObjectivePlayer
+	^ self new initializeOwner: anOwner number: anId
+]
+
+{ #category : #Information }
+RepeatCard >> = aCard [
+
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Information }
@@ -25,15 +34,16 @@ RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 ]
 
 { #category : #Information }
-RepeatCard >> equals: aCard [
+RepeatCard >> id [
 
-	^ 'Repeat' = aCard toString and: aCard owner = owner
+	^ id
 ]
 
 { #category : #Initialization }
-RepeatCard >> initializeOwner: anObjectivePlayer [
+RepeatCard >> initializeOwner: anOwner number: anId [
 
-	owner := anObjectivePlayer.
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -45,9 +55,4 @@ RepeatCard >> isPermanent [
 { #category : #Information }
 RepeatCard >> owner [
 	^owner .
-]
-
-{ #category : #Information }
-RepeatCard >> toString [
-	^'Repeat'.
 ]

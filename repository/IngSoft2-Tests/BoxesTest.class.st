@@ -37,7 +37,7 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
 	boxes := boxes := (BoxCreator use:
 		                   (OrderedCollection with:
 			                    (NoEffectBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -63,7 +63,7 @@ BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (WormHoleBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -89,7 +89,7 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 	boxes := boxes := (BoxCreator use:
 		                   (OrderedCollection with:
 			                    (SpeedUpBox withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -115,7 +115,7 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 	boxes := (BoxCreator
 		          use: (OrderedCollection with: (MoonWalkBox with: -2 chance: 100))) create:
 		         10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -141,7 +141,7 @@ BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (AtomicBombBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -165,10 +165,10 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
 				            with:
 				            (OrderedCollection
-					             with: (Parsecs worth: 40)
-					             with: (Parsecs worth: 30))
+					             with: (Parsec worth: 40)
+					             with: (Parsec worth: 30))
 				            chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -194,7 +194,7 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowThePlayerToBeInANegativePositio
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (WormHoleBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -220,7 +220,7 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePositi
 	boxes := (BoxCreator use:
 		          (OrderedCollection with:
 			           (MoonWalkBox with: -4 chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -244,9 +244,9 @@ BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosit
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
-				            with: (OrderedCollection with: (Parsecs worth: -40) with: (Parsecs worth: -10))
+				            with: (OrderedCollection with: (Parsec worth: -40) with: (Parsec worth: -10))
 				            chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -272,7 +272,7 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (WormHoleBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -296,9 +296,9 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
-				            with: (OrderedCollection with: (Parsecs worth: 45.5) with: (Parsecs worth: 34.9))
+				            with: (OrderedCollection with: (Parsec worth: 45.5) with: (Parsec worth: 34.9))
 				            chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -324,7 +324,7 @@ BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (RandomCardBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -349,7 +349,7 @@ BoxesTest >> testR002CheckRandomCardBoxGeneratesARandomCardMoreThanOneTimeIfNece
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (RandomCardBox withChance: 100))) 
 		         create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -375,10 +375,10 @@ BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 			               with: 8).
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
 				            with: (OrderedCollection
-						             with: (LigthYears worth: 120)
-						             with: (LigthYears worth: 90))
+						             with: (LigthYear worth: 120)
+						             with: (LigthYear worth: 90))
 				            chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -403,10 +403,10 @@ BoxesTest >> testT002CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 			               with: 8).
 	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox
 				            with: (OrderedCollection
-						             with: (LigthYears worth: 120)
-						             with: (Parsecs worth: 30))
+						             with: (LigthYear worth: 120)
+						             with: (Parsec worth: 30))
 				            chance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 100).
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
