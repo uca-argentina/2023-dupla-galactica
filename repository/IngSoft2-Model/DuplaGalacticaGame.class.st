@@ -8,7 +8,8 @@ Class {
 		'goalLaps',
 		'turnManager',
 		'current',
-		'cardManager'
+		'cardManager',
+		'numberOfCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,8 +31,9 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 
 { #category : #Cards }
 DuplaGalacticaGame >> addCard: aCard [
-
+	
 	cardManager addCard: aCard.
+	numberOfCards := numberOfCards +1.
 ]
 
 { #category : #Cards }
@@ -66,8 +68,9 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	dice := aDiceCollection.
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
-	current := players at: 1.
-	cardManager:= CardManager using: aCardDealer with: aColorsCollection.
+	current := players at: turnManager current.
+	cardManager := CardManager using: aCardDealer with: aColorsCollection.
+	numberOfCards:= (cardManager cardsInPosetion) size.
 ]
 
 { #category : #Information }
@@ -106,11 +109,16 @@ DuplaGalacticaGame >> movePlayer [
 	aValue:=aValue+ (cardManager calculateEffectOn: (current color)).
 	
 	self winnerExists ifTrue: [ ^ self ].
-	self currentPlayer move: aValue andUpdateLap: board boxes size.
-
-	board effectAt: self currentPlayer position In: self.
+	current move: aValue andUpdateLap: board boxes size.
+	board effectAt: current position In: self.
 	turnManager goNext.
 	current := players at: turnManager current
+]
+
+{ #category : #Information }
+DuplaGalacticaGame >> numberOfCards [
+
+	^ numberOfCards
 ]
 
 { #category : #Information }
@@ -134,13 +142,13 @@ DuplaGalacticaGame >> playersColors [
 { #category : #Information }
 DuplaGalacticaGame >> playersLaps [
 
-	^ players collect: [ :player | player lap ]
+	^ players collect: [ :player | player position lap ]
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> playersPositions [
 
-	^ players collect: [ :player | player position ]
+	^ players collect: [ :player | player position boxNumber ]
 ]
 
 { #category : #Finalization }
@@ -149,8 +157,8 @@ DuplaGalacticaGame >> ranking [
 	| ranking |
 	ranking := players collect: [ :player | player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position + (player1 lap * self boxes size)
-		> (player2 position + (player2 lap * self boxes size)) ].
+		player1 position boxNumber + (player1 position lap * self boxes size)
+		> (player2 position boxNumber + (player2 position lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
 ]
 
@@ -183,5 +191,5 @@ DuplaGalacticaGame >> winnerExists [
 { #category : #Finalization }
 DuplaGalacticaGame >> wins: aPlayer [
 
-	^ aPlayer lap >= self goalLaps
+	^ aPlayer position lap >= self goalLaps
 ]

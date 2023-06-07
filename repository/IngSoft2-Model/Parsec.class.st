@@ -1,5 +1,5 @@
 Class {
-	#name : #Parsecs,
+	#name : #Parsec,
 	#superclass : #Object,
 	#instVars : [
 		'nominalValue'
@@ -8,31 +8,31 @@ Class {
 }
 
 { #category : #'Instance creation' }
-Parsecs class >> worth: aNominalValue [
+Parsec class >> worth: aNominalValue [
 
 	^ self new initializeWith: aNominalValue
 ]
 
 { #category : #Initialization }
-Parsecs >> initializeWith: aNominalValue [
+Parsec >> initializeWith: aNominalValue [
 
 	nominalValue := aNominalValue
 ]
 
 { #category : #Information }
-Parsecs >> lightYears [
+Parsec >> lightYears [
 
-	^ LigthYears worth: nominalValue * 3
+	^ LigthYear worth: nominalValue * 3
 ]
 
 { #category : #Information }
-Parsecs >> nominalValue [
+Parsec >> nominalValue [
 
 	^ nominalValue
 ]
 
 { #category : #Information }
-Parsecs >> parsecs [
+Parsec >> parsecs [
 
 	^ self
 ]

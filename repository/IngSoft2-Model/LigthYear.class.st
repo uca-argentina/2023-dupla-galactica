@@ -1,5 +1,5 @@
 Class {
-	#name : #LigthYears,
+	#name : #LigthYear,
 	#superclass : #Object,
 	#instVars : [
 		'nominalValue'
@@ -8,30 +8,30 @@ Class {
 }
 
 { #category : #'Instance creation' }
-LigthYears class >> worth: aNominalValue [
+LigthYear class >> worth: aNominalValue [
 	^(self new) initializeWorth: aNominalValue
 ]
 
 { #category : #Initialization }
-LigthYears >> initializeWorth: aNominalValue [
+LigthYear >> initializeWorth: aNominalValue [
 
 	nominalValue := aNominalValue
 ]
 
 { #category : #Information }
-LigthYears >> lightYears [
+LigthYear >> lightYears [
 
 	^ self
 ]
 
 { #category : #Information }
-LigthYears >> nominalValue [
+LigthYear >> nominalValue [
 
 	^ nominalValue
 ]
 
 { #category : #Information }
-LigthYears >> parsecs [
+LigthYear >> parsecs [
 
-	^ Parsecs worth: nominalValue // 3
+	^ Parsec worth: nominalValue // 3
 ]

@@ -3,24 +3,23 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'parsecs',
-		'parsecManager',
-		'probabilitie'
+		'parsecManager'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-HyperJumpBox class >> with: aParsecCollection chance: aProbabilitie [
+HyperJumpBox class >> with: aParsecCollection [
 
 	aParsecCollection isEmpty ifTrue: [ 
 		Error signal: 'There are no values to use in the hyper jump box' ].
-	^ self new initializeWith: aParsecCollection chance: aProbabilitie
+	^ self new initializeWith: aParsecCollection
 ]
 
 { #category : #Effect }
 HyperJumpBox >> currentValue [
 
-	^ self parsecs at: parsecManager current
+	^ parsecs at: parsecManager current
 ]
 
 { #category : #Effect }
@@ -33,20 +32,8 @@ HyperJumpBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-HyperJumpBox >> initializeWith: aParsecCollection chance: aProbabilitie [
+HyperJumpBox >> initializeWith: aParsecCollection [
 
-	probabilitie := aProbabilitie.
 	parsecs := aParsecCollection.
 	parsecManager := TurnManager with: parsecs size
-]
-
-{ #category : #Information }
-HyperJumpBox >> parsecs [
-
-	^ parsecs
-]
-
-{ #category : #Information }
-HyperJumpBox >> probabilitie [
-	^ probabilitie
 ]

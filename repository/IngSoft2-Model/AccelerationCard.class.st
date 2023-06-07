@@ -2,34 +2,29 @@ Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> owner: anOwner [ 
-	^self new initializeOwner: anOwner
+AccelerationCard class >> owner: anOwner number: anId [
+	^self new initializeOwner: anOwner number: anId
+]
+
+{ #category : #Information }
+AccelerationCard >> = aCard [
+
+	(aCard isKindOf: self class) ifTrue: [ ^(id = aCard id and: aCard owner = owner) ] ifFalse: [ ^false ]
 ]
 
 { #category : #Effect }
-AccelerationCard >> addOwner: aPlayerColor [
+AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	owners addLast: aPlayerColor
-]
-
-{ #category : #Effect }
-AccelerationCard >> applyCardAt: aGame using: aCardManager [
-
-	| res |
-	res := false.
-	aCardManager activeCards do: [ :card | 
-		card toString = 'Acceleration' ifTrue: [ 
-			aGame playersColors do: [:playerColor | card addOwner: playerColor].
-			res := true ] ].
-	res ifTrue: [ ^ self ].
-	owners := aGame playersColors.
-	aCardManager activeCards addLast: self
+	objective = 'all' ifFalse: [ Error signal: 'The objective must be all'].
+	aGame playersColors do: [ :color | 
+		cardManager activeCards addLast: (AccelerationCard owner: color number: id) ]
 ]
 
 { #category : #Effect }
@@ -39,22 +34,22 @@ AccelerationCard >> applyEffect [
 ]
 
 { #category : #Information }
-AccelerationCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
-]
+AccelerationCard >> haveEffect [
 
-{ #category : #Initialization }
-AccelerationCard >> initializeOwner: anOwner [
-
-	owners := OrderedCollection with: anOwner.
+	^ true
 ]
 
 { #category : #Information }
-AccelerationCard >> isOwner: aPlayerColor [
+AccelerationCard >> id [
 
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	^ id
+]
+
+{ #category : #Initialization }
+AccelerationCard >> initializeOwner: anOwner number: anId [
+
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -64,18 +59,6 @@ AccelerationCard >> isPermanent [
 ]
 
 { #category : #Information }
-AccelerationCard >> owners [
-	^owners
-]
-
-{ #category : #Information }
-AccelerationCard >> toString [
-
-	^ 'Acceleration'
-]
-
-{ #category : #Information }
-AccelerationCard >> transformTo: aCard [
-
-	^ self
+AccelerationCard >> owner [
+	^owner
 ]

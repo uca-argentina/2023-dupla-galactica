@@ -2,54 +2,52 @@ Class {
 	#name : #RedoCard,
 	#superclass : #Object,
 	#instVars : [
-		'objectiveCard',
-		'owners'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RedoCard class >> owner: anObjectivePlayer [
+RedoCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anObjectivePlayer
+	^ self new initializeOwner: anOwner number: anId
 ]
 
-{ #category : #'Instance creation' }
-RedoCard class >> owner: anObjectivePlayer ofCard: anObjectiveCard [
+{ #category : #Information }
+RedoCard >> = aCard [
 
-	^ self new initializeOwner: anObjectivePlayer ofCard: anObjectiveCard
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
-RedoCard >> addOwner: aPlayerColor [
-
-	owners addLast: aPlayerColor
+RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
+	
+	cardManager lastCardPlay
+		applyCardUsing: cardManager
+		at: aGame
+		to: objective
 ]
 
 { #category : #Information }
-RedoCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
-]
+RedoCard >> haveEffect [
 
-{ #category : #Initialization }
-RedoCard >> initializeOwner: anOwner [
-
-	owners := OrderedCollection with: anOwner.
-]
-
-{ #category : #Initialization }
-RedoCard >> initializeOwner: anObjectivePlayer ofCard: anObjectiveCard [
-
-	owners := OrderedCollection with: anObjectivePlayer.
-	objectiveCard := anObjectiveCard
+	^ false
 ]
 
 { #category : #Information }
-RedoCard >> isOwner: aPlayerColor [
+RedoCard >> id [
 
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	^ id
+]
+
+{ #category : #Initialization }
+RedoCard >> initializeOwner: anOwner number: anId [
+
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -59,32 +57,6 @@ RedoCard >> isPermanent [
 ]
 
 { #category : #Information }
-RedoCard >> owners [
-	^ owners
-]
-
-{ #category : #Information }
-RedoCard >> toString [
-
-	^ 'Redo'
-]
-
-{ #category : #Effect }
-RedoCard >> transformTo: aCard [
-
-	| card |
-	card := aCard toString = 'Cancellation'
-		        ifTrue: [ 
-		        CancellationCard owner: owners ofCard: objectiveCard ]
-		        ifFalse: [ 
-			        aCard toString = 'Acceleration'
-				        ifTrue: [ AccelerationCard new ]
-				        ifFalse: [ 
-					        aCard toString = 'Speed'
-						        ifTrue: [ SpeedCard owner: owners ]
-						        ifFalse: [ 
-							        aCard toString = 'Overload'
-								        ifTrue: [ OverloadCard owner: owners ]
-								        ifFalse: [ RepeatCard owner: owners ] ] ] ].
-	^card.
+RedoCard >> owner [
+	^ owner
 ]

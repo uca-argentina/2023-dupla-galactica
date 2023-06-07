@@ -2,46 +2,54 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> owner: anObjectivePlayer [
+RepeatCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anObjectivePlayer
+	^ self new initializeOwner: anOwner number: anId
 ]
 
 { #category : #Information }
-RepeatCard >> addOwner: aPlayerColor [
+RepeatCard >> = aCard [
 
-	owners addLast: aPlayerColor
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Information }
-RepeatCard >> applyCardAt: aGame using: aCardManager [
+RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	aGame repeatEffectTo: aCardManager objective
+	| i |
+	i := false.
+	aGame playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ Error signal: 'That is not a valid objective for a repeat card' ].
+	aGame repeatEffectTo: objective
 ]
 
 { #category : #Information }
-RepeatCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+RepeatCard >> haveEffect [
+
+	^ true
+]
+
+{ #category : #Information }
+RepeatCard >> id [
+
+	^ id
 ]
 
 { #category : #Initialization }
-RepeatCard >> initializeOwner: anObjectivePlayer [
+RepeatCard >> initializeOwner: anOwner number: anId [
 
-	owners := OrderedCollection with: anObjectivePlayer.
-]
-
-{ #category : #Information }
-RepeatCard >> isOwner: aPlayerColor [
-
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -51,17 +59,6 @@ RepeatCard >> isPermanent [
 ]
 
 { #category : #Information }
-RepeatCard >> owners [
-	^owners .
-]
-
-{ #category : #Information }
-RepeatCard >> toString [
-	^'Repeat'.
-]
-
-{ #category : #Information }
-RepeatCard >> transformTo: aCard [
-
-	^ self
+RepeatCard >> owner [
+	^owner .
 ]

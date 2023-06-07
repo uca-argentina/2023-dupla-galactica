@@ -11,19 +11,21 @@ Class {
 { #category : #Games }
 CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
-	| aGame aBoard aBoxCreator boxes |
-	aBoxCreator := BoxCreator use: (OrderedCollection
-			                with: (NoEffectBox withChance: 40)
-			                with: (WormHoleBox withChance: 20)
-			                with: (SpeedUpBox withChance: 20)
-			                with: (MoonWalkBox with: -2 chance: 10)
-			                with: (AtomicBombBox withChance: 2)
+	| aGame aBoard aBoxCreator boxes boxesProbabilities |
+	boxesProbabilities:= (OrderedCollection
+			                with: (BoxProbability using: NoEffectBox new withChance: 30)
+			                with: (BoxProbability using: WormHoleBox  new withChance: 20)
+			                with: (BoxProbability using: SpeedUpBox  new withChance: 20)
+			                with: (BoxProbability using: (MoonWalkBox with: -2) withChance: 10)
+			                with: (BoxProbability using: AtomicBombBox new withChance: 2)
 			                with:
-			                (HyperJumpBox
-				                 with: (OrderedCollection with: (Parsecs worth: 40) with: (Parsecs worth: 30))
-				                 chance: 8)).
+			                (BoxProbability using: (HyperJumpBox
+				                 with: (OrderedCollection with: (Parsec worth: 40) with: (Parsec worth: 30))
+				                 )withChance: 8)).
+	boxesProbabilities addLast: (BoxProbability using: RandomCardBox new withChance: 10).
+	aBoxCreator := BoxCreator use: boxesProbabilities.
 	boxes := aBoxCreator create: 10.
-	aBoard := Board with: boxes measure: (Parsecs worth: 200).
+	aBoard := Board with: boxes measure: (Parsec worth: 200).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
@@ -131,7 +133,7 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 		should: [ 
 			DuplaGalacticaGameProxy
 				with: OrderedCollection new
-				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: (Parsecs worth: 200))
+				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: (Parsec worth: 200))
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: 1
 				using: CardDealer new]
@@ -152,7 +154,7 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 								  with: NoEffectBox new
 								  with: NoEffectBox new
 								  with: NoEffectBox new)
-						 measure: (Parsecs worth: 200))
+						 measure: (Parsec worth: 200))
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: -1
 				using: CardDealer new ]
@@ -167,7 +169,7 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 		should: [ 
 			DuplaGalacticaGameProxy
 				with: aColorCollection
-				and: (Board with: (OrderedCollection new) measure: (Parsecs worth: 0))
+				and: (Board with: (OrderedCollection new) measure: (Parsec worth: 0))
 				throwing: (OrderedCollection with: aLoadedDie)
 				winningWhen: 1
 				using: CardDealer new ]

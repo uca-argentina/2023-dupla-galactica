@@ -2,35 +2,35 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> owner: anOwner [
+OverloadCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeOwner: anOwner number: anId
 ]
 
 { #category : #Information }
-OverloadCard >> addOwner: aPlayerColor [
+OverloadCard >> = aCard [
 
-	owners addLast: aPlayerColor
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
-OverloadCard >> applyCardAt: aGame using: aCardManager [
+OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| res |
-	res := false.
-	aCardManager activeCards do: [ :card | 
-		card toString = 'Overload' ifTrue: [ 
-			card addOwner: aCardManager objective.
-			res := true ] ].
-	res ifTrue: [ ^ self ].
-	owners := OrderedCollection with: aCardManager objective.
-	aCardManager activeCards addLast: self
+	| i |
+	i := false.
+	aGame playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ Error signal: 'That is not a valid objective for an overload card' ].
+	cardManager activeCards addLast: (OverloadCard owner: objective number: id).
 ]
 
 { #category : #Effect }
@@ -40,23 +40,23 @@ OverloadCard >> applyEffect [
 	^(-2)
 ]
 
+{ #category : #Effect }
+OverloadCard >> haveEffect [
+
+	^ true
+]
+
 { #category : #Information }
-OverloadCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+OverloadCard >> id [
+
+	^ id
 ]
 
 { #category : #Initialization }
-OverloadCard >> initializeOwner: anOwner [
+OverloadCard >> initializeOwner: anOwner number: anId [
 
-	owners := OrderedCollection with: anOwner.
-]
-
-{ #category : #Information }
-OverloadCard >> isOwner: aPlayerColor [
-
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -66,19 +66,7 @@ OverloadCard >> isPermanent [
 ]
 
 { #category : #Information }
-OverloadCard >> owners [
+OverloadCard >> owner [
 
-	^ owners
-]
-
-{ #category : #Information }
-OverloadCard >> toString [
-
-	^ 'Overload'
-]
-
-{ #category : #Information }
-OverloadCard >> transformTo: aCard [
-
-	^ self
+	^ owner
 ]

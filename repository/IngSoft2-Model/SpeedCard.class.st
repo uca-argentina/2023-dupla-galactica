@@ -2,35 +2,37 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'owners'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-SpeedCard class >> owner: anOwner [
+SpeedCard class >> owner: anOwner number: anId [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeOwner: anOwner number: anId
 ]
 
 { #category : #Information }
-SpeedCard >> addOwner: aPlayerColor [
+SpeedCard >> = aCard [
 
-	owners addLast: aPlayerColor
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
-SpeedCard >> applyCardAt: aGame using: aCardManager [
+SpeedCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| res |
-	res := false.
-	aCardManager activeCards do: [ :card | 
-		card toString = 'Speed' ifTrue: [ 
-			card addOwner: aCardManager objective.
-			res := true ] ].
-	res ifTrue: [ ^ self ].
-	owners := OrderedCollection with: aCardManager objective.
-	aCardManager activeCards addLast: self
+	| i |
+	i := false.
+	aGame playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ 
+		Error signal:
+			 'That is not a valid objective for a speed card' ].
+	cardManager activeCards addLast: (SpeedCard owner: objective number: id)
 ]
 
 { #category : #Effect }
@@ -39,23 +41,23 @@ SpeedCard >> applyEffect [
 	^ 1
 ]
 
-{ #category : #Information }
-SpeedCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+{ #category : #Initialization }
+SpeedCard >> haveEffect [
+
+	^ true
 ]
 
 { #category : #Initialization }
-SpeedCard >> initializeOwner: anOwner [
+SpeedCard >> id [
 
-	owners := OrderedCollection with: anOwner.
+	^ id
 ]
 
-{ #category : #Information }
-SpeedCard >> isOwner: aPlayerColor [
+{ #category : #Initialization }
+SpeedCard >> initializeOwner: anOwner number: anId [
 
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -65,19 +67,7 @@ SpeedCard >> isPermanent [
 ]
 
 { #category : #Information }
-SpeedCard >> owners [
+SpeedCard >> owner [
 
-	^ owners
-]
-
-{ #category : #Information }
-SpeedCard >> toString [
-
-	^ 'Speed'
-]
-
-{ #category : #Information }
-SpeedCard >> transformTo: aCard [
-
-	^ self
+	^ owner
 ]

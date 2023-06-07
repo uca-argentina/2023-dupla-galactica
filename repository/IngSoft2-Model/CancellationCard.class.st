@@ -2,72 +2,62 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'objectiveCard',
-		'owners'
+		'owner',
+		'id'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-CancellationCard class >> owner: anOwner [ 
+CancellationCard class >> owner: anOwner number: anId [
 
-^(self new) initializeOwner: anOwner
-]
-
-{ #category : #'Instance creation' }
-CancellationCard class >> owner: anObjectivePlayer ofCard: anObjectiveCard [
-
-	^ self new initializeOwner: anObjectivePlayer ofCard: anObjectiveCard
+	^ self new initializeOwner: anOwner number: anId
 ]
 
 { #category : #Initialization }
-CancellationCard >> addOwner: aPlayerColor [
+CancellationCard >> = aCard [
 
-	owners addLast: aPlayerColor
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
-CancellationCard >> applyCardAt: aGame using: aCardManager [
+CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	| i |
 	i := 1.
-	aCardManager activeCards do: [ :card | 
-		(card toString = objectiveCard and:
-			 (i = 1 and: (card isOwner: aCardManager objective))) ifTrue: [ 
-			i := 2.
-			card eliminateOwner: aCardManager objective ] ].
-	
-	aCardManager activeCards isEmpty ifTrue: [ 
+	cardManager activeCards isEmpty ifTrue: [ 
 		Error signal: 'There are no permanent cards' ].
+	
+	cardManager activeCards do: [ :card | 
+		i == 1 ifTrue: [ 
+			(card = objective) ifTrue: [ 
+				i := 2.
+				cardManager remove: card ] ] ].
+
 	i = 1 ifTrue: [ 
 		Error signal:
 			'There are no that type of cards activate in this player' ]
 ]
 
 { #category : #Initialization }
-CancellationCard >> eliminateOwner: aPlayerColor [
-	|i|
-	i:=0.
-	owners do: [ :owner | (owner = aPlayerColor and: i=0) ifTrue:[owners remove: owner. i:=1] ]
+CancellationCard >> haveEffect [
+
+	^ true
+]
+
+{ #category : #Information }
+CancellationCard >> id [
+
+	^ id
 ]
 
 { #category : #Initialization }
-CancellationCard >> initializeOwner: anOwner [
+CancellationCard >> initializeOwner: anOwner number: anId [
 
-	owners := OrderedCollection with: anOwner.
-]
-
-{ #category : #Initialization }
-CancellationCard >> initializeOwner: anOwner ofCard: anObjectiveCard [
-
-	owners := OrderedCollection with: anOwner.
-	objectiveCard := anObjectiveCard
-]
-
-{ #category : #Initialization }
-CancellationCard >> isOwner: aPlayerColor [
-
-	^ owners anySatisfy: [ :owner | owner = aPlayerColor ]
+	owner := anOwner.
+	id:= anId.
 ]
 
 { #category : #Information }
@@ -77,18 +67,6 @@ CancellationCard >> isPermanent [
 ]
 
 { #category : #Information }
-CancellationCard >> owners [
-	^ owners
-]
-
-{ #category : #Information }
-CancellationCard >> toString [
-
-	^ 'Cancellation'
-]
-
-{ #category : #Information }
-CancellationCard >> transformTo: aCard [
-
-	^ self
+CancellationCard >> owner [
+	^ owner
 ]
