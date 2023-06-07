@@ -34,6 +34,12 @@ RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 ]
 
 { #category : #Information }
+RepeatCard >> haveEffect [
+
+	^ true
+]
+
+{ #category : #Information }
 RepeatCard >> id [
 
 	^ id

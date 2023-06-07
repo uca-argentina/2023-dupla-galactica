@@ -1481,7 +1481,7 @@ CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 ]
 
 { #category : #tests }
-CardsTest >> testQ053Banana [
+CardsTest >> testQ053TryToCancellAnActiveCardThatHasBeenCancellBefore [
 
 	| aGame aLoadedDie aBoard |
 	aBoard := self createBoard.
@@ -1505,12 +1505,14 @@ CardsTest >> testQ053Banana [
 	aGame
 		apply: (CancellationCard owner: 'blue' number: 3)
 		to: (AccelerationCard owner: 'red' number: 1).
-		aGame
-		apply: (CancellationCard owner: 'blue' number: 4)
-		to: (AccelerationCard owner: 'red' number: 1).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
-		equals: (OrderedCollection with: 3 with: 7)
+		should: [ 
+			aGame
+				apply: (CancellationCard owner: 'blue' number: 4)
+				to: (AccelerationCard owner: 'red' number: 1) ]
+		raise: Error
+		withMessage:
+		'There are no that type of cards activate in this player'
 ]

@@ -34,6 +34,12 @@ AccelerationCard >> applyEffect [
 ]
 
 { #category : #Information }
+AccelerationCard >> haveEffect [
+
+	^ true
+]
+
+{ #category : #Information }
 AccelerationCard >> id [
 
 	^ id

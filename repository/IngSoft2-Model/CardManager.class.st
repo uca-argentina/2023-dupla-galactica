@@ -32,7 +32,7 @@ CardManager >> apply: aCard to: anObjective at: aGame [
 
 	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
 		^ self ].
-	(aCard isKindOf: RedoCard) ifFalse: [ lastCardPlay := aCard ].
+	(aCard haveEffect) ifTrue: [ lastCardPlay := aCard ].
 	aCard applyCardUsing: self at: aGame to: anObjective
 ]
 
@@ -86,7 +86,7 @@ CardManager >> isAnOwner: aPlayerColor of: aCard [
 { #category : #'Manage cards' }
 CardManager >> lastCardPlay [
 
-	^lastCardPlay 
+	^ lastCardPlay
 ]
 
 { #category : #Information }

@@ -32,6 +32,12 @@ RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
 ]
 
 { #category : #Information }
+RedoCard >> haveEffect [
+
+	^ false
+]
+
+{ #category : #Information }
 RedoCard >> id [
 
 	^ id

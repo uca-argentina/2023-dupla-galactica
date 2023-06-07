@@ -40,6 +40,12 @@ OverloadCard >> applyEffect [
 	^(-2)
 ]
 
+{ #category : #Effect }
+OverloadCard >> haveEffect [
+
+	^ true
+]
+
 { #category : #Information }
 OverloadCard >> id [
 

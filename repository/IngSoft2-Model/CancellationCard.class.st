@@ -41,6 +41,12 @@ CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 			'There are no that type of cards activate in this player' ]
 ]
 
+{ #category : #Initialization }
+CancellationCard >> haveEffect [
+
+	^ true
+]
+
 { #category : #Information }
 CancellationCard >> id [
 

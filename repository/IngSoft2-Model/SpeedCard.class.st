@@ -42,6 +42,12 @@ SpeedCard >> applyEffect [
 ]
 
 { #category : #Initialization }
+SpeedCard >> haveEffect [
+
+	^ true
+]
+
+{ #category : #Initialization }
 SpeedCard >> id [
 
 	^ id
