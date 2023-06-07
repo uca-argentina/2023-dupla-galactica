@@ -10,7 +10,7 @@ Class {
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [ 
 	| boxes aBoard aLoadedGame|
-	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
+	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 200).
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
@@ -25,7 +25,7 @@ MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
 MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
 	| aGame boxes aBoard |
-	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
+	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -42,7 +42,7 @@ MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 	
 
 	| boxes aBoard aLoadedGame|
-	boxes:= (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
+	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aLoadedGame := DuplaGalacticaGameProxy 
 		               with: aColorCollection
@@ -76,7 +76,7 @@ MovePlayersFromTheGameTest >> testM001AskPlayerForTheLapThenValid [
 
 	| aPlayer |
 	aPlayer := Player with: 'red'.
-	self assert: aPlayer lap equals: 0
+	self assert: aPlayer position lap equals: 0
 ]
 
 { #category : #tests }

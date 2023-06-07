@@ -1,0 +1,80 @@
+Class {
+	#name : #Position,
+	#superclass : #Object,
+	#instVars : [
+		'box',
+		'lap'
+	],
+	#category : #'IngSoft2-Model'
+}
+
+{ #category : #'Instance creation' }
+Position class >> atTheBeginning [
+
+	^ self new initializeAtTheBeginning
+]
+
+{ #category : #Initialization }
+Position >> boxNumber [
+
+	^box
+]
+
+{ #category : #Initialization }
+Position >> initializeAtTheBeginning [
+
+	box := 1.
+	lap := 0
+]
+
+{ #category : #Initialization }
+Position >> lap [
+
+	^ lap
+]
+
+{ #category : #Initialization }
+Position >> move: aValue [
+
+	box := box + aValue
+]
+
+{ #category : #Initialization }
+Position >> move: aValue andUpdateLap: aLength [
+
+	(self lap == 0 and:
+		 (aValue < 0 and: aValue abs >= box))
+		ifTrue: [ self moveToTheBeginning ]
+		ifFalse: [ self move: aValue ].
+	self updateLap: aLength
+]
+
+{ #category : #Initialization }
+Position >> moveBackwardsLaps: aLength [
+
+	lap := lap - ((box + 1) abs // aLength + 1).
+	box := aLength - box abs
+]
+
+{ #category : #Initialization }
+Position >> moveForwardLaps: aLength [
+
+	lap := lap + (box // aLength).
+	box := box % aLength
+]
+
+{ #category : #Initialization }
+Position >> moveToTheBeginning [
+
+	box := 1
+]
+
+{ #category : #Initialization }
+Position >> updateLap: aLength [
+
+	box  > aLength ifTrue: [ 
+		self moveForwardLaps: aLength ].
+
+	box <= 0 ifFalse: [ ^ self ].
+		self moveBackwardsLaps: aLength
+]

@@ -11,7 +11,7 @@ Class {
 CardsTest >> createBoard [
 
 	| boxes aBoard |
-	boxes := (BoxCreator use: (OrderedCollection with: (NoEffectBox withChance: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
 	^ aBoard := Board with: boxes measure: (Parsec worth: 100).
 ]
 
@@ -962,7 +962,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 			               with: 1
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use: (OrderedCollection with: (SpeedUpBox withChance: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: SpeedUpBox new withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -991,7 +991,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (WormHoleBox withChance: 100))) 
+		          (OrderedCollection with: (BoxProbability using: WormHoleBox new withChance: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -1021,18 +1021,19 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 			               with: 5
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use:
-		          (OrderedCollection with:
-			           (MoonWalkBox with: -2 chance: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability
+				            using: (MoonWalkBox with: -2)
+				            withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using:
-		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection with:
+					           (RepeatCard owner: 'red' number: 1))).
 
 
 	aGame movePlayer.
@@ -1053,7 +1054,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 			               with: 5
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use: (OrderedCollection with: (AtomicBombBox withChance: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: AtomicBombBox new withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -1084,16 +1085,20 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 			               with: 5
 			               with: 3
 			               with: 4).
-	boxes := (BoxCreator use: (OrderedCollection with: (HyperJumpBox with: (OrderedCollection with: (Parsec worth: 40)) chance: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using:
+				            (HyperJumpBox with:
+					             (OrderedCollection with: (Parsec worth: 40)))
+				            withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using:
-		         (LoadedCardDealer with:
-			          (OrderedCollection with: (RepeatCard owner: 'red' number: 1))).
+		         using: (LoadedCardDealer with:
+				          (OrderedCollection with:
+					           (RepeatCard owner: 'red' number: 1))).
 
 
 	aGame movePlayer.
@@ -1256,7 +1261,7 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (SpeedUpBox withChance: 100))) 
+		          (OrderedCollection with: (BoxProbability using: SpeedUpBox new withChance: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -1286,7 +1291,7 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 			               with: 3
 			               with: 4).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (SpeedUpBox withChance: 100))) 
+		          (OrderedCollection with: (BoxProbability using: SpeedUpBox new withChance: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy

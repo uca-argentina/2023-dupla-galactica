@@ -1,16 +1,8 @@
 Class {
 	#name : #RandomCardBox,
 	#superclass : #Object,
-	#instVars : [
-		'probability'
-	],
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #Initialization }
-RandomCardBox class >> withChance: aProbability [ 
-	^self new initializeWithChance: aProbability.
-]
 
 { #category : #Effect }
 RandomCardBox >> effect: aGame [
@@ -50,16 +42,4 @@ RandomCardBox >> effect: aGame [
 											aGame addCard: (RepeatCard
 													 owner: aGame currentPlayer color
 													 number: aGame numberOfCards + 1) ] ] ] ] ]
-]
-
-{ #category : #Initialization }
-RandomCardBox >> initializeWithChance: aProbability [
-
-	probability := aProbability
-]
-
-{ #category : #Information }
-RandomCardBox >> probability [
-
-	^ probability
 ]

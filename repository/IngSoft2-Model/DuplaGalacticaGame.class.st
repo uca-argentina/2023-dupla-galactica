@@ -142,13 +142,13 @@ DuplaGalacticaGame >> playersColors [
 { #category : #Information }
 DuplaGalacticaGame >> playersLaps [
 
-	^ players collect: [ :player | player lap ]
+	^ players collect: [ :player | player position lap ]
 ]
 
 { #category : #Information }
 DuplaGalacticaGame >> playersPositions [
 
-	^ players collect: [ :player | player position ]
+	^ players collect: [ :player | player position boxNumber ]
 ]
 
 { #category : #Finalization }
@@ -157,8 +157,8 @@ DuplaGalacticaGame >> ranking [
 	| ranking |
 	ranking := players collect: [ :player | player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position + (player1 lap * self boxes size)
-		> (player2 position + (player2 lap * self boxes size)) ].
+		player1 position boxNumber + (player1 position lap * self boxes size)
+		> (player2 position boxNumber + (player2 position lap * self boxes size)) ].
 	^ ranking collect: [ :player | player color ]
 ]
 
@@ -191,5 +191,5 @@ DuplaGalacticaGame >> winnerExists [
 { #category : #Finalization }
 DuplaGalacticaGame >> wins: aPlayer [
 
-	^ aPlayer lap >= self goalLaps
+	^ aPlayer position lap >= self goalLaps
 ]

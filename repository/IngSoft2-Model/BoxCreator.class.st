@@ -36,7 +36,7 @@ BoxCreator >> oneRandomBoxOf [
 	| aRandomValue sum|
 	sum := 0.
 	aRandomValue := 100 atRandom.
-	^ boxes detect: [ :box |
+	^ (boxes detect: [ :box |
 		sum := sum + box probability.
-		aRandomValue <= sum]
+		aRandomValue <= sum]) box.
 ]

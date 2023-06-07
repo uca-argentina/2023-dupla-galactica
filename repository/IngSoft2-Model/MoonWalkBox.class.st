@@ -2,16 +2,15 @@ Class {
 	#name : #MoonWalkBox,
 	#superclass : #Object,
 	#instVars : [
-		'effectValue',
-		'probability'
+		'effectValue'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-MoonWalkBox class >> with: aValue chance: aProbability [
+MoonWalkBox class >> with: aValue [
 
-	^ self new initializeWith: aValue chance: aProbability
+	^ self new initializeWith: aValue
 ]
 
 { #category : #Effect }
@@ -21,14 +20,7 @@ MoonWalkBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-MoonWalkBox >> initializeWith: aValue chance: aProbability [
+MoonWalkBox >> initializeWith: aValue [
 
 	effectValue := aValue.
-	probability := aProbability
-]
-
-{ #category : #Information }
-MoonWalkBox >> probability [
-
-	^ probability
 ]

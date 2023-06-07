@@ -18,7 +18,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> setUp [
 		              (OrderedCollection with: 1 with: 2 with: 3).
 
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (NoEffectBox withChance: 100))) 
+		          (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) 
 		         create: 10.
 ]
 
