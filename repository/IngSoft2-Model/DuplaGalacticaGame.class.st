@@ -157,8 +157,7 @@ DuplaGalacticaGame >> ranking [
 	| ranking |
 	ranking := players collect: [ :player | player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position boxNumber + (player1 position lap * self boxes size)
-		> (player2 position boxNumber + (player2 position lap * self boxes size)) ].
+		player1 position > player2 position ].
 	^ ranking collect: [ :player | player color ]
 ]
 

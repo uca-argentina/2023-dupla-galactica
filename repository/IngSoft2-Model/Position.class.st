@@ -14,6 +14,17 @@ Position class >> atTheBeginning [
 	^ self new initializeAtTheBeginning
 ]
 
+{ #category : #Information }
+Position >> > aPosition [
+
+	lap > aPosition lap
+		ifTrue: [ ^ true ]
+		ifFalse: [ 
+			box > aPosition boxNumber
+				ifTrue: [ ^ true ]
+				ifFalse: [ ^ false ] ]
+]
+
 { #category : #Initialization }
 Position >> boxNumber [
 
