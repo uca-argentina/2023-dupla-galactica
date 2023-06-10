@@ -106,6 +106,7 @@ DuplaGalacticaGame >> movePlayer [
 	aValue := dice size == 1
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
+		
 	aValue:=aValue+ (cardManager calculateEffectOn: (current color)).
 	
 	self winnerExists ifTrue: [ ^ self ].

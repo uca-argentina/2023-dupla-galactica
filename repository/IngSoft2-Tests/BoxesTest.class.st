@@ -441,6 +441,7 @@ BoxesTest >> testT003CheckHyperJumpBoxCannotBeCreatedIfDoesNotHaveValuesToUse [
 { #category : #tests }
 BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYearsAndParsecsAndAlsoTheyAreNegative [
 
+	
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
@@ -464,4 +465,32 @@ BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	self
 		assert: aGame playersPositions
 		equals: (OrderedCollection with: 1 with: 2)
+]
+
+{ #category : #tests }
+BoxesTest >> testT005CheckPlayerMoveBackwardAsManyLapsAsRequest [
+
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 10
+			               with: 5
+			               with: 8).
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using:
+				            (HyperJumpBox with:
+					             (OrderedCollection with: (Parsec worth: -120)))
+				            withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 2
+		         using: CardDealer new.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 1 with: 1)
 ]

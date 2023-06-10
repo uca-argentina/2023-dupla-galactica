@@ -64,7 +64,9 @@ Position >> move: aValue andUpdateLap: aLength [
 Position >> moveBackwardsLaps: aLength [
 
 	lap := lap - ((box + 1) abs // aLength + 1).
-	box := aLength - box abs
+	aLength - box abs <= 0
+		ifTrue: [ self moveToTheBeginning ]
+		ifFalse: [ box := aLength - box abs ]
 ]
 
 { #category : #Initialization }
