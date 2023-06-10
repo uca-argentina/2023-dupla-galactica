@@ -74,6 +74,17 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 ]
 
 { #category : #Information }
+DuplaGalacticaGame >> isValidPlayer: objective [
+
+	| i |
+	i := false.
+	self playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ 
+		Error signal: 'That is not a valid objective' ]
+]
+
+{ #category : #Information }
 DuplaGalacticaGame >> lightYears [
 
 	^ board lightYears
@@ -131,7 +142,7 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> playersCardInPosetion [
 
-	^cardManager playersCardInPosetionOf: players.
+	^cardManager cardsInPosetionOf: players.
 ]
 
 { #category : #Information }

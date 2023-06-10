@@ -1390,7 +1390,7 @@ CardsTest >> testQ048VerifyThatWhenUsingAnOverloadCardTheObjectiveMustBeAValidPl
 	self
 		should: [ aGame apply: (OverloadCard owner: 'red' number: 1) to: (AccelerationCard owner: 'red' number: 2) ]
 		raise: Error
-		withMessage: 'That is not a valid objective for an overload card'
+		withMessage: 'That is not a valid objective'
 ]
 
 { #category : #tests }
@@ -1436,7 +1436,7 @@ CardsTest >> testQ050VerifyThatWhenUsingASpeedCardTheObjectiveMustBeAValidPlayer
 	self
 		should: [ aGame apply: (SpeedCard owner: 'red' number: 1) to: (AccelerationCard owner: 'red' number: 2) ]
 		raise: Error
-		withMessage: 'That is not a valid objective for a speed card'
+		withMessage: 'That is not a valid objective'
 ]
 
 { #category : #tests }
@@ -1459,7 +1459,7 @@ CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlaye
 	self
 		should: [ aGame apply: (RepeatCard owner: 'red' number: 1) to: 'all' ]
 		raise: Error
-		withMessage: 'That is not a valid objective for a repeat card'
+		withMessage: 'That is not a valid objective'
 ]
 
 { #category : #tests }

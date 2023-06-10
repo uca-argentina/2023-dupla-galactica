@@ -25,11 +25,7 @@ RepeatCard >> = aCard [
 { #category : #Information }
 RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| i |
-	i := false.
-	aGame playersColors do: [ :color | 
-		color = objective ifTrue: [ i := true ] ].
-	i ifFalse: [ Error signal: 'That is not a valid objective for a repeat card' ].
+	aGame isValidPlayer: objective.
 	aGame repeatEffectTo: objective
 ]
 

@@ -49,7 +49,7 @@ CardManager >> calculateEffectOn: aPlayer [
 { #category : #'Manage cards' }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
-	(self isAnOwner: aCard owner of: aCard) ifFalse: [ ^ false ].
+	(self hasBeenGiven: aCard) ifFalse: [ ^ false ].
 	aCard isPermanent
 		ifTrue: [ 
 			(aCard owner) = aPlayer
@@ -59,9 +59,40 @@ CardManager >> canBeUse: aCard whenPlay: aPlayer [
 ]
 
 { #category : #Information }
+CardManager >> canCancellCard [
+
+	activeCard isEmpty ifTrue: [ 
+		Error signal: 'There are no permanent cards' ]
+]
+
+{ #category : #Information }
 CardManager >> cardsInPosetion [
 
 	^cardsInPosetion
+]
+
+{ #category : #Information }
+CardManager >> cardsInPosetionOf: players [
+
+	| cardsPerPlayer aValue |
+	cardsPerPlayer := OrderedCollection new.
+	aValue := 0.
+	players do: [ :player | 
+		cardsInPosetion do: [ :card | 
+			card owner = player color ifTrue: [ aValue := aValue + 1 ] ].
+		cardsPerPlayer addLast: aValue.
+		aValue := 0 ].
+	^ cardsPerPlayer
+]
+
+{ #category : #'Manage cards' }
+CardManager >> hasBeenGiven: aCard [
+
+	cardsInPosetion do: [ :card | 
+		(card = aCard) ifTrue: [ 
+			cardsInPosetion remove: card.
+			^ true ] ].
+	^ false
 ]
 
 { #category : #Initialization }
@@ -74,33 +105,9 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 ]
 
 { #category : #'Manage cards' }
-CardManager >> isAnOwner: aPlayerColor of: aCard [
-
-	cardsInPosetion do: [ :card | 
-		(card = aCard) ifTrue: [ 
-			cardsInPosetion remove: card.
-			^ true ] ].
-	^ false
-]
-
-{ #category : #'Manage cards' }
 CardManager >> lastCardPlay [
 
 	^ lastCardPlay
-]
-
-{ #category : #Information }
-CardManager >> playersCardInPosetionOf: players [
-
-	| cardsPerPlayer aValue |
-	cardsPerPlayer := OrderedCollection new.
-	aValue := 0.
-	players do: [ :player | 
-		cardsInPosetion do: [ :card | 
-			card owner = player color ifTrue: [ aValue := aValue + 1 ] ].
-		cardsPerPlayer addLast: aValue.
-		aValue := 0 ].
-	^ cardsPerPlayer
 ]
 
 { #category : #Information }

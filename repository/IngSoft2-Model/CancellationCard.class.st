@@ -27,9 +27,7 @@ CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	| i |
 	i := 1.
-	cardManager activeCards isEmpty ifTrue: [ 
-		Error signal: 'There are no permanent cards' ].
-	
+	cardManager canCancellCard.
 	cardManager activeCards do: [ :card | 
 		i == 1 ifTrue: [ 
 			(card = objective) ifTrue: [ 

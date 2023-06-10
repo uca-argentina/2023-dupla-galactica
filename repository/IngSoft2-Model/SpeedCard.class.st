@@ -25,13 +25,8 @@ SpeedCard >> = aCard [
 { #category : #Effect }
 SpeedCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| i |
-	i := false.
-	aGame playersColors do: [ :color | 
-		color = objective ifTrue: [ i := true ] ].
-	i ifFalse: [ 
-		Error signal:
-			 'That is not a valid objective for a speed card' ].
+
+	aGame isValidPlayer: objective.
 	cardManager activeCards addLast: (SpeedCard owner: objective number: id)
 ]
 

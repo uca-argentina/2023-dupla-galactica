@@ -25,11 +25,7 @@ OverloadCard >> = aCard [
 { #category : #Effect }
 OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| i |
-	i := false.
-	aGame playersColors do: [ :color | 
-		color = objective ifTrue: [ i := true ] ].
-	i ifFalse: [ Error signal: 'That is not a valid objective for an overload card' ].
+	aGame isValidPlayer: objective.
 	cardManager activeCards addLast: (OverloadCard owner: objective number: id).
 ]
 
