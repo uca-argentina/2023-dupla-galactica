@@ -28,7 +28,7 @@ Position >> > aPosition [
 { #category : #Initialization }
 Position >> boxNumber [
 
-	^box
+	^ box
 ]
 
 { #category : #Initialization }

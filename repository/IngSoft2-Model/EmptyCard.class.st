@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #Information }
+{ #category : #Effect }
 EmptyCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	Error signal:

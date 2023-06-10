@@ -9,7 +9,8 @@ Class {
 
 { #category : #'Instance creation' }
 LigthYear class >> worth: aNominalValue [
-	^(self new) initializeWorth: aNominalValue
+
+	^ self new initializeWorth: aNominalValue
 ]
 
 { #category : #Initialization }

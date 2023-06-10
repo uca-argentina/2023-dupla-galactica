@@ -21,38 +21,38 @@ CardManager >> activeCards [
 	^ activeCard
 ]
 
-{ #category : #'Manage cards' }
+{ #category : #Managing }
 CardManager >> addCard: aCard [
 
 	cardsInPosetion addLast: aCard
 ]
 
-{ #category : #'Manage cards' }
+{ #category : #Managing }
 CardManager >> apply: aCard to: anObjective at: aGame [
 
 	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
 		^ self ].
-	(aCard haveEffect) ifTrue: [ lastCardPlay := aCard ].
+	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
 	aCard applyCardUsing: self at: aGame to: anObjective
 ]
 
-{ #category : #'Manage cards' }
+{ #category : #Managing }
 CardManager >> calculateEffectOn: aPlayer [
 
 	| aValue |
 	aValue := 0.
 	activeCard do: [ :card | 
-		card owner = aPlayer ifTrue:[ aValue := aValue + card applyEffect] ].
+		card owner = aPlayer ifTrue: [ aValue := aValue + card applyEffect ] ].
 	^ aValue
 ]
 
-{ #category : #'Manage cards' }
+{ #category : #Managing }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
 	(self hasBeenGiven: aCard) ifFalse: [ ^ false ].
 	aCard isPermanent
 		ifTrue: [ 
-			(aCard owner) = aPlayer
+			aCard owner = aPlayer
 				ifTrue: [ ^ true ]
 				ifFalse: [ ^ false ] ]
 		ifFalse: [ ^ true ]
@@ -68,7 +68,7 @@ CardManager >> canCancellCard [
 { #category : #Information }
 CardManager >> cardsInPosetion [
 
-	^cardsInPosetion
+	^ cardsInPosetion
 ]
 
 { #category : #Information }
@@ -85,11 +85,11 @@ CardManager >> cardsInPosetionOf: players [
 	^ cardsPerPlayer
 ]
 
-{ #category : #'Manage cards' }
+{ #category : #Managing }
 CardManager >> hasBeenGiven: aCard [
 
 	cardsInPosetion do: [ :card | 
-		(card = aCard) ifTrue: [ 
+		card = aCard ifTrue: [ 
 			cardsInPosetion remove: card.
 			^ true ] ].
 	^ false
@@ -104,13 +104,13 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 	aCardDealer dealCards: self to: aColorCollection
 ]
 
-{ #category : #'Manage cards' }
+{ #category : #Information }
 CardManager >> lastCardPlay [
 
 	^ lastCardPlay
 ]
 
-{ #category : #Information }
+{ #category : #Managing }
 CardManager >> remove: card [
 
 	activeCard remove: card.

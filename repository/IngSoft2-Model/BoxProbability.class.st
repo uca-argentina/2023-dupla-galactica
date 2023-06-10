@@ -16,6 +16,7 @@ BoxProbability class >> using: aBox withChance: aProbability [
 
 { #category : #Information }
 BoxProbability >> box [
+
 	^ box
 ]
 

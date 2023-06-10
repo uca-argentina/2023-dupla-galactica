@@ -142,7 +142,7 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> playersCardInPosetion [
 
-	^cardManager cardsInPosetionOf: players.
+	^ cardManager cardsInPosetionOf: players
 ]
 
 { #category : #Information }

@@ -22,7 +22,7 @@ RepeatCard >> = aCard [
 		ifFalse: [ ^ false ]
 ]
 
-{ #category : #Information }
+{ #category : #Effect }
 RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	aGame isValidPlayer: objective.
@@ -56,5 +56,6 @@ RepeatCard >> isPermanent [
 
 { #category : #Information }
 RepeatCard >> owner [
-	^owner .
+
+	^ owner
 ]

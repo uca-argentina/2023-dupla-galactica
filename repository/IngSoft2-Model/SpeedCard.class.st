@@ -25,9 +25,9 @@ SpeedCard >> = aCard [
 { #category : #Effect }
 SpeedCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-
 	aGame isValidPlayer: objective.
-	cardManager activeCards addLast: (SpeedCard owner: objective number: id)
+	cardManager activeCards addLast:
+		(SpeedCard owner: objective number: id)
 ]
 
 { #category : #Effect }
@@ -36,13 +36,13 @@ SpeedCard >> applyEffect [
 	^ 1
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 SpeedCard >> haveEffect [
 
 	^ true
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 SpeedCard >> id [
 
 	^ id

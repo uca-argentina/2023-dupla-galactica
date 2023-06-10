@@ -32,11 +32,10 @@ OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
 { #category : #Effect }
 OverloadCard >> applyEffect [
 
-	
-	^(-2)
+	^ -2
 ]
 
-{ #category : #Effect }
+{ #category : #Information }
 OverloadCard >> haveEffect [
 
 	^ true

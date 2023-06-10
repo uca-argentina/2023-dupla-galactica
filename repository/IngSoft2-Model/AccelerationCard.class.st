@@ -10,7 +10,8 @@ Class {
 
 { #category : #'Instance creation' }
 AccelerationCard class >> owner: anOwner number: anId [
-	^self new initializeOwner: anOwner number: anId
+
+	^ self new initializeOwner: anOwner number: anId
 ]
 
 { #category : #Information }
