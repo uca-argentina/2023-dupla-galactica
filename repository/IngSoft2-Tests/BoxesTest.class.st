@@ -179,7 +179,7 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
@@ -315,7 +315,7 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
@@ -395,7 +395,7 @@ BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
@@ -423,7 +423,7 @@ BoxesTest >> testT002CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
@@ -463,5 +463,5 @@ BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 2 with: 1)
+		equals: (OrderedCollection with: 1 with: 2)
 ]
