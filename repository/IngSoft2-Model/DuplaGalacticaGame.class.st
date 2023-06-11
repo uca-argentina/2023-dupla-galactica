@@ -73,7 +73,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	numberOfCards:= (cardManager cardsInPosetion) size.
 ]
 
-{ #category : #Information }
+{ #category : #Cards }
 DuplaGalacticaGame >> isValidPlayer: objective [
 
 	| i |

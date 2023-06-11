@@ -29,13 +29,13 @@ Player >> initializeWith: aColor [
 	lap := 0.
 ]
 
-{ #category : #LapControl }
+{ #category : #PositionControl }
 Player >> move: aValue andUpdateLap: aLength [
 
 	position move: aValue andUpdateLap: aLength
 ]
 
-{ #category : #LapControl }
+{ #category : #PositionControl }
 Player >> moveToTheBeginning [
 
 	position moveToTheBeginning.

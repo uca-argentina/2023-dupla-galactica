@@ -28,7 +28,7 @@ Die >> initializeWith: aValue [
 	faces := aValue
 ]
 
-{ #category : #accessing }
+{ #category : #Information }
 Die >> size [
 
 	^ 1

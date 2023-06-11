@@ -58,7 +58,7 @@ CardManager >> canBeUse: aCard whenPlay: aPlayer [
 		ifFalse: [ ^ true ]
 ]
 
-{ #category : #Information }
+{ #category : #Managing }
 CardManager >> canCancellCard [
 
 	activeCard isEmpty ifTrue: [ 
