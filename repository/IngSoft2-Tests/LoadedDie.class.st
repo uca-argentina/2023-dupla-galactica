@@ -8,10 +8,14 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
-{ #category : #'instance creation' }
+{ #category : #'Instance creation' }
 LoadedDie class >> with: aValuesCollection [
-	aValuesCollection do: [:value| (value< 0) ifTrue: [Error signal: 'Cannot create with negative values at faces']].
-	(aValuesCollection size < 3) ifTrue: [Error signal: 'Cannot create with faces less than 3'].
+
+	aValuesCollection do: [ :value | 
+		value < 0 ifTrue: [ 
+			Error signal: 'Cannot create with negative values at faces' ] ].
+	aValuesCollection size < 3 ifTrue: [ 
+		Error signal: 'Cannot create with faces less than 3' ].
 	^ self new initializeWith: aValuesCollection
 ]
 
@@ -23,8 +27,9 @@ LoadedDie >> faces [
 
 { #category : #Initialization }
 LoadedDie >> initializeWith: aValue [
+
 	faces := aValue.
-	valueManager:= TurnManager with: (aValue size).
+	valueManager := TurnManager with: aValue size
 ]
 
 { #category : #Information }
@@ -33,7 +38,7 @@ LoadedDie >> numberOffaces [
 	^ (faces size).
 ]
 
-{ #category : #accessing }
+{ #category : #Information }
 LoadedDie >> size [
 
 	^ 1.
@@ -41,8 +46,9 @@ LoadedDie >> size [
 
 { #category : #Throw }
 LoadedDie >> throw [
+
 	| value |
-	value:= (self faces at: (valueManager current)).
+	value := self faces at: valueManager current.
 	valueManager goNext.
-	^value.
+	^ value
 ]

@@ -207,7 +207,7 @@ MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testO001CreateBoardWithParsecs [
+MovePlayersFromTheGameTest >> testO001CreateBoardWithParsec [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection

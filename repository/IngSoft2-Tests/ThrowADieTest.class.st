@@ -66,7 +66,7 @@ ThrowADieTest >> testE007ThrowADieAndCheckValue [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE008CreateALoadedDieWithAOrderCollectionOfValues [
+ThrowADieTest >> testE008CreateALoadedDieWithAnOrderedCollectionOfValues [
 
 	| aLoadedDie anOrderedCollection |
 	anOrderedCollection := OrderedCollection
@@ -79,7 +79,7 @@ ThrowADieTest >> testE008CreateALoadedDieWithAOrderCollectionOfValues [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE009CreateALoadedDieWithAOrderCollectionOfValuesAndThrowItTwice [
+ThrowADieTest >> testE009CreateALoadedDieWithAnOrderedCollectionOfValuesAndThrowItTwice [
 
 	| aLoadedDie anOrderedCollection |
 	anOrderedCollection := OrderedCollection
@@ -93,7 +93,7 @@ ThrowADieTest >> testE009CreateALoadedDieWithAOrderCollectionOfValuesAndThrowItT
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE010CreateALoadedDieWithAOrderCollectionOfValuesAndThrowItFiveTimes [
+ThrowADieTest >> testE010CreateALoadedDieWithAnOrderCollectionOfValuesAndThrowItFiveTimes [
 
 	| aLoadedDie anOrderedCollection |
 	anOrderedCollection := OrderedCollection
@@ -120,7 +120,7 @@ ThrowADieTest >> testE011CreateALoadedDieWithNegativeValuesAtFaces [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE012CreateALoadedDieWithLessThan3Faces [
+ThrowADieTest >> testE012CreateALoadedDieWithLessThanThreeFaces [
 
 	self
 		should: [ LoadedDie with: (OrderedCollection with: 1 with: 1) ]

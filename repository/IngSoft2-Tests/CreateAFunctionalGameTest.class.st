@@ -170,7 +170,7 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndRaiseAnError [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testL003VerifyTheCorrectUseOfTheRankingAtASuplaGalacticaGameThenValid [
+CreateAFunctionalGameTest >> testL003VerifyTheCorrectUseOfTheRankingAtADuplaGalacticaGameThenValid [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.

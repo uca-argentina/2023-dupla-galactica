@@ -23,7 +23,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> setUp [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithParsecs [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithParsec [
 
 	| aBoard oneHundredParsecs aGame |
 	oneHundredParsecs := Parsec worth: 100.
@@ -40,7 +40,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithP
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithLigthYears [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithLigthYear [
 
 	| aBoard threeHundredLigthYears aGame |
 	threeHundredLigthYears := LigthYear worth: 300.
@@ -56,7 +56,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithL
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithParsecsAndAskForLightYears [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithParsecAndAskForLightYear [
 
 	| aBoard oneHundredParsecs aGame |
 	oneHundredParsecs := Parsec worth: 100.
@@ -72,7 +72,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithP
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateABordWithLigthYearsAndAskForParsecs [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateABordWithLigthYearAndAskForParsec [
 
 	| aBoard threeHundredLigthYears aGame |
 	threeHundredLigthYears := LigthYear worth: 300.
