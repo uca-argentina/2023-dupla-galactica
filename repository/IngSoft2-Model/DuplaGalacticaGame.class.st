@@ -73,6 +73,17 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	numberOfCards:= (cardManager cardsInPosetion) size.
 ]
 
+{ #category : #Cards }
+DuplaGalacticaGame >> isValidPlayer: objective [
+
+	| i |
+	i := false.
+	self playersColors do: [ :color | 
+		color = objective ifTrue: [ i := true ] ].
+	i ifFalse: [ 
+		Error signal: 'That is not a valid objective' ]
+]
+
 { #category : #Information }
 DuplaGalacticaGame >> lightYears [
 
@@ -106,6 +117,7 @@ DuplaGalacticaGame >> movePlayer [
 	aValue := dice size == 1
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
+		
 	aValue:=aValue+ (cardManager calculateEffectOn: (current color)).
 	
 	self winnerExists ifTrue: [ ^ self ].
@@ -130,7 +142,7 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> playersCardInPosetion [
 
-	^cardManager playersCardInPosetionOf: players.
+	^ cardManager cardsInPosetionOf: players
 ]
 
 { #category : #Information }
@@ -157,8 +169,7 @@ DuplaGalacticaGame >> ranking [
 	| ranking |
 	ranking := players collect: [ :player | player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position boxNumber + (player1 position lap * self boxes size)
-		> (player2 position boxNumber + (player2 position lap * self boxes size)) ].
+		player1 position > player2 position ].
 	^ ranking collect: [ :player | player color ]
 ]
 

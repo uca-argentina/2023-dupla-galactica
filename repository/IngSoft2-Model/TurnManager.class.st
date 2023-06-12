@@ -10,7 +10,8 @@ Class {
 
 { #category : #'Instance creation' }
 TurnManager class >> with: anAmount [
-	^(self new) initializeWith: anAmount.
+
+	^ self new initializeWith: anAmount
 ]
 
 { #category : #ManageTurns }

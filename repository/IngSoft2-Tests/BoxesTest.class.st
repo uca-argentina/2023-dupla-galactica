@@ -26,7 +26,7 @@ BoxesTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 ]
 
 { #category : #tests }
-BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
+BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffectThenValuePositions [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -52,7 +52,7 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffect [
 ]
 
 { #category : #tests }
-BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
+BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffectThenValuePositions [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -78,7 +78,7 @@ BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffect [
 ]
 
 { #category : #tests }
-BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
+BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePositionThenValuePositions [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -104,7 +104,7 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePosition [
 ]
 
 { #category : #tests }
-BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
+BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayersThenValuePositions [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -130,7 +130,7 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayers [
 ]
 
 { #category : #tests }
-BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
+BoxesTest >> testN005CheckAtomicBombBoxMoveAllPlayersToTheBeginning [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -154,7 +154,7 @@ BoxesTest >> testN005ChackAtomicBombBoxMoveAllthePlayersToTheBeginning [
 ]
 
 { #category : #tests }
-BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEntireValues [
+BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEntireValuesThenValuePositions [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -179,11 +179,11 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
-BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowThePlayerToBeInANegativePosition [
+BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowPlayerToBeAtANegativePosition [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -209,7 +209,7 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowThePlayerToBeInANegativePositio
 ]
 
 { #category : #tests }
-BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePosition [
+BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowPlayersToBeAtANegativePosition [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -236,7 +236,7 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowThePlayersToBeInANegativePositi
 ]
 
 { #category : #tests }
-BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowThePlayersToBeInANegativePosition [
+BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowPlayersToBeAtANegativePosition [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -291,7 +291,7 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 ]
 
 { #category : #tests }
-BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNotEntireValues [
+BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNotEntireValuesThenValuePositions [
 
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -315,7 +315,7 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
@@ -395,7 +395,7 @@ BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
@@ -423,7 +423,7 @@ BoxesTest >> testT002CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 8 with: 7)
+		equals: (OrderedCollection with: 7 with: 8)
 ]
 
 { #category : #tests }
@@ -441,6 +441,7 @@ BoxesTest >> testT003CheckHyperJumpBoxCannotBeCreatedIfDoesNotHaveValuesToUse [
 { #category : #tests }
 BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYearsAndParsecsAndAlsoTheyAreNegative [
 
+	
 	| aLoadedDie aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
@@ -463,5 +464,33 @@ BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	self
 		assert: aGame playersPositions
-		equals: (OrderedCollection with: 2 with: 1)
+		equals: (OrderedCollection with: 1 with: 2)
+]
+
+{ #category : #tests }
+BoxesTest >> testT005CheckPlayerMoveBackwardAsManyLapsAsRequest [
+
+	| aLoadedDie aGame boxes aBoard |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 10
+			               with: 5
+			               with: 8).
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using:
+				            (HyperJumpBox with:
+					             (OrderedCollection with: (Parsec worth: -120)))
+				            withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 2
+		         using: CardDealer new.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersPositions
+		equals: (OrderedCollection with: 1 with: 1)
 ]

@@ -22,14 +22,10 @@ RepeatCard >> = aCard [
 		ifFalse: [ ^ false ]
 ]
 
-{ #category : #Information }
+{ #category : #Effect }
 RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| i |
-	i := false.
-	aGame playersColors do: [ :color | 
-		color = objective ifTrue: [ i := true ] ].
-	i ifFalse: [ Error signal: 'That is not a valid objective for a repeat card' ].
+	aGame isValidPlayer: objective.
 	aGame repeatEffectTo: objective
 ]
 
@@ -60,5 +56,6 @@ RepeatCard >> isPermanent [
 
 { #category : #Information }
 RepeatCard >> owner [
-	^owner .
+
+	^ owner
 ]

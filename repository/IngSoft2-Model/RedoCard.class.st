@@ -58,5 +58,6 @@ RedoCard >> isPermanent [
 
 { #category : #Information }
 RedoCard >> owner [
+
 	^ owner
 ]

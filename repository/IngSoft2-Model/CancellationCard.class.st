@@ -14,7 +14,7 @@ CancellationCard class >> owner: anOwner number: anId [
 	^ self new initializeOwner: anOwner number: anId
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 CancellationCard >> = aCard [
 
 	(aCard isKindOf: self class)
@@ -27,9 +27,7 @@ CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	| i |
 	i := 1.
-	cardManager activeCards isEmpty ifTrue: [ 
-		Error signal: 'There are no permanent cards' ].
-	
+	cardManager canCancellCard.
 	cardManager activeCards do: [ :card | 
 		i == 1 ifTrue: [ 
 			(card = objective) ifTrue: [ 
@@ -41,7 +39,7 @@ CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 			'There are no that type of cards activate in this player' ]
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 CancellationCard >> haveEffect [
 
 	^ true
@@ -68,5 +66,6 @@ CancellationCard >> isPermanent [
 
 { #category : #Information }
 CancellationCard >> owner [
+
 	^ owner
 ]
