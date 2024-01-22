@@ -77,10 +77,9 @@ CardManager >> cardsInPosetionOf: players [
 { #category : #Managing }
 CardManager >> hasBeenGiven: aCard [
 
-	cardsInPosetion do: [ :card | 
-		card = aCard ifTrue: [ 
-			cardsInPosetion remove: card.
-			^ true ] ].
+	cardsInPosetion detect: [ :card | card = aCard ] ifFound: [ :card | 
+		cardsInPosetion remove: card.
+		^ true ].
 	^ false
 ]
 

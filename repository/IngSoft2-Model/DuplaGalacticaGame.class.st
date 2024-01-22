@@ -76,12 +76,10 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 { #category : #Cards }
 DuplaGalacticaGame >> isValidPlayer: objective [
 
-	| i |
-	i := false.
-	self playersColors do: [ :color | 
-		color = objective ifTrue: [ i := true ] ].
-	i ifFalse: [ 
-		Error signal: 'That is not a valid objective' ]
+	self playersColors
+		detect: [ :color | color = objective ]
+		ifFound: [ ^ true ]
+		ifNone: [ Error signal: 'That is not a valid objective' ]
 ]
 
 { #category : #Information }
@@ -104,10 +102,10 @@ DuplaGalacticaGame >> moveCurrent: aValue [
 
 { #category : #Player }
 DuplaGalacticaGame >> moveOthers: aValue [
-	
-	players do: [ :player | 
-		player color == self currentPlayer color ifFalse: [ 
-			player move: aValue andUpdateLap: board boxes size ] ]
+
+	(players reject: [ :player | 
+		 player color == self currentPlayer color ]) do: [ :player | 
+		player move: aValue andUpdateLap: board boxes size ]
 ]
 
 { #category : #Player }

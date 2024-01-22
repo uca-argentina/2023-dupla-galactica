@@ -32,10 +32,7 @@ Player >> initializeWith: aColor [
 { #category : #PositionControl }
 Player >> move: aValue andUpdateLap: aLength [
 	
-	(position lap == 0 and:
-		 (aValue < 0 and: (aValue abs >= position box)))
-		ifTrue: [ position moveToTheBeginning ]
-		ifFalse: [ position move: aValue ].
+	position move: aValue.
 	self updateLap: aLength
 ]
 

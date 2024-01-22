@@ -26,7 +26,7 @@ OverloadCard >> = aCard [
 OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	aGame isValidPlayer: objective.
-	cardManager activeCards addLast: (OverloadCard owner: objective number: id).
+	cardManager activeCards addLast: (self class owner: objective number: id).
 ]
 
 { #category : #Effect }
