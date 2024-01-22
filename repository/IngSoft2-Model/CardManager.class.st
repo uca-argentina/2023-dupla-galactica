@@ -69,15 +69,9 @@ CardManager >> cardsInPosetion [
 { #category : #Information }
 CardManager >> cardsInPosetionOf: players [
 
-	| cardsPerPlayer aValue |
-	cardsPerPlayer := OrderedCollection new.
-	aValue := 0.
-	players do: [ :player | 
-		cardsInPosetion do: [ :card | 
-			card owner = player color ifTrue: [ aValue := aValue + 1 ] ].
-		cardsPerPlayer addLast: aValue.
-		aValue := 0 ].
-	^ cardsPerPlayer
+	^ players collect: [ :player | 
+		  (cardsInPosetion select: [ :card | card owner = player color ])
+			  size ]
 ]
 
 { #category : #Managing }
