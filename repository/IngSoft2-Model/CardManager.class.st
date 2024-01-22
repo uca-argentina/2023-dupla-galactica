@@ -46,13 +46,11 @@ CardManager >> calculateEffectOn: aPlayer [
 { #category : #Managing }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
-	(self hasBeenGiven: aCard) ifFalse: [ ^ false ].
-	aCard isPermanent
-		ifTrue: [ 
-			aCard owner = aPlayer
-				ifTrue: [ ^ true ]
-				ifFalse: [ ^ false ] ]
-		ifFalse: [ ^ true ]
+	aCard isPermanent ifTrue: [ 
+		aCard owner = aPlayer ifFalse: [ ^ false ] ].
+	(self hasBeenGiven: aCard)
+		ifTrue: [ ^ true ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Managing }
