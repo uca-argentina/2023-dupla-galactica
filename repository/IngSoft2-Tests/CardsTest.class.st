@@ -53,7 +53,7 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 1)
 ]
 
@@ -81,7 +81,7 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 5 with: 3)
 ]
 
@@ -109,14 +109,17 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 5 with: 2)
 ]
 
 { #category : #tests }
 CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwardsInTheFirstLapDueToANegativeEffect [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aRedPosition aBluePosition|
+	aRedPosition := (Position atTheBeginning) move: 1.
+	aBluePosition := (Position atTheBeginning).
+	
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -135,8 +138,9 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
-		equals: (OrderedCollection with: 2 with: 1)
+		assert: aGame playersPositions 
+		equals: (OrderedCollection with: aRedPosition with: aBluePosition)
+	
 ]
 
 { #category : #tests }
@@ -161,7 +165,7 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 5)
 ]
 
@@ -189,7 +193,7 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 8)
 ]
 
@@ -242,7 +246,7 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 5 with: 3)
 ]
 
@@ -268,7 +272,7 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 4)
 ]
 
@@ -294,7 +298,7 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
@@ -325,7 +329,7 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 5 with: 5)
 ]
 
@@ -357,7 +361,7 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 5 with: 4)
 ]
 
@@ -396,7 +400,7 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 6 with: 6)
 ]
 
@@ -480,7 +484,7 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 3)
 ]
 
@@ -506,7 +510,7 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 3)
 ]
 
@@ -533,7 +537,7 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 3)
 ]
 
@@ -562,7 +566,7 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 1)
 ]
 
@@ -590,7 +594,7 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 3)
 ]
 
@@ -619,7 +623,7 @@ CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 4 with: 5)
 ]
 
@@ -647,7 +651,7 @@ CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 5)
 ]
 
@@ -674,7 +678,7 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 4 with: 7)
 ]
 
@@ -700,7 +704,7 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 6)
 ]
 
@@ -731,7 +735,7 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 1)
 ]
 
@@ -766,7 +770,7 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 7)
 ]
 
@@ -801,7 +805,7 @@ CardsTest >> testQ028UseCancellationCardAnThenTryToUseItAgainButItHasGoneAway [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 7)
 ]
 
@@ -829,7 +833,7 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 7)
 ]
 
@@ -863,7 +867,7 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 5 with: 9)
 ]
 
@@ -892,7 +896,7 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 6 with: 10)
 ]
 
@@ -920,7 +924,7 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 1)
 ]
 
@@ -949,7 +953,7 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 8 with: 2)
 ]
 
@@ -977,7 +981,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 6)
 ]
 
@@ -1008,7 +1012,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'blue'.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 2)
 ]
 
@@ -1041,7 +1045,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 	aGame apply: (RepeatCard owner: 'red' number: 1) to: 'red'.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 4)
 ]
 
@@ -1072,7 +1076,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 1)
 ]
 
@@ -1107,7 +1111,7 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 10)
 ]
 
@@ -1134,7 +1138,7 @@ CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 5)
 ]
 
@@ -1161,7 +1165,7 @@ CardsTest >> testQ040VerifyThatOverloadCardCanOnlyBePlayedAtPlayersTurns [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 5)
 ]
 
@@ -1188,7 +1192,7 @@ CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 5)
 ]
 
@@ -1218,7 +1222,7 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 5)
 ]
 
@@ -1247,7 +1251,7 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 3 with: 7)
 ]
 
@@ -1277,7 +1281,7 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 6)
 ]
 
@@ -1308,7 +1312,7 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 10)
 ]
 

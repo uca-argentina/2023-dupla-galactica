@@ -14,6 +14,14 @@ Position class >> atTheBeginning [
 	^ self new initializeAtTheBeginning
 ]
 
+{ #category : #comparing }
+Position >> = aPosition [
+
+	(lap = aPosition lap and: box = aPosition boxNumber)
+		ifTrue: [ ^ true ]
+		ifFalse: [ ^ false ]
+]
+
 { #category : #Information }
 Position >> > aPosition [
 

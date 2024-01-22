@@ -102,7 +102,7 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 	aGame := self gameWithLoadedDie.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
@@ -115,7 +115,7 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 7)
 ]
 
@@ -126,7 +126,7 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 	aGame := self gameWithTwoLoadedDie.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
@@ -139,7 +139,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 3)
 ]
 
@@ -153,7 +153,7 @@ CreateAFunctionalGameTest >> testH001VerifyThatTeMovesDoNotHaveEffectAfterSomeon
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 3)
 ]
 

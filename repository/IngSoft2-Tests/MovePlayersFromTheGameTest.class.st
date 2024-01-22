@@ -201,7 +201,7 @@ MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 2).
 	self assert: aGame winner equals: 'blue'
 ]
@@ -246,6 +246,6 @@ MovePlayersFromTheGameTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirs
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 4 with: 10)
 ]

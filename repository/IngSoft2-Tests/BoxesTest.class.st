@@ -47,7 +47,7 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffectThenValuePositions [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 9)
 ]
 
@@ -73,7 +73,7 @@ BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffectThenValuePositions [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 5)
 ]
 
@@ -99,7 +99,7 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePositionThenValuePo
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 6 with: 3)
 ]
 
@@ -125,7 +125,7 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayersThenV
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 4)
 ]
 
@@ -149,7 +149,7 @@ BoxesTest >> testN005CheckAtomicBombBoxMoveAllPlayersToTheBeginning [
 		         winningWhen: 1
 		         using: CardDealer new.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 1)
 ]
 
@@ -178,7 +178,7 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 8)
 ]
 
@@ -204,7 +204,7 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowPlayerToBeAtANegativePosition [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 5)
 ]
 
@@ -231,7 +231,7 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowPlayersToBeAtANegativePosition 
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 5)
 ]
 
@@ -260,7 +260,7 @@ BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowPlayersToBeAtANegativePosition
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 3)
 ]
 
@@ -314,7 +314,7 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 8)
 ]
 
@@ -394,7 +394,7 @@ BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 8)
 ]
 
@@ -422,7 +422,7 @@ BoxesTest >> testT002CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 8)
 ]
 
@@ -463,7 +463,7 @@ BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 2)
 ]
 
@@ -491,6 +491,6 @@ BoxesTest >> testT005CheckPlayerMoveBackwardAsManyLapsAsRequest [
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 1)
 ]

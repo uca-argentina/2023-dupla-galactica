@@ -138,6 +138,12 @@ DuplaGalacticaGame >> parsecs [
 ]
 
 { #category : #Information }
+DuplaGalacticaGame >> playersBox [
+
+	^ players collect: [ :player | player position boxNumber ]
+]
+
+{ #category : #Information }
 DuplaGalacticaGame >> playersCardInPosetion [
 
 	^ cardManager cardsInPosetionOf: players
@@ -156,9 +162,9 @@ DuplaGalacticaGame >> playersLaps [
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> playersPositions [
+DuplaGalacticaGame >> playersPositions [ 
 
-	^ players collect: [ :player | player position boxNumber ]
+	^ players collect: [ :player | player position ]
 ]
 
 { #category : #Finalization }

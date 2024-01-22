@@ -72,6 +72,12 @@ DuplaGalacticaGameProxy >> parsecs [
 ]
 
 { #category : #Information }
+DuplaGalacticaGameProxy >> playersBox [
+
+	^ game playersBox
+]
+
+{ #category : #Information }
 DuplaGalacticaGameProxy >> playersCardInPosetion [
 
 	^ game playersCardInPosetion

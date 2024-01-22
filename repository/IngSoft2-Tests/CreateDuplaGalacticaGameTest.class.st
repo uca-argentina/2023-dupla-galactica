@@ -112,7 +112,7 @@ CreateDuplaGalacticaGameTest >> testP015VerifyTheCorrectUseOfPositions [
 
 	| aGame |
 	aGame := self createGameWithEffects.
-	self assert: aGame playersPositions size identicalTo: 2
+	self assert: aGame playersBox size identicalTo: 2
 ]
 
 { #category : #tests }

@@ -36,5 +36,5 @@ CreatingPlayersFromTheGameTest >> setUp [
 CreatingPlayersFromTheGameTest >> testI001CreatingPlayersFromTheGame [
 
 	aGame movePlayer.
-	self assert: aGame playersPositions equals: (OrderedCollection with: 9)
+	self assert: aGame playersBox equals: (OrderedCollection with: 9)
 ]
