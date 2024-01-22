@@ -39,11 +39,8 @@ CardManager >> apply: aCard to: anObjective at: aGame [
 { #category : #Managing }
 CardManager >> calculateEffectOn: aPlayer [
 
-	| aValue |
-	aValue := 0.
-	activeCard do: [ :card | 
-		card owner = aPlayer ifTrue: [ aValue := aValue + card applyEffect ] ].
-	^ aValue
+	^ (activeCard select: [ :card | card owner = aPlayer ]) sum: [ :card | 
+		  card applyEffect ]
 ]
 
 { #category : #Managing }
