@@ -31,8 +31,12 @@ Player >> initializeWith: aColor [
 
 { #category : #PositionControl }
 Player >> move: aValue andUpdateLap: aLength [
-
-	position move: aValue andUpdateLap: aLength
+	
+	(position lap == 0 and:
+		 (aValue < 0 and: (aValue abs >= position box)))
+		ifTrue: [ position moveToTheBeginning ]
+		ifFalse: [ position move: aValue ].
+	self updateLap: aLength
 ]
 
 { #category : #PositionControl }
@@ -45,4 +49,14 @@ Player >> moveToTheBeginning [
 Player >> position [
 
 	^ position
+]
+
+{ #category : #Information }
+Player >> updateLap: aLength [
+
+	position box  > aLength ifTrue: [ 
+		position moveForwardLaps: aLength ].
+
+	position box <= 0 ifFalse: [ ^ self ].
+		position moveBackwardsLaps: aLength
 ]

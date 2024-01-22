@@ -26,6 +26,11 @@ Position >> > aPosition [
 ]
 
 { #category : #Information }
+Position >> box [
+	^ box
+]
+
+{ #category : #Information }
 Position >> boxNumber [
 
 	^ box
@@ -48,18 +53,6 @@ Position >> lap [
 Position >> move: aValue [
 
 	box := box + aValue
-]
-
-{ #category : #Movement }
-Position >> move: aValue andUpdateLap: aLength [
-
-	
-	(self lap == 0 and:
-		 (aValue < 0 and: (aValue abs >= (box))))
-		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ self move: aValue ].
-		
-	self updateLap: aLength
 ]
 
 { #category : #Movement }
@@ -87,14 +80,4 @@ Position >> moveForwardLaps: aLength [
 Position >> moveToTheBeginning [
 
 	box := 1
-]
-
-{ #category : #Movement }
-Position >> updateLap: aLength [
-
-	box  > aLength ifTrue: [ 
-		self moveForwardLaps: aLength ].
-
-	box <= 0 ifFalse: [ ^ self ].
-		self moveBackwardsLaps: aLength
 ]
