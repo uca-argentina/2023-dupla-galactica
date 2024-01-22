@@ -53,20 +53,27 @@ Position >> move: aValue [
 { #category : #Movement }
 Position >> move: aValue andUpdateLap: aLength [
 
+	
 	(self lap == 0 and:
-		 (aValue < 0 and: aValue abs >= box))
+		 (aValue < 0 and: (aValue abs >= (box))))
 		ifTrue: [ self moveToTheBeginning ]
 		ifFalse: [ self move: aValue ].
+		
 	self updateLap: aLength
 ]
 
 { #category : #Movement }
 Position >> moveBackwardsLaps: aLength [
 
-	lap := lap - ((box + 1) abs // aLength + 1).
-	aLength - box abs <= 0
-		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ box := aLength - box abs ]
+	lap := lap - (box abs // aLength + 1).
+	lap < 0
+		ifTrue: [ 
+			lap := 0.
+			box := 1 ]
+		ifFalse: [ 
+			box := aLength - box abs <= 0
+				       ifTrue: [ aLength - (box abs % aLength) ]
+				       ifFalse: [ aLength - box abs ] ]
 ]
 
 { #category : #Movement }
