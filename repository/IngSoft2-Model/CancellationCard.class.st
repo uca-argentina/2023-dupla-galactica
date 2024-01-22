@@ -25,18 +25,15 @@ CancellationCard >> = aCard [
 { #category : #Effect }
 CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	| i |
-	i := 1.
 	cardManager canCancellCard.
-	cardManager activeCards do: [ :card | 
-		i == 1 ifTrue: [ 
-			(card = objective) ifTrue: [ 
-				i := 2.
-				cardManager remove: card ] ] ].
 
-	i = 1 ifTrue: [ 
-		Error signal:
-			'There are no that type of cards activate in this player' ]
+	cardManager activeCards
+		detect: [ :card | card = objective ]
+		ifFound: [ :card | cardManager remove: card ]
+		ifNone: [ 
+			Error signal:
+				'There are no that type of cards activate in this player' ].
+	
 ]
 
 { #category : #Information }

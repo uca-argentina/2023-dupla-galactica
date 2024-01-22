@@ -17,15 +17,19 @@ AccelerationCard class >> owner: anOwner number: anId [
 { #category : #Information }
 AccelerationCard >> = aCard [
 
-	(aCard isKindOf: self class) ifTrue: [ ^(id = aCard id and: aCard owner = owner) ] ifFalse: [ ^false ]
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
 AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
-	objective = 'all' ifFalse: [ Error signal: 'The objective must be all'].
+	objective = 'all' ifFalse: [ 
+		Error signal: 'The objective must be all' ].
 	aGame playersColors do: [ :color | 
-		cardManager activeCards addLast: (AccelerationCard owner: color number: id) ]
+		cardManager activeCards addLast:
+			(AccelerationCard owner: color number: id) ]
 ]
 
 { #category : #Effect }
