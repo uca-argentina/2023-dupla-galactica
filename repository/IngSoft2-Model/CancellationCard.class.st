@@ -27,13 +27,7 @@ CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	cardManager canCancellCard.
 
-	cardManager activeCards
-		detect: [ :card | card = objective ]
-		ifFound: [ :card | cardManager remove: card ]
-		ifNone: [ 
-			Error signal:
-				'There are no that type of cards activate in this player' ].
-	
+	cardManager desactivate: objective
 ]
 
 { #category : #Information }

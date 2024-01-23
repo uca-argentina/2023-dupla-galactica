@@ -16,15 +16,15 @@ CardManager class >> using: aCardDealer with: aColorCollection [
 ]
 
 { #category : #Information }
-CardManager >> activeCards [
+CardManager >> activeCard: aCard [
 
-	^ activeCards
+	activeCards activeCard: aCard
 ]
 
 { #category : #Managing }
 CardManager >> addCard: aCard [
 
-	cardsInPosetion addLast: aCard
+	cardsInPosetion addCard: aCard
 ]
 
 { #category : #Managing }
@@ -39,8 +39,7 @@ CardManager >> apply: aCard to: anObjective at: aGame [
 { #category : #Managing }
 CardManager >> calculateEffectOn: aPlayer [
 
-	^ (activeCards select: [ :card | card owner = aPlayer ]) sum: [ :card | 
-		  card applyEffect ]
+	^ activeCards calculateEffectOn: aPlayer
 ]
 
 { #category : #Managing }
@@ -56,39 +55,39 @@ CardManager >> canBeUse: aCard whenPlay: aPlayer [
 { #category : #Managing }
 CardManager >> canCancellCard [
 
-	activeCards isEmpty ifTrue: [ 
-		Error signal: 'There are no permanent cards' ]
+	activeCards isEmpty
 ]
 
 { #category : #Information }
 CardManager >> cardsInPosetion [
 
-	^ cardsInPosetion
+	^ cardsInPosetion amount
 ]
 
 { #category : #Information }
 CardManager >> cardsInPosetionOf: players [
 
-	^ players collect: [ :player | 
-		  (cardsInPosetion select: [ :card | card owner = player color ])
-			  size ]
+	^ cardsInPosetion cardsOf: players
+]
+
+{ #category : #Managing }
+CardManager >> desactivate: anObjectiveCard [
+ 
+	activeCards desactivate: anObjectiveCard.
 ]
 
 { #category : #Managing }
 CardManager >> hasBeenGiven: aCard [
 
-	cardsInPosetion detect: [ :card | card = aCard ] ifFound: [ :card | 
-		cardsInPosetion remove: card.
-		^ true ].
-	^ false
+	^ cardsInPosetion hasBeenGiven: aCard
 ]
 
 { #category : #Initialization }
 CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 
 	lastCardPlay := EmptyCard new.
-	activeCards := OrderedCollection new.
-	cardsInPosetion := OrderedCollection new.
+	activeCards := ActiveCards createDeck.
+	cardsInPosetion := CardsInPosetion createDeck.
 	aCardDealer dealCards: self to: aColorCollection
 ]
 
@@ -96,10 +95,4 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 CardManager >> lastCardPlay [
 
 	^ lastCardPlay
-]
-
-{ #category : #Managing }
-CardManager >> remove: card [
-
-	activeCards remove: card.
 ]

@@ -72,7 +72,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	boxes:= aBoard boxes.
 	current:= players at: turnManager current.
 	cardManager := CardManager using: aCardDealer with: aColorsCollection.
-	numberOfCards:= (cardManager cardsInPosetion) size.
+	numberOfCards:= (cardManager cardsInPosetion).
 ]
 
 { #category : #Cards }
