@@ -67,10 +67,10 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	players := aColorsCollection collect: [ :color | Player with: color ].
 	board := aBoard.
 	dice := aDiceCollection.
-	turnManager := TurnManager with: aColorsCollection size.
+	turnManager := TurnManager with: players.
 	goalLaps := aValue.
 	boxes:= aBoard boxes.
-	current:= players at: turnManager current.
+	current:= turnManager current.
 	cardManager := CardManager using: aCardDealer with: aColorsCollection.
 	numberOfCards:= (cardManager cardsInPosetion).
 ]
@@ -123,7 +123,7 @@ DuplaGalacticaGame >> movePlayer [
 	current  move: aValue andUpdateLap: boxes.
 	board effectAt: current box In: self.
 	turnManager goNext.
-	current:= players at: turnManager current.
+	current:= turnManager current.
 ]
 
 { #category : #Information }
@@ -187,7 +187,7 @@ DuplaGalacticaGame >> repeatEffectTo: aPlayerColor [
 	lastPosition := current box.
 	current:= players detect: [ :player | player color= aPlayerColor ].
 	board effectAt: lastPosition In: self.
-	current:= players at: turnManager current.
+	current:= turnManager current.
 ]
 
 { #category : #Finalization }

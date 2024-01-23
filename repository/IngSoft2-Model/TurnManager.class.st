@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'max',
-		'current'
+		'current',
+		'values'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,7 +18,7 @@ TurnManager class >> with: anAmount [
 { #category : #ManageTurns }
 TurnManager >> current [
 
-	^ current
+	^ values at: current 
 ]
 
 { #category : #ManageTurns }
@@ -29,8 +30,14 @@ TurnManager >> goNext [
 ]
 
 { #category : #Initialization }
-TurnManager >> initializeWith: anAmount [
+TurnManager >> initializeWith: aValuesCollection [
 
-	max := anAmount.
+	values	:= aValuesCollection.
+	max := aValuesCollection size.
 	current := 1
+]
+
+{ #category : #Information }
+TurnManager >> valuesSize [
+	^ max.
 ]
