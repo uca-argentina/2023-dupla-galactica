@@ -28,7 +28,7 @@ AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
 	objective = 'all' ifFalse: [ 
 		Error signal: 'The objective must be all' ].
 	aGame playersColors do: [ :color | 
-		cardManager activeCard: (AccelerationCard owner: color number: id) ]
+		cardManager activeCard: (self class owner: color number: id) ]
 ]
 
 { #category : #Effect }

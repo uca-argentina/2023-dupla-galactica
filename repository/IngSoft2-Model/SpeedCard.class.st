@@ -26,7 +26,7 @@ SpeedCard >> = aCard [
 SpeedCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	aGame isValidPlayer: objective.
-	cardManager activeCard: (SpeedCard owner: objective number: id)
+	cardManager activeCard: (self class owner: objective number: id)
 ]
 
 { #category : #Effect }
