@@ -25,9 +25,9 @@ Board >> boxes [
 ]
 
 { #category : #BoxManager }
-Board >> effectAt: aBoxPosition In: aGame [
+Board >> effectAt: aPosition In: aGame [
 
-	(boxes at: aBoxPosition) effect: aGame
+	(boxes at: aPosition) effect: aGame 
 ]
 
 { #category : #Initialization }

@@ -52,7 +52,7 @@ DuplaGalacticaGame >> boxes [
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
-	^ current.
+	^ current
 ]
 
 { #category : #Information }
@@ -70,7 +70,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
 	boxes:= aBoard boxes.
-	current := players at: turnManager current.
+	current:= players at: turnManager current.
 	cardManager := CardManager using: aCardDealer with: aColorsCollection.
 	numberOfCards:= (cardManager cardsInPosetion) size.
 ]
@@ -120,10 +120,10 @@ DuplaGalacticaGame >> movePlayer [
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
 	aValue := aValue + (cardManager calculateEffectOn: current color).
 	self winnerExists ifTrue: [ ^ self ].
-	current move: aValue andUpdateLap: boxes.
+	current  move: aValue andUpdateLap: boxes.
 	board effectAt: current box In: self.
 	turnManager goNext.
-	current := players at: turnManager current
+	current:= players at: turnManager current.
 ]
 
 { #category : #Information }
@@ -185,9 +185,9 @@ DuplaGalacticaGame >> repeatEffectTo: aPlayerColor [
 
 	| lastPosition |
 	lastPosition := current box.
-	current := players detect: [ :player | player color = aPlayerColor].
+	current:= players detect: [ :player | player color= aPlayerColor ].
 	board effectAt: lastPosition In: self.
-	current := players at: turnManager current
+	current:= players at: turnManager current.
 ]
 
 { #category : #Finalization }

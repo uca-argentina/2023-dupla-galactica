@@ -2,9 +2,9 @@ Class {
 	#name : #CardManager,
 	#superclass : #Object,
 	#instVars : [
-		'activeCard',
 		'cardsInPosetion',
-		'lastCardPlay'
+		'lastCardPlay',
+		'activeCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,7 +18,7 @@ CardManager class >> using: aCardDealer with: aColorCollection [
 { #category : #Information }
 CardManager >> activeCards [
 
-	^ activeCard
+	^ activeCards
 ]
 
 { #category : #Managing }
@@ -39,7 +39,7 @@ CardManager >> apply: aCard to: anObjective at: aGame [
 { #category : #Managing }
 CardManager >> calculateEffectOn: aPlayer [
 
-	^ (activeCard select: [ :card | card owner = aPlayer ]) sum: [ :card | 
+	^ (activeCards select: [ :card | card owner = aPlayer ]) sum: [ :card | 
 		  card applyEffect ]
 ]
 
@@ -56,7 +56,7 @@ CardManager >> canBeUse: aCard whenPlay: aPlayer [
 { #category : #Managing }
 CardManager >> canCancellCard [
 
-	activeCard isEmpty ifTrue: [ 
+	activeCards isEmpty ifTrue: [ 
 		Error signal: 'There are no permanent cards' ]
 ]
 
@@ -87,7 +87,7 @@ CardManager >> hasBeenGiven: aCard [
 CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 
 	lastCardPlay := EmptyCard new.
-	activeCard := OrderedCollection new.
+	activeCards := OrderedCollection new.
 	cardsInPosetion := OrderedCollection new.
 	aCardDealer dealCards: self to: aColorCollection
 ]
@@ -101,5 +101,5 @@ CardManager >> lastCardPlay [
 { #category : #Managing }
 CardManager >> remove: card [
 
-	activeCard remove: card.
+	activeCards remove: card.
 ]
