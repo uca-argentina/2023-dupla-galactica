@@ -9,7 +9,8 @@ Class {
 		'turnManager',
 		'current',
 		'cardManager',
-		'numberOfCards'
+		'numberOfCards',
+		'boxes'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -45,7 +46,7 @@ DuplaGalacticaGame >> apply: aCard to: anObjectivePlayer [
 { #category : #Information }
 DuplaGalacticaGame >> boxes [
 
-	^ board boxes
+	^ boxes
 ]
 
 { #category : #Information }
@@ -68,6 +69,7 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aD
 	dice := aDiceCollection.
 	turnManager := TurnManager with: aColorsCollection size.
 	goalLaps := aValue.
+	boxes:= aBoard boxes.
 	current := players at: turnManager current.
 	cardManager := CardManager using: aCardDealer with: aColorsCollection.
 	numberOfCards:= (cardManager cardsInPosetion) size.
@@ -91,13 +93,13 @@ DuplaGalacticaGame >> lightYears [
 { #category : #Player }
 DuplaGalacticaGame >> moveAllToTheStart [
 
-	players do: [ :player | player move: ((player box)*(-1) + 1) andUpdateLap: self boxes ]
+	players do: [ :player | player move: ((player box)*(-1) + 1) andUpdateLap: boxes ]
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveCurrent: aValue [
 
-	self currentPlayer move: aValue andUpdateLap: board boxes
+	self currentPlayer move: aValue andUpdateLap: boxes
 ]
 
 { #category : #Player }
@@ -105,7 +107,7 @@ DuplaGalacticaGame >> moveOthers: aValue [
 
 	(players reject: [ :player | 
 		 player color == self currentPlayer color ]) do: [ :player | 
-		player move: aValue andUpdateLap: board boxes]
+		player move: aValue andUpdateLap: boxes]
 ]
 
 { #category : #Player }
@@ -118,7 +120,7 @@ DuplaGalacticaGame >> movePlayer [
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
 	aValue := aValue + (cardManager calculateEffectOn: current color).
 	self winnerExists ifTrue: [ ^ self ].
-	current move: aValue andUpdateLap: board boxes.
+	current move: aValue andUpdateLap: boxes.
 	board effectAt: current box In: self.
 	turnManager goNext.
 	current := players at: turnManager current
@@ -165,7 +167,7 @@ DuplaGalacticaGame >> playersPositions [
 
 	^ players collect: [ :player | 
 		  Position atTheBeginning move:
-			  self boxes * player lap + player box - 1 ]
+			  boxes * player lap + player box - 1 ]
 ]
 
 { #category : #Finalization }
