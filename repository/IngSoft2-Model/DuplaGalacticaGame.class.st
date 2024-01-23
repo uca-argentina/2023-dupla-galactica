@@ -91,13 +91,13 @@ DuplaGalacticaGame >> lightYears [
 { #category : #Player }
 DuplaGalacticaGame >> moveAllToTheStart [
 
-	players do: [ :player | player move: ((player box)*(-1) + 1) andUpdateLap: self boxes size ]
+	players do: [ :player | player move: ((player box)*(-1) + 1) andUpdateLap: self boxes ]
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveCurrent: aValue [
 
-	self currentPlayer move: aValue andUpdateLap: board boxes size
+	self currentPlayer move: aValue andUpdateLap: board boxes
 ]
 
 { #category : #Player }
@@ -105,21 +105,20 @@ DuplaGalacticaGame >> moveOthers: aValue [
 
 	(players reject: [ :player | 
 		 player color == self currentPlayer color ]) do: [ :player | 
-		player move: aValue andUpdateLap: board boxes size ]
+		player move: aValue andUpdateLap: board boxes]
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> movePlayer [
 
 	| aValue |
+	self winnerExists ifTrue: [ ^ self ].
 	aValue := dice size == 1
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
-		
-	aValue:=aValue+ (cardManager calculateEffectOn: (current color)).
-	
+	aValue := aValue + (cardManager calculateEffectOn: current color).
 	self winnerExists ifTrue: [ ^ self ].
-	current move: aValue andUpdateLap: board boxes size.
+	current move: aValue andUpdateLap: board boxes.
 	board effectAt: current box In: self.
 	turnManager goNext.
 	current := players at: turnManager current
@@ -166,7 +165,7 @@ DuplaGalacticaGame >> playersPositions [
 
 	^ players collect: [ :player | 
 		  Position atTheBeginning move:
-			  self boxes size * player lap + player box - 1 ]
+			  self boxes * player lap + player box - 1 ]
 ]
 
 { #category : #Finalization }

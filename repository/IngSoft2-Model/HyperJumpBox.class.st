@@ -26,7 +26,7 @@ HyperJumpBox >> currentValue [
 HyperJumpBox >> effect: aGame [
 
 	aGame moveCurrent: self currentValue parsecs nominalValue
-		// (aGame parsecs nominalValue // aGame boxes size).
+		// (aGame parsecs nominalValue // aGame boxes).
 
 	parsecManager goNext
 ]

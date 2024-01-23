@@ -16,13 +16,10 @@ Player class >> with: aSpaceship [
 ]
 
 { #category : #Sort }
-Player >> aheadOf: aPlayer [ 
-	position lap > aPlayer lap
-		ifTrue: [ ^ true ]
-		ifFalse: [ 
-			position box > aPlayer box
-				ifTrue: [ ^ true ]
-				ifFalse: [ ^ false ] ]
+Player >> aheadOf: aPlayer [
+
+	^ aPlayer lap < position lap or:
+		  (position lap = aPlayer lap and: position box > aPlayer box)
 ]
 
 { #category : #Information }

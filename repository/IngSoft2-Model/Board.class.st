@@ -21,13 +21,13 @@ Board class >> with: aBoxCollection measure: aLengthMeasure [
 { #category : #Information }
 Board >> boxes [
 
-	^ boxes
+	^ boxes size
 ]
 
 { #category : #BoxManager }
 Board >> effectAt: aBoxPosition In: aGame [
 
-	(self boxes at: aBoxPosition) effect: aGame
+	(boxes at: aBoxPosition) effect: aGame
 ]
 
 { #category : #Initialization }

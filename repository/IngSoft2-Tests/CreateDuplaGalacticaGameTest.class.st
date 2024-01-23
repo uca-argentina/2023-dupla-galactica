@@ -63,7 +63,7 @@ CreateDuplaGalacticaGameTest >> testP001VerifyTheCorrectCreationOfTheBoardWithEf
 	| aGame |
 	aGame := self createGameWithEffects.
 
-	self assert: aGame boxes size identicalTo: 10
+	self assert: aGame boxes identicalTo: 10
 ]
 
 { #category : #tests }
