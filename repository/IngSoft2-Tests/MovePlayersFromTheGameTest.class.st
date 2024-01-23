@@ -76,7 +76,7 @@ MovePlayersFromTheGameTest >> testM001AskPlayerForTheLapThenValid [
 
 	| aPlayer |
 	aPlayer := Player with: 'red'.
-	self assert: aPlayer position lap equals: 0
+	self assert: aPlayer lap equals: 0
 ]
 
 { #category : #tests }

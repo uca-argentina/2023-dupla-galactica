@@ -23,17 +23,6 @@ Position >> = aPosition [
 ]
 
 { #category : #Information }
-Position >> > aPosition [
-
-	lap > aPosition lap
-		ifTrue: [ ^ true ]
-		ifFalse: [ 
-			box > aPosition boxNumber
-				ifTrue: [ ^ true ]
-				ifFalse: [ ^ false ] ]
-]
-
-{ #category : #Information }
 Position >> box [
 	^ box
 ]
@@ -82,10 +71,4 @@ Position >> moveForwardLaps: aLength [
 
 	lap := lap + (box // aLength).
 	box := box % aLength
-]
-
-{ #category : #Movement }
-Position >> moveToTheBeginning [
-
-	box := 1
 ]

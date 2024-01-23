@@ -91,7 +91,7 @@ DuplaGalacticaGame >> lightYears [
 { #category : #Player }
 DuplaGalacticaGame >> moveAllToTheStart [
 
-	players do: [ :player | player moveToTheBeginning ]
+	players do: [ :player | player move: ((player box)*(-1) + 1) andUpdateLap: self boxes size ]
 ]
 
 { #category : #Player }
@@ -120,7 +120,7 @@ DuplaGalacticaGame >> movePlayer [
 	
 	self winnerExists ifTrue: [ ^ self ].
 	current move: aValue andUpdateLap: board boxes size.
-	board effectAt: current position In: self.
+	board effectAt: current box In: self.
 	turnManager goNext.
 	current := players at: turnManager current
 ]
@@ -140,7 +140,7 @@ DuplaGalacticaGame >> parsecs [
 { #category : #Information }
 DuplaGalacticaGame >> playersBox [
 
-	^ players collect: [ :player | player position boxNumber ]
+	^ players collect: [ :player | player box ]
 ]
 
 { #category : #Information }
@@ -158,13 +158,15 @@ DuplaGalacticaGame >> playersColors [
 { #category : #Information }
 DuplaGalacticaGame >> playersLaps [
 
-	^ players collect: [ :player | player position lap ]
+	^ players collect: [ :player | player lap ]
 ]
 
 { #category : #Information }
-DuplaGalacticaGame >> playersPositions [ 
+DuplaGalacticaGame >> playersPositions [
 
-	^ players collect: [ :player | player position ]
+	^ players collect: [ :player | 
+		  Position atTheBeginning move:
+			  self boxes size * player lap + player box - 1 ]
 ]
 
 { #category : #Finalization }
@@ -173,7 +175,7 @@ DuplaGalacticaGame >> ranking [
 	| ranking |
 	ranking := players collect: [ :player | player ].
 	ranking sort: [ :player1 :player2 | 
-		player1 position > player2 position ].
+		player1 aheadOf: player2 ].
 	^ ranking collect: [ :player | player color ]
 ]
 
@@ -181,7 +183,7 @@ DuplaGalacticaGame >> ranking [
 DuplaGalacticaGame >> repeatEffectTo: aPlayerColor [
 
 	| lastPosition |
-	lastPosition := current position.
+	lastPosition := current box.
 	current := players detect: [ :player | player color = aPlayerColor].
 	board effectAt: lastPosition In: self.
 	current := players at: turnManager current
@@ -206,5 +208,5 @@ DuplaGalacticaGame >> winnerExists [
 { #category : #Finalization }
 DuplaGalacticaGame >> wins: aPlayer [
 
-	^ aPlayer position lap >= self goalLaps
+	^ aPlayer lap >= self goalLaps
 ]
