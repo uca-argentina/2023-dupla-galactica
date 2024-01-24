@@ -18,7 +18,7 @@ SpeedCard class >> owner: anOwner number: anId [
 SpeedCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifTrue: [ ^ aCard owner = owner ]
 		ifFalse: [ ^ false ]
 ]
 

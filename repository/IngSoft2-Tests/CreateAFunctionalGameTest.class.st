@@ -23,14 +23,20 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	^ aLoadedGame
 ]
 
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 
-	| aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame boxes aBoard|
+	| aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
@@ -44,14 +50,23 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 	aLoadedDiceCollection := OrderedCollection
 		                         with: aLoadedDie
 		                         with: aSecondLoadedDie.
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie with: aSecondLoadedDie)
-							winningWhen: 2
-							using: CardDealer new.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing:
+		         (OrderedCollection with: aLoadedDie with: aSecondLoadedDie)
+		         winningWhen: 2
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	^ aGame
 ]
 

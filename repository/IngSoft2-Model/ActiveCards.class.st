@@ -26,7 +26,7 @@ ActiveCards >> calculateEffectOn: aPlayer [
 
 { #category : #Desactivation }
 ActiveCards >> desactivate: anObjectiveCard [
-
+	self isEmpty.
 	cards
 		detect: [ :card | card = anObjectiveCard ]
 		ifFound: [ :card | cards remove: card ]

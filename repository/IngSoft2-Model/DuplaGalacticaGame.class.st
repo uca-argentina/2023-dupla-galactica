@@ -17,7 +17,7 @@ Class {
 
 { #category : #'Instance creation' }
 DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
-	
+
 	aColorCollection size <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with no players' ].
 	aValue <= 0 ifTrue: [ 

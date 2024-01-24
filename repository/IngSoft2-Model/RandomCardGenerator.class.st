@@ -1,25 +1,31 @@
 Class {
 	#name : #RandomCardGenerator,
 	#superclass : #Object,
+	#instVars : [
+		'cards'
+	],
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #'Instance creation' }
+RandomCardGenerator class >> dealing: aCollection [ 
+	^ self new initializeCards: aCollection.
+]
 
 { #category : #'Card creation' }
 RandomCardGenerator >> createCard: idValue for: aPlayerColor [
 
-	| cardClasses value selectedClass |
-	cardClasses := { 
-		               OverloadCard.
-		               SpeedCard.
-		               AccelerationCard.
-		               CancellationCard.
-		               RedoCard.
-		               RepeatCard }.
+	|value selectedClass |
+	
+	value := cards size atRandom.
 
-	value := 6 atRandom.
-
-	selectedClass := cardClasses detect: [ :class | 
-		                 value <= (cardClasses indexOf: class) ].
+	selectedClass := cards  detect: [ :class | 
+		                 value <= (cards  indexOf: class) ].
 
 	^ selectedClass owner: aPlayerColor number: idValue
+]
+
+{ #category : #Initialization }
+RandomCardGenerator >> initializeCards: aCollection [ 
+	cards:= aCollection.
 ]

@@ -52,12 +52,6 @@ CardManager >> canBeUse: aCard whenPlay: aPlayer [
 		ifFalse: [ ^ false ]
 ]
 
-{ #category : #Managing }
-CardManager >> canCancellCard [
-
-	activeCards isEmpty
-]
-
 { #category : #Information }
 CardManager >> cardsInPosetion [
 
@@ -72,7 +66,8 @@ CardManager >> cardsInPosetionOf: players [
 
 { #category : #Managing }
 CardManager >> desactivate: anObjectiveCard [
- 
+
+
 	activeCards desactivate: anObjectiveCard.
 ]
 

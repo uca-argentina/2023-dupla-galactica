@@ -18,14 +18,12 @@ CancellationCard class >> owner: anOwner number: anId [
 CancellationCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifTrue: [ ^ aCard owner = owner ]
 		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
 CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
-
-	cardManager canCancellCard.
 
 	cardManager desactivate: objective
 ]

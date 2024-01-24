@@ -43,7 +43,13 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffectThenValuePositions [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -69,7 +75,13 @@ BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffectThenValuePositions [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -95,7 +107,13 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePositionThenValuePo
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -121,7 +139,13 @@ BoxesTest >> testN004CheckMoonWalkBoxApplyTheCorrectEffectOnTheOtherPlayersThenV
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -147,7 +171,13 @@ BoxesTest >> testN005CheckAtomicBombBoxMoveAllPlayersToTheBeginning [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	self
 		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 1)
@@ -174,7 +204,13 @@ BoxesTest >> testN006CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreEn
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -200,7 +236,13 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowPlayerToBeAtANegativePosition [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -227,7 +269,13 @@ BoxesTest >> testN008CheckMoonWalkBoxDoesNotAllowPlayersToBeAtANegativePosition 
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -256,7 +304,13 @@ BoxesTest >> testN009CheckHyperJumpBoxDoesNotAllowPlayersToBeAtANegativePosition
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -282,7 +336,13 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	self
 		should: [ aGame winner ]
@@ -310,7 +370,13 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -328,7 +394,7 @@ BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: RandomCardBox  new withChance: 100))) 
+		          (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: CancellationCard))  withChance: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -336,7 +402,13 @@ BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	self
 		assert: aGame playersCardInPosetion
@@ -353,7 +425,7 @@ BoxesTest >> testR002CheckRandomCardBoxGeneratesARandomCardMoreThanOneTimeIfNece
 			               with: 3
 			               with: 8).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: RandomCardBox new withChance: 100))) 
+		          (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: CancellationCard)) withChance: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -361,7 +433,13 @@ BoxesTest >> testR002CheckRandomCardBoxGeneratesARandomCardMoreThanOneTimeIfNece
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -390,7 +468,13 @@ BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -418,7 +502,13 @@ BoxesTest >> testT002CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -459,7 +549,13 @@ BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAr
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -487,7 +583,13 @@ BoxesTest >> testT005CheckPlayerMoveBackwardAsManyLapsAsRequest [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 2
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
 	self

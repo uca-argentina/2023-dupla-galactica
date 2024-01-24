@@ -34,7 +34,13 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithP
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 
 	self assert: aGame parsecs nominalValue equals: 100
 ]
@@ -50,7 +56,13 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithL
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 
 	self assert: aGame lightYears nominalValue equals: 300
 ]
@@ -66,7 +78,13 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithP
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 
 	self assert: aGame lightYears nominalValue equals: 300
 ]
@@ -82,7 +100,13 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateABordWithL
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard)).
 
 	self assert: aGame parsecs nominalValue equals: 100
 ]

@@ -28,7 +28,13 @@ MovePlayersInTurnFromTheGameTest >> setUp [
 		         and: aBoard
 		         throwing: aLoadedDie
 		         winningWhen: 1
-		         using: CardDealer new
+		         using: (CardDealer with: (OrderedCollection
+					           with: AccelerationCard
+					           with: OverloadCard
+					           with: SpeedCard
+					           with: RedoCard
+					           with: RepeatCard
+					           with: CancellationCard))
 ]
 
 { #category : #tests }
