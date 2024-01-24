@@ -35,13 +35,19 @@ CardsInPosetion >> cardsOf: players [
 { #category : #'Changing cards' }
 CardsInPosetion >> hasBeenGiven: aCard [
 
-	cards detect: [ :card | card = aCard ] ifFound: [ :card | 
-		cards remove: card.
-		^ true ].
-	^ false
+	cards
+		detect: [ :card | card = aCard ]
+		ifFound: [ :card | ^ true ]
+		ifNone: [ ^ false ]
 ]
 
 { #category : #Initialization }
 CardsInPosetion >> initializeDeck [
 	cards:= OrderedCollection new.
+]
+
+{ #category : #Initialization }
+CardsInPosetion >> takeOut: aCard [
+
+	cards remove: aCard.
 ]

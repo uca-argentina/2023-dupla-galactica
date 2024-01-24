@@ -31,6 +31,12 @@ RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
 		to: objective
 ]
 
+{ #category : #Initialization }
+RedoCard >> generalObjective [
+
+	^ true.
+]
+
 { #category : #Information }
 RedoCard >> haveEffect [
 

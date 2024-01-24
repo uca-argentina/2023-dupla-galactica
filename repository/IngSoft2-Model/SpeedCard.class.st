@@ -36,6 +36,12 @@ SpeedCard >> applyEffect [
 ]
 
 { #category : #Information }
+SpeedCard >> generalObjective [
+
+	^ false.
+]
+
+{ #category : #Information }
 SpeedCard >> haveEffect [
 
 	^ true

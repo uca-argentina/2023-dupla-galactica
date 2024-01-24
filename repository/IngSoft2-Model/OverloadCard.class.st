@@ -35,6 +35,12 @@ OverloadCard >> applyEffect [
 	^ -2
 ]
 
+{ #category : #Initialization }
+OverloadCard >> generalObjective [
+
+	^ false.
+]
+
 { #category : #Information }
 OverloadCard >> haveEffect [
 

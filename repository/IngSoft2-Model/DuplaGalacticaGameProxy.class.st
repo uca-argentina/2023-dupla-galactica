@@ -24,6 +24,12 @@ DuplaGalacticaGameProxy >> apply: aCard to: anObjectivePlayer [
 	game apply: aCard to: anObjectivePlayer
 ]
 
+{ #category : #Cards }
+DuplaGalacticaGameProxy >> applyEveryone: aCard [
+
+	game applyEveryone: aCard
+]
+
 { #category : #Information }
 DuplaGalacticaGameProxy >> boxes [
 

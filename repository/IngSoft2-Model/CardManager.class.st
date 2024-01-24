@@ -31,9 +31,30 @@ CardManager >> addCard: aCard [
 CardManager >> apply: aCard to: anObjective at: aGame [
 
 	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
-		^ self ].
+		Error signal: 'A permanent card can only be use when it is your turn' ].
+	(self hasBeenGiven: aCard) ifFalse: [ 
+		Error signal: 'The player does not have that card in posetion' ].
+	(self hasSingleObjective: aCard) ifFalse: [ 
+		Error signal: 'That is a general objective card must be use a general apply effect' ].
 	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
-	aCard applyCardUsing: self at: aGame to: anObjective
+	aCard applyCardUsing: self at: aGame to: anObjective.
+	cardsInPosetion takeOut: aCard
+]
+
+{ #category : #Managing }
+CardManager >> applyEveryone: aCard at: aGame [
+
+	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
+		Error signal:
+			'A permanent card can only be use when it is your turn' ].
+	(self hasBeenGiven: aCard) ifFalse: [ 
+		Error signal: 'The player does not have that card in posetion' ].
+	(self hasSingleObjective: aCard) ifTrue: [ 
+		Error signal:
+			'That is not a general objective card, must be use a single player apply effect' ].
+	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
+	aCard applyCardUsing: self at: aGame to: 'all'.
+	cardsInPosetion takeOut: aCard
 ]
 
 { #category : #Managing }
@@ -45,11 +66,8 @@ CardManager >> calculateEffectOn: aPlayer [
 { #category : #Managing }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
-	aCard isPermanent ifTrue: [ 
-		aCard owner = aPlayer ifFalse: [ ^ false ] ].
-	(self hasBeenGiven: aCard)
-		ifTrue: [ ^ true ]
-		ifFalse: [ ^ false ]
+	^ (aCard isPermanent and: aCard owner = aPlayer) or:
+		  aCard isPermanent not
 ]
 
 { #category : #Information }
@@ -75,6 +93,17 @@ CardManager >> desactivate: anObjectiveCard [
 CardManager >> hasBeenGiven: aCard [
 
 	^ cardsInPosetion hasBeenGiven: aCard
+]
+
+{ #category : #Managing }
+CardManager >> hasSingleObjective: aCard [
+
+	aCard haveEffect
+		ifTrue: [ 
+			aCard generalObjective
+				ifTrue: [ ^ false ]]
+		ifFalse: [ lastCardPlay generalObjective ifTrue: [ ^ false ] ].
+	^ true
 ]
 
 { #category : #Initialization }

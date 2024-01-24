@@ -28,6 +28,12 @@ RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 	aGame repeatEffectTo: objective
 ]
 
+{ #category : #Initialization }
+RepeatCard >> generalObjective [
+
+	^ false.
+]
+
 { #category : #Information }
 RepeatCard >> haveEffect [
 

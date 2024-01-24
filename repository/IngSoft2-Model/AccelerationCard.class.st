@@ -37,6 +37,12 @@ AccelerationCard >> applyEffect [
 	^ 1
 ]
 
+{ #category : #Effect }
+AccelerationCard >> generalObjective [
+
+	^ true.
+]
+
 { #category : #Information }
 AccelerationCard >> haveEffect [
 

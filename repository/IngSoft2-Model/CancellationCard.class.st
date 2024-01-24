@@ -28,6 +28,12 @@ CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
 ]
 
 { #category : #Information }
+CancellationCard >> generalObjective [
+
+	^ false.
+]
+
+{ #category : #Information }
 CancellationCard >> haveEffect [
 
 	^ true
