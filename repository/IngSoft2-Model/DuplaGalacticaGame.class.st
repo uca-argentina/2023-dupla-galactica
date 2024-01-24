@@ -37,14 +37,20 @@ DuplaGalacticaGame >> addCard: aCard [
 
 { #category : #Cards }
 DuplaGalacticaGame >> apply: aCard to: anObjective [
-
+	
+	(cardManager canBeUse: aCard whenPlay: current color) ifFalse: [ 
+		Error signal:
+			'A permanent card can only be use when it is your turn' ].
 	cardManager apply: aCard to: anObjective at: self.
 ]
 
 { #category : #Cards }
 DuplaGalacticaGame >> applyEveryone: aCard [
 
-	cardManager applyEveryone: aCard at: self.
+	(cardManager canBeUse: aCard whenPlay: current color) ifFalse: [ 
+		Error signal:
+			'A permanent card can only be use when it is your turn' ].
+	cardManager applyEveryone: aCard at: self
 ]
 
 { #category : #Information }

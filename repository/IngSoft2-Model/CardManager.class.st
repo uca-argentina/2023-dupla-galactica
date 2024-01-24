@@ -30,9 +30,7 @@ CardManager >> addCard: aCard [
 { #category : #Managing }
 CardManager >> apply: aCard to: anObjective at: aGame [
 
-	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
-		Error signal:
-			'A permanent card can only be use when it is your turn' ].
+
 	(self hasBeenGiven: aCard) ifFalse: [ 
 		Error signal: 'The player does not have that card in posetion' ].
 	(self hasSingleObjective: aCard) ifFalse: [ 
@@ -53,9 +51,6 @@ CardManager >> apply: aCard to: anObjective at: aGame [
 { #category : #Managing }
 CardManager >> applyEveryone: aCard at: aGame [
 
-	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
-		Error signal:
-			'A permanent card can only be use when it is your turn' ].
 	(self hasBeenGiven: aCard) ifFalse: [ 
 		Error signal: 'The player does not have that card in posetion' ].
 	(self hasSingleObjective: aCard) ifTrue: [ 
