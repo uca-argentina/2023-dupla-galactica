@@ -2,16 +2,15 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'id'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> owner: anOwner number: anId [
+RepeatCard class >> owner: anOwner [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeOwner: anOwner
 ]
 
 { #category : #Information }
@@ -35,17 +34,10 @@ RepeatCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-RepeatCard >> id [
-
-	^ id
-]
-
 { #category : #Initialization }
-RepeatCard >> initializeOwner: anOwner number: anId [
+RepeatCard >> initializeOwner: anOwner [
 
 	owner := anOwner.
-	id:= anId.
 ]
 
 { #category : #Information }

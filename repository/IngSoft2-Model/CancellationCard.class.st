@@ -2,16 +2,15 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'id'
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-CancellationCard class >> owner: anOwner number: anId [
+CancellationCard class >> owner: anOwner [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeOwner: anOwner
 ]
 
 { #category : #Information }
@@ -34,17 +33,11 @@ CancellationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-CancellationCard >> id [
-
-	^ id
-]
-
 { #category : #Initialization }
-CancellationCard >> initializeOwner: anOwner number: anId [
+CancellationCard >> initializeOwner: anOwner [
 
 	owner := anOwner.
-	id:= anId.
+	
 ]
 
 { #category : #Information }

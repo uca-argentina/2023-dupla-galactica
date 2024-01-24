@@ -3,15 +3,15 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'owner',
-		'id'
+		'objective'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RedoCard class >> owner: anOwner number: anId [
+RedoCard class >> owner: anOwner [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeOwner: anOwner
 ]
 
 { #category : #Information }
@@ -37,17 +37,11 @@ RedoCard >> haveEffect [
 	^ false
 ]
 
-{ #category : #Information }
-RedoCard >> id [
-
-	^ id
-]
-
 { #category : #Initialization }
-RedoCard >> initializeOwner: anOwner number: anId [
+RedoCard >> initializeOwner: anOwner [
 
 	owner := anOwner.
-	id:= anId.
+	objective:= EmptyPlayer new.
 ]
 
 { #category : #Information }

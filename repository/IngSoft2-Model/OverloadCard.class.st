@@ -3,15 +3,15 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'owner',
-		'id'
+		'objective'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> owner: anOwner number: anId [
+OverloadCard class >> owner: anOwner [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeOwner: anOwner
 ]
 
 { #category : #Information }
@@ -23,10 +23,10 @@ OverloadCard >> = aCard [
 ]
 
 { #category : #Effect }
-OverloadCard >> applyCardUsing: cardManager at: aGame to: objective [
+OverloadCard >> applyCardUsing: cardManager at: aGame to: anObjective [
 
-	aGame isValidPlayer: objective.
-	cardManager activeCard: (self class owner: objective number: id).
+	aGame isValidPlayer: anObjective.
+	cardManager activeCard: (self class owner: anObjective).
 ]
 
 { #category : #Effect }
@@ -41,17 +41,11 @@ OverloadCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-OverloadCard >> id [
-
-	^ id
-]
-
 { #category : #Initialization }
-OverloadCard >> initializeOwner: anOwner number: anId [
+OverloadCard >> initializeOwner: anOwner [
 
 	owner := anOwner.
-	id:= anId.
+	objective:= EmptyPlayer new.
 ]
 
 { #category : #Information }

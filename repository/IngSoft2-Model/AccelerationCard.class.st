@@ -3,15 +3,15 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'owner',
-		'id'
+		'objective'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> owner: anOwner number: anId [
+AccelerationCard class >> owner: anOwner [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeOwner: anOwner
 ]
 
 { #category : #Information }
@@ -23,12 +23,12 @@ AccelerationCard >> = aCard [
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
+AccelerationCard >> applyCardUsing: cardManager at: aGame to: anObjective [
 
-	objective = 'all' ifFalse: [ 
+	anObjective = 'all' ifFalse: [ 
 		Error signal: 'The objective must be all' ].
 	aGame playersColors do: [ :color | 
-		cardManager activeCard: (self class owner: color number: id) ]
+		cardManager activeCard: (self class owner: color) ]
 ]
 
 { #category : #Effect }
@@ -43,17 +43,11 @@ AccelerationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-AccelerationCard >> id [
-
-	^ id
-]
-
 { #category : #Initialization }
-AccelerationCard >> initializeOwner: anOwner number: anId [
+AccelerationCard >> initializeOwner: anOwner [
 
 	owner := anOwner.
-	id:= anId.
+	objective:= EmptyPlayer new.
 ]
 
 { #category : #Information }

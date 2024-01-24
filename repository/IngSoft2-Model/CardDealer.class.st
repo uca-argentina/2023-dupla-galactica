@@ -15,16 +15,12 @@ CardDealer class >> with: aCardCollection [
 { #category : #Cards }
 CardDealer >> dealCards: aCardManager to: aColorsCollection [
 
-	| idValue randomCardGenerator|
+	| randomCardGenerator |
 	randomCardGenerator := RandomCardGenerator dealing: cardsToDeal.
-	idValue := 1.
+
 	aColorsCollection do: [ :color | 
-		aCardManager addCard:
-			(randomCardGenerator createCard: idValue for: color).
-		idValue := idValue + 1.
-		aCardManager addCard:
-			(randomCardGenerator createCard: idValue for: color).
-		idValue := idValue + 1 ]
+		aCardManager addCard: (randomCardGenerator createCardFor: color).
+		aCardManager addCard: (randomCardGenerator createCardFor: color) ]
 ]
 
 { #category : #Initialization }

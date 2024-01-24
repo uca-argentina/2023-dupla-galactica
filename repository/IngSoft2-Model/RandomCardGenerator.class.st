@@ -13,7 +13,7 @@ RandomCardGenerator class >> dealing: aCollection [
 ]
 
 { #category : #'Card creation' }
-RandomCardGenerator >> createCard: idValue for: aPlayerColor [
+RandomCardGenerator >> createCardFor: aPlayerColor [
 
 	|value selectedClass |
 	
@@ -22,7 +22,7 @@ RandomCardGenerator >> createCard: idValue for: aPlayerColor [
 	selectedClass := cards  detect: [ :class | 
 		                 value <= (cards  indexOf: class) ].
 
-	^ selectedClass owner: aPlayerColor number: idValue
+	^ selectedClass owner: aPlayerColor
 ]
 
 { #category : #Initialization }
