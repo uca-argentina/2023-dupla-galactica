@@ -17,7 +17,7 @@ RepeatCard class >> holder: aHolder [
 RepeatCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard holder = holder ]
+		ifTrue: [ ^ aCard isHolder: holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -40,16 +40,16 @@ RepeatCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-RepeatCard >> holder [
-
-	^ holder
-]
-
 { #category : #Initialization }
 RepeatCard >> initializeHolder: aHolder [
 
 	holder := aHolder.
+]
+
+{ #category : #Information }
+RepeatCard >> isHolder: aColorPlayer [
+
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }

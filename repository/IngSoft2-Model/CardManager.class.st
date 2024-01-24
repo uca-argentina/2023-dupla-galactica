@@ -81,7 +81,7 @@ CardManager >> calculateEffectOn: aColorPlayer [
 { #category : #Managing }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
-	^ (aCard isPermanent and: aCard holder = aPlayer) or:
+	^ (aCard isPermanent and: (aCard isHolder: aPlayer)) or:
 		  aCard isPermanent not
 ]
 

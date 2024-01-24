@@ -17,7 +17,7 @@ RedoCard class >> holder: aHolder [
 RedoCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard holder = holder ]
+		ifTrue: [ ^ aCard isHolder: holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -27,16 +27,16 @@ RedoCard >> haveEffect [
 	^ false
 ]
 
-{ #category : #Information }
-RedoCard >> holder [
-
-	^ holder
-]
-
 { #category : #Initialization }
 RedoCard >> initializeHolder: aHolder [
 
 	holder := aHolder.
+]
+
+{ #category : #Information }
+RedoCard >> isHolder: aColorPlayer [
+
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }

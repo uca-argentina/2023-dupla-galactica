@@ -17,7 +17,7 @@ AccelerationCard class >> holder: aHolder [
 AccelerationCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard holder = holder ]
+		ifTrue: [ ^ aCard isHolder: holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -46,15 +46,16 @@ AccelerationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-AccelerationCard >> holder [
-	^holder
-]
-
 { #category : #Initialization }
 AccelerationCard >> initializeHolder: aHolder [
 
 	holder := aHolder.
+]
+
+{ #category : #Information }
+AccelerationCard >> isHolder: aColorPlayer [
+
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }

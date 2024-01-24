@@ -20,7 +20,7 @@ ActiveCards >> activeCard: aCard [
 { #category : #Effects }
 ActiveCards >> calculateEffectOn: aColorPlayer [
 
-	^ (cards select: [ :card | card holder= aColorPlayer ]) sum: [ :card | 
+	^ (cards select: [ :card | card isHolder: aColorPlayer ]) sum: [ :card | 
 		  card applyEffect ]
 ]
 

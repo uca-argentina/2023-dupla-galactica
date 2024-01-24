@@ -17,7 +17,7 @@ CancellationCard class >> holder: aHolder [
 CancellationCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard holder = holder ]
+		ifTrue: [ ^ aCard isHolder:holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -39,17 +39,17 @@ CancellationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-CancellationCard >> holder [
-
-	^ holder
-]
-
 { #category : #Initialization }
 CancellationCard >> initializeHolder: aHolder [
 
 	holder := aHolder.
 	
+]
+
+{ #category : #Information }
+CancellationCard >> isHolder: aColorPlayer [
+
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }

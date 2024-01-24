@@ -17,7 +17,7 @@ OverloadCard class >> holder: aHolder [
 OverloadCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard holder = holder ]
+		ifTrue: [ ^ aCard isHolder:holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -46,16 +46,16 @@ OverloadCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-OverloadCard >> holder [
-
-	^ holder
-]
-
 { #category : #Initialization }
 OverloadCard >> initializeHolder: aHolder [
 
 	holder := aHolder.
+]
+
+{ #category : #Information }
+OverloadCard >> isHolder: aColorPlayer [
+
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }
