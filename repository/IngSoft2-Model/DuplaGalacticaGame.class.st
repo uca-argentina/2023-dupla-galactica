@@ -62,7 +62,7 @@ DuplaGalacticaGame >> boxes [
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
-	^ current
+	^ current color
 ]
 
 { #category : #Information }
@@ -108,14 +108,14 @@ DuplaGalacticaGame >> moveAllToTheStart [
 { #category : #Player }
 DuplaGalacticaGame >> moveCurrent: aValue [
 
-	self currentPlayer move: aValue andUpdateLap: boxes
+	current move: aValue andUpdateLap: boxes
 ]
 
 { #category : #Player }
 DuplaGalacticaGame >> moveOthers: aValue [
 
 	(players reject: [ :player | 
-		 player color == self currentPlayer color ]) do: [ :player | 
+		 player color == current color ]) do: [ :player | 
 		player move: aValue andUpdateLap: boxes]
 ]
 

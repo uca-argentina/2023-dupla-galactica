@@ -19,7 +19,7 @@ RandomCardBox >> effect: aGame [
 	
 	randomCardGenerator := RandomCardGenerator dealing: cards.
 	aGame addCard: (randomCardGenerator
-			 createCardFor: aGame currentPlayer color)
+			 createCardFor: aGame currentPlayer)
 ]
 
 { #category : #Initialization }

@@ -39,7 +39,7 @@ DuplaGalacticaGameProxy >> boxes [
 { #category : #Information }
 DuplaGalacticaGameProxy >> currentPlayer [
 
-	^ game currentPlayer color
+	^ game currentPlayer
 ]
 
 { #category : #Information }
