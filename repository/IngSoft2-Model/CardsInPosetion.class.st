@@ -19,12 +19,6 @@ CardsInPosetion >> addCard: aCard [
 ]
 
 { #category : #'Changing cards' }
-CardsInPosetion >> amount [
-
-	^ cards size
-]
-
-{ #category : #'Changing cards' }
 CardsInPosetion >> cardsOf: players [
 
 	^ players collect: [ :player | 

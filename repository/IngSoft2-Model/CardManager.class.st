@@ -71,12 +71,6 @@ CardManager >> canBeUse: aCard whenPlay: aPlayer [
 ]
 
 { #category : #Information }
-CardManager >> cardsInPosetion [
-
-	^ cardsInPosetion amount
-]
-
-{ #category : #Information }
 CardManager >> cardsInPosetionOf: players [
 
 	^ cardsInPosetion cardsOf: players
