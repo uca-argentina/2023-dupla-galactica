@@ -123,10 +123,12 @@ DuplaGalacticaGame >> movePlayer [
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
 	aValue := aValue + (cardManager calculateEffectOn: current color).
 	self winnerExists ifTrue: [ ^ self ].
-	current  move: aValue andUpdateLap: boxes.
+	
+	current move: aValue andUpdateLap: board boxes.
+	
 	board effectAt: current box In: self.
 	turnManager goNext.
-	current:= turnManager current.
+	current := turnManager current
 ]
 
 { #category : #Information }
