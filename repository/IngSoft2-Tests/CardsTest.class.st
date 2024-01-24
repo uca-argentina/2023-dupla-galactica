@@ -1404,3 +1404,37 @@ CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 		withMessage:
 		'Redo card cannot be played because there are no cards that have been played before'
 ]
+
+{ #category : #tests }
+CardsTest >> testQ053VerifyThatThereIsAnErrorWhenARedoCardIsUseToEveryoneWhenTheLastCardPlayedIsAnSpeedCard [
+
+	| aGame aLoadedDie aBoard boxes |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using:
+				            (RandomCardBox withCards:
+					             (OrderedCollection with: RedoCard))
+				            withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 1
+			               with: 1
+			               with: 1).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         throwing: aLoadedDie
+		         winningWhen: 1
+		         using: (CardDealer with:
+				          (OrderedCollection
+					           with: SpeedCard)).
+	aGame apply: (SpeedCard owner: 'red') to: 'red'.
+	aGame movePlayer.
+	aGame movePlayer.
+	
+		self
+		should: [ aGame applyEveryone: (RedoCard owner: 'red')]
+		raise: Error
+		withMessage:
+		'That is not a general objective card, must be use a single player apply effect'
+]
