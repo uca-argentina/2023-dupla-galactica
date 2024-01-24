@@ -18,21 +18,22 @@ ActiveCards >> activeCard: aCard [
 ]
 
 { #category : #Effects }
-ActiveCards >> calculateEffectOn: aPlayer [
+ActiveCards >> calculateEffectOn: aColorPlayer [
 
-	^ (cards select: [ :card | card owner = aPlayer ]) sum: [ :card | 
+	^ (cards select: [ :card | card holder= aColorPlayer ]) sum: [ :card | 
 		  card applyEffect ]
 ]
 
 { #category : #Desactivation }
-ActiveCards >> desactivate: anObjectiveCard [
+ActiveCards >> desactivate: anObjectiveCard [ 
 	self isEmpty.
 	cards
 		detect: [ :card | card = anObjectiveCard ]
 		ifFound: [ :card | cards remove: card ]
 		ifNone: [ 
 			Error signal:
-				'There are no that type of cards activate in this player' ]
+				'There are no that type of cards activate in this player or is not a valid objective' ]
+
 ]
 
 { #category : #Initialization }

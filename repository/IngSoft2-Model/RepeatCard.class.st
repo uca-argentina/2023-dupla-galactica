@@ -2,22 +2,22 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'holder'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> owner: anOwner [
+RepeatCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 RepeatCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard owner = owner ]
+		ifTrue: [ ^ aCard holder = holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -40,20 +40,20 @@ RepeatCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Initialization }
-RepeatCard >> initializeOwner: anOwner [
+{ #category : #Information }
+RepeatCard >> holder [
 
-	owner := anOwner.
+	^ holder
+]
+
+{ #category : #Initialization }
+RepeatCard >> initializeHolder: aHolder [
+
+	holder := aHolder.
 ]
 
 { #category : #Information }
 RepeatCard >> isPermanent [
 
 	^ false
-]
-
-{ #category : #Information }
-RepeatCard >> owner [
-
-	^ owner
 ]

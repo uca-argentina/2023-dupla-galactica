@@ -2,23 +2,22 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'objective'
+		'holder'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> owner: anOwner [
+OverloadCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 OverloadCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard owner = owner ]
+		ifTrue: [ ^ aCard holder = holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -26,7 +25,7 @@ OverloadCard >> = aCard [
 OverloadCard >> applyCardUsing: cardManager at: aGame to: anObjective [
 
 	aGame isValidPlayer: anObjective.
-	cardManager activeCard: (self class owner: anObjective).
+	cardManager activeCard: (self class holder: anObjective).
 ]
 
 { #category : #Effect }
@@ -47,21 +46,20 @@ OverloadCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Initialization }
-OverloadCard >> initializeOwner: anOwner [
+{ #category : #Information }
+OverloadCard >> holder [
 
-	owner := anOwner.
-	objective:= EmptyPlayer new.
+	^ holder
+]
+
+{ #category : #Initialization }
+OverloadCard >> initializeHolder: aHolder [
+
+	holder := aHolder.
 ]
 
 { #category : #Information }
 OverloadCard >> isPermanent [
 
 	^ true
-]
-
-{ #category : #Information }
-OverloadCard >> owner [
-
-	^ owner
 ]

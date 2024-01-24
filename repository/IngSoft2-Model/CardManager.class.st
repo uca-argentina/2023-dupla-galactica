@@ -31,12 +31,16 @@ CardManager >> addCard: aCard [
 CardManager >> apply: aCard to: anObjective at: aGame [
 
 	(self canBeUse: aCard whenPlay: aGame currentPlayer color) ifFalse: [ 
-		Error signal: 'A permanent card can only be use when it is your turn' ].
+		Error signal:
+			'A permanent card can only be use when it is your turn' ].
 	(self hasBeenGiven: aCard) ifFalse: [ 
 		Error signal: 'The player does not have that card in posetion' ].
 	(self hasSingleObjective: aCard) ifFalse: [ 
-		Error signal: 'That is a general objective card must be use a general apply effect' ].
-	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
+		Error signal:
+			'That is a general objective card must be use a general apply effect' ].
+	aCard haveEffect
+		ifTrue: [ lastCardPlay := aCard ]
+		ifFalse: [ lastCardPlay haveEffect ifFalse: [ ^ self ] ].
 	aCard applyCardUsing: self at: aGame to: anObjective.
 	cardsInPosetion takeOut: aCard
 ]
@@ -52,21 +56,23 @@ CardManager >> applyEveryone: aCard at: aGame [
 	(self hasSingleObjective: aCard) ifTrue: [ 
 		Error signal:
 			'That is not a general objective card, must be use a single player apply effect' ].
-	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
+	aCard haveEffect
+		ifTrue: [ lastCardPlay := aCard ]
+		ifFalse: [ lastCardPlay haveEffect ifFalse: [ ^ self ] ].
 	aCard applyCardUsing: self at: aGame to: 'all'.
 	cardsInPosetion takeOut: aCard
 ]
 
 { #category : #Managing }
-CardManager >> calculateEffectOn: aPlayer [
+CardManager >> calculateEffectOn: aColorPlayer [
 
-	^ activeCards calculateEffectOn: aPlayer
+	^ activeCards calculateEffectOn: aColorPlayer
 ]
 
 { #category : #Managing }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
-	^ (aCard isPermanent and: aCard owner = aPlayer) or:
+	^ (aCard isPermanent and: aCard holder = aPlayer) or:
 		  aCard isPermanent not
 ]
 

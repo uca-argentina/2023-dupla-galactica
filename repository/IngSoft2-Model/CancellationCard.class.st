@@ -2,22 +2,22 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner'
+		'holder'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-CancellationCard class >> owner: anOwner [
+CancellationCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 CancellationCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard owner = owner ]
+		ifTrue: [ ^ aCard holder = holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -39,10 +39,16 @@ CancellationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Initialization }
-CancellationCard >> initializeOwner: anOwner [
+{ #category : #Information }
+CancellationCard >> holder [
 
-	owner := anOwner.
+	^ holder
+]
+
+{ #category : #Initialization }
+CancellationCard >> initializeHolder: aHolder [
+
+	holder := aHolder.
 	
 ]
 
@@ -50,10 +56,4 @@ CancellationCard >> initializeOwner: anOwner [
 CancellationCard >> isPermanent [
 
 	^ false
-]
-
-{ #category : #Information }
-CancellationCard >> owner [
-
-	^ owner
 ]

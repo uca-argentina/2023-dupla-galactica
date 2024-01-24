@@ -22,7 +22,7 @@ RandomCardGenerator >> createCardFor: aPlayerColor [
 	selectedClass := cards  detect: [ :class | 
 		                 value <= (cards  indexOf: class) ].
 
-	^ selectedClass owner: aPlayerColor
+	^ selectedClass holder: aPlayerColor
 ]
 
 { #category : #Initialization }

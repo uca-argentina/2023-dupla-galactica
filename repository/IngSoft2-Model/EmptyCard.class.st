@@ -5,14 +5,14 @@ Class {
 }
 
 { #category : #Effect }
-EmptyCard >> applyCardUsing: cardManager at: aGame to: objective [
+EmptyCard >> generalObjective [
 
-	Error signal:
-		'Redo card cannot be played because there are no cards that have been played before'
+	^ false.
 ]
 
 { #category : #Effect }
-EmptyCard >> generalObjective [ 
+EmptyCard >> haveEffect [
 
-	^false
+	Error signal:
+		'Redo card cannot be played because there are no cards that have been played before'
 ]

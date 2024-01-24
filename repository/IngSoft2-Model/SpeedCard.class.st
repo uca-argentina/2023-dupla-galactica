@@ -2,23 +2,22 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'objective'
+		'holder'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-SpeedCard class >> owner: anOwner [
+SpeedCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 SpeedCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard owner = owner ]
+		ifTrue: [ ^ aCard holder = holder ]
 		ifFalse: [ ^ false ]
 ]
 
@@ -26,7 +25,7 @@ SpeedCard >> = aCard [
 SpeedCard >> applyCardUsing: cardManager at: aGame to: anObjective [
 
 	aGame isValidPlayer: anObjective.
-	cardManager activeCard: (self class owner: anObjective)
+	cardManager activeCard: (self class holder: anObjective).
 ]
 
 { #category : #Effect }
@@ -47,21 +46,20 @@ SpeedCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Initialization }
-SpeedCard >> initializeOwner: anOwner [
+{ #category : #Information }
+SpeedCard >> holder [
 
-	owner := anOwner.
-	objective:= EmptyPlayer new.
+	^ holder
+]
+
+{ #category : #Initialization }
+SpeedCard >> initializeHolder: aHolder [
+
+	holder := aHolder.
 ]
 
 { #category : #Information }
 SpeedCard >> isPermanent [
 
 	^ true
-]
-
-{ #category : #Information }
-SpeedCard >> owner [
-
-	^ owner
 ]

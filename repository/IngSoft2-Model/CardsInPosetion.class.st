@@ -22,7 +22,7 @@ CardsInPosetion >> addCard: aCard [
 CardsInPosetion >> cardsOf: players [
 
 	^ players collect: [ :player | 
-		  (cards select: [ :card | card owner = player color ])
+		  (cards select: [ :card | card holder = player color ])
 			  size ]
 ]
 
