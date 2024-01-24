@@ -130,7 +130,7 @@ DuplaGalacticaGame >> movePlayer [
 	boxesToMove := boxesToMove + (cardManager calculateEffectOn: current color).
 	self winnerExists ifTrue: [ ^ self ].
 	
-	current move: boxesToMove andUpdateLap: board boxes.
+	current move: boxesToMove andUpdateLap: boxes.
 	
 	board effectAt: current box In: self.
 	turnManager goNext.

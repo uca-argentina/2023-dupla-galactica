@@ -103,9 +103,7 @@ CardManager >> hasBeenGiven: aCard [
 CardManager >> hasSingleObjective: aCard [
 
 	aCard haveEffect
-		ifTrue: [ 
-			aCard generalObjective
-				ifTrue: [ ^ false ]]
+		ifTrue: [ aCard generalObjective ifTrue: [ ^ false ] ]
 		ifFalse: [ lastCardPlay generalObjective ifTrue: [ ^ false ] ].
 	^ true
 ]
