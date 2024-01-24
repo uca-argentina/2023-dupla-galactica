@@ -38,10 +38,15 @@ CardManager >> apply: aCard to: anObjective at: aGame [
 	(self hasSingleObjective: aCard) ifFalse: [ 
 		Error signal:
 			'That is a general objective card must be use a general apply effect' ].
+
 	aCard haveEffect
-		ifTrue: [ lastCardPlay := aCard ]
-		ifFalse: [ lastCardPlay haveEffect ifFalse: [ ^ self ] ].
-	aCard applyCardUsing: self at: aGame to: anObjective.
+		ifTrue: [ 
+			lastCardPlay := aCard.
+			aCard applyCardUsing: self at: aGame to: anObjective ]
+		ifFalse: [ 
+			lastCardPlay haveEffect.
+			lastCardPlay applyCardUsing: self at: aGame to: anObjective ].
+
 	cardsInPosetion takeOut: aCard
 ]
 
@@ -57,9 +62,13 @@ CardManager >> applyEveryone: aCard at: aGame [
 		Error signal:
 			'That is not a general objective card, must be use a single player apply effect' ].
 	aCard haveEffect
-		ifTrue: [ lastCardPlay := aCard ]
-		ifFalse: [ lastCardPlay haveEffect ifFalse: [ ^ self ] ].
-	aCard applyCardUsing: self at: aGame to: 'all'.
+		ifTrue: [ 
+			lastCardPlay := aCard.
+			aCard applyCardUsing: self at: aGame ]
+		ifFalse: [ 
+			lastCardPlay haveEffect.
+			lastCardPlay applyCardUsing: self at: aGame ].
+
 	cardsInPosetion takeOut: aCard
 ]
 

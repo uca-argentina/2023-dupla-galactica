@@ -22,10 +22,8 @@ AccelerationCard >> = aCard [
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCardUsing: cardManager at: aGame to: anObjective [
+AccelerationCard >> applyCardUsing: cardManager at: aGame [ 
 
-	anObjective = 'all' ifFalse: [ 
-		Error signal: 'The objective must be all' ].
 	aGame playersColors do: [ :color | 
 		cardManager activeCard: (self class holder: color) ]
 ]

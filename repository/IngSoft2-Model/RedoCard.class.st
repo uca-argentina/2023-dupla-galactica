@@ -21,15 +21,6 @@ RedoCard >> = aCard [
 		ifFalse: [ ^ false ]
 ]
 
-{ #category : #Effect }
-RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
-
-	cardManager lastCardPlay
-		applyCardUsing: cardManager
-		at: aGame
-		to: objective
-]
-
 { #category : #Information }
 RedoCard >> haveEffect [
 
