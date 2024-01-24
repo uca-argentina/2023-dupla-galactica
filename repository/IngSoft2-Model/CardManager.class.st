@@ -123,9 +123,3 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 	cardsInPosetion := CardsInPosetion createDeck.
 	aCardDealer dealCards: self to: aColorCollection
 ]
-
-{ #category : #Information }
-CardManager >> lastCardPlay [
-
-	^ lastCardPlay
-]
