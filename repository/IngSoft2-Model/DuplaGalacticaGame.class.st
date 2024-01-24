@@ -116,15 +116,15 @@ DuplaGalacticaGame >> moveOthers: aValue [
 { #category : #Player }
 DuplaGalacticaGame >> movePlayer [
 
-	| aValue |
+	| boxesToMove |
 	self winnerExists ifTrue: [ ^ self ].
-	aValue := dice size == 1
+	boxesToMove := dice size == 1
 		          ifTrue: [ dice throw ]
 		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
-	aValue := aValue + (cardManager calculateEffectOn: current color).
+	boxesToMove := boxesToMove + (cardManager calculateEffectOn: current color).
 	self winnerExists ifTrue: [ ^ self ].
 	
-	current move: aValue andUpdateLap: board boxes.
+	current move: boxesToMove andUpdateLap: board boxes.
 	
 	board effectAt: current box In: self.
 	turnManager goNext.
