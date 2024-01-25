@@ -2,31 +2,31 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'id'
+		'holder',
+		'target'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> owner: anOwner number: anId [
+RepeatCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 RepeatCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifTrue: [ ^ aCard isHolder: holder ]
 		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
-RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
+RepeatCard >> applyCardUsing: cardManager at: aGame [
 
-	aGame isValidPlayer: objective.
-	aGame repeatEffectTo: objective
+	aGame isValidPlayer: target.
+	aGame repeatEffectTo: target.
 ]
 
 { #category : #Information }
@@ -35,17 +35,17 @@ RepeatCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-RepeatCard >> id [
+{ #category : #Initialization }
+RepeatCard >> initializeHolder: aHolder [
 
-	^ id
+	holder := aHolder.
+	target:= EmptyPlayer new.
 ]
 
-{ #category : #Initialization }
-RepeatCard >> initializeOwner: anOwner number: anId [
+{ #category : #Information }
+RepeatCard >> isHolder: aColorPlayer [
 
-	owner := anOwner.
-	id:= anId.
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }
@@ -55,7 +55,7 @@ RepeatCard >> isPermanent [
 ]
 
 { #category : #Information }
-RepeatCard >> owner [
+RepeatCard >> selectTarget: aNewTarget [
 
-	^ owner
+	target:= aNewTarget.
 ]

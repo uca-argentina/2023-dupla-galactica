@@ -15,6 +15,18 @@ Player class >> with: aSpaceship [
 	^ self new initializeWith: aSpaceship
 ]
 
+{ #category : #Sort }
+Player >> aheadOf: aPlayer [
+
+	^ aPlayer lap < position lap or:
+		  (position lap = aPlayer lap and: position box > aPlayer box)
+]
+
+{ #category : #Information }
+Player >> box [
+	^ position box.
+]
+
 { #category : #Information }
 Player >> color [
 
@@ -29,20 +41,25 @@ Player >> initializeWith: aColor [
 	lap := 0.
 ]
 
-{ #category : #PositionControl }
-Player >> move: aValue andUpdateLap: aLength [
+{ #category : #Information }
+Player >> lap [ 
 
-	position move: aValue andUpdateLap: aLength
+	^ position lap.
 ]
 
 { #category : #PositionControl }
-Player >> moveToTheBeginning [
-
-	position moveToTheBeginning.
+Player >> move: aValue andUpdateLap: aLength [
+	
+	position move: aValue.
+	self updateLap: aLength
 ]
 
 { #category : #Information }
-Player >> position [
+Player >> updateLap: aLength [
 
-	^ position
+	position box  > aLength ifTrue: [ 
+		position moveForwardLaps: aLength ].
+
+	position box <= 0 ifFalse: [ ^ self ].
+		position moveBackwardsLaps: aLength
 ]

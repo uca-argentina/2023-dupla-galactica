@@ -19,36 +19,23 @@ LoadedDie class >> with: aValuesCollection [
 	^ self new initializeWith: aValuesCollection
 ]
 
-{ #category : #Information }
-LoadedDie >> faces [
-
-	^ (faces).
-]
-
 { #category : #Initialization }
 LoadedDie >> initializeWith: aValue [
 
-	faces := aValue.
-	valueManager := TurnManager with: aValue size
+	valueManager := TurnManager with: aValue
 ]
 
 { #category : #Information }
 LoadedDie >> numberOffaces [
 
-	^ (faces size).
-]
-
-{ #category : #Information }
-LoadedDie >> size [
-
-	^ 1.
+	^ (valueManager valuesSize).
 ]
 
 { #category : #Throw }
 LoadedDie >> throw [
 
 	| value |
-	value := self faces at: valueManager current.
+	value := valueManager current.
 	valueManager goNext.
 	^ value
 ]

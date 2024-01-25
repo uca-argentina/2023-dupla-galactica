@@ -79,7 +79,7 @@ ThrowADieTest >> testE008CreateALoadedDieWithAnOrderedCollectionOfValues [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE009CreateALoadedDieWithAnOrderedCollectionOfValuesAndThrowItTwice [
+ThrowADieTest >> testE009CreateALoadedDieWithAnOrderedCollectionOfValuesAndThrowItTwice [ 
 
 	| aLoadedDie anOrderedCollection |
 	anOrderedCollection := OrderedCollection
@@ -149,22 +149,33 @@ ThrowADieTest >> testE014CreateADieWithNumberOfFacesLessThanThreeThenInvalid [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE015CreateALoadedDieAndAskForItsSizeThenValid [
+ThrowADieTest >> testE017CreateAShakerAndUseItToThrow [
 
-	| aLoadedDie anOrderedCollection |
+	| aLoadedDie anOrderedCollection aShaker |
 	anOrderedCollection := OrderedCollection
 		                       with: 3
 		                       with: 5
 		                       with: 7
 		                       with: 9.
 	aLoadedDie := LoadedDie with: anOrderedCollection.
-	self assert: aLoadedDie size equals: 1
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker throwDice.
+	self assert: aShaker throwDice equals: 5
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE016CreateADieAndAskForItsSizeThenValid [
+ThrowADieTest >> testE018CreateAShakerAndUseItToThrowTwoDice [
 
-	| aDie|
-	aDie:= Die with: 5.
-	self assert: aDie size equals: 1
+	| aLoadedDie anOrderedCollection aShaker aSecondLoadedDie|
+	anOrderedCollection := OrderedCollection
+		                       with: 3
+		                       with: 5
+		                       with: 7
+		                       with: 9.
+	aLoadedDie := LoadedDie with: anOrderedCollection.
+	aSecondLoadedDie := LoadedDie with: anOrderedCollection.
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker addDie: aSecondLoadedDie.
+	aShaker throwDice.
+	self assert: aShaker throwDice equals: 10
 ]

@@ -2,30 +2,30 @@ Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'id'
+		'holder'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> owner: anOwner number: anId [
+AccelerationCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 AccelerationCard >> = aCard [
 
-	(aCard isKindOf: self class) ifTrue: [ ^(id = aCard id and: aCard owner = owner) ] ifFalse: [ ^false ]
+	(aCard isKindOf: self class)
+		ifTrue: [ ^ aCard isHolder: holder ]
+		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCardUsing: cardManager at: aGame to: objective [
+AccelerationCard >> applyCardUsing: cardManager at: aGame [ 
 
-	objective = 'all' ifFalse: [ Error signal: 'The objective must be all'].
 	aGame playersColors do: [ :color | 
-		cardManager activeCards addLast: (AccelerationCard owner: color number: id) ]
+		cardManager activeCard: (self class holder: color) ]
 ]
 
 { #category : #Effect }
@@ -40,17 +40,16 @@ AccelerationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-AccelerationCard >> id [
+{ #category : #Initialization }
+AccelerationCard >> initializeHolder: aHolder [
 
-	^ id
+	holder := aHolder.
 ]
 
-{ #category : #Initialization }
-AccelerationCard >> initializeOwner: anOwner number: anId [
+{ #category : #Information }
+AccelerationCard >> isHolder: aColorPlayer [
 
-	owner := anOwner.
-	id:= anId.
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }
@@ -59,7 +58,7 @@ AccelerationCard >> isPermanent [
 	^ true
 ]
 
-{ #category : #Information }
-AccelerationCard >> owner [
-	^owner
+{ #category : #Effect }
+AccelerationCard >> selectTarget: anEmptyPlayer [ 
+	
 ]

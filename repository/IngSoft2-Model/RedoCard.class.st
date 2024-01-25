@@ -2,33 +2,32 @@ Class {
 	#name : #RedoCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'id'
+		'holder',
+		'target'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RedoCard class >> owner: anOwner number: anId [
+RedoCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 RedoCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifTrue: [ ^ aCard isHolder: holder ]
 		ifFalse: [ ^ false ]
 ]
 
-{ #category : #Effect }
-RedoCard >> applyCardUsing: cardManager at: aGame to: objective [
-	
-	cardManager lastCardPlay
+{ #category : #Initialization }
+RedoCard >> applyCardUsing: cardManager at: aGame [
+
+	(cardManager lastCardPlay selectTarget: target)
 		applyCardUsing: cardManager
 		at: aGame
-		to: objective
 ]
 
 { #category : #Information }
@@ -37,17 +36,17 @@ RedoCard >> haveEffect [
 	^ false
 ]
 
-{ #category : #Information }
-RedoCard >> id [
+{ #category : #Initialization }
+RedoCard >> initializeHolder: aHolder [
 
-	^ id
+	holder := aHolder.
+	target:= EmptyPlayer new.
 ]
 
-{ #category : #Initialization }
-RedoCard >> initializeOwner: anOwner number: anId [
+{ #category : #Information }
+RedoCard >> isHolder: aColorPlayer [
 
-	owner := anOwner.
-	id:= anId.
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }
@@ -57,7 +56,7 @@ RedoCard >> isPermanent [
 ]
 
 { #category : #Information }
-RedoCard >> owner [
+RedoCard >> selectTarget: aNewTarget [
 
-	^ owner
+	target:= aNewTarget.
 ]

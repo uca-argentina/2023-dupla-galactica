@@ -8,20 +8,20 @@ Class {
 }
 
 { #category : #'Instance creation' }
-DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aDice winningWhen: aValue using: aCardDealer [
+DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: aCardDealer [
 
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aBoard
-		  throwing: aDice
+		  usingToThrow: aDiceShaker
 		  winningWhen: aValue
 		  using: aCardDealer
 ]
 
 { #category : #Cards }
-DuplaGalacticaGameProxy >> apply: aCard to: anObjectivePlayer [
+DuplaGalacticaGameProxy >> apply: aCard [
 
-	game apply: aCard to: anObjectivePlayer
+	game apply: aCard
 ]
 
 { #category : #Information }
@@ -33,7 +33,7 @@ DuplaGalacticaGameProxy >> boxes [
 { #category : #Information }
 DuplaGalacticaGameProxy >> currentPlayer [
 
-	^ game currentPlayer color
+	^ game currentPlayer
 ]
 
 { #category : #Information }
@@ -43,12 +43,12 @@ DuplaGalacticaGameProxy >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
+DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: aCardDealer [
 
 	game := DuplaGalacticaGame
 		        with: aColorsCollection
 		        and: aBoard
-		        throwing: aDiceCollection
+		        usingToThrow: aDiceShaker
 		        winningWhen: aValue
 		        using: aCardDealer
 ]
@@ -69,6 +69,12 @@ DuplaGalacticaGameProxy >> movePlayer [
 DuplaGalacticaGameProxy >> parsecs [
 
 	^ game parsecs
+]
+
+{ #category : #Information }
+DuplaGalacticaGameProxy >> playersBox [
+
+	^ game playersBox
 ]
 
 { #category : #Information }

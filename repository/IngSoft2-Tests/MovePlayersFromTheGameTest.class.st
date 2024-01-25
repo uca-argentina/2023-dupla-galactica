@@ -8,48 +8,60 @@ Class {
 }
 
 { #category : #Games }
-MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [ 
-	| boxes aBoard aLoadedGame|
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
+
+	| boxes aBoard aLoadedGame aShaker |
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 200).
-	aLoadedGame := DuplaGalacticaGameProxy 
+
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aLoadedGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 2
-							using: CardDealer new.
+		               usingToThrow: aShaker
+		               winningWhen: 2
+		               using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
 	^ aLoadedGame
 ]
 
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
-	| aGame boxes aBoard |
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	| aGame boxes aBoard aShaker |
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
+
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
 
 	^ aGame
 ]
 
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
-	
 
-	| boxes aBoard aLoadedGame|
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	| boxes aBoard aLoadedGame aShaker |
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aLoadedGame := DuplaGalacticaGameProxy 
+
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aLoadedGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDie
-							winningWhen: 2
-							using: CardDealer new.
+		               usingToThrow: aShaker
+		               winningWhen: 2
+		               using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
 	^ aLoadedGame
 ]
 
@@ -76,7 +88,7 @@ MovePlayersFromTheGameTest >> testM001AskPlayerForTheLapThenValid [
 
 	| aPlayer |
 	aPlayer := Player with: 'red'.
-	self assert: aPlayer position lap equals: 0
+	self assert: aPlayer lap equals: 0
 ]
 
 { #category : #tests }
@@ -201,7 +213,7 @@ MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 2).
 	self assert: aGame winner equals: 'blue'
 ]
@@ -246,6 +258,6 @@ MovePlayersFromTheGameTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirs
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 4 with: 10)
 ]

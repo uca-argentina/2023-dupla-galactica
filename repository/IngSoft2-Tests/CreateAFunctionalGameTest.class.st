@@ -10,7 +10,7 @@ Class {
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithLoadedDie [
 
-	| aLoadedGame aLoadedDie aBoard boxes |
+	| aLoadedGame aLoadedDie aBoard boxes aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 6
@@ -18,19 +18,21 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 			               with: 9).
 	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aShaker := DiceShaker withDie: aLoadedDie.
+	
 	aLoadedGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: CardDealer new.
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
 	^ aLoadedGame
 ]
 
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 
-	| aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame boxes aBoard|
+	| aLoadedDie aSecondLoadedDie aShaker aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
@@ -41,17 +43,19 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 			                     with: 7
 			                     with: 0
 			                     with: 8).
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker addDie: aSecondLoadedDie.
+	
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aGame := DuplaGalacticaGameProxy 
-		               with: aColorCollection
-		               and: aBoard
-		               throwing: (OrderedCollection with: aLoadedDie with: aSecondLoadedDie)
-							winningWhen: 2
-							using: CardDealer new.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhen: 2
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
 	^ aGame
 ]
 
@@ -102,7 +106,7 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 	aGame := self gameWithLoadedDie.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
@@ -115,7 +119,7 @@ CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes
 	aGame movePlayer.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 7)
 ]
 
@@ -126,7 +130,7 @@ CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
 	aGame := self gameWithTwoLoadedDie.
 	aGame movePlayer.
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
@@ -139,7 +143,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 10 with: 3)
 ]
 
@@ -153,7 +157,7 @@ CreateAFunctionalGameTest >> testH001VerifyThatTeMovesDoNotHaveEffectAfterSomeon
 	aGame movePlayer.
 
 	self
-		assert: aGame playersPositions
+		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 3)
 ]
 

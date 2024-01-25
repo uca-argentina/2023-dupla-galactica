@@ -1,39 +1,33 @@
 Class {
 	#name : #CardDealer,
 	#superclass : #Object,
+	#instVars : [
+		'cardsProbabilitiesToDeal'
+	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #Cards }
-CardDealer >> aRandomCardTo: aPlayerColor withId: idValue [
+{ #category : #'Instance creation' }
+CardDealer class >> with: aCardCollection [ 
 
-	| value |
-	value := 36 atRandom.
-	^ value <= 6
-		  ifTrue: [ OverloadCard owner: aPlayerColor number: idValue ]
-		  ifFalse: [ 
-			  value <= 12
-				  ifTrue: [ SpeedCard owner: aPlayerColor number: idValue]
-				  ifFalse: [ 
-					  value <= 18
-						  ifTrue: [ AccelerationCard owner: aPlayerColor number: idValue]
-						  ifFalse: [ 
-							  value <= 24
-								  ifTrue: [ (CancellationCard owner: aPlayerColor number: idValue) ]
-								  ifFalse: [ 
-									  value <= 30
-										  ifTrue: [ RedoCard owner: aPlayerColor number: idValue ]
-										  ifFalse: [ RepeatCard owner: aPlayerColor number: idValue] ] ] ] ]
+	(aCardCollection sum: [ :cardProbability | 
+		 cardProbability probability ]) = 100 ifFalse: [ 
+		Error signal: 'The sum of probabilities must be 100' ].
+	^ self new intializeWith: aCardCollection.
 ]
 
 { #category : #Cards }
 CardDealer >> dealCards: aCardManager to: aColorsCollection [
 
-	| idValue |
-	idValue := 1.
+	| randomCardGenerator |
+	randomCardGenerator := RandomCardGenerator dealing: cardsProbabilitiesToDeal.
+
 	aColorsCollection do: [ :color | 
-		aCardManager addCard: (self aRandomCardTo: color withId: idValue).
-		idValue := idValue + 1.
-		aCardManager addCard: (self aRandomCardTo: color withId: idValue).
-		idValue := idValue + 1 ]
+		aCardManager addCard: (randomCardGenerator createCardFor: color).
+		aCardManager addCard: (randomCardGenerator createCardFor: color) ]
+]
+
+{ #category : #Initialization }
+CardDealer >> intializeWith: aCardProbabilityCollection [ 
+	cardsProbabilitiesToDeal:= aCardProbabilityCollection.
 ]

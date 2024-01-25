@@ -14,15 +14,17 @@ Position class >> atTheBeginning [
 	^ self new initializeAtTheBeginning
 ]
 
-{ #category : #Information }
-Position >> > aPosition [
+{ #category : #comparing }
+Position >> = aPosition [
 
-	lap > aPosition lap
+	(lap = aPosition lap and: box = aPosition boxNumber)
 		ifTrue: [ ^ true ]
-		ifFalse: [ 
-			box > aPosition boxNumber
-				ifTrue: [ ^ true ]
-				ifFalse: [ ^ false ] ]
+		ifFalse: [ ^ false ]
+]
+
+{ #category : #Information }
+Position >> box [
+	^ box
 ]
 
 { #category : #Information }
@@ -51,22 +53,17 @@ Position >> move: aValue [
 ]
 
 { #category : #Movement }
-Position >> move: aValue andUpdateLap: aLength [
-
-	(self lap == 0 and:
-		 (aValue < 0 and: aValue abs >= box))
-		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ self move: aValue ].
-	self updateLap: aLength
-]
-
-{ #category : #Movement }
 Position >> moveBackwardsLaps: aLength [
 
-	lap := lap - ((box + 1) abs // aLength + 1).
-	aLength - box abs <= 0
-		ifTrue: [ self moveToTheBeginning ]
-		ifFalse: [ box := aLength - box abs ]
+	lap := lap - (box abs // aLength + 1).
+	lap < 0
+		ifTrue: [ 
+			lap := 0.
+			box := 1 ]
+		ifFalse: [ 
+			box := aLength - box abs <= 0
+				       ifTrue: [ aLength - (box abs % aLength) ]
+				       ifFalse: [ aLength - box abs ] ]
 ]
 
 { #category : #Movement }
@@ -74,20 +71,4 @@ Position >> moveForwardLaps: aLength [
 
 	lap := lap + (box // aLength).
 	box := box % aLength
-]
-
-{ #category : #Movement }
-Position >> moveToTheBeginning [
-
-	box := 1
-]
-
-{ #category : #Movement }
-Position >> updateLap: aLength [
-
-	box  > aLength ifTrue: [ 
-		self moveForwardLaps: aLength ].
-
-	box <= 0 ifFalse: [ ^ self ].
-		self moveBackwardsLaps: aLength
 ]

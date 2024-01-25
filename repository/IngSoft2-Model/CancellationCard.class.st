@@ -2,41 +2,30 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'owner',
-		'id'
+		'holder',
+		'target'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-CancellationCard class >> owner: anOwner number: anId [
+CancellationCard class >> holder: aHolder [
 
-	^ self new initializeOwner: anOwner number: anId
+	^ self new initializeHolder: aHolder
 ]
 
 { #category : #Information }
 CancellationCard >> = aCard [
 
 	(aCard isKindOf: self class)
-		ifTrue: [ ^ id = aCard id and: aCard owner = owner ]
+		ifTrue: [ ^ aCard isHolder:holder ]
 		ifFalse: [ ^ false ]
 ]
 
 { #category : #Effect }
-CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
+CancellationCard >> applyCardUsing: cardManager at: aGame [
 
-	| i |
-	i := 1.
-	cardManager canCancellCard.
-	cardManager activeCards do: [ :card | 
-		i == 1 ifTrue: [ 
-			(card = objective) ifTrue: [ 
-				i := 2.
-				cardManager remove: card ] ] ].
-
-	i = 1 ifTrue: [ 
-		Error signal:
-			'There are no that type of cards activate in this player' ]
+	cardManager desactivate: target
 ]
 
 { #category : #Information }
@@ -45,17 +34,18 @@ CancellationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-CancellationCard >> id [
+{ #category : #Initialization }
+CancellationCard >> initializeHolder: aHolder [
 
-	^ id
+	holder := aHolder.
+	target := EmptyCard new.
+	
 ]
 
-{ #category : #Initialization }
-CancellationCard >> initializeOwner: anOwner number: anId [
+{ #category : #Information }
+CancellationCard >> isHolder: aColorPlayer [
 
-	owner := anOwner.
-	id:= anId.
+	^ holder = aColorPlayer
 ]
 
 { #category : #Information }
@@ -65,7 +55,7 @@ CancellationCard >> isPermanent [
 ]
 
 { #category : #Information }
-CancellationCard >> owner [
+CancellationCard >> selectTarget: aNewTarget [
 
-	^ owner
+	target:= aNewTarget.
 ]
