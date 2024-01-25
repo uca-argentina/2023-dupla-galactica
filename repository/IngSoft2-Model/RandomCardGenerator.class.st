@@ -2,7 +2,7 @@ Class {
 	#name : #RandomCardGenerator,
 	#superclass : #Object,
 	#instVars : [
-		'cards'
+		'cardsProbabilities'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,17 +15,16 @@ RandomCardGenerator class >> dealing: aCollection [
 { #category : #'Card creation' }
 RandomCardGenerator >> createCardFor: aPlayerColor [
 
-	|value selectedClass |
-	
-	value := cards size atRandom.
-
-	selectedClass := cards  detect: [ :class | 
-		                 value <= (cards  indexOf: class) ].
-
-	^ selectedClass holder: aPlayerColor
+	| selectedCard aRandomValue sum |
+	sum := 0.
+	aRandomValue := 100 atRandom.
+	selectedCard := (cardsProbabilities detect: [ :card | 
+		   sum := sum + card probability.
+		   aRandomValue <= sum ]) cardClass.
+	^ selectedCard holder: aPlayerColor.
 ]
 
 { #category : #Initialization }
-RandomCardGenerator >> initializeCards: aCollection [ 
-	cards:= aCollection.
+RandomCardGenerator >> initializeCards: aCardsProbabilitiesCollection [ 
+	cardsProbabilities:= aCardsProbabilitiesCollection.
 ]

@@ -23,7 +23,7 @@ RandomCardBox >> effect: aGame [
 ]
 
 { #category : #Initialization }
-RandomCardBox >> intializeUsing: aCollection [
+RandomCardBox >> intializeUsing: aCardsProbabilitiesCollection [
 
-	cards := aCollection
+	cards := aCardsProbabilitiesCollection
 ]

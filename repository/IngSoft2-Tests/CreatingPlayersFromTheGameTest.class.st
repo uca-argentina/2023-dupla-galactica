@@ -32,13 +32,7 @@ CreatingPlayersFromTheGameTest >> setUp [
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: (CardDealer with: (OrderedCollection
-					           with: AccelerationCard
-					           with: OverloadCard
-					           with: SpeedCard
-					           with: RedoCard
-					           with: RepeatCard
-					           with: CancellationCard))
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100)))
 ]
 
 { #category : #tests }
