@@ -342,9 +342,13 @@ BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
 			               with: 5
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100)))  withChance: 100))) 
-		         create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using:
+					            (RandomCardBox withCards: (OrderedCollection with:
+							              (CardProbability
+								               using: OverloadCard
+								               withChance: 100)))
+				            withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
@@ -352,7 +356,8 @@ BoxesTest >> testR001CheckRandomCardBoxGeneratesARandomCard [
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: OverloadCard withChance: 100))).
 	aGame movePlayer.
 	self
 		assert: aGame playersCardInPosetion
