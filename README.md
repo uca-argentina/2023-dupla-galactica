@@ -1,7 +1,6 @@
 #2023-dupla-galactica
 
-![GHA Status](https://github.com/uca-argentina/2023-dupla-galactica/actions/workflows/GHA.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/uca-argentina/2023-dupla-galactica/badge.svg?branch=master)](https://coveralls.io/github/uca-argentina/2023-dupla-galactica?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/Isoldios/2023-dupla-galactica-examen-final/badge.svg?branch=master)](https://coveralls.io/github/Isoldios/2023-dupla-galactica-examen-final?branch=master)
 
 ## Metacello
 
