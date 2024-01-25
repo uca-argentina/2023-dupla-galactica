@@ -1,6 +1,6 @@
 #2023-dupla-galactica
 
-![GHA Status](https://github.com/JuanLopez25/2023-dupla-galactica-final/actions/workflows/GHA.yml/badge.svg)
+![GHA Status](https://github.com/uca-argentina/2023-dupla-galactica/actions/workflows/GHA.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/JuanLopez25/2023-dupla-galactica-final/badge.svg?branch=master)](https://coveralls.io/github/JuanLopez25/2023-dupla-galactica-final?branch=master)
 
 ## Metacello
