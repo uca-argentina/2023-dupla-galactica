@@ -29,13 +29,6 @@ RepeatCard >> applyCardUsing: cardManager at: aGame [
 	aGame repeatEffectTo: target.
 ]
 
-{ #category : #Effect }
-RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
-
-	aGame isValidPlayer: objective.
-	aGame repeatEffectTo: objective
-]
-
 { #category : #Information }
 RepeatCard >> haveEffect [
 
