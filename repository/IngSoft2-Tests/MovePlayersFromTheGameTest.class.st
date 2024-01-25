@@ -8,35 +8,44 @@ Class {
 }
 
 { #category : #Games }
-MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [ 
-	| boxes aBoard aLoadedGame|
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
+
+	| boxes aBoard aLoadedGame aShaker |
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 200).
-	aLoadedGame := DuplaGalacticaGameProxy 
+
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aLoadedGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDie 
-							winningWhen: 2
-							using: (CardDealer with: (OrderedCollection
-					           with: AccelerationCard
-					           with: OverloadCard
-					           with: SpeedCard
-					           with: RedoCard
-					           with: RepeatCard
-					           with: CancellationCard)).
+		               usingToThrow: aShaker
+		               winningWhen: 2
+		               using: (CardDealer with: (OrderedCollection
+					                 with: AccelerationCard
+					                 with: OverloadCard
+					                 with: SpeedCard
+					                 with: RedoCard
+					                 with: RepeatCard
+					                 with: CancellationCard)).
 	^ aLoadedGame
 ]
 
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
-	| aGame boxes aBoard |
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	| aGame boxes aBoard aShaker |
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
+
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard
@@ -51,23 +60,26 @@ MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
-	
 
-	| boxes aBoard aLoadedGame|
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	| boxes aBoard aLoadedGame aShaker |
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aLoadedGame := DuplaGalacticaGameProxy 
+
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aLoadedGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
-		               throwing: aLoadedDie
-							winningWhen: 2
-							using: (CardDealer with: (OrderedCollection
-					           with: AccelerationCard
-					           with: OverloadCard
-					           with: SpeedCard
-					           with: RedoCard
-					           with: RepeatCard
-					           with: CancellationCard)).
+		               usingToThrow: aShaker
+		               winningWhen: 2
+		               using: (CardDealer with: (OrderedCollection
+					                 with: AccelerationCard
+					                 with: OverloadCard
+					                 with: SpeedCard
+					                 with: RedoCard
+					                 with: RepeatCard
+					                 with: CancellationCard)).
 	^ aLoadedGame
 ]
 

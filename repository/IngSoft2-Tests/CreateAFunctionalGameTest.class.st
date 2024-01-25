@@ -10,7 +10,7 @@ Class {
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithLoadedDie [
 
-	| aLoadedGame aLoadedDie aBoard boxes |
+	| aLoadedGame aLoadedDie aBoard boxes aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 6
@@ -18,10 +18,12 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 			               with: 9).
 	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aShaker := DiceShaker withDie: aLoadedDie.
+	
 	aLoadedGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard
@@ -36,7 +38,7 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 
-	| aLoadedDie aSecondLoadedDie aLoadedDiceCollection aGame boxes aBoard |
+	| aLoadedDie aSecondLoadedDie aShaker aGame boxes aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
@@ -47,9 +49,9 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 			                     with: 7
 			                     with: 0
 			                     with: 8).
-	aLoadedDiceCollection := OrderedCollection
-		                         with: aLoadedDie
-		                         with: aSecondLoadedDie.
+	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker addDie: aSecondLoadedDie.
+	
 	boxes := (BoxCreator use: (OrderedCollection with:
 			           (BoxProbability using: NoEffectBox new withChance: 100))) 
 		         create: 10.
@@ -57,8 +59,7 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing:
-		         (OrderedCollection with: aLoadedDie with: aSecondLoadedDie)
+		         usingToThrow: aShaker
 		         winningWhen: 2
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard

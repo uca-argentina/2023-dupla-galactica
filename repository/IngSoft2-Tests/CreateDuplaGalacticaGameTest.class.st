@@ -3,7 +3,8 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
-		'aLoadedDie'
+		'aLoadedDie',
+		'aShaker'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -29,7 +30,7 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard
@@ -50,7 +51,9 @@ CreateDuplaGalacticaGameTest >> setUp [
 			               with: 9
 			               with: 10
 			               with: 7
-			               with: 9)
+			               with: 9).
+
+	aShaker := DiceShaker withDie: aLoadedDie
 ]
 
 { #category : #tests }
@@ -140,7 +143,7 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 			DuplaGalacticaGameProxy
 				with: OrderedCollection new
 				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: (Parsec worth: 200))
-				throwing: (OrderedCollection with: aLoadedDie)
+				usingToThrow: (OrderedCollection with: aLoadedDie)
 				winningWhen: 1
 				using: CardDealer new]
 		raise: Error
@@ -161,7 +164,7 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 								  with: NoEffectBox new
 								  with: NoEffectBox new)
 						 measure: (Parsec worth: 200))
-				throwing: (OrderedCollection with: aLoadedDie)
+				usingToThrow: (DiceShaker withDie: aLoadedDie)
 				winningWhen: -1
 				using: CardDealer new ]
 		raise: Error
@@ -176,7 +179,7 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 			DuplaGalacticaGameProxy
 				with: aColorCollection
 				and: (Board with: (OrderedCollection new) measure: (Parsec worth: 0))
-				throwing: (OrderedCollection with: aLoadedDie)
+				usingToThrow: (DiceShaker withDie: aLoadedDie)
 				winningWhen: 1
 				using: CardDealer new ]
 		raise: Error

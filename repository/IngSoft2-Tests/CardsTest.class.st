@@ -36,19 +36,22 @@ CardsTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 { #category : #tests }
 CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 
-	| aGame aLoadedDie aBoard|
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
-	aLoadedDie:= LoadedDie with: (OrderedCollection
-				           with: 1
-				           with: 2
-				           with: 3
-				           with: 4).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
-		           with: aColorCollection
-		           and: aBoard
-		           throwing: aLoadedDie
-		           winningWhen: 1
-		           using: (CardDealer with: (OrderedCollection with: OverloadCard)).
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhen: 1
+		         using:
+		         (CardDealer with: (OrderedCollection with: OverloadCard)).
+
 	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -60,17 +63,18 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 { #category : #tests }
 CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTime [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer  with:
@@ -88,17 +92,18 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 { #category : #tests }
 CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwardsDueToANegativeEffect [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 5
 			               with: 3
 			               with: 0).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer  with:
@@ -116,7 +121,7 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 { #category : #tests }
 CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwardsInTheFirstLapDueToANegativeEffect [
 
-	| aGame aLoadedDie aBoard aRedPosition aBluePosition|
+	| aGame aLoadedDie aBoard aRedPosition aBluePosition aShaker |
 	aRedPosition := (Position atTheBeginning) move: 1.
 	aBluePosition := (Position atTheBeginning).
 	
@@ -126,10 +131,11 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 			               with: 0
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer  with:
@@ -146,17 +152,18 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 { #category : #tests }
 CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer  with:
@@ -172,17 +179,18 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 { #category : #tests }
 CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 5).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		        (CardDealer  with:
@@ -200,17 +208,18 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 { #category : #tests }
 CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 2
 			               with: 3
 			               with: 5).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
@@ -224,17 +233,18 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 { #category : #tests }
 CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOneActive [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 5
 			               with: 2
 			               with: 3
 			               with: 5).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with:
 				          (OrderedCollection with: OverloadCard)).
@@ -250,17 +260,18 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 { #category : #tests }
 CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -276,17 +287,18 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 { #category : #tests }
 CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
 			               with: 9
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		          (CardDealer with:
@@ -302,7 +314,7 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 { #category : #tests }
 CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 
-	| aGame aLoadedDie aBoard boxes | 
+	| aGame aLoadedDie aBoard boxes aShaker | 
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: CancellationCard)) withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -310,10 +322,11 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with:
 				          (OrderedCollection
@@ -335,7 +348,7 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 { #category : #tests }
 CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreThanOneCard [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -347,10 +360,11 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
@@ -371,7 +385,7 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 { #category : #tests }
 CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -383,10 +397,11 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
@@ -412,17 +427,18 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 { #category : #tests }
 CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -439,27 +455,30 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate [
 
-	| aGame aLoadedDie aBoard boxes|
-	
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: CancellationCard)) withChance: 100))) create: 10.
+	| aGame aLoadedDie aBoard boxes aShaker |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using:
+				            (RandomCardBox withCards:
+					             (OrderedCollection with: CancellationCard))
+				            withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: (CardDealer with:
-				          (OrderedCollection
-					           with: OverloadCard)).
+		         using:
+		         (CardDealer with: (OrderedCollection with: OverloadCard)).
 	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
 	aGame movePlayer.
 	aGame movePlayer.
-	
+
 	self
 		should: [ 
 			aGame
@@ -473,17 +492,18 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 { #category : #tests }
 CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -499,17 +519,18 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -525,17 +546,18 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -550,17 +572,18 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -577,17 +600,18 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 5
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -605,17 +629,18 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 { #category : #tests }
 CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
@@ -632,17 +657,18 @@ CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
@@ -660,17 +686,18 @@ CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 { #category : #tests }
 CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -687,17 +714,18 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -713,17 +741,18 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 { #category : #tests }
 CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -741,7 +770,7 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ026TryToUseACancellationCardWithANonValidObjective [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: CancellationCard)) withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -749,10 +778,11 @@ CardsTest >> testQ026TryToUseACancellationCardWithANonValidObjective [
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -773,7 +803,7 @@ CardsTest >> testQ026TryToUseACancellationCardWithANonValidObjective [
 { #category : #tests }
 CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -783,10 +813,11 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 1 with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 2
 		         using:
 		         (CardDealer with:
@@ -813,7 +844,7 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCard [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -825,10 +856,11 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 			               with: 4
 			               with: 1
 			               with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer  with:
 				          (OrderedCollection
@@ -847,7 +879,7 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 { #category : #tests }
 CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellationCard [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -859,10 +891,11 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 			               with: 8
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -891,7 +924,7 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 { #category : #tests }
 CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -903,10 +936,11 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 			               with: 1
 			               with: 1
 			               with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with:
 				          (OrderedCollection
@@ -927,7 +961,7 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 { #category : #tests }
 CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelerationCard [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
@@ -941,10 +975,11 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 			               with: 1
 			               with: 1
 			               with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard)).
@@ -964,7 +999,7 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 { #category : #tests }
 CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -976,10 +1011,11 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 			               with: 1
 			               with: 1
 			               with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard)).
@@ -1001,12 +1037,13 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 { #category : #tests }
 CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 
-	| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use: (OrderedCollection with:
 			           (BoxProbability using: SpeedUpBox new withChance: 100))) 
 		         create: 10.
@@ -1014,7 +1051,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
@@ -1030,12 +1067,13 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 { #category : #tests }
 CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 
-	| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 9
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use: (OrderedCollection with:
 			           (BoxProbability using: WormHoleBox new withChance: 100))) 
 		         create: 10.
@@ -1043,7 +1081,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
@@ -1060,12 +1098,13 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 { #category : #tests }
 CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 
-	| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use: (OrderedCollection with:
 			           (BoxProbability
 				            using: (MoonWalkBox with: -2)
@@ -1074,7 +1113,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
@@ -1092,12 +1131,13 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 { #category : #tests }
 CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne [
 
-	| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use: (OrderedCollection with:
 			           (BoxProbability using: AtomicBombBox new withChance: 100))) 
 		         create: 10.
@@ -1105,7 +1145,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
@@ -1124,12 +1164,13 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 { #category : #tests }
 CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 
-	| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 5
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (HyperJumpBox with:
@@ -1139,7 +1180,7 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
@@ -1158,17 +1199,18 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 { #category : #tests }
 CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -1186,17 +1228,18 @@ CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 { #category : #tests }
 CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
@@ -1213,7 +1256,7 @@ CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 { #category : #tests }
 CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -1226,10 +1269,11 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 			               with: 1
 			               with: 1
 			               with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -1249,7 +1293,7 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 { #category : #tests }
 CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -1261,10 +1305,11 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 			               with: 1
 			               with: 1
 			               with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard)).
@@ -1281,12 +1326,13 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 { #category : #tests }
 CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 
-	| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use: (OrderedCollection with:
 			           (BoxProbability using: SpeedUpBox new withChance: 100))) 
 		         create: 10.
@@ -1294,7 +1340,7 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
@@ -1310,13 +1356,13 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 { #category : #tests }
 CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 
-	| aGame aLoadedDie boxes aBoard |
+	| aGame aLoadedDie boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
 			               with: 3
 			               with: 4).
-
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -1326,7 +1372,7 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: RepeatCard)).
@@ -1344,17 +1390,18 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 { #category : #tests }
 CardsTest >> testQ048VerifyThatWhenUsingAnOverloadCardTheObjectiveMustBeAValidPlayer [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
@@ -1370,17 +1417,18 @@ CardsTest >> testQ048VerifyThatWhenUsingAnOverloadCardTheObjectiveMustBeAValidPl
 { #category : #tests }
 CardsTest >> testQ049VerifyThatWhenUsingAnAccelerationCardTheObjectiveMustBeAll [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with:
@@ -1397,17 +1445,18 @@ CardsTest >> testQ049VerifyThatWhenUsingAnAccelerationCardTheObjectiveMustBeAll 
 { #category : #tests }
 CardsTest >> testQ050VerifyThatWhenUsingASpeedCardTheObjectiveMustBeAValidPlayer [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
@@ -1423,17 +1472,18 @@ CardsTest >> testQ050VerifyThatWhenUsingASpeedCardTheObjectiveMustBeAValidPlayer
 { #category : #tests }
 CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlayer [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
@@ -1447,17 +1497,18 @@ CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlaye
 { #category : #tests }
 CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 
-	| aGame aLoadedDie aBoard |
+	| aGame aLoadedDie aBoard aShaker |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RedoCard)).
@@ -1471,7 +1522,7 @@ CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 { #category : #tests }
 CardsTest >> testQ053VerifyThatThereIsAnErrorWhenARedoCardIsUseToEveryoneWhenTheLastCardPlayedIsAnSpeedCard [
 
-	| aGame aLoadedDie aBoard boxes |
+	| aGame aLoadedDie aBoard boxes aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -1483,10 +1534,11 @@ CardsTest >> testQ053VerifyThatThereIsAnErrorWhenARedoCardIsUseToEveryoneWhenThe
 			               with: 1
 			               with: 1
 			               with: 1).
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with:
 				          (OrderedCollection

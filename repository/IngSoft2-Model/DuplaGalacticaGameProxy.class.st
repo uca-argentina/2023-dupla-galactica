@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #'Instance creation' }
-DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard throwing: aDice winningWhen: aValue using: aCardDealer [
+DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: aCardDealer [
 
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aBoard
-		  throwing: aDice
+		  usingToThrow: aDiceShaker
 		  winningWhen: aValue
 		  using: aCardDealer
 ]
@@ -49,12 +49,12 @@ DuplaGalacticaGameProxy >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
+DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: aCardDealer [
 
 	game := DuplaGalacticaGame
 		        with: aColorsCollection
 		        and: aBoard
-		        throwing: aDiceCollection
+		        usingToThrow: aDiceShaker
 		        winningWhen: aValue
 		        using: aCardDealer
 ]

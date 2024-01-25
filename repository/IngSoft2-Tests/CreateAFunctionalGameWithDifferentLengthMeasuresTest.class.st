@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'aColorCollection',
 		'aLoadedDie',
-		'boxes'
+		'boxes',
+		'aShaker'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -16,7 +17,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> setUp [
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
-
+	aShaker := DiceShaker withDie: aLoadedDie.
 	boxes := (BoxCreator use:
 		          (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) 
 		         create: 10.
@@ -25,14 +26,14 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> setUp [
 { #category : #tests }
 CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithParsec [
 
-	| aBoard oneHundredParsecs aGame |
+	| aBoard oneHundredParsecs aGame aShaker |
 	oneHundredParsecs := Parsec worth: 100.
-
+	aShaker := DiceShaker withDie: aLoadedDie.
 	aBoard := Board with: boxes measure: oneHundredParsecs.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard
@@ -54,7 +55,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithL
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard
@@ -76,7 +77,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithP
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard
@@ -98,7 +99,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateABordWithL
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         throwing: aLoadedDie
+		         usingToThrow: aShaker
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard

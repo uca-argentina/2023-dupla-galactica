@@ -31,12 +31,6 @@ LoadedDie >> numberOffaces [
 	^ (valueManager valuesSize).
 ]
 
-{ #category : #Information }
-LoadedDie >> size [
-
-	^ 1.
-]
-
 { #category : #Throw }
 LoadedDie >> throw [
 

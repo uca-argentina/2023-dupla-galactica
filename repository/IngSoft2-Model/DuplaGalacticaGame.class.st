@@ -4,18 +4,18 @@ Class {
 	#instVars : [
 		'players',
 		'board',
-		'dice',
 		'goalLaps',
 		'turnManager',
 		'current',
 		'cardManager',
-		'boxes'
+		'boxes',
+		'shaker'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
+DuplaGalacticaGame class >> with: aColorCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: aCardDealer [
 
 	aColorCollection size <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with no players' ].
@@ -24,7 +24,7 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard throwing: aDiceCo
 	^ self new
 		  initializeWith: aColorCollection
 		  and: aBoard
-		  throwing: aDiceCollection
+		  usingToThrow: aDiceShaker
 		  winningWhen: aValue
 		  using: aCardDealer
 ]
@@ -72,11 +72,11 @@ DuplaGalacticaGame >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard throwing: aDiceCollection winningWhen: aValue using: aCardDealer [
+DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: aCardDealer [
 
 	players := aColorsCollection collect: [ :color | Player with: color ].
 	board := aBoard.
-	dice := aDiceCollection.
+	shaker := aDiceShaker.
 	turnManager := TurnManager with: players.
 	goalLaps := aValue.
 	boxes:= aBoard boxes.
@@ -124,9 +124,7 @@ DuplaGalacticaGame >> movePlayer [
 
 	| boxesToMove |
 	self winnerExists ifTrue: [ ^ self ].
-	boxesToMove := dice size == 1
-		          ifTrue: [ dice throw ]
-		          ifFalse: [ dice sumNumbers: [ :die | die throw ] ].
+	boxesToMove := shaker throwDice.
 	boxesToMove := boxesToMove + (cardManager calculateEffectOn: current color).
 	self winnerExists ifTrue: [ ^ self ].
 	
