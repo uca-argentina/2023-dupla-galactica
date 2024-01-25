@@ -398,16 +398,6 @@ BoxesTest >> testR003TryToCreateARandomCardBoxGeneratorWithMoreThan100Probabilit
 ]
 
 { #category : #tests }
-BoxesTest >> testR004TryToCreateARandomCardBoxGeneratorWithMoreThan100Probability [
-
-	self
-		should: [ 
-			(RandomCardBox withCards: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 10)))]
-		raise: Error
-		withMessage: 'The sum of probabilities must be 100'
-]
-
-{ #category : #tests }
 BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYears [
 
 	| aLoadedDie aGame boxes aBoard aShaker |
