@@ -12,7 +12,7 @@ BoxesTest >> setUp [
 
 	super setUp.
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'
 ]
 
 { #category : #tests }
