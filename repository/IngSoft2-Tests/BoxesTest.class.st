@@ -22,7 +22,7 @@ BoxesTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 		should: anErrorBlock
 		raise: anExceptionClass
 		withExceptionDo: [ :error | 
-		self assert: error messageText equals: anErrorMessage ]
+		self assert: error messageText equals: anErrorMessage ] 
 ]
 
 { #category : #tests }
@@ -331,6 +331,34 @@ BoxesTest >> testN011CheckHyperJumpBoxMoveTheCorrectAmountOfParsecsWhenTheyAreNo
 	self
 		assert: aGame playersBox
 		equals: (OrderedCollection with: 7 with: 8)
+]
+
+{ #category : #tests }
+BoxesTest >> testN012CheckNoEffectBoxDoesNotApplyAnyEffectThenValuePositions [
+
+	| aLoadedDie aGame boxes aBoard aShaker |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 6
+			               with: 8
+			               with: 5
+			               with: 8).
+	boxes := boxes := (BoxCreator use:
+		                   (OrderedCollection with:
+			                    (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aShaker := DiceShaker withDie: aLoadedDie.
+	
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhen: 1
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 7 with: 9)
 ]
 
 { #category : #tests }
