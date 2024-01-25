@@ -5,7 +5,7 @@ Class {
 		'cardClass',
 		'chance'
 	],
-	#category : #'IngSoft2-Tests'
+	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }

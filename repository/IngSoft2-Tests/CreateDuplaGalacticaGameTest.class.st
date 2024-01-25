@@ -179,3 +179,24 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 		raise: Error
 		withMessage: 'Cannot create a game a negative parsec amount'
 ]
+
+{ #category : #tests }
+CreateDuplaGalacticaGameTest >> testP020TryToCreateAGameWithDuplicateColorsThenInvalid [
+
+	| aDuplicateColorCollection boxes aBoard |
+	aDuplicateColorCollection := OrderedCollection
+		                             with: 'red'
+		                             with: 'red'.
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	self
+		should: [ 
+			DuplaGalacticaGameProxy
+				with: aDuplicateColorCollection
+				and: aBoard
+				usingToThrow: (DiceShaker withDie: aLoadedDie)
+				winningWhen: 1
+				using: CardDealer new ]
+		raise: Error
+		withMessage: 'Cannot create a game with duplicate colors'
+]

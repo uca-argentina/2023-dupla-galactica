@@ -19,6 +19,10 @@ DuplaGalacticaGame class >> with: aColorCollection and: aBoard usingToThrow: aDi
 
 	aColorCollection size <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with no players' ].
+	aColorCollection do: [ :colorToTest | 
+		(aColorCollection select: [ :color | color = colorToTest ]) size > 1 
+			ifTrue: [ 
+			Error signal: 'Cannot create a game with duplicate colors' ] ].
 	aValue <= 0 ifTrue: [ 
 		Error signal: 'Cannot create a game with that goal laps' ].
 	^ self new
