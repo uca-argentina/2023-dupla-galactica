@@ -1,4 +1,4 @@
-#2023-dupla-galactica
+#2023-dupla-galactica-examen-final
 
 [![Coverage Status](https://coveralls.io/repos/github/Isoldios/2023-dupla-galactica-examen-final/badge.svg?branch=master)](https://coveralls.io/github/Isoldios/2023-dupla-galactica-examen-final?branch=master)
 
