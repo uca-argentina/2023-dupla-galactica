@@ -8,8 +8,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-RandomCardGenerator class >> dealing: aCollection [ 
-	^ self new initializeCards: aCollection.
+RandomCardGenerator class >> dealing: cardsProbabilities [
+
+	^ self new initializeCards: cardsProbabilities
 ]
 
 { #category : #'Card creation' }

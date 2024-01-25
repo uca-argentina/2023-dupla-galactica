@@ -9,6 +9,10 @@ Class {
 
 { #category : #'Instance creation' }
 CardDealer class >> with: aCardCollection [ 
+
+	(aCardCollection sum: [ :cardProbability | 
+		 cardProbability probability ]) = 100 ifFalse: [ 
+		Error signal: 'The sum of probabilities must be 100' ].
 	^ self new intializeWith: aCardCollection.
 ]
 

@@ -8,8 +8,12 @@ Class {
 }
 
 { #category : #'Instance creation' }
-RandomCardBox class >> withCards: aCollection [ 
-	^ self new intializeUsing: aCollection.
+RandomCardBox class >> withCards: cardsProbabilities [ 
+
+	(cardsProbabilities sum: [ :cardProbability | 
+		 cardProbability probability ]) = 100 ifFalse: [ 
+		Error signal: 'The sum of probabilities must be 100' ].
+	^ self new intializeUsing: cardsProbabilities.
 ]
 
 { #category : #Effect }
