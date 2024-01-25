@@ -2,7 +2,8 @@ Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
 	#instVars : [
-		'holder'
+		'holder',
+		'target'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,16 +23,17 @@ RepeatCard >> = aCard [
 ]
 
 { #category : #Effect }
+RepeatCard >> applyCardUsing: cardManager at: aGame [
+
+	aGame isValidPlayer: target.
+	aGame repeatEffectTo: target.
+]
+
+{ #category : #Effect }
 RepeatCard >> applyCardUsing: cardManager at: aGame to: objective [
 
 	aGame isValidPlayer: objective.
 	aGame repeatEffectTo: objective
-]
-
-{ #category : #Initialization }
-RepeatCard >> generalObjective [
-
-	^ false.
 ]
 
 { #category : #Information }
@@ -44,6 +46,7 @@ RepeatCard >> haveEffect [
 RepeatCard >> initializeHolder: aHolder [
 
 	holder := aHolder.
+	target:= EmptyPlayer new.
 ]
 
 { #category : #Information }
@@ -56,4 +59,10 @@ RepeatCard >> isHolder: aColorPlayer [
 RepeatCard >> isPermanent [
 
 	^ false
+]
+
+{ #category : #Information }
+RepeatCard >> selectTarget: aNewTarget [
+
+	target:= aNewTarget.
 ]

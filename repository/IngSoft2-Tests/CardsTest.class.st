@@ -36,7 +36,7 @@ CardsTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 { #category : #tests }
 CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -51,8 +51,8 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
-
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -63,7 +63,7 @@ CardsTest >> testQ001VerifyTheCorrectUseOfOverloadCard [
 { #category : #tests }
 CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTime [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -79,7 +79,8 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 		         using:
 		         (CardDealer  with:
 			          (OrderedCollection with: (OverloadCard))).
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -92,7 +93,7 @@ CardsTest >> testQ002VerifyTheCorrectUseOfOverloadCardWhenThrowingMoreThanOneTim
 { #category : #tests }
 CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwardsDueToANegativeEffect [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -108,7 +109,8 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 		         using:
 		         (CardDealer  with:
 			          (OrderedCollection with: (OverloadCard))).
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -121,7 +123,7 @@ CardsTest >> testQ003VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 { #category : #tests }
 CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwardsInTheFirstLapDueToANegativeEffect [
 
-	| aGame aLoadedDie aBoard aRedPosition aBluePosition aShaker |
+	| aGame aLoadedDie aBoard aRedPosition aBluePosition aShaker aCard |
 	aRedPosition := (Position atTheBeginning) move: 1.
 	aBluePosition := (Position atTheBeginning).
 	
@@ -140,7 +142,8 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 		         using:
 		         (CardDealer  with:
 			          (OrderedCollection with: (OverloadCard))).
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -152,7 +155,7 @@ CardsTest >> testQ004VerifyTheCorrectUseOfOverloadCardWhenThePlayerHasToGoBackwa
 { #category : #tests }
 CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -168,7 +171,8 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 		         using:
 		         (CardDealer  with:
 			          (OrderedCollection with: (SpeedCard ))).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -179,7 +183,7 @@ CardsTest >> testQ005VerifyTheCorrectUseOfASpeedCard [
 { #category : #tests }
 CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -195,7 +199,8 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 		         using:
 		        (CardDealer  with:
 			          (OrderedCollection with: (SpeedCard ))).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -208,7 +213,7 @@ CardsTest >> testQ006VerifyTheCorrectUseOfASpeedCardWhenThrowingMoreThanOneTime 
 { #category : #tests }
 CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
@@ -223,7 +228,8 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	self
 		assert: aGame playersLaps
@@ -233,7 +239,7 @@ CardsTest >> testQ007VerifyTheCorrectUseOfASpeedCardWhenHasToRaiseALap [
 { #category : #tests }
 CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOneActive [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard aSecondCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 5
@@ -246,10 +252,12 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: (CardDealer with:
-				          (OrderedCollection with: OverloadCard)).
-	aGame apply: (OverloadCard holder: 'red') to: 'red'.
-	aGame apply: (OverloadCard holder: 'red') to: 'red'.
+		         using:
+		         (CardDealer with: (OrderedCollection with: OverloadCard)).
+	aCard := (OverloadCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
+	aSecondCard := (OverloadCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aSecondCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -260,7 +268,7 @@ CardsTest >> testQ008VerifyTheCorrectUseOfPermanentCardsWhenAPlayerHasMoreThanOn
 { #category : #tests }
 CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -276,7 +284,8 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 		         using:
 		         (CardDealer with:
 			          (OrderedCollection with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -287,7 +296,7 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 { #category : #tests }
 CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
@@ -303,7 +312,8 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 		         using:
 		          (CardDealer with:
 			          (OrderedCollection with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -314,8 +324,12 @@ CardsTest >> testQ010VerifyTheCorrectUseOfAccelerationCardWhenHasToRaiseALap [
 { #category : #tests }
 CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 
-	| aGame aLoadedDie aBoard boxes aShaker | 
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: CancellationCard)) withChance: 100))) create: 10.
+	| aGame aLoadedDie aBoard boxes aShaker aCard aSecondCard |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using:
+				            (RandomCardBox withCards:
+					             (OrderedCollection with: CancellationCard))
+				            withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -328,16 +342,17 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: (CardDealer with:
-				          (OrderedCollection
-					           with: OverloadCard )).
+		         using:
+		         (CardDealer with: (OrderedCollection with: OverloadCard)).
 
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame
-		apply: (CancellationCard holder: 'red')
-		to: (OverloadCard holder: 'blue').
+	aSecondCard := (CancellationCard holder: 'red') selectTarget:
+		               (OverloadCard holder: 'blue').
+	aGame apply: aSecondCard.
+
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -348,7 +363,7 @@ CardsTest >> testQ011VerifyTheCorrectUseOfCancellationCard [
 { #category : #tests }
 CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreThanOneCard [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard|
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -368,13 +383,15 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
-	aGame apply: (SpeedCard holder: 'red') to: 'blue'.
-	aGame apply: (SpeedCard holder: 'red') to: 'blue'.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame
-		apply: (CancellationCard holder: 'blue')
-		to: (SpeedCard holder: 'blue').
+	aCard := (CancellationCard holder: 'red') selectTarget:
+		              (SpeedCard holder: 'blue').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -385,7 +402,7 @@ CardsTest >> testQ012VerifyTheCorrectUseOfCancellationCardWhenThePlayerHasMoreTh
 { #category : #tests }
 CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -405,17 +422,17 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
-	aGame apply: (SpeedCard holder: 'blue') to: 'blue'.
+	aCard := (SpeedCard holder: 'blue') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
-	aGame
-		apply: (CancellationCard holder: 'red')
-		to: (SpeedCard holder: 'blue').
+	aCard := (CancellationCard holder: 'red') selectTarget: (SpeedCard holder: 'blue').
+	aGame apply: aCard.
 	aGame movePlayer.
-	aGame
-		apply: (CancellationCard holder: 'blue')
-		to: (SpeedCard holder: 'red').
+	aCard := (CancellationCard holder: 'blue') selectTarget: (SpeedCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -427,7 +444,7 @@ CardsTest >> testQ013VerifyTheCorrectUseOfTwoCancellationCards [
 { #category : #tests }
 CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -443,11 +460,10 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 		         using:
 		         (CardDealer with:
 			          (OrderedCollection with: CancellationCard)).
+	aCard := (CancellationCard holder: 'red') selectTarget:
+		         (OverloadCard holder: 'red').
 	self
-		should: [ 
-			aGame
-				apply: (CancellationCard holder: 'red')
-				to: (OverloadCard holder: 'red') ]
+		should: [ aGame apply: aCard. ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
 ]
@@ -455,7 +471,7 @@ CardsTest >> testQ014TryToCancellAPermanentCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -475,15 +491,14 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
-
+	aCard := (CancellationCard holder: 'red') selectTarget:
+		         (OverloadCard holder: 'red').
 	self
-		should: [ 
-			aGame
-				apply: (CancellationCard holder: 'red')
-				to: (OverloadCard holder: 'red') ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage:
 		'There are no that type of cards activate in this player or is not a valid objective'
@@ -492,7 +507,7 @@ CardsTest >> testQ015TryToCancellAPermanentCardWithATypeOfCardThatIsNotActivate 
 { #category : #tests }
 CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -507,11 +522,9 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
+	aCard := (OverloadCard holder: 'blue') selectTarget: 'red'.
 	self
-		should: [ 
-			aGame
-				apply: (OverloadCard  holder: 'blue')
-				to: 'red' ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage: 'A permanent card can only be use when it is your turn'
 ]
@@ -519,7 +532,7 @@ CardsTest >> testQ017TryToUseAnOverLoadCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -534,11 +547,9 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
 	self
-		should: [ 
-			aGame
-				apply: (SpeedCard holder: 'red')
-				to: 'red' ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
 ]
@@ -546,7 +557,7 @@ CardsTest >> testQ018TryToUseASpeedCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -561,10 +572,10 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
-	
+	aCard := (AccelerationCard holder: 'red').
 
 	self
-		should: [ aGame applyEveryone: (AccelerationCard holder: 'red') ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
 ]
@@ -572,7 +583,7 @@ CardsTest >> testQ019TryToUseAnAccelerationCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -587,8 +598,10 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -600,7 +613,7 @@ CardsTest >> testQ020UseTwoOverLoadCardsFromTheSamePlayerToTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -615,13 +628,15 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
 	self
 		should: [ 
 			aGame
-				apply: (OverloadCard  holder: 'red')
-				to: 'blue' ]
+				apply: aCard]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
 ]
@@ -629,7 +644,7 @@ CardsTest >> testQ021UseAnOverLoadCardAndThenTryToUseItAgainButItHasGoneAway [
 { #category : #tests }
 CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -644,8 +659,10 @@ CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -657,7 +674,7 @@ CardsTest >> testQ022UseTwoSpeedCardsFromTheSamePlayerToTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -672,13 +689,15 @@ CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
 	self
 		should: [ 
 			aGame
-				apply: (SpeedCard holder: 'red')
-				to: 'red' ]
+				apply: aCard]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
 ]
@@ -686,7 +705,7 @@ CardsTest >> testQ023UseASpeedCardAndThenTryToUseItAgainButItHasGoneAway [
 { #category : #tests }
 CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -702,8 +721,11 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 		         using:
 		         (CardDealer with:
 			          (OrderedCollection with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
-	aGame applyEveryone:  (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -714,7 +736,7 @@ CardsTest >> testQ024UseTwoAccelerationCardsFromTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -730,10 +752,13 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 		         using:
 		         (CardDealer with:
 			          (OrderedCollection with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (AccelerationCard holder: 'red').
 	self
-		should: [ aGame applyEveryone: (AccelerationCard holder: 'red') ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
 ]
@@ -741,7 +766,7 @@ CardsTest >> testQ025UseAnAccelerationCardAnThenTryToUseItAgainButItHasGoneAway 
 { #category : #tests }
 CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -757,12 +782,13 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
 
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
+	aCard := (CancellationCard holder: 'red') selectTarget: 'blue'.
 	self
 		should: [ 
 			aGame
-				apply: (CancellationCard holder: 'blue')
-				to: 'blue' ]
+				apply: aCard ]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
 ]
@@ -770,7 +796,7 @@ CardsTest >> testQ026TryToUseACancellationCardWhenThePlayerDoesNotHaveOne [
 { #category : #tests }
 CardsTest >> testQ026TryToUseACancellationCardWithANonValidObjective [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: (RandomCardBox withCards: (OrderedCollection with: CancellationCard)) withChance: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -786,16 +812,15 @@ CardsTest >> testQ026TryToUseACancellationCardWithANonValidObjective [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
-
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
-	
+	aCard := (CancellationCard holder: 'red') selectTarget: 'blue'.
 	self
 		should: [ 
 			aGame
-				apply: (CancellationCard holder: 'blue')
-				to: 'blue' ]
+				apply: aCard ]
 		raise: Error
 		withMessage: 'There are no that type of cards activate in this player or is not a valid objective'
 ]
@@ -803,7 +828,7 @@ CardsTest >> testQ026TryToUseACancellationCardWithANonValidObjective [
 { #category : #tests }
 CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -822,18 +847,18 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 		         using:
 		         (CardDealer with:
 			          (OrderedCollection with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame
-		apply: (CancellationCard holder: 'blue')
-		to: (AccelerationCard holder: 'red').
-	aGame
-		apply: (CancellationCard holder: 'blue')
-		to: (AccelerationCard holder: 'red').
+	aCard := (CancellationCard holder: 'red') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (CancellationCard holder: 'red') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -844,7 +869,7 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 { #category : #tests }
 CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCard [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -865,10 +890,12 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 		         using: (CardDealer  with:
 				          (OrderedCollection
 					           with: OverloadCard)).
-	aGame apply: (OverloadCard holder: 'red') to: 'blue'.
+	aCard := (OverloadCard  holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RedoCard holder: 'red') to: 'red'.
+	aCard := (RedoCard  holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -879,7 +906,7 @@ CardsTest >> testQ029VerifyTheCorrectUseOfRedoCardWhenLastCardPlayIsAnOverloadCa
 { #category : #tests }
 CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellationCard [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -902,29 +929,25 @@ CardsTest >> testQ030VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsACancellat
 			          (OrderedCollection with: CancellationCard)).
 	aGame movePlayer.
 	aGame movePlayer.
-
+	aCard := (CancellationCard holder: 'red') selectTarget:
+		         (AccelerationCard holder: 'red').
 	self
-		should: [ 
-			aGame
-				apply: (CancellationCard holder: 'red')
-				to: (AccelerationCard holder: 'red') ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage: 'There are no permanent cards'.
-
+			
+	aCard := (RedoCard holder: 'red') selectTarget:
+		         (AccelerationCard holder: 'red').
 	self
-		should: [ 
-			aGame
-				apply: (RedoCard holder: 'blue')
-				to: (AccelerationCard holder: 'red') ]
+		should: [ aGame apply: aCard ]
 		raise: Error
-		withMessage:
-		'There are no permanent cards'.
+		withMessage: 'There are no permanent cards'
 ]
 
 { #category : #tests }
 CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -942,14 +965,15 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: (CardDealer with:
-				          (OrderedCollection
-					           with: SpeedCard)).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
+		         using:
+		         (CardDealer with: (OrderedCollection with: SpeedCard)).
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
-	
-	aGame apply: (RedoCard holder: 'red') to: 'blue'.
+
+	aCard := (RedoCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -961,7 +985,7 @@ CardsTest >> testQ031VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsASpeedCard
 { #category : #tests }
 CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelerationCard [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
@@ -983,11 +1007,13 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	
-	aGame applyEveryone: (RedoCard holder: 'red').
+	aCard := (RedoCard holder: 'red').
+	aGame apply: aCard.
 
 	aGame movePlayer.
 	aGame movePlayer.
@@ -999,7 +1025,7 @@ CardsTest >> testQ032VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsAnAccelera
 { #category : #tests }
 CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -1019,13 +1045,16 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 		         winningWhen: 1
 		         using: (CardDealer with: (OrderedCollection
 					           with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame applyEveryone: (RedoCard holder: 'red').
-	aGame applyEveryone: (RedoCard holder: 'red').
+	aCard := (RedoCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (RedoCard holder: 'red').
+	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
 	
@@ -1037,7 +1066,7 @@ CardsTest >> testQ033VerifyTheCorrectUseOfRedoCardWhenLastCardPlayedIsARedoCard 
 { #category : #tests }
 CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 
-	| aGame aLoadedDie boxes aBoard aShaker |
+	| aGame aLoadedDie boxes aBoard aShaker aCard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
@@ -1057,7 +1086,8 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard holder: 'red') to: 'red'.
+	aCard := (RepeatCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 
 	self
 		assert: aGame playersBox
@@ -1067,7 +1097,7 @@ CardsTest >> testQ034VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsASpeedUpOne [
 { #category : #tests }
 CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 
-	| aGame aLoadedDie boxes aBoard aShaker |
+	| aGame aLoadedDie boxes aBoard aShaker aCard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 9
@@ -1088,7 +1118,8 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard holder: 'red') to: 'blue'.
+	aCard := (RepeatCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
 
 	self
 		assert: aGame playersBox
@@ -1098,7 +1129,7 @@ CardsTest >> testQ035VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAWormHoleOne [
 { #category : #tests }
 CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 
-	| aGame aLoadedDie boxes aBoard aShaker |
+	| aGame aLoadedDie boxes aBoard aShaker aCard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
@@ -1121,7 +1152,8 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard holder: 'red') to: 'red'.
+	aCard := (RepeatCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 
 	self
 		assert: aGame playersBox
@@ -1131,7 +1163,7 @@ CardsTest >> testQ036VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAMoonWalkOne [
 { #category : #tests }
 CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne [
 
-	| aGame aLoadedDie boxes aBoard aShaker |
+	| aGame aLoadedDie boxes aBoard aShaker aCard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
@@ -1153,7 +1185,8 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard holder: 'red') to: 'red'.
+	aCard := (RepeatCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 
 
 	self
@@ -1164,7 +1197,7 @@ CardsTest >> testQ037VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsAnAtomicBombOne
 { #category : #tests }
 CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 
-	| aGame aLoadedDie boxes aBoard aShaker |
+	| aGame aLoadedDie boxes aBoard aShaker aCard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 5
@@ -1188,7 +1221,8 @@ CardsTest >> testQ038VerifyTheCorrectUseOfRepeatCardWhenLastBoxIsHyperJumpOne [
 
 	aGame movePlayer.
 	aGame movePlayer.
-	aGame apply: (RepeatCard holder: 'red') to: 'red'.
+	aCard := (RepeatCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
 
 
 	self
@@ -1219,7 +1253,7 @@ CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 	self
 		should: [ 
 			aGame
-				applyEveryone: (AccelerationCard holder: 'red') ]
+				apply: (AccelerationCard holder: 'red') ]
 		raise: Error
 		withMessage:
 		'A permanent card can only be use when it is your turn'.
@@ -1228,7 +1262,7 @@ CardsTest >> testQ039VerifyThatAccelerationCardCanOnlyBePlayedAtPlayersTurns [
 { #category : #tests }
 CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -1244,11 +1278,9 @@ CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
 	aGame movePlayer.
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
 	self
-		should: [ 
-			aGame
-				apply: (SpeedCard holder: 'red')
-				to: 'red' ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage: 'A permanent card can only be use when it is your turn'
 ]
@@ -1256,7 +1288,7 @@ CardsTest >> testQ041VerifyThatSpeedCardCanOnlyBePlayedAtPlayersTurns [
 { #category : #tests }
 CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -1278,11 +1310,12 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 		         using:
 		         (CardDealer with:
 			          (OrderedCollection with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+	aCard := AccelerationCard holder: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
-	aGame
-		apply: (CancellationCard holder: 'red')
-		to: (AccelerationCard holder: 'blue').
+	aCard := (CancellationCard holder: 'red') selectTarget:
+		         (AccelerationCard holder: 'blue').
+	aGame apply: aCard.
 	aGame movePlayer.
 
 	self
@@ -1293,7 +1326,7 @@ CardsTest >> testQ042VerifyThatCancellationCardCanBePlayWheneverThePlayerWants [
 { #category : #tests }
 CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 
-	| aGame aLoadedDie aBoard boxes aShaker |
+	| aGame aLoadedDie aBoard boxes aShaker aCard |
 	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
 				            using:
 				            (RandomCardBox withCards:
@@ -1311,11 +1344,14 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhen: 1
-		         using: (CardDealer with: (OrderedCollection
-					           with: AccelerationCard)).
-	aGame applyEveryone: (AccelerationCard holder: 'red').
+		         using:
+		         (CardDealer with:
+			          (OrderedCollection with: AccelerationCard)).
+	aCard := AccelerationCard holder: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
-	aGame applyEveryone: (RedoCard holder: 'red').
+	aCard := RedoCard holder: 'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
 
 	self
@@ -1326,7 +1362,7 @@ CardsTest >> testQ043VerifyThatRedoCardCanBePlayWheneverThePlayerWants [
 { #category : #tests }
 CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 
-	| aGame aLoadedDie boxes aBoard aShaker |
+	| aGame aLoadedDie boxes aBoard aShaker aCard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
@@ -1345,7 +1381,8 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
 	aGame movePlayer.
-	aGame apply: (RepeatCard holder: 'red') to: 'red'.
+	aCard := (RepeatCard holder: 'red') selectTarget:  'red'.
+	aGame apply: aCard.
 	aGame movePlayer.
 
 	self
@@ -1356,7 +1393,7 @@ CardsTest >> testQ044VerifyThatRepeatCardCanBePlayWheneverThePlayerWants [
 { #category : #tests }
 CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 
-	| aGame aLoadedDie boxes aBoard aShaker |
+	| aGame aLoadedDie boxes aBoard aShaker aCard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
@@ -1378,8 +1415,10 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 					           with: RepeatCard)).
 					
 	aGame movePlayer.
-	aGame apply: (RepeatCard holder: 'red') to: 'red'.
-	aGame apply: (RedoCard holder: 'red') to: 'blue'.
+	aCard := (RepeatCard holder: 'red') selectTarget:  'red'.
+	aGame apply: aCard.
+	aCard := (RedoCard holder: 'red') selectTarget:  'blue'.
+	aGame apply: aCard.
 	aGame movePlayer.
 
 	self
@@ -1390,7 +1429,7 @@ CardsTest >> testQ045VerifyThatRedoCardCanRepeatTheEffectOfTheRepeatCard [
 { #category : #tests }
 CardsTest >> testQ048VerifyThatWhenUsingAnOverloadCardTheObjectiveMustBeAValidPlayer [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -1405,47 +1444,18 @@ CardsTest >> testQ048VerifyThatWhenUsingAnOverloadCardTheObjectiveMustBeAValidPl
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: OverloadCard)).
+	aCard := (OverloadCard holder: 'red') selectTarget:
+		         (AccelerationCard holder: 'blue').
 	self
-		should: [ 
-			aGame
-				apply: (OverloadCard holder: 'red')
-				to: (AccelerationCard holder: 'red') ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage: 'That is not a valid objective'
 ]
 
 { #category : #tests }
-CardsTest >> testQ049VerifyThatWhenUsingAnAccelerationCardTheObjectiveMustBeAll [
-
-	| aGame aLoadedDie aBoard aShaker |
-	aBoard := self createBoard.
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 1
-			               with: 2
-			               with: 3
-			               with: 4).
-	aShaker := DiceShaker withDie: aLoadedDie.
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow: aShaker
-		         winningWhen: 1
-		         using:
-		         (CardDealer with:
-			          (OrderedCollection with: AccelerationCard)).
-	self
-		should: [ 
-			aGame
-				apply: (AccelerationCard holder: 'red')
-				to: (AccelerationCard holder: 'red') ]
-		raise: Error
-		withMessage: 'That is a general objective card must be use a general apply effect'
-]
-
-{ #category : #tests }
 CardsTest >> testQ050VerifyThatWhenUsingASpeedCardTheObjectiveMustBeAValidPlayer [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -1460,11 +1470,11 @@ CardsTest >> testQ050VerifyThatWhenUsingASpeedCardTheObjectiveMustBeAValidPlayer
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: SpeedCard)).
+	aCard := (SpeedCard holder: 'red') selectTarget:  (AccelerationCard holder: 'blue').
 	self
 		should: [ 
 			aGame
-				apply: (SpeedCard holder: 'red')
-				to: (AccelerationCard holder: 'red') ]
+				apply: aCard]
 		raise: Error
 		withMessage: 'That is not a valid objective'
 ]
@@ -1472,7 +1482,7 @@ CardsTest >> testQ050VerifyThatWhenUsingASpeedCardTheObjectiveMustBeAValidPlayer
 { #category : #tests }
 CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlayer [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -1487,9 +1497,10 @@ CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlaye
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RepeatCard)).
+	aCard := (RepeatCard holder: 'red') selectTarget: 'pepe'.
 	self
 		should: [ 
-		aGame apply: (RepeatCard holder: 'red') to: 'all' ]
+		aGame apply:aCard ]
 		raise: Error
 		withMessage: 'That is not a valid objective'
 ]
@@ -1497,7 +1508,7 @@ CardsTest >> testQ051VerifyThatWhenUsingARepeatCardTheObjectiveMustBeAValidPlaye
 { #category : #tests }
 CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 
-	| aGame aLoadedDie aBoard aShaker |
+	| aGame aLoadedDie aBoard aShaker aCard |
 	aBoard := self createBoard.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
@@ -1512,44 +1523,10 @@ CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 		         winningWhen: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: RedoCard)).
+	aCard := (RedoCard holder: 'red') selectTarget:  'pepe'.
 	self
-		should: [ aGame apply: (RedoCard holder: 'red') to: 'all' ]
+		should: [ aGame apply: aCard ]
 		raise: Error
 		withMessage:
 		'Redo card cannot be played because there are no cards that have been played before'
-]
-
-{ #category : #tests }
-CardsTest >> testQ053VerifyThatThereIsAnErrorWhenARedoCardIsUseToEveryoneWhenTheLastCardPlayedIsAnSpeedCard [
-
-	| aGame aLoadedDie aBoard boxes aShaker |
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using:
-				            (RandomCardBox withCards:
-					             (OrderedCollection with: RedoCard))
-				            withChance: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 1
-			               with: 1
-			               with: 1
-			               with: 1).
-	aShaker := DiceShaker withDie: aLoadedDie.
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow: aShaker
-		         winningWhen: 1
-		         using: (CardDealer with:
-				          (OrderedCollection
-					           with: SpeedCard)).
-	aGame apply: (SpeedCard holder: 'red') to: 'red'.
-	aGame movePlayer.
-	aGame movePlayer.
-	
-		self
-		should: [ aGame applyEveryone: (RedoCard holder: 'red')]
-		raise: Error
-		withMessage:
-		'That is not a general objective card, must be use a single player apply effect'
 ]

@@ -34,12 +34,6 @@ AccelerationCard >> applyEffect [
 	^ 1
 ]
 
-{ #category : #Effect }
-AccelerationCard >> generalObjective [
-
-	^ true.
-]
-
 { #category : #Information }
 AccelerationCard >> haveEffect [
 
@@ -62,4 +56,9 @@ AccelerationCard >> isHolder: aColorPlayer [
 AccelerationCard >> isPermanent [
 
 	^ true
+]
+
+{ #category : #Effect }
+AccelerationCard >> selectTarget: anEmptyPlayer [ 
+	
 ]

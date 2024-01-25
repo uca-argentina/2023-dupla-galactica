@@ -5,13 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-EmptyCard >> generalObjective [
-
-	^ false.
-]
-
-{ #category : #Effect }
-EmptyCard >> haveEffect [
+EmptyCard >> selectTarget: aTarget [
 
 	Error signal:
 		'Redo card cannot be played because there are no cards that have been played before'

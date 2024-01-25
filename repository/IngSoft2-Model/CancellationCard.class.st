@@ -2,7 +2,8 @@ Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
 	#instVars : [
-		'holder'
+		'holder',
+		'target'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,15 +23,9 @@ CancellationCard >> = aCard [
 ]
 
 { #category : #Effect }
-CancellationCard >> applyCardUsing: cardManager at: aGame to: objective [
+CancellationCard >> applyCardUsing: cardManager at: aGame [
 
-	cardManager desactivate: objective
-]
-
-{ #category : #Information }
-CancellationCard >> generalObjective [
-
-	^ false.
+	cardManager desactivate: target
 ]
 
 { #category : #Information }
@@ -43,6 +38,7 @@ CancellationCard >> haveEffect [
 CancellationCard >> initializeHolder: aHolder [
 
 	holder := aHolder.
+	target := EmptyCard new.
 	
 ]
 
@@ -56,4 +52,10 @@ CancellationCard >> isHolder: aColorPlayer [
 CancellationCard >> isPermanent [
 
 	^ false
+]
+
+{ #category : #Information }
+CancellationCard >> selectTarget: aNewTarget [
+
+	target:= aNewTarget.
 ]
