@@ -24,7 +24,8 @@ Player >> aheadOf: aPlayer [
 
 { #category : #Information }
 Player >> box [
-	^ position box.
+
+	^ position box
 ]
 
 { #category : #Information }

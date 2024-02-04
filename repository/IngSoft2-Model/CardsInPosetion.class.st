@@ -9,11 +9,12 @@ Class {
 
 { #category : #'Instance creation' }
 CardsInPosetion class >> createDeck [
-	^ self new initializeDeck.
+
+	^ self new initializeDeck
 ]
 
 { #category : #'Changing cards' }
-CardsInPosetion >> addCard: aCard [
+CardsInPosetion >> add: aCard [
 
 	cards addLast: aCard
 ]
@@ -22,8 +23,7 @@ CardsInPosetion >> addCard: aCard [
 CardsInPosetion >> cardsOf: players [
 
 	^ players collect: [ :player | 
-		  (cards select: [ :card | card isHolder: player color ])
-			  size ]
+		  (cards select: [ :card | card isHolder: player color ]) size ]
 ]
 
 { #category : #'Changing cards' }
@@ -31,13 +31,14 @@ CardsInPosetion >> hasBeenGiven: aCard [
 
 	cards
 		detect: [ :card | card = aCard ]
-		ifFound: [ :card | ^ true ]
+		ifFound: [ ^ true ]
 		ifNone: [ ^ false ]
 ]
 
 { #category : #Initialization }
 CardsInPosetion >> initializeDeck [
-	cards:= OrderedCollection new.
+
+	cards := OrderedCollection new
 ]
 
 { #category : #Initialization }

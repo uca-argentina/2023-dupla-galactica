@@ -8,24 +8,22 @@ Class {
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> holder: aHolder [
+AccelerationCard class >> holder: aPlayer [
 
-	^ self new initializeHolder: aHolder
+	^ self new initializeWith: aPlayer
 ]
 
 { #category : #Information }
 AccelerationCard >> = aCard [
 
-	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard isHolder: holder ]
-		ifFalse: [ ^ false ]
+	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCardUsing: cardManager at: aGame [ 
+AccelerationCard >> applyCardUsing: cardManager at: aGame [
 
 	aGame playersColors do: [ :color | 
-		cardManager activeCard: (self class holder: color) ]
+		cardManager activate: (self class holder: color) ]
 ]
 
 { #category : #Effect }
@@ -41,9 +39,9 @@ AccelerationCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-AccelerationCard >> initializeHolder: aHolder [
+AccelerationCard >> initializeWith: aHolder [
 
-	holder := aHolder.
+	holder := aHolder
 ]
 
 { #category : #Information }

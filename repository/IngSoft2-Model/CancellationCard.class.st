@@ -9,17 +9,15 @@ Class {
 }
 
 { #category : #'Instance creation' }
-CancellationCard class >> holder: aHolder [
+CancellationCard class >> holder: aPlayer [
 
-	^ self new initializeHolder: aHolder
+	^ self new initializeWith: aPlayer
 ]
 
 { #category : #Information }
 CancellationCard >> = aCard [
 
-	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard isHolder:holder ]
-		ifFalse: [ ^ false ]
+	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Effect }
@@ -35,11 +33,10 @@ CancellationCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-CancellationCard >> initializeHolder: aHolder [
+CancellationCard >> initializeWith: aPlayer [
 
-	holder := aHolder.
-	target := EmptyCard new.
-	
+	holder := aPlayer.
+	target := EmptyCard new
 ]
 
 { #category : #Information }
@@ -57,5 +54,5 @@ CancellationCard >> isPermanent [
 { #category : #Information }
 CancellationCard >> selectTarget: aNewTarget [
 
-	target:= aNewTarget.
+	target := aNewTarget
 ]

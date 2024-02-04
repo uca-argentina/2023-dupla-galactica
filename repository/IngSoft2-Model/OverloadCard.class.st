@@ -9,25 +9,22 @@ Class {
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> holder: aHolder [
+OverloadCard class >> holder: aPlayer [
 
-	^ self new initializeHolder: aHolder
+	^ self new initializeWith: aPlayer
 ]
 
 { #category : #Information }
 OverloadCard >> = aCard [
 
-	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard isHolder:holder ]
-		ifFalse: [ ^ false ]
+	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Effect }
 OverloadCard >> applyCardUsing: cardManager at: aGame [
 
-	
 	aGame isValidPlayer: target.
-	cardManager activeCard: (self class holder: target).
+	cardManager activate: (self class holder: target)
 ]
 
 { #category : #Effect }
@@ -43,7 +40,7 @@ OverloadCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-OverloadCard >> initializeHolder: aHolder [
+OverloadCard >> initializeWith: aHolder [
 
 	holder := aHolder.
 	target := EmptyPlayer new.

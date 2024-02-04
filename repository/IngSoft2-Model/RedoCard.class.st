@@ -9,17 +9,15 @@ Class {
 }
 
 { #category : #'Instance creation' }
-RedoCard class >> holder: aHolder [
+RedoCard class >> holder: aPlayer [
 
-	^ self new initializeHolder: aHolder
+	^ self new initializeWith: aPlayer
 ]
 
 { #category : #Information }
 RedoCard >> = aCard [
 
-	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard isHolder: holder ]
-		ifFalse: [ ^ false ]
+	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Initialization }
@@ -37,7 +35,7 @@ RedoCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-RedoCard >> initializeHolder: aHolder [
+RedoCard >> initializeWith: aHolder [
 
 	holder := aHolder.
 	target:= EmptyPlayer new.
@@ -58,5 +56,5 @@ RedoCard >> isPermanent [
 { #category : #Information }
 RedoCard >> selectTarget: aNewTarget [
 
-	target:= aNewTarget.
+	target := aNewTarget
 ]

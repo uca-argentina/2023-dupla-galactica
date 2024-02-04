@@ -8,12 +8,12 @@ Class {
 }
 
 { #category : #'Instance creation' }
-Die class >> with: aValue [
+Die class >> with: aNumberOfFaces [
 
-	aValue < 3 ifTrue: [ 
+	aNumberOfFaces < 3 ifTrue: [ 
 		Error signal:
 			'Cannot create with negative values at faces or less than 2 faces' ].
-	^ self new initializeWith: aValue
+	^ self new initializeWith: aNumberOfFaces
 ]
 
 { #category : #Information }
@@ -23,9 +23,9 @@ Die >> faces [
 ]
 
 { #category : #Initialization }
-Die >> initializeWith: aValue [
+Die >> initializeWith: aNumberOfFaces [
 
-	faces := aValue
+	faces := aNumberOfFaces
 ]
 
 { #category : #Throw }

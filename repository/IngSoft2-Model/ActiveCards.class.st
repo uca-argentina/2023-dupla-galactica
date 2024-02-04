@@ -9,23 +9,26 @@ Class {
 
 { #category : #'Instance creation' }
 ActiveCards class >> createDeck [
-	^ self new initializeDeck.
+
+	^ self new initializeDeck
 ]
 
 { #category : #Activation }
-ActiveCards >> activeCard: aCard [ 
+ActiveCards >> activate: aCard [
+
 	cards addLast: aCard
 ]
 
 { #category : #Effects }
 ActiveCards >> calculateEffectOn: aColorPlayer [
 
-	^ (cards select: [ :card | card isHolder: aColorPlayer ]) sum: [ :card | 
-		  card applyEffect ]
+	^ (cards select: [ :card | card isHolder: aColorPlayer ]) sum:
+		  #applyEffect
 ]
 
 { #category : #Desactivation }
-ActiveCards >> desactivate: anObjectiveCard [ 
+ActiveCards >> desactivate: anObjectiveCard [
+
 	self isEmpty.
 	cards
 		detect: [ :card | card = anObjectiveCard ]
@@ -33,12 +36,12 @@ ActiveCards >> desactivate: anObjectiveCard [
 		ifNone: [ 
 			Error signal:
 				'There are no that type of cards activate in this player or is not a valid objective' ]
-
 ]
 
 { #category : #Initialization }
 ActiveCards >> initializeDeck [
-	cards:= OrderedCollection new.
+
+	cards := OrderedCollection new
 ]
 
 { #category : #Cards }

@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-RandomCardGenerator class >> dealing: cardsProbabilities [
+RandomCardGenerator class >> dealing: aCardsProbabilitiesCollection [
 
-	^ self new initializeCards: cardsProbabilities
+	^ self new initializeCards: aCardsProbabilitiesCollection
 ]
 
 { #category : #'Card creation' }
@@ -26,6 +26,7 @@ RandomCardGenerator >> createCardFor: aPlayerColor [
 ]
 
 { #category : #Initialization }
-RandomCardGenerator >> initializeCards: aCardsProbabilitiesCollection [ 
-	cardsProbabilities:= aCardsProbabilitiesCollection.
+RandomCardGenerator >> initializeCards: aCardsProbabilitiesCollection [
+
+	cardsProbabilities := aCardsProbabilitiesCollection
 ]

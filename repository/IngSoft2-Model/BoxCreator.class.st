@@ -11,34 +11,29 @@ Class {
 { #category : #'Instance creation' }
 BoxCreator class >> use: aBoxesProbabilitiesCollection [
 
-	(aBoxesProbabilitiesCollection sum: [ :boxProbability | boxProbability probability ]) = 100 ifFalse: [Error signal:
-		'The sum of probabilities must be 100'].
+	(aBoxesProbabilitiesCollection sum: #probability) = 100 ifFalse: [ 
+		Error signal: 'The sum of probabilities must be 100' ].
 	^ self new initializeUse: aBoxesProbabilitiesCollection
 ]
 
 { #category : #Creation }
 BoxCreator >> create: aNumberOfBoxes [
 
-	| boxesCreated |
-	boxesCreated := OrderedCollection new.
-	aNumberOfBoxes timesRepeat: [ 
-		boxesCreated addLast: (self oneRandomBoxOf) ].
-	^ boxesCreated
+	^ (1 to: aNumberOfBoxes) collect: [ :eachNumber | 
+		  self oneRandomBoxOf ]
 ]
 
 { #category : #Initialization }
-BoxCreator >> initializeUse: aBoxesCollection [
+BoxCreator >> initializeUse: aBoxesProbabilitiesCollection [
 
-	boxes := aBoxesCollection
+	boxes := aBoxesProbabilitiesCollection
 ]
 
 { #category : #Creation }
 BoxCreator >> oneRandomBoxOf [
 
-	| aRandomValue sum|
+	| sum |
 	sum := 0.
-	aRandomValue := 100 atRandom.
-	^ (boxes detect: [ :box |
-		sum := sum + box probability.
-		aRandomValue <= sum]) box.
+	^ (boxes detect: [ :box | 
+		   (sum := sum + box probability) >= 100 atRandom ]) box
 ]

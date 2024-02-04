@@ -10,9 +10,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-TurnManager class >> with: anAmount [
+TurnManager class >> with: aPlayersCollection [
 
-	^ self new initializeWith: anAmount
+	^ self new initializeWith: aPlayersCollection
 ]
 
 { #category : #ManageTurns }
@@ -39,5 +39,6 @@ TurnManager >> initializeWith: aValuesCollection [
 
 { #category : #Information }
 TurnManager >> valuesSize [
-	^ max.
+
+	^ max
 ]

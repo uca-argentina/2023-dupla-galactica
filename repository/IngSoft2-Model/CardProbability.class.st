@@ -9,22 +9,26 @@ Class {
 }
 
 { #category : #'Instance creation' }
-CardProbability class >> using: aCardClass withChance: aChance [ 
-	^ self new initializeUsing: aCardClass withChance: aChance
+CardProbability class >> using: aCardClass withChanceOf: aProbability [
+
+	^ self new initializeUsing: aCardClass withChanceOf: aProbability
 ]
 
 { #category : #Information }
 CardProbability >> cardClass [
+
 	^ cardClass
 ]
 
 { #category : #Initialization }
-CardProbability >> initializeUsing: aCardClass withChance: aChance [ 
-	cardClass:= aCardClass.
-	chance:= aChance.
+CardProbability >> initializeUsing: aCardClass withChanceOf: aChance [
+
+	cardClass := aCardClass.
+	chance := aChance
 ]
 
 { #category : #Information }
 CardProbability >> probability [
-	^ chance.
+
+	^ chance
 ]

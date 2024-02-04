@@ -24,15 +24,15 @@ CreatingPlayersFromTheGameTest >> setUp [
 			               with: 7
 			               with: 9).
 	
-	aShaker := DiceShaker withDie: aLoadedDie.
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	aShaker := DiceShaker with: aLoadedDie.
+	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChanceOf: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         usingToThrow: aShaker
-		         winningWhen: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100)))
+		         winningWhenReach: 1
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100)))
 ]
 
 { #category : #tests }
