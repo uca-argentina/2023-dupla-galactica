@@ -34,12 +34,6 @@ RedoCard >> haveEffect [
 	^ false
 ]
 
-{ #category : #Information }
-RedoCard >> holder [
-
-	^ holder
-]
-
 { #category : #Initialization }
 RedoCard >> initializeWith: aHolder [
 

@@ -33,12 +33,6 @@ SpeedBoostCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-SpeedBoostCard >> holder [
-
-	^ holder
-]
-
-{ #category : #Initialization }
 SpeedBoostCard >> initializeWith: aPlayer [
 
 	holder := aPlayer.

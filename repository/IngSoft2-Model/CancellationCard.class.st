@@ -32,12 +32,6 @@ CancellationCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Effect }
-CancellationCard >> holder [
-
-	^ holder
-]
-
 { #category : #Initialization }
 CancellationCard >> initializeWith: aPlayer [
 
