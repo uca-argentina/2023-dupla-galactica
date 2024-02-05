@@ -31,27 +31,13 @@ ActiveCards >> calculateEffectOn: aColorPlayer [
 { #category : #Desactivation }
 ActiveCards >> desactivate: anObjectiveCard [
 
-	self isEmpty.
-	cards
-		detect: [ :card | 
-		card = anObjectiveCard or: card holder = 'everyone' ]
-		ifFound: [ :card | cards remove: card ]
-		ifNone: [ 
-			Error signal:
-				'There are no that type of cards activate in this player or is not a valid objective' ]
+	cards remove: (self searching: anObjectiveCard)
 ]
 
 { #category : #Desactivation }
 ActiveCards >> duplicateEffectOf: anObjectiveCard [
 
-	self isEmpty.
-	cards
-		detect: [ :card | 
-		card = anObjectiveCard or: card holder = 'everyone' ]
-		ifFound: [ :card | card boostEffect ]
-		ifNone: [ 
-			Error signal:
-				'There are no that type of cards activate in this player or is not a valid objective' ]
+	(self searching: anObjectiveCard) boostEffect
 ]
 
 { #category : #Initialization }
@@ -64,4 +50,17 @@ ActiveCards >> initializeDeck [
 ActiveCards >> isEmpty [
 
 	cards isEmpty ifTrue: [ Error signal: 'There are no permanent cards' ]
+]
+
+{ #category : #Desactivation }
+ActiveCards >> searching: anObjectiveCard [
+
+	self isEmpty.
+	cards
+		detect: [ :card | 
+		card = anObjectiveCard or: card holder = 'everyone' ]
+		ifFound: [ :card | ^ card ]
+		ifNone: [ 
+			Error signal:
+				'There are no that type of cards activate in this player or is not a valid objective' ]
 ]
