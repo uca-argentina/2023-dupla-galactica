@@ -47,12 +47,6 @@ SpeedCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-SpeedCard >> holder [
-
-	^ holder
-]
-
-{ #category : #Initialization }
 SpeedCard >> initializeWith: aHolder [
 
 	holder := aHolder.

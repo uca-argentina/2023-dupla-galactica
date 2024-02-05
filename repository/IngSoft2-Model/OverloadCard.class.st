@@ -46,12 +46,6 @@ OverloadCard >> haveEffect [
 	^ true
 ]
 
-{ #category : #Information }
-OverloadCard >> holder [
-
-	^ holder
-]
-
 { #category : #Initialization }
 OverloadCard >> initializeWith: aHolder [
 
