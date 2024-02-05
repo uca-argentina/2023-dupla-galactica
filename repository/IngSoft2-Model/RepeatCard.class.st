@@ -33,6 +33,12 @@ RepeatCard >> haveEffect [
 	^ true
 ]
 
+{ #category : #Information }
+RepeatCard >> holder [
+
+	^ holder
+]
+
 { #category : #Initialization }
 RepeatCard >> initializeWith: aHolder [
 

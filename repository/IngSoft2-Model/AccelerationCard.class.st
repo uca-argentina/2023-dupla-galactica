@@ -2,7 +2,9 @@ Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
 	#instVars : [
-		'holder'
+		'holder',
+		'effect',
+		'target'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -22,14 +24,21 @@ AccelerationCard >> = aCard [
 { #category : #Effect }
 AccelerationCard >> applyCardUsing: cardManager at: aGame [
 
-	aGame playersColors do: [ :color | 
-		cardManager activate: (self class holder: color) ]
+	cardManager activate: (self class holder: 'everyone').
+	'''	aGame playersColors do: [ :color | 
+		cardManager activate: (self class holder: color) ]'''
 ]
 
 { #category : #Effect }
 AccelerationCard >> applyEffect [
 
-	^ 1
+	^ effect
+]
+
+{ #category : #Initialization }
+AccelerationCard >> boostEffect [
+
+	effect := effect * 2
 ]
 
 { #category : #Information }
@@ -38,10 +47,17 @@ AccelerationCard >> haveEffect [
 	^ true
 ]
 
+{ #category : #Information }
+AccelerationCard >> holder [
+
+	^ holder
+]
+
 { #category : #Initialization }
 AccelerationCard >> initializeWith: aHolder [
 
-	holder := aHolder
+	holder := aHolder.
+	effect := 1
 ]
 
 { #category : #Information }
@@ -57,6 +73,7 @@ AccelerationCard >> isPermanent [
 ]
 
 { #category : #Effect }
-AccelerationCard >> selectTarget: anEmptyPlayer [ 
-	
+AccelerationCard >> selectTarget: anEmptyPlayer [
+
+	target := 'everyone'
 ]

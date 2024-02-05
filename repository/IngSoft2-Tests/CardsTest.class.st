@@ -278,7 +278,7 @@ CardsTest >> testQ009VerifyTheCorrectUseOfAccelerationCard [
 		         winningWhenReach: 1
 		         using:
 		         (CardDealer with: (OrderedCollection with: (CardProbability using: AccelerationCard withChanceOf: 100))).
-	aCard := (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red') selectTarget: 'red'.
 	aGame apply: aCard.
 	aGame movePlayer.
 	aGame movePlayer.
@@ -830,7 +830,7 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 
 	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 1 with: 1 with: 1).
+		              (OrderedCollection with: 1 with: 1 with: 1 with: 1).
 	aShaker := DiceShaker with: aLoadedDie.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -840,7 +840,7 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 		         using:
 		         (CardDealer with:
 			          (OrderedCollection with: (CardProbability using: AccelerationCard withChanceOf: 100))).
-	aCard := (AccelerationCard holder: 'red').
+	aCard := (AccelerationCard holder: 'red') selectTarget: 'red'.
 	aGame apply: aCard.
 	aCard := (AccelerationCard holder: 'red').
 	aGame apply: aCard.
@@ -856,7 +856,7 @@ CardsTest >> testQ027UseTwoCancellationCardsFromTheSamePlayer [
 	aGame movePlayer.
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 8 with: 10)
+		equals: (OrderedCollection with: 8 with: 8)
 ]
 
 { #category : #tests }
@@ -1518,4 +1518,236 @@ CardsTest >> testQ052VerifyThatWhenUsingARedoCardACardHasToBeenPlayedBefore [
 		raise: Error
 		withMessage:
 		'Redo card cannot be played because there are no cards that have been played before'
+]
+
+{ #category : #tests }
+CardsTest >> testQ053VerifyTheCorrectUseOfSpeedBoostCardWithAnOverloadCard [
+
+	| boxes aGame aLoadedDie aBoard aShaker aCard |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using: (RandomCardBox with: (OrderedCollection with:
+							              (CardProbability
+								               using: SpeedBoostCard
+								               withChanceOf: 100)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 3
+			               with: 2
+			               with: 3).
+	aShaker := DiceShaker with: aLoadedDie.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhenReach: 2
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: OverloadCard withChanceOf: 100))).
+	aCard := (OverloadCard holder: 'red') selectTarget: 'blue'.
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	aCard := (SpeedBoostCard holder: 'red') selectTarget:
+		         (OverloadCard holder: 'blue').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 5 with: 1)
+]
+
+{ #category : #tests }
+CardsTest >> testQ054VerifyTheCorrectUseOfSpeedBoostCardWithASpeedCard [
+
+	| boxes aGame aLoadedDie aBoard aShaker aCard |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using: (RandomCardBox with: (OrderedCollection with:
+							              (CardProbability
+								               using: SpeedBoostCard
+								               withChanceOf: 100)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 3
+			               with: 2
+			               with: 3).
+	aShaker := DiceShaker with: aLoadedDie.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhenReach: 2
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: SpeedCard withChanceOf: 100))).
+	aCard := (SpeedCard holder: 'red') selectTarget: 'red'.
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	aCard := (SpeedBoostCard holder: 'red') selectTarget:
+		         (SpeedCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 8 with: 7)
+]
+
+{ #category : #tests }
+CardsTest >> testQ055VerifyTheCorrectUseOfSpeedBoostCardWithAnAccelerationCard [
+
+	| boxes aGame aLoadedDie aBoard aShaker aCard |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using: (RandomCardBox with: (OrderedCollection with:
+							              (CardProbability
+								               using: SpeedBoostCard
+								               withChanceOf: 100)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aShaker := DiceShaker with: aLoadedDie.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhenReach: 2
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: AccelerationCard withChanceOf: 100))).
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	aCard := (SpeedBoostCard holder: 'red') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 8 with: 10)
+]
+
+{ #category : #tests }
+CardsTest >> testQ056VerifyTheCorrectUseOfSpeedBoostCardWithAnAccelerationCardWhenThereAreTwoActiveAccelerationCards [
+
+	| boxes aGame aLoadedDie aBoard aShaker aCard |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using: (RandomCardBox with: (OrderedCollection with:
+							              (CardProbability
+								               using: SpeedBoostCard
+								               withChanceOf: 100)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 1
+			               with: 1
+			               with: 1).
+	aShaker := DiceShaker with: aLoadedDie.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhenReach: 2
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: AccelerationCard withChanceOf: 100))).
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	aCard := (SpeedBoostCard holder: 'red') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 8 with: 8)
+]
+
+{ #category : #tests }
+CardsTest >> testQ057VerifyTheCorrectUseOfTwoSpeedBoostCardsWithAnAccelerationCard [
+
+	| boxes aGame aLoadedDie aBoard aShaker aCard |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using: (RandomCardBox with: (OrderedCollection with:
+							              (CardProbability
+								               using: SpeedBoostCard
+								               withChanceOf: 100)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 1
+			               with: 1
+			               with: 1).
+	aShaker := DiceShaker with: aLoadedDie.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhenReach: 2
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: AccelerationCard withChanceOf: 100))).
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	aCard := (SpeedBoostCard holder: 'red') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (SpeedBoostCard holder: 'blue') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 8 with: 8)
+]
+
+{ #category : #tests }
+CardsTest >> testQ058VerifyTheCorrectUseOfTwoSpeedBoostCardsWithTwoAccelerationCards [
+
+	| boxes aGame aLoadedDie aBoard aShaker aCard |
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
+				            using: (RandomCardBox with: (OrderedCollection with:
+							              (CardProbability
+								               using: SpeedBoostCard
+								               withChanceOf: 100)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 1
+			               with: 1
+			               with: 1).
+	aShaker := DiceShaker with: aLoadedDie.
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow: aShaker
+		         winningWhenReach: 2
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: AccelerationCard withChanceOf: 100))).
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	aCard := (SpeedBoostCard holder: 'red') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aCard := (SpeedBoostCard holder: 'blue') selectTarget: (AccelerationCard holder: 'red').
+	aGame apply: aCard.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 10 with: 10)
 ]

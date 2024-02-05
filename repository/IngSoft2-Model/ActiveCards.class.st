@@ -22,8 +22,10 @@ ActiveCards >> activate: aCard [
 { #category : #Effects }
 ActiveCards >> calculateEffectOn: aColorPlayer [
 
-	^ (cards select: [ :card | card isHolder: aColorPlayer ]) sum:
-		  #applyEffect
+	^ ((cards select: [ :card | card isHolder: aColorPlayer ]) sum:
+		   #applyEffect)
+	  + ((cards select: [ :card | card isHolder: 'everyone' ]) sum:
+			   #applyEffect)
 ]
 
 { #category : #Desactivation }
@@ -31,8 +33,22 @@ ActiveCards >> desactivate: anObjectiveCard [
 
 	self isEmpty.
 	cards
-		detect: [ :card | card = anObjectiveCard ]
+		detect: [ :card | 
+		card = anObjectiveCard or: card holder = 'everyone' ]
 		ifFound: [ :card | cards remove: card ]
+		ifNone: [ 
+			Error signal:
+				'There are no that type of cards activate in this player or is not a valid objective' ]
+]
+
+{ #category : #Desactivation }
+ActiveCards >> duplicateEffectOf: anObjectiveCard [
+
+	self isEmpty.
+	cards
+		detect: [ :card | 
+		card = anObjectiveCard or: card holder = 'everyone' ]
+		ifFound: [ :card | card boostEffect ]
 		ifNone: [ 
 			Error signal:
 				'There are no that type of cards activate in this player or is not a valid objective' ]

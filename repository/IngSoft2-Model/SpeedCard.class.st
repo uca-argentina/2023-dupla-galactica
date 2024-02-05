@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'holder',
-		'target'
+		'target',
+		'effect'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,7 +31,13 @@ SpeedCard >> applyCardUsing: cardManager at: aGame [
 { #category : #Effect }
 SpeedCard >> applyEffect [
 
-	^ 1
+	^ effect
+]
+
+{ #category : #Initialization }
+SpeedCard >> boostEffect [
+
+	effect := effect * 2
 ]
 
 { #category : #Information }
@@ -40,10 +47,17 @@ SpeedCard >> haveEffect [
 ]
 
 { #category : #Initialization }
+SpeedCard >> holder [
+
+	^ holder
+]
+
+{ #category : #Initialization }
 SpeedCard >> initializeWith: aHolder [
 
 	holder := aHolder.
-	target := EmptyPlayer new
+	target := EmptyPlayer new.
+	effect := 1
 ]
 
 { #category : #Information }

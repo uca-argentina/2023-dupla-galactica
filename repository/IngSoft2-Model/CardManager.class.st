@@ -65,6 +65,12 @@ CardManager >> desactivate: anObjectiveCard [
 ]
 
 { #category : #Managing }
+CardManager >> duplicateEffectOf: anObjectiveCard [
+
+	activeCards duplicateEffectOf: anObjectiveCard
+]
+
+{ #category : #Managing }
 CardManager >> hasBeenGiven: aCard [
 
 	^ cardsInPosetion hasBeenGiven: aCard
