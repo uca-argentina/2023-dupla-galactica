@@ -8,26 +8,25 @@ Class {
 }
 
 { #category : #'Instance creation' }
-CardDealer class >> with: aCardCollection [ 
+CardDealer class >> with: aCardsProbabilitiesCollection [
 
-	(aCardCollection sum: [ :cardProbability | 
-		 cardProbability probability ]) = 100 ifFalse: [ 
+	(aCardsProbabilitiesCollection sum: #probability) = 100 ifFalse: [ 
 		Error signal: 'The sum of probabilities must be 100' ].
-	^ self new intializeWith: aCardCollection.
+	^ self new intializeWith: aCardsProbabilitiesCollection
 ]
 
 { #category : #Cards }
 CardDealer >> dealCards: aCardManager to: aColorsCollection [
 
-	| randomCardGenerator |
-	randomCardGenerator := RandomCardGenerator dealing: cardsProbabilitiesToDeal.
-
 	aColorsCollection do: [ :color | 
-		aCardManager addCard: (randomCardGenerator createCardFor: color).
-		aCardManager addCard: (randomCardGenerator createCardFor: color) ]
+		2 timesRepeat: [ 
+			aCardManager add:
+				((RandomCardGenerator dealing: cardsProbabilitiesToDeal) 
+					 createCardFor: color) ] ]
 ]
 
 { #category : #Initialization }
-CardDealer >> intializeWith: aCardProbabilityCollection [ 
-	cardsProbabilitiesToDeal:= aCardProbabilityCollection.
+CardDealer >> intializeWith: aCardsProbabilitiesCollection [
+
+	cardsProbabilitiesToDeal := aCardsProbabilitiesCollection
 ]

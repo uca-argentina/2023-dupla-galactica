@@ -16,16 +16,16 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 			               with: 6
 			               with: 7
 			               with: 9).
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) create: 10.
+	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChanceOf: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker := DiceShaker with: aLoadedDie.
 	
 	aLoadedGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         usingToThrow: aShaker
-		         winningWhen: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
+		         winningWhenReach: 1
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
 	^ aLoadedGame
 ]
 
@@ -43,19 +43,19 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 			                     with: 7
 			                     with: 0
 			                     with: 8).
-	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker := DiceShaker with: aLoadedDie.
 	aShaker addDie: aSecondLoadedDie.
 	
 	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox new withChance: 100))) 
+			           (BoxProbability using: NoEffectBox new withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         usingToThrow: aShaker
-		         winningWhen: 2
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100))).
+		         winningWhenReach: 2
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
 	^ aGame
 ]
 

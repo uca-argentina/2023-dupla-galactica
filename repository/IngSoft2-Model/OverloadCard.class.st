@@ -3,37 +3,41 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'holder',
-		'target'
+		'target',
+		'effect'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> holder: aHolder [
+OverloadCard class >> holder: aPlayer [
 
-	^ self new initializeHolder: aHolder
+	^ self new initializeWith: aPlayer
 ]
 
 { #category : #Information }
 OverloadCard >> = aCard [
 
-	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard isHolder:holder ]
-		ifFalse: [ ^ false ]
+	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Effect }
 OverloadCard >> applyCardUsing: cardManager at: aGame [
 
-	
 	aGame isValidPlayer: target.
-	cardManager activeCard: (self class holder: target).
+	cardManager activate: (self class holder: target)
 ]
 
 { #category : #Effect }
 OverloadCard >> applyEffect [
 
-	^ -2
+	^ effect
+]
+
+{ #category : #Information }
+OverloadCard >> boostEffect [
+
+	effect := effect * 2
 ]
 
 { #category : #Information }
@@ -43,10 +47,11 @@ OverloadCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-OverloadCard >> initializeHolder: aHolder [
+OverloadCard >> initializeWith: aHolder [
 
 	holder := aHolder.
 	target := EmptyPlayer new.
+	effect := -2
 ]
 
 { #category : #Information }
@@ -64,5 +69,5 @@ OverloadCard >> isPermanent [
 { #category : #Information }
 OverloadCard >> selectTarget: aNewTarget [
 
-	target:= aNewTarget.
+	target:= aNewTarget
 ]

@@ -158,7 +158,7 @@ ThrowADieTest >> testE017CreateAShakerAndUseItToThrow [
 		                       with: 7
 		                       with: 9.
 	aLoadedDie := LoadedDie with: anOrderedCollection.
-	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker := DiceShaker with: aLoadedDie.
 	aShaker throwDice.
 	self assert: aShaker throwDice equals: 5
 ]
@@ -174,7 +174,7 @@ ThrowADieTest >> testE018CreateAShakerAndUseItToThrowTwoDice [
 		                       with: 9.
 	aLoadedDie := LoadedDie with: anOrderedCollection.
 	aSecondLoadedDie := LoadedDie with: anOrderedCollection.
-	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker := DiceShaker with: aLoadedDie.
 	aShaker addDie: aSecondLoadedDie.
 	aShaker throwDice.
 	self assert: aShaker throwDice equals: 10

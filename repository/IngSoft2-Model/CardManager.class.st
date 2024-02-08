@@ -16,15 +16,15 @@ CardManager class >> using: aCardDealer with: aColorCollection [
 ]
 
 { #category : #Information }
-CardManager >> activeCard: aCard [
+CardManager >> activate: aCard [
 
-	activeCards activeCard: aCard
+	activeCards activate: aCard
 ]
 
 { #category : #Managing }
-CardManager >> addCard: aCard [
+CardManager >> add: aCard [
 
-	cardsInPosetion addCard: aCard
+	cardsInPosetion add: aCard
 ]
 
 { #category : #Managing }
@@ -61,8 +61,13 @@ CardManager >> cardsInPosetionOf: players [
 { #category : #Managing }
 CardManager >> desactivate: anObjectiveCard [
 
+	activeCards desactivate: anObjectiveCard
+]
 
-	activeCards desactivate: anObjectiveCard.
+{ #category : #Managing }
+CardManager >> duplicateEffectOf: anObjectiveCard [
+
+	activeCards duplicateEffectOf: anObjectiveCard
 ]
 
 { #category : #Managing }
@@ -82,5 +87,6 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 
 { #category : #information }
 CardManager >> lastCardPlay [
+
 	^ lastCardPlay
 ]

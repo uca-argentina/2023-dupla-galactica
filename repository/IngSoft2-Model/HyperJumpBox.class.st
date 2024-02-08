@@ -25,8 +25,8 @@ HyperJumpBox >> currentValue [
 { #category : #Effect }
 HyperJumpBox >> effect: aGame [
 
-	aGame moveCurrent: self currentValue parsecs nominalValue
-		// (aGame parsecs nominalValue // aGame boxes).
+	aGame moveCurrent:
+		self currentValue parsecs nominalValue // aGame boxesByParsecs.
 
 	parsecManager goNext
 ]

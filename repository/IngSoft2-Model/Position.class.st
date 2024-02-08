@@ -17,13 +17,12 @@ Position class >> atTheBeginning [
 { #category : #comparing }
 Position >> = aPosition [
 
-	(lap = aPosition lap and: box = aPosition boxNumber)
-		ifTrue: [ ^ true ]
-		ifFalse: [ ^ false ]
+	^ lap = aPosition lap and: box = aPosition boxNumber
 ]
 
 { #category : #Information }
 Position >> box [
+
 	^ box
 ]
 

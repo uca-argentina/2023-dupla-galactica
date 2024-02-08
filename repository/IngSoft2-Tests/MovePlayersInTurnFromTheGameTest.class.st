@@ -21,17 +21,17 @@ MovePlayersInTurnFromTheGameTest >> setUp [
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: NoEffectBox new withChance: 100))) 
+		          (OrderedCollection with: (BoxProbability using: NoEffectBox new withChanceOf: 100))) 
 		         create: 10.
 	
-	aShaker := DiceShaker withDie: aLoadedDie.
+	aShaker := DiceShaker with: aLoadedDie.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         usingToThrow: aShaker
-		         winningWhen: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChance: 100)))
+		         winningWhenReach: 1
+		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100)))
 ]
 
 { #category : #tests }

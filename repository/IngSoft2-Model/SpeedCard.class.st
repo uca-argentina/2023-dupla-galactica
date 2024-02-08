@@ -3,36 +3,41 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'holder',
-		'target'
+		'target',
+		'effect'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-SpeedCard class >> holder: aHolder [
+SpeedCard class >> holder: aPlayer [
 
-	^ self new initializeHolder: aHolder
+	^ self new initializeWith: aPlayer
 ]
 
 { #category : #Information }
 SpeedCard >> = aCard [
 
-	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard isHolder: holder ]
-		ifFalse: [ ^ false ]
+	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Effect }
 SpeedCard >> applyCardUsing: cardManager at: aGame [
 
 	aGame isValidPlayer: target.
-	cardManager activeCard: (self class holder: target).
+	cardManager activate: (self class holder: target).
 ]
 
 { #category : #Effect }
 SpeedCard >> applyEffect [
 
-	^ 1
+	^ effect
+]
+
+{ #category : #Initialization }
+SpeedCard >> boostEffect [
+
+	effect := effect * 2
 ]
 
 { #category : #Information }
@@ -42,10 +47,11 @@ SpeedCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-SpeedCard >> initializeHolder: aHolder [
+SpeedCard >> initializeWith: aHolder [
 
 	holder := aHolder.
-	target:= EmptyPlayer new.
+	target := EmptyPlayer new.
+	effect := 1
 ]
 
 { #category : #Information }
@@ -63,5 +69,5 @@ SpeedCard >> isPermanent [
 { #category : #Initialization }
 SpeedCard >> selectTarget: aNewTarget [
 
-	target:= aNewTarget.
+	target := aNewTarget
 ]

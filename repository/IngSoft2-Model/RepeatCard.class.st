@@ -9,17 +9,15 @@ Class {
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> holder: aHolder [
+RepeatCard class >> holder: aPlayer [
 
-	^ self new initializeHolder: aHolder
+	^ self new initializeWith: aPlayer
 ]
 
 { #category : #Information }
 RepeatCard >> = aCard [
 
-	(aCard isKindOf: self class)
-		ifTrue: [ ^ aCard isHolder: holder ]
-		ifFalse: [ ^ false ]
+	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Effect }
@@ -36,10 +34,10 @@ RepeatCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-RepeatCard >> initializeHolder: aHolder [
+RepeatCard >> initializeWith: aHolder [
 
 	holder := aHolder.
-	target:= EmptyPlayer new.
+	target := EmptyPlayer new
 ]
 
 { #category : #Information }
@@ -57,5 +55,5 @@ RepeatCard >> isPermanent [
 { #category : #Information }
 RepeatCard >> selectTarget: aNewTarget [
 
-	target:= aNewTarget.
+	target := aNewTarget
 ]
