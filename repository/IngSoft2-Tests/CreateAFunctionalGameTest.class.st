@@ -16,7 +16,7 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 			               with: 6
 			               with: 7
 			               with: 9).
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChanceOf: 100))) create: 10.
+	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker with: aLoadedDie.
 	
@@ -47,7 +47,7 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 	aShaker addDie: aSecondLoadedDie.
 	
 	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox new withChanceOf: 100))) 
+			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy

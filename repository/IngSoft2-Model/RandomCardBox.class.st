@@ -18,7 +18,8 @@ RandomCardBox class >> with: aCardsProbabilitiesCollection [
 { #category : #Effect }
 RandomCardBox >> effect: aGame [
 
-	aGame add: ((RandomCardGenerator dealing: cards) createCardFor: aGame currentPlayer)
+	aGame add: ((RandomCardGenerator dealing: cards) createCardFor:
+			 aGame currentPlayer)
 ]
 
 { #category : #Initialization }

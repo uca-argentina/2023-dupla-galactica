@@ -35,7 +35,7 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffectThenValuePositions [
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox new withChanceOf: 100))) 
+			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker with: aLoadedDie.
@@ -57,14 +57,14 @@ BoxesTest >> testN001CheckNoEffectBoxDoesNotApplyAnyEffectThenValuePositions [
 { #category : #tests }
 BoxesTest >> testN002CheckTheWormHoleBoxApplyANegativeEffectThenValuePositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame boxes aBoard aShaker|
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 5
 			               with: 8
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with:  (BoxProbability using: WormHoleBox new withChanceOf: 100))) 
+		          (OrderedCollection with:  (BoxProbability using: WormHoleBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker with: aLoadedDie.
@@ -93,7 +93,7 @@ BoxesTest >> testN003CheckSpeedUpBoxApplyAPositiveEffectOnThePositionThenValuePo
 			               with: 8).
 	boxes := boxes := (BoxCreator use:
 		                   (OrderedCollection with:
-			                     (BoxProbability using: SpeedUpBox new withChanceOf: 100))) create: 10.
+			                     (BoxProbability using: SpeedUpBox initializeNew withChanceOf: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker with: aLoadedDie.
 	
@@ -148,7 +148,7 @@ BoxesTest >> testN005CheckAtomicBombBoxMoveAllPlayersToTheBeginning [
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with:  (BoxProbability using: AtomicBombBox new withChanceOf: 100))) 
+		          (OrderedCollection with:  (BoxProbability using: AtomicBombBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker with: aLoadedDie.
@@ -158,6 +158,8 @@ BoxesTest >> testN005CheckAtomicBombBoxMoveAllPlayersToTheBeginning [
 		         usingToThrow: aShaker
 		         winningWhenReach: 1
 		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+	aGame movePlayer.
+	aGame movePlayer.
 	self
 		assert: aGame playersBox
 		equals: (OrderedCollection with: 1 with: 1)
@@ -203,7 +205,7 @@ BoxesTest >> testN007CheckWormHoleBoxDoesNotAllowPlayerToBeAtANegativePosition [
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: WormHoleBox new withChanceOf: 100))) 
+		          (OrderedCollection with: (BoxProbability using: WormHoleBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker with: aLoadedDie.
@@ -283,12 +285,12 @@ BoxesTest >> testN010CheckTheEffectApplysAlsoWhenTheSpaceshipReachTheGoal [
 
 	| aLoadedDie aGame boxes aBoard aShaker |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 11
+			               with: 13
 			               with: 3
 			               with: 5
 			               with: 8).
 	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: WormHoleBox new withChanceOf: 100))) 
+		          (OrderedCollection with: (BoxProbability using: WormHoleBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aShaker := DiceShaker with: aLoadedDie.

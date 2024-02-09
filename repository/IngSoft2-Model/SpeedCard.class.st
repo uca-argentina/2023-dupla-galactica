@@ -15,7 +15,7 @@ SpeedCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 SpeedCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
@@ -34,7 +34,7 @@ SpeedCard >> applyEffect [
 	^ effect
 ]
 
-{ #category : #Initialization }
+{ #category : #Effect }
 SpeedCard >> boostEffect [
 
 	effect := effect * 2
@@ -66,7 +66,7 @@ SpeedCard >> isPermanent [
 	^ true
 ]
 
-{ #category : #Initialization }
+{ #category : #Effect }
 SpeedCard >> selectTarget: aNewTarget [
 
 	target := aNewTarget

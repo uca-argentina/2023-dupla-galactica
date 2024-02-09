@@ -16,15 +16,15 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 	boxesProbabilities := OrderedCollection
 		                      with:
 		                      (BoxProbability
-			                       using: NoEffectBox new
+			                       using: NoEffectBox initializeNew
 			                       withChanceOf: 30)
 		                      with:
 		                      (BoxProbability
-			                       using: WormHoleBox new
+			                       using: WormHoleBox initializeNew
 			                       withChanceOf: 20)
 		                      with:
 		                      (BoxProbability
-			                       using: SpeedUpBox new
+			                       using: SpeedUpBox initializeNew
 			                       withChanceOf: 20)
 		                      with:
 		                      (BoxProbability
@@ -32,7 +32,7 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 			                       withChanceOf: 10)
 		                      with:
 		                      (BoxProbability
-			                       using: AtomicBombBox new
+			                       using: AtomicBombBox initializeNew
 			                       withChanceOf: 2)
 		                      with: (BoxProbability
 				                       using: (HyperJumpBox with:
@@ -63,10 +63,10 @@ CreateDuplaGalacticaGameTest >> setUp [
 	super setUp.
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 9
-			               with: 10
-			               with: 7
-			               with: 9).
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
 
 	aShaker := DiceShaker with: aLoadedDie
 ]
@@ -157,7 +157,7 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 		should: [ 
 			DuplaGalacticaGameProxy
 				with: OrderedCollection new
-				and: (Board with: (OrderedCollection with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new) with: (NoEffectBox new)) measure: (Parsec worth: 200))
+				and: (Board with: (OrderedCollection with: (NoEffectBox initializeNew) with: (NoEffectBox initializeNew) with: (NoEffectBox initializeNew) with: (NoEffectBox initializeNew)) measure: (Parsec worth: 200))
 				usingToThrow: (OrderedCollection with: aLoadedDie)
 				winningWhenReach: 1
 				using: CardDealer new]
@@ -174,10 +174,10 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 				with: aColorCollection
 				and: (Board
 						 with: (OrderedCollection
-								  with: NoEffectBox new
-								  with: NoEffectBox new
-								  with: NoEffectBox new
-								  with: NoEffectBox new)
+								  with: NoEffectBox initializeNew
+								  with: NoEffectBox initializeNew
+								  with: NoEffectBox initializeNew
+								  with: NoEffectBox initializeNew)
 						 measure: (Parsec worth: 200))
 				usingToThrow: (DiceShaker with: aLoadedDie)
 				winningWhenReach: -1
@@ -208,7 +208,7 @@ CreateDuplaGalacticaGameTest >> testP020TryToCreateAGameWithDuplicateColorsThenI
 	aDuplicateColorCollection := OrderedCollection
 		                             with: 'red'
 		                             with: 'red'.
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChanceOf: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	self
 		should: [ 
@@ -228,7 +228,7 @@ CreateDuplaGalacticaGameTest >> testP021TryToCreateAGameWithMoreThan100PercentOf
 	| boxesProbabilities aBoxCreator |
 	boxesProbabilities := OrderedCollection with:
 		                      (BoxProbability
-			                       using: NoEffectBox new
+			                       using: NoEffectBox initializeNew
 			                       withChanceOf: 130).
 	self
 		should: [ 
@@ -243,7 +243,7 @@ CreateDuplaGalacticaGameTest >> testP022TryToCreateAGameWithMoreThan100PercentOf
 	| boxesProbabilities aBoxCreator boxes aBoard aGame |
 	boxesProbabilities := OrderedCollection with:
 		                      (BoxProbability
-			                       using: NoEffectBox new
+			                       using: NoEffectBox initializeNew
 			                       withChanceOf: 100).
 	aBoxCreator := BoxCreator use: boxesProbabilities.
 	boxes := aBoxCreator create: 10.

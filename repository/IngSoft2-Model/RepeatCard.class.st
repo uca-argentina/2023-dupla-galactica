@@ -14,7 +14,7 @@ RepeatCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 RepeatCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
@@ -52,7 +52,7 @@ RepeatCard >> isPermanent [
 	^ false
 ]
 
-{ #category : #Information }
+{ #category : #Effect }
 RepeatCard >> selectTarget: aNewTarget [
 
 	target := aNewTarget

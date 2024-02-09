@@ -12,7 +12,7 @@ MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
 
 	| boxes aBoard aLoadedGame aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox new withChanceOf: 100))) 
+			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 200).
 
@@ -31,7 +31,7 @@ MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
 	| aGame boxes aBoard aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox new withChanceOf: 100))) 
+			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 
@@ -51,7 +51,7 @@ MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 
 	| boxes aBoard aLoadedGame aShaker |
 	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox new withChanceOf: 100))) 
+			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
 		         create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 

@@ -20,13 +20,13 @@ SpeedBoostCard >> = aCard [
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
-{ #category : #Initialization }
+{ #category : #Effect }
 SpeedBoostCard >> applyCardUsing: cardManager at: aGame [
 
 	cardManager duplicateEffectOf: target
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 SpeedBoostCard >> haveEffect [
 
 	^ true
@@ -39,19 +39,19 @@ SpeedBoostCard >> initializeWith: aPlayer [
 	target := EmptyCard new
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 SpeedBoostCard >> isHolder: aColorPlayer [
 
 	^ holder = aColorPlayer
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 SpeedBoostCard >> isPermanent [
 
 	^ false
 ]
 
-{ #category : #Initialization }
+{ #category : #Effect }
 SpeedBoostCard >> selectTarget: aNewTarget [
 
 	target := aNewTarget

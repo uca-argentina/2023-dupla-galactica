@@ -25,6 +25,12 @@ Board >> boxes [
 ]
 
 { #category : #BoxManager }
+Board >> changePolarity: aBoxNumber [
+
+	(boxes at: aBoxNumber) changePolarity
+]
+
+{ #category : #BoxManager }
 Board >> effectAt: aPosition In: aGame [
 
 	(boxes at: aPosition) effect: aGame 

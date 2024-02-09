@@ -14,13 +14,13 @@ RedoCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 RedoCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
-{ #category : #Initialization }
+{ #category : #Effect }
 RedoCard >> applyCardUsing: cardManager at: aGame [
 
 	(cardManager lastCardPlay selectTarget: target)
@@ -53,7 +53,7 @@ RedoCard >> isPermanent [
 	^ false
 ]
 
-{ #category : #Information }
+{ #category : #Effect }
 RedoCard >> selectTarget: aNewTarget [
 
 	target := aNewTarget

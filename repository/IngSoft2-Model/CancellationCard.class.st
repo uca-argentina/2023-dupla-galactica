@@ -14,7 +14,7 @@ CancellationCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 CancellationCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
@@ -51,7 +51,7 @@ CancellationCard >> isPermanent [
 	^ false
 ]
 
-{ #category : #Information }
+{ #category : #Effect }
 CancellationCard >> selectTarget: aNewTarget [
 
 	target := aNewTarget

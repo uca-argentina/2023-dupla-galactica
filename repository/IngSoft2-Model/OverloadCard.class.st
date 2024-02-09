@@ -15,7 +15,7 @@ OverloadCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 OverloadCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
@@ -34,7 +34,7 @@ OverloadCard >> applyEffect [
 	^ effect
 ]
 
-{ #category : #Information }
+{ #category : #Effect }
 OverloadCard >> boostEffect [
 
 	effect := effect * 2
@@ -66,8 +66,8 @@ OverloadCard >> isPermanent [
 	^ true
 ]
 
-{ #category : #Information }
+{ #category : #Effect }
 OverloadCard >> selectTarget: aNewTarget [
 
-	target:= aNewTarget
+	target := aNewTarget
 ]

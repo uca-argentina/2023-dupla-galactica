@@ -14,7 +14,7 @@ AccelerationCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 AccelerationCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
@@ -32,7 +32,7 @@ AccelerationCard >> applyEffect [
 	^ effect
 ]
 
-{ #category : #Initialization }
+{ #category : #Effect }
 AccelerationCard >> boostEffect [
 
 	effect := effect * 2

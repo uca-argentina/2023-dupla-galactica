@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'parsecs',
-		'parsecManager'
+		'parsecManager',
+		'polarity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,6 +17,12 @@ HyperJumpBox class >> with: aParsecCollection [
 	^ self new initializeWith: aParsecCollection
 ]
 
+{ #category : #Effect }
+HyperJumpBox >> changePolarity [
+
+	polarity := polarity not
+]
+
 { #category : #Information }
 HyperJumpBox >> currentValue [
 
@@ -25,8 +32,13 @@ HyperJumpBox >> currentValue [
 { #category : #Effect }
 HyperJumpBox >> effect: aGame [
 
-	aGame moveCurrent:
-		self currentValue parsecs nominalValue // aGame boxesByParsecs.
+	polarity
+		ifTrue: [ 
+			aGame moveCurrent:
+				self currentValue parsecs nominalValue // aGame boxesByParsecs ]
+		ifFalse: [ 
+			aGame moveOthers:
+				self currentValue parsecs nominalValue // aGame boxesByParsecs ].
 
 	parsecManager goNext
 ]
@@ -37,5 +49,6 @@ HyperJumpBox >> initializeWith: aParsecCollection [
 	aParsecCollection sort: [ :value1 :value2 | 
 		value2 parsecs nominalValue > value1 parsecs nominalValue ].
 	parsecs := aParsecCollection.
-	parsecManager := TurnManager with: parsecs
+	parsecManager := TurnManager with: parsecs.
+	polarity := true
 ]

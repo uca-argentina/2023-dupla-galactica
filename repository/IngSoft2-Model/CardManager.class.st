@@ -15,7 +15,7 @@ CardManager class >> using: aCardDealer with: aColorCollection [
 	^ self new initializeUsing: aCardDealer with: aColorCollection
 ]
 
-{ #category : #Information }
+{ #category : #Managing }
 CardManager >> activate: aCard [
 
 	activeCards activate: aCard
@@ -45,7 +45,7 @@ CardManager >> calculateEffectOn: aColorPlayer [
 	^ activeCards calculateEffectOn: aColorPlayer
 ]
 
-{ #category : #Managing }
+{ #category : #Information }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
 	^ (aCard isPermanent and: (aCard isHolder: aPlayer)) or:
@@ -70,7 +70,7 @@ CardManager >> duplicateEffectOf: anObjectiveCard [
 	activeCards duplicateEffectOf: anObjectiveCard
 ]
 
-{ #category : #Managing }
+{ #category : #Information }
 CardManager >> hasBeenGiven: aCard [
 
 	^ cardsInPosetion hasBeenGiven: aCard
@@ -85,7 +85,7 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 	aCardDealer dealCards: self to: aColorCollection
 ]
 
-{ #category : #information }
+{ #category : #Information }
 CardManager >> lastCardPlay [
 
 	^ lastCardPlay

@@ -55,7 +55,13 @@ Player >> move: aValue andUpdateLap: aLength [
 	self updateLap: aLength
 ]
 
-{ #category : #Information }
+{ #category : #PositionControl }
+Player >> moveToTheBeginning [
+
+	position moveToTheBeginning
+]
+
+{ #category : #PositionControl }
 Player >> updateLap: aLength [
 
 	position box  > aLength ifTrue: [ 

@@ -59,6 +59,13 @@ DuplaGalacticaGame >> boxesByParsecs [
 	^ self parsecs nominalValue // self boxes
 ]
 
+{ #category : #Boxes }
+DuplaGalacticaGame >> changePolarity: aBoxNumber [
+
+	self isValidBox: aBoxNumber.
+	board changePolarity: aBoxNumber
+]
+
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
@@ -84,6 +91,13 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard usingToThrow
 ]
 
 { #category : #Cards }
+DuplaGalacticaGame >> isValidBox: aBoxNumber [
+
+	(aBoxNumber <= self boxes and: aBoxNumber > 0) ifFalse: [ 
+		Error signal: 'That is not a valid box number' ]
+]
+
+{ #category : #Cards }
 DuplaGalacticaGame >> isValidPlayer: objective [
 
 	self playersColors
@@ -98,20 +112,19 @@ DuplaGalacticaGame >> lightYears [
 	^ board lightYears
 ]
 
-{ #category : #Player }
+{ #category : #Boxes }
 DuplaGalacticaGame >> moveAllToTheStart [
 
-	players do: [ :player | 
-		player move: player box * -1 + 1 andUpdateLap: board boxes ]
+	players do: [ :player | player moveToTheBeginning]
 ]
 
-{ #category : #Player }
+{ #category : #Boxes }
 DuplaGalacticaGame >> moveCurrent: aValue [
 
 	current move: aValue andUpdateLap: board boxes
 ]
 
-{ #category : #Player }
+{ #category : #Boxes }
 DuplaGalacticaGame >> moveOthers: aValue [
 
 	(players reject: [ :player | player color == current color ]) do: [ 

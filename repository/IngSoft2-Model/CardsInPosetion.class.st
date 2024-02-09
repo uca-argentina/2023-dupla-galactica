@@ -13,26 +13,26 @@ CardsInPosetion class >> createDeck [
 	^ self new initializeDeck
 ]
 
-{ #category : #'Changing cards' }
+{ #category : #Cards }
 CardsInPosetion >> add: aCard [
 
 	cards addLast: aCard
 ]
 
-{ #category : #'Changing cards' }
+{ #category : #Information }
 CardsInPosetion >> cardsOf: players [
 
 	^ players collect: [ :player | 
 		  (cards select: [ :card | card isHolder: player color ]) size ]
 ]
 
-{ #category : #'Changing cards' }
+{ #category : #Information }
 CardsInPosetion >> hasBeenGiven: aCard [
 
-	cards
-		detect: [ :card | card = aCard ]
-		ifFound: [ ^ true ]
-		ifNone: [ ^ false ]
+	cards do: [ :card | 
+		card = aCard
+			ifTrue: [ ^ true ]
+			ifFalse: [ ^ false ] ]
 ]
 
 { #category : #Initialization }
@@ -41,7 +41,7 @@ CardsInPosetion >> initializeDeck [
 	cards := OrderedCollection new
 ]
 
-{ #category : #Initialization }
+{ #category : #Cards }
 CardsInPosetion >> takeOut: aCard [
 
 	cards remove: aCard.
