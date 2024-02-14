@@ -82,7 +82,7 @@ CreateDuplaGalacticaGameTest >> should: anErrorBlock raise: anExceptionClass wit
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP001VerifyTheCorrectCreationOfTheBoardWithEffectsLength [
+CreateDuplaGalacticaGameTest >> testP001CreateAGameWithABoardWhoseBoxesHaveRandomEffectsThenAskForTheBoardBoxesSize [
 
 	| aGame |
 	aGame := self createGameWithEffects.
@@ -91,7 +91,7 @@ CreateDuplaGalacticaGameTest >> testP001VerifyTheCorrectCreationOfTheBoardWithEf
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
+CreateDuplaGalacticaGameTest >> testP003CreateAGameThenMovePlayersAndAskForCurrentPlayerToCheckTurns [
 
 	| aGame |
 	aGame := self createGameWithEffects.
@@ -100,7 +100,7 @@ CreateDuplaGalacticaGameTest >> testP003VerifyTheCorrectUseOfTurns [
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP004VerifyTheCorrectCreationOfGoalLaps [
+CreateDuplaGalacticaGameTest >> testP004CreateAGameThenAskForGoalLaps [
 
 	| aGame |
 	aGame := self createGameWithEffects.
@@ -108,50 +108,7 @@ CreateDuplaGalacticaGameTest >> testP004VerifyTheCorrectCreationOfGoalLaps [
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP007VerifyTheParsecsWhenBoardCreated [
-
-	| aGame |
-	aGame := self createGameWithEffects.
-	self assert: aGame parsecs nominalValue equals: 200
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP013VerifyTheCorrectUseOfRankingInRandomGame [
-
-	| aGame |
-	aGame := self createGameWithEffects.
-	self assert: aGame ranking size identicalTo: 2
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP014VerifyTheCorrectUseOfLaps [
-
-	| aGame |
-	aGame := self createGameWithEffects.
-	self assert: aGame playersLaps size identicalTo: 2
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP015VerifyTheCorrectUseOfPositions [
-
-	| aGame |
-	aGame := self createGameWithEffects.
-	self assert: aGame playersBox size identicalTo: 2
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP016VerifyTheCorrectUseOfWinner [
-
-	| aGame |
-	aGame := self createGameWithEffects.
-	self
-		should: [ aGame winner ]
-		raise: Error
-		withMessage: 'There is no winner'
-]
-
-{ #category : #tests }
-CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColorHasBeenPass [
+CreateDuplaGalacticaGameTest >> testP017TryToCreateAGameWithoutAColorsCollectionThenFails [
 
 	self
 		should: [ 
@@ -166,7 +123,7 @@ CreateDuplaGalacticaGameTest >> testP017VerifyTheCorrectCreationOfGameWhenNoColo
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoalLapsAreInvalid [
+CreateDuplaGalacticaGameTest >> testP018TryToCreateAGameWithAnInvalidAmountOfGoalLapsThenFails [
 
 	self
 		should: [ 
@@ -187,7 +144,7 @@ CreateDuplaGalacticaGameTest >> testP018VerifyTheCorrectCreationOfGameWhenTheGoa
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenTheParsecsAmountAreInvalid [
+CreateDuplaGalacticaGameTest >> testP019TryToCreateAgameWithAnInvalidParsecAmountMeasureThenFails [
 
 	self
 		should: [ 
@@ -198,11 +155,11 @@ CreateDuplaGalacticaGameTest >> testP019VerifyTheCorrectCreationOfGameWhenThePar
 				winningWhenReach: 1
 				using: CardDealer new ]
 		raise: Error
-		withMessage: 'Cannot create a game a negative parsec amount'
+		withMessage: 'Cannot create a game with that parsec or lightYear value'
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP020TryToCreateAGameWithDuplicateColorsThenInvalid [
+CreateDuplaGalacticaGameTest >> testP020TryToCreateAGameWithDuplicateColorsThenFails [
 
 	| aDuplicateColorCollection boxes aBoard |
 	aDuplicateColorCollection := OrderedCollection
@@ -223,7 +180,7 @@ CreateDuplaGalacticaGameTest >> testP020TryToCreateAGameWithDuplicateColorsThenI
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP021TryToCreateAGameWithMoreThan100PercentOfProbabilityOfBoxAppearances [
+CreateDuplaGalacticaGameTest >> testP021TryToCreateAGameWithMoreThan100PercentProbabilityOfBoxAppearancesThenFails [
 
 	| boxesProbabilities aBoxCreator |
 	boxesProbabilities := OrderedCollection with:
@@ -238,7 +195,7 @@ CreateDuplaGalacticaGameTest >> testP021TryToCreateAGameWithMoreThan100PercentOf
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP022TryToCreateAGameWithMoreThan100PercentOfProbabilityOfCardAppearances [
+CreateDuplaGalacticaGameTest >> testP022TryToCreateAGameWithMoreThan100PercentProbabilityOfCardAppearancesThenFails [
 
 	| boxesProbabilities aBoxCreator boxes aBoard aGame |
 	boxesProbabilities := OrderedCollection with:

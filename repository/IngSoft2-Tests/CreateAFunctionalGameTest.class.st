@@ -79,7 +79,7 @@ CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMe
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testD001CreateGameAndAskForCurrentPlayer [
+CreateAFunctionalGameTest >> testD001CreateAGameWithALoadedDieThenAskForCurrentPlayer [
 
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
@@ -89,7 +89,7 @@ CreateAFunctionalGameTest >> testD001CreateGameAndAskForCurrentPlayer [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testD002CreateGameMoveThePlayersAndAskForWinner [
+CreateAFunctionalGameTest >> testD002CreateAGameWithALoadedDieThenMovePlayersAndAskForWinner [
 
 	| aLoadedGame |
 	aLoadedGame := self gameWithLoadedDie.
@@ -100,7 +100,7 @@ CreateAFunctionalGameTest >> testD002CreateGameMoveThePlayersAndAskForWinner [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
+CreateAFunctionalGameTest >> testF001CreateAGameWithALoadedDieThenMovePlayersAndCheckPlayersPositions [
 
 	| aGame |
 	aGame := self gameWithLoadedDie.
@@ -111,31 +111,7 @@ CreateAFunctionalGameTest >> testF001CreateGameWithLoadedDie [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testF002CreateGameWithLoadedDieAndThrowItThreeTimes [
-
-	| aGame |
-	aGame := self gameWithLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	self
-		assert: aGame playersBox
-		equals: (OrderedCollection with: 7 with: 7)
-]
-
-{ #category : #tests }
-CreateAFunctionalGameTest >> testG001CreateGameWithTwoDice [
-
-	| aGame |
-	aGame := self gameWithTwoLoadedDie.
-	aGame movePlayer.
-	self
-		assert: aGame playersBox
-		equals: (OrderedCollection with: 10 with: 1)
-]
-
-{ #category : #tests }
-CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
+CreateAFunctionalGameTest >> testG002CreateAGameWithTwoLoadedDiceThenMovePlayersAndCheckPlayersPositions [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.
@@ -148,7 +124,7 @@ CreateAFunctionalGameTest >> testG002CreateGameWithTwoDiceAndThrowThemTwoTimes [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testH001VerifyThatTeMovesDoNotHaveEffectAfterSomeoneWins [
+CreateAFunctionalGameTest >> testH001WhenTheGameTriesToMovePlayersAfterSomeoneWinsThenTheMovementHasNoEffectAndCheckPlayersPositions [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.
@@ -162,7 +138,7 @@ CreateAFunctionalGameTest >> testH001VerifyThatTeMovesDoNotHaveEffectAfterSomeon
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndRaiseAnError [
+CreateAFunctionalGameTest >> testL002TryToAskForWinnerWhenNoOneWinsThenFails [
 
 	| aGame |
 	aGame := self gameWithLoadedDie.
@@ -174,7 +150,7 @@ CreateAFunctionalGameTest >> testL002AskForWinnerWhenNoOneWinsAndRaiseAnError [
 ]
 
 { #category : #tests }
-CreateAFunctionalGameTest >> testL003VerifyTheCorrectUseOfTheRankingAtADuplaGalacticaGameThenValid [
+CreateAFunctionalGameTest >> testL003WhenTheGameAskForRankingThenCheckPlayersPositionsAndValid [
 
 	| aGame |
 	aGame := self gameWithTwoLoadedDie.

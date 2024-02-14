@@ -2,12 +2,7 @@ Class {
 	#name : #MovePlayersInTurnFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aColorCollection',
-		'aLoadedDie',
-		'aGame',
-		'boxes',
-		'aBoard',
-		'aShaker'
+		'aGame'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -15,15 +10,17 @@ Class {
 { #category : #running }
 MovePlayersInTurnFromTheGameTest >> setUp [
 
+	| aColorCollection aLoadedDie boxes aBoard aShaker|
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
-	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability
+				            using: NoEffectBox initializeNew
+				            withChanceOf: 100))) create: 10.
+
 	aShaker := DiceShaker with: aLoadedDie.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
@@ -31,24 +28,25 @@ MovePlayersInTurnFromTheGameTest >> setUp [
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100)))
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: OverloadCard withChanceOf: 100)))
 ]
 
 { #category : #tests }
-MovePlayersInTurnFromTheGameTest >> testJ001CheckTheCurrentPlayerTurn [
+MovePlayersInTurnFromTheGameTest >> testJ001CreateAGameWithTwoColorsPlayersThenCheckForThePlayerTurn [
 
 	self assert: aGame currentPlayer equals: 'red'
 ]
 
 { #category : #tests }
-MovePlayersInTurnFromTheGameTest >> testJ002CheckTheCurrentPlayerAfterMovingTheFirstOne [
+MovePlayersInTurnFromTheGameTest >> testJ002CreateAGameWithTwoColorsPlayersThenMoveOnePlayerAndCheckThatThePlayerTurnHasChanged [
 
 	aGame movePlayer.
 	self assert: aGame currentPlayer equals: 'blue'
 ]
 
 { #category : #tests }
-MovePlayersInTurnFromTheGameTest >> testJ003CheckTheCurrentPlayerOnceAllThePlayersThrowOneTime [
+MovePlayersInTurnFromTheGameTest >> testJ003CreateAGameWithTwoColorsPlayersThenMoveBothPlayersAndCheckThatIsTurnOfTheFirstPlayer [
 
 	aGame movePlayer.
 	aGame movePlayer.

@@ -34,9 +34,9 @@ ActiveCards >> desactivate: anObjectiveCard [
 ]
 
 { #category : #Effects }
-ActiveCards >> duplicateEffectOf: anObjectiveCard [
+ActiveCards >> duplicateEffectOf: aCard [
 
-	(self searching: anObjectiveCard) boostEffect
+	(self searching: aCard) boostEffect
 ]
 
 { #category : #Initialization }
@@ -52,12 +52,12 @@ ActiveCards >> isEmpty [
 ]
 
 { #category : #Cards }
-ActiveCards >> searching: anObjectiveCard [
+ActiveCards >> searching: aCard [
 
 	self isEmpty.
 	cards
 		detect: [ :card | 
-		card = anObjectiveCard or: (card isHolder: 'everyone') ]
+		card = aCard or: (card isHolder: 'everyone') ]
 		ifFound: [ :card | ^ card ]
 		ifNone: [ 
 			Error signal:

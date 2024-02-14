@@ -9,9 +9,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> holder: aPlayer [
+AccelerationCard class >> holder: aColorPlayer [
 
-	^ self new initializeWith: aPlayer
+	^ self new initializeWith: aColorPlayer
 ]
 
 { #category : #Initialization }
@@ -21,9 +21,9 @@ AccelerationCard >> = aCard [
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCardUsing: cardManager at: aGame [
+AccelerationCard >> applyCardUsing: aCardManager at: aGame [
 
-	cardManager activate: (self class holder: 'everyone')
+	aCardManager activate: (self class holder: 'everyone')
 ]
 
 { #category : #Effect }

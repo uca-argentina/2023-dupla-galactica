@@ -84,6 +84,12 @@ DuplaGalacticaGameProxy >> playersCardInPosetion [
 ]
 
 { #category : #Information }
+DuplaGalacticaGameProxy >> playersColors [
+
+	^ game playersColors
+]
+
+{ #category : #Information }
 DuplaGalacticaGameProxy >> playersLaps [
 
 	^ game playersLaps

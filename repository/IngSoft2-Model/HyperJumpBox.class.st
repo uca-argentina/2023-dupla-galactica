@@ -2,7 +2,6 @@ Class {
 	#name : #HyperJumpBox,
 	#superclass : #Object,
 	#instVars : [
-		'parsecs',
 		'parsecManager',
 		'polarity'
 	],
@@ -46,9 +45,9 @@ HyperJumpBox >> effect: aGame [
 { #category : #Initialization }
 HyperJumpBox >> initializeWith: aParsecCollection [
 
-	aParsecCollection sort: [ :value1 :value2 | 
-		value2 parsecs nominalValue > value1 parsecs nominalValue ].
-	parsecs := aParsecCollection.
-	parsecManager := TurnManager with: parsecs.
+	| aParsecCollectionOrdered |
+	aParsecCollectionOrdered := aParsecCollection sort: [ :value1 :value2 | 
+		           value2 parsecs nominalValue > value1 parsecs nominalValue ].
+	parsecManager := TurnManager with: aParsecCollectionOrdered.
 	polarity := true
 ]

@@ -41,7 +41,7 @@ DuplaGalacticaGame >> add: aCard [
 { #category : #Cards }
 DuplaGalacticaGame >> apply: aCard [
 	
-	(cardManager canBeUse: aCard whenPlay: current color) ifFalse: [ 
+	(cardManager canBeUse: aCard whenPlay: turnManager current color) ifFalse: [ 
 		Error signal:
 			'A permanent card can only be use when it is your turn' ].
 	cardManager apply: aCard at: self.
@@ -69,7 +69,7 @@ DuplaGalacticaGame >> changePolarity: aBoxNumber [
 { #category : #Information }
 DuplaGalacticaGame >> currentPlayer [
 
-	^ current color
+	^ turnManager current color
 ]
 
 { #category : #Information }
@@ -85,8 +85,8 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard usingToThrow
 	board := aBoard.
 	shaker := aDiceShaker.
 	turnManager := TurnManager with: players.
-	goalLaps := reachAValue.
 	current := turnManager current.
+	goalLaps := reachAValue.
 	cardManager := CardManager using: aCardDealer with: aColorsCollection
 ]
 
@@ -121,13 +121,13 @@ DuplaGalacticaGame >> moveAllToTheStart [
 { #category : #Boxes }
 DuplaGalacticaGame >> moveCurrent: aValue [
 
-	current move: aValue andUpdateLap: board boxes
+	turnManager current move: aValue andUpdateLap: board boxes
 ]
 
 { #category : #Boxes }
 DuplaGalacticaGame >> moveOthers: aValue [
 
-	(players reject: [ :player | player color == current color ]) do: [ 
+	(players reject: [ :player | player color == turnManager current color ]) do: [ 
 		:player | player move: aValue andUpdateLap: board boxes ]
 ]
 
@@ -137,12 +137,11 @@ DuplaGalacticaGame >> movePlayer [
 	| boxesToMove |
 	self winnerExists ifTrue: [ ^ self ].
 	boxesToMove := shaker throwDice
-	               + (cardManager calculateEffectOn: current color).
+	               + (cardManager calculateEffectOn: turnManager current color).
 	self winnerExists ifTrue: [ ^ self ].
-	current move: boxesToMove andUpdateLap: board boxes.
-	board effectAt: current box In: self.
+	turnManager current move: boxesToMove andUpdateLap: board boxes.
+	board effectAt: turnManager current box In: self.
 	turnManager goNext.
-	current := turnManager current
 ]
 
 { #category : #Information }

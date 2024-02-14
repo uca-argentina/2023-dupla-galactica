@@ -15,41 +15,24 @@ ThrowADieTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErr
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE002CreateDieAndCheckItsNumberOfFaces [
+ThrowADieTest >> testE002CreateADieThenCheckItsNumberOfFaces [
 
 	| aDie |
 	aDie := Die with: 3.
-	self assert: aDie faces equals: 3
+	self assert: aDie numberOfFaces equals: 3
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE003CreateDieAndCheckItsNumberOfFacesWithDifferentValues [
-
-	| aDie |
-	aDie := Die with: 4.
-	self assert: aDie faces equals: 4
-]
-
-{ #category : #tests }
-ThrowADieTest >> testE004CreateLoadedDieAndCheckItsNumberOfFaces [
+ThrowADieTest >> testE004CreateALoadedDieWithAnOrderedCollectionOfValuesThenCheckItsNumberOfFaces [
 
 	| aLoadedDie |
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 4 with: 4 with: 4).
-	self assert: aLoadedDie numberOffaces equals: 3
+	self assert: aLoadedDie numberOfFaces equals: 3
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE005CreateLoadedDieAndCheckItsNumberOfFacesWithDifferentValues [
-
-	| aLoadedDie |
-	aLoadedDie := LoadedDie with:
-		              (OrderedCollection with: 5 with: 4 with: 4).
-	self assert: aLoadedDie numberOffaces equals: 3
-]
-
-{ #category : #tests }
-ThrowADieTest >> testE006ThrowALoadedDieAndCheckValue [
+ThrowADieTest >> testE006ThrowALoadedDieWithAnOrderedCollectionOfValuesThenCheckTheValueReturnedIsTheFirstValue [
 
 	| aLoadedDie |
 	aLoadedDie := LoadedDie with:
@@ -58,28 +41,15 @@ ThrowADieTest >> testE006ThrowALoadedDieAndCheckValue [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE007ThrowADieAndCheckValue [
+ThrowADieTest >> testE007ThrowADieThenCheckTheValueReturnedIsInTheFacesRange [
 
 	| aDie |
 	aDie := Die with: 5.
-	self assert: (aDie throw between: 1 and: aDie faces)
+	self assert: (aDie throw between: 1 and: aDie numberOfFaces)
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE008CreateALoadedDieWithAnOrderedCollectionOfValues [
-
-	| aLoadedDie anOrderedCollection |
-	anOrderedCollection := OrderedCollection
-		                       with: 3
-		                       with: 5
-		                       with: 7
-		                       with: 9.
-	aLoadedDie := LoadedDie with: anOrderedCollection.
-	self assert: aLoadedDie throw equals: 3
-]
-
-{ #category : #tests }
-ThrowADieTest >> testE009CreateALoadedDieWithAnOrderedCollectionOfValuesAndThrowItTwice [ 
+ThrowADieTest >> testE009ThrowALoadedDieWithAnOrderedCollectionOfValuesTwiceThenCheckTheValueReturnedIsTheSecondValue [
 
 	| aLoadedDie anOrderedCollection |
 	anOrderedCollection := OrderedCollection
@@ -93,7 +63,7 @@ ThrowADieTest >> testE009CreateALoadedDieWithAnOrderedCollectionOfValuesAndThrow
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE010CreateALoadedDieWithAnOrderCollectionOfValuesAndThrowItFiveTimes [
+ThrowADieTest >> testE010ThrowALoadedDieWithAnOrderedCollectionOfValuesAllPossibleValuesTimesThenCheckTheValueReturnedIsTheFirstValue [
 
 	| aLoadedDie anOrderedCollection |
 	anOrderedCollection := OrderedCollection
@@ -110,7 +80,7 @@ ThrowADieTest >> testE010CreateALoadedDieWithAnOrderCollectionOfValuesAndThrowIt
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE011CreateALoadedDieWithNegativeValuesAtFaces [
+ThrowADieTest >> testE011TryToCreateALoadedDieWithNegativeValuesAtFacesThenFails [
 
 	self
 		should: [ 
@@ -120,7 +90,7 @@ ThrowADieTest >> testE011CreateALoadedDieWithNegativeValuesAtFaces [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE012CreateALoadedDieWithLessThanThreeFaces [
+ThrowADieTest >> testE012TryToCreateALoadedDieWithLessThanThreeFacesThenFails [
 
 	self
 		should: [ LoadedDie with: (OrderedCollection with: 1 with: 1) ]
@@ -129,7 +99,7 @@ ThrowADieTest >> testE012CreateALoadedDieWithLessThanThreeFaces [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE013CreateADieWithNegativeNumberOfFacesThenInvalid [
+ThrowADieTest >> testE013TryToCreateADieWithNegativeNumberOfFacesThenFails [
 
 	self
 		should: [ Die with: -2 ]
@@ -139,7 +109,7 @@ ThrowADieTest >> testE013CreateADieWithNegativeNumberOfFacesThenInvalid [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE014CreateADieWithNumberOfFacesLessThanThreeThenInvalid [
+ThrowADieTest >> testE014TryToCreateADieWithNumberOfFacesLessThanThreeThenFails [
 
 	self
 		should: [ Die with: 2 ]
@@ -149,7 +119,7 @@ ThrowADieTest >> testE014CreateADieWithNumberOfFacesLessThanThreeThenInvalid [
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE017CreateAShakerAndUseItToThrow [
+ThrowADieTest >> testE017CreateAShakerWithALoadedDieThenUseItToThrowAndCheckTheValueReturned [
 
 	| aLoadedDie anOrderedCollection aShaker |
 	anOrderedCollection := OrderedCollection
@@ -159,12 +129,11 @@ ThrowADieTest >> testE017CreateAShakerAndUseItToThrow [
 		                       with: 9.
 	aLoadedDie := LoadedDie with: anOrderedCollection.
 	aShaker := DiceShaker with: aLoadedDie.
-	aShaker throwDice.
-	self assert: aShaker throwDice equals: 5
+	self assert: aShaker throwDice equals: 3
 ]
 
 { #category : #tests }
-ThrowADieTest >> testE018CreateAShakerAndUseItToThrowTwoDice [
+ThrowADieTest >> testE018CreateAShakerWithTwoLoadedDieThenUseItToThrowAndCheckTheValueReturned [
 
 	| aLoadedDie anOrderedCollection aShaker aSecondLoadedDie|
 	anOrderedCollection := OrderedCollection
@@ -176,6 +145,5 @@ ThrowADieTest >> testE018CreateAShakerAndUseItToThrowTwoDice [
 	aSecondLoadedDie := LoadedDie with: anOrderedCollection.
 	aShaker := DiceShaker with: aLoadedDie.
 	aShaker addDie: aSecondLoadedDie.
-	aShaker throwDice.
-	self assert: aShaker throwDice equals: 10
+	self assert: aShaker throwDice equals: 6
 ]

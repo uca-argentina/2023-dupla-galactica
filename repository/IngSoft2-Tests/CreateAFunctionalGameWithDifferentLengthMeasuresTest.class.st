@@ -3,7 +3,6 @@ Class {
 	#superclass : #TestCase,
 	#instVars : [
 		'aColorCollection',
-		'aLoadedDie',
 		'boxes',
 		'aShaker'
 	],
@@ -12,23 +11,25 @@ Class {
 
 { #category : #running }
 CreateAFunctionalGameWithDifferentLengthMeasuresTest >> setUp [
+
+	| aLoadedDie |
 	super setUp.
-	
+
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
 	aShaker := DiceShaker with: aLoadedDie.
-	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
-		         create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability
+				            using: NoEffectBox initializeNew
+				            withChanceOf: 100))) create: 10
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithParsec [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateAGameWithAParsecMeasureThenAskForParsecsNominalValue [
 
 	| aBoard oneHundredParsecs aGame |
 	oneHundredParsecs := Parsec worth: 100.
-	aShaker := DiceShaker with: aLoadedDie.
 	aBoard := Board with: boxes measure: oneHundredParsecs.
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
@@ -41,7 +42,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS001CreateABordWithP
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithLigthYear [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateAGameWithALightYearMeasureThenAskForLightYearsNominalValue [
 
 	| aBoard threeHundredLigthYears aGame |
 	threeHundredLigthYears := LigthYear worth: 300.
@@ -57,7 +58,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS002CreateABordWithL
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithParsecAndAskForLightYear [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateAGameWithAParsecMeasureThenAskForLightYearsNominalValue [
 
 	| aBoard oneHundredParsecs aGame |
 	oneHundredParsecs := Parsec worth: 100.
@@ -73,7 +74,7 @@ CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS003CreateABordWithP
 ]
 
 { #category : #tests }
-CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateABordWithLigthYearAndAskForParsec [
+CreateAFunctionalGameWithDifferentLengthMeasuresTest >> testS004CreateAGameWithALightYearMeasureThenAskForParsecsNominalValue [
 
 	| aBoard threeHundredLigthYears aGame |
 	threeHundredLigthYears := LigthYear worth: 300.

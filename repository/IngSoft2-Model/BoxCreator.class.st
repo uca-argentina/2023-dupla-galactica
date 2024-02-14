@@ -18,7 +18,8 @@ BoxCreator class >> use: aBoxesProbabilitiesCollection [
 { #category : #Creation }
 BoxCreator >> create: aNumberOfBoxes [
 
-	^ (1 to: aNumberOfBoxes) collect: [ :eachNumber | self oneRandomBox ]
+	^ (1 to: aNumberOfBoxes) collect: [ :eachNumber | 
+		  self oneRandomBox ]
 ]
 
 { #category : #Initialization }
@@ -34,5 +35,4 @@ BoxCreator >> oneRandomBox [
 	sum := 0.
 	^ (boxesProbabilities detect: [ :box | 
 		   (sum := sum + box probability) >= 100 atRandom ]) boxClass
-		  
 ]

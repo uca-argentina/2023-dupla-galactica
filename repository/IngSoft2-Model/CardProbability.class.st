@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'cardClass',
-		'chance'
+		'probability'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,14 +21,14 @@ CardProbability >> cardClass [
 ]
 
 { #category : #Initialization }
-CardProbability >> initializeUsing: aCardClass withChanceOf: aChance [
+CardProbability >> initializeUsing: aCardClass withChanceOf: aProbability [
 
 	cardClass := aCardClass.
-	chance := aChance
+	probability := aProbability
 ]
 
 { #category : #Information }
 CardProbability >> probability [
 
-	^ chance
+	^ probability
 ]

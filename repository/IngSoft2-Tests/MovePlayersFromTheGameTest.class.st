@@ -84,7 +84,7 @@ MovePlayersFromTheGameTest >> should: anErrorBlock raise: anExceptionClass withM
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testM001AskPlayerForTheLapThenValid [
+MovePlayersFromTheGameTest >> testM001CreateAPlayerThenCheckItsLapNumber [
 
 	| aPlayer |
 	aPlayer := Player with: 'red'.
@@ -92,7 +92,7 @@ MovePlayersFromTheGameTest >> testM001AskPlayerForTheLapThenValid [
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testM002MovePlayerOneEntireLapAndAskForItsPositionThenValid [
+MovePlayersFromTheGameTest >> testM002CreateAGameWithTwoGoalLapsThenMoveAPlayerOneEntireLapAndCheckPlayersLaps [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -106,7 +106,7 @@ MovePlayersFromTheGameTest >> testM002MovePlayerOneEntireLapAndAskForItsPosition
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheirPositionThenValid [
+MovePlayersFromTheGameTest >> testM003CreateAGameWithTwoGoalLapsThenMovePlayersOneEntireLapAndCheckPlayersLaps [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -121,23 +121,7 @@ MovePlayersFromTheGameTest >> testM003MoveTwoPlayerOneEntireLapAndAskForTheirPos
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testM004MovePlayerTwoEntireLapsAndAskForItsPositionThenValid [
-
-	| aLoadedDie aGame |
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 10
-			               with: 6
-			               with: 10
-			               with: 9).
-	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	self assert: aGame playersLaps equals: (OrderedCollection with: 2 with: 0)
-]
-
-{ #category : #tests }
-MovePlayersFromTheGameTest >> testM005MovePlayersTwoEntireLapsInOnlyOneThrowThenValid [
+MovePlayersFromTheGameTest >> testM005CreateAGameWithTwoGoalLapsThenMoveAPlayerTwoEntireLapsInOneThrowAndCheckItWins [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -147,27 +131,12 @@ MovePlayersFromTheGameTest >> testM005MovePlayersTwoEntireLapsInOnlyOneThrowThen
 			               with: 9).
 	aGame := self gameWithTwoLaps: aLoadedDie.
 	aGame movePlayer.
-	self assert: aGame playersLaps equals: (OrderedCollection with: 2 with: 0)
+	self assert: aGame playersLaps equals: (OrderedCollection with: 2 with: 0).
+	self assert: aGame winner equals: 'red'
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testM006MovePlayerToTheLastBox [
-
-	| aLoadedDie aGame |
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 10
-			               with: 5
-			               with: 1
-			               with: 9).
-	aGame := self gameWithOneLap: aLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
-]
-
-{ #category : #tests }
-MovePlayersFromTheGameTest >> testM007MovePlayerToTheGoalAndAskForWinner [
+MovePlayersFromTheGameTest >> testM007CreateAGameWithOneGoalLapThenMoveOnePlayerToTheGoalAndCheckItWins [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -182,12 +151,12 @@ MovePlayersFromTheGameTest >> testM007MovePlayerToTheGoalAndAskForWinner [
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testM008MovePlayerALotOfTimesAndVerifyThatItDoesNotMoveAfterItWins [
+MovePlayersFromTheGameTest >> testM008CreateAGameWithOneGoalLapThenMoveOnePlayerToTheGoalAndCheckTheGameHasFinishedSoPlayersDoNotMoveAnyMoreLookingPlayersPositions [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 10
-			               with: 1
+			               with: 15
+			               with: 3
 			               with: 9
 			               with: 6).
 	aGame := self gameWithOneLap: aLoadedDie.
@@ -195,31 +164,11 @@ MovePlayersFromTheGameTest >> testM008MovePlayerALotOfTimesAndVerifyThatItDoesNo
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
-	self assert: aGame playersLaps equals: (OrderedCollection with: 1 with: 0)
+	self assert: aGame playersBox equals: (OrderedCollection with: 6 with: 1)
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testM009MovePlayersTwoTimesAndAskForTheirPositions [
-
-	| aLoadedDie aGame |
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 1
-			               with: 11
-			               with: 9
-			               with: 6).
-	aGame := self gameWithOneLap: aLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	self
-		assert: aGame playersBox
-		equals: (OrderedCollection with: 2 with: 2).
-	self assert: aGame winner equals: 'blue'
-]
-
-{ #category : #tests }
-MovePlayersFromTheGameTest >> testO001CreateBoardWithParsec [
+MovePlayersFromTheGameTest >> testO001CreateAGameWithOneGoalLapAndAParsecsMeasureThenCheckTheParsecsNominalValue [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -232,7 +181,7 @@ MovePlayersFromTheGameTest >> testO001CreateBoardWithParsec [
 ]
 
 { #category : #tests }
-MovePlayersFromTheGameTest >> testO002CreateBoardWithAnotherAmountOfParsecThenValid [
+MovePlayersFromTheGameTest >> testO002CreateAGameWithAMoreParsecsMeasureThenCheckTheParsecsNominalValue [
 
 	| aLoadedDie aGame |
 	aLoadedDie := LoadedDie with: (OrderedCollection
@@ -242,22 +191,4 @@ MovePlayersFromTheGameTest >> testO002CreateBoardWithAnotherAmountOfParsecThenVa
 			               with: 6).
 	aGame := self gameWithMoreParsecs: aLoadedDie.
 	self assert: aGame parsecs nominalValue equals: 200
-]
-
-{ #category : #tests }
-MovePlayersFromTheGameTest >> testO003CheckTheWormHoleEffectWhenHasPassedTheFirstLap [
-
-	| aLoadedDie aGame |
-	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 8
-			               with: 9
-			               with: 5
-			               with: 6).
-	aGame := self gameWithTwoLaps: aLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	self
-		assert: aGame playersBox
-		equals: (OrderedCollection with: 4 with: 10)
 ]

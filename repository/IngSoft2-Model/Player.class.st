@@ -2,7 +2,6 @@ Class {
 	#name : #Player,
 	#superclass : #Object,
 	#instVars : [
-		'lap',
 		'color',
 		'position'
 	],
@@ -38,8 +37,7 @@ Player >> color [
 Player >> initializeWith: aColor [
 
 	color := aColor.
-	position := Position atTheBeginning.
-	lap := 0.
+	position := Position atTheBeginning
 ]
 
 { #category : #Information }
