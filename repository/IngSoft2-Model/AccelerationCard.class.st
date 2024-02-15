@@ -9,21 +9,27 @@ Class {
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> holder: aPlayer [
+AccelerationCard class >> holder: aColorPlayer [
 
-	^ self new initializeWith: aPlayer
+	^ self new initializeWith: aColorPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 AccelerationCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCardUsing: cardManager at: aGame [
+AccelerationCard >> applyCardUsing: aCardManager at: aGame [
 
-	cardManager activate: (self class holder: 'everyone')
+	aCardManager activate: (self class holder: 'everyone')
+]
+
+{ #category : #Effect }
+AccelerationCard >> applyCardUsing: aCardManager to: anObjective at: aGame [
+
+	aCardManager activate: (self class holder: 'everyone')
 ]
 
 { #category : #Effect }
@@ -32,7 +38,7 @@ AccelerationCard >> applyEffect [
 	^ effect
 ]
 
-{ #category : #Initialization }
+{ #category : #Effect }
 AccelerationCard >> boostEffect [
 
 	effect := effect * 2
@@ -61,8 +67,4 @@ AccelerationCard >> isHolder: aColorPlayer [
 AccelerationCard >> isPermanent [
 
 	^ true
-]
-
-{ #category : #Effect }
-AccelerationCard >> selectTarget: anEmptyPlayer [
 ]

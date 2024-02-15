@@ -2,8 +2,8 @@ Class {
 	#name : #BoxProbability,
 	#superclass : #Object,
 	#instVars : [
-		'box',
-		'probability'
+		'probability',
+		'boxClass'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,15 +15,15 @@ BoxProbability class >> using: aBoxClass withChanceOf: aProbability [
 ]
 
 { #category : #Information }
-BoxProbability >> box [
+BoxProbability >> boxClass [
 
-	^ box
+	^ boxClass
 ]
 
 { #category : #Initialization }
-BoxProbability >> initializeUsing: aBox withChanceOf: aProbability [
+BoxProbability >> initializeUsing: aBoxClass withChanceOf: aProbability [
 
-	box := aBox.
+	boxClass := aBoxClass.
 	probability := aProbability
 ]
 

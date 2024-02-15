@@ -13,16 +13,16 @@ RandomCardGenerator class >> dealing: aCardsProbabilitiesCollection [
 	^ self new initializeCards: aCardsProbabilitiesCollection
 ]
 
-{ #category : #'Card creation' }
+{ #category : #Generation }
 RandomCardGenerator >> createCardFor: aPlayerColor [
 
 	| selectedCard aRandomValue sum |
 	sum := 0.
 	aRandomValue := 100 atRandom.
 	selectedCard := (cardsProbabilities detect: [ :card | 
-		   sum := sum + card probability.
-		   aRandomValue <= sum ]) cardClass.
-	^ selectedCard holder: aPlayerColor.
+		                 sum := sum + card probability.
+		                 aRandomValue <= sum ]) cardClass.
+	^ selectedCard holder: aPlayerColor
 ]
 
 { #category : #Initialization }

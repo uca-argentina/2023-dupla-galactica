@@ -2,8 +2,7 @@ Class {
 	#name : #BoxCreator,
 	#superclass : #Object,
 	#instVars : [
-		'boxes',
-		'probabilities'
+		'boxesProbabilities'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -20,20 +19,20 @@ BoxCreator class >> use: aBoxesProbabilitiesCollection [
 BoxCreator >> create: aNumberOfBoxes [
 
 	^ (1 to: aNumberOfBoxes) collect: [ :eachNumber | 
-		  self oneRandomBoxOf ]
+		  self oneRandomBox ]
 ]
 
 { #category : #Initialization }
 BoxCreator >> initializeUse: aBoxesProbabilitiesCollection [
 
-	boxes := aBoxesProbabilitiesCollection
+	boxesProbabilities := aBoxesProbabilitiesCollection
 ]
 
 { #category : #Creation }
-BoxCreator >> oneRandomBoxOf [
+BoxCreator >> oneRandomBox [
 
 	| sum |
 	sum := 0.
-	^ (boxes detect: [ :box | 
-		   (sum := sum + box probability) >= 100 atRandom ]) box
+	^ (boxesProbabilities detect: [ :box | 
+		   (sum := sum + box probability) >= 100 atRandom ]) boxClass
 ]

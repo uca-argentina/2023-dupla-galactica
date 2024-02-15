@@ -16,16 +16,16 @@ Die class >> with: aNumberOfFaces [
 	^ self new initializeWith: aNumberOfFaces
 ]
 
-{ #category : #Information }
-Die >> faces [
-
-	^ faces
-]
-
 { #category : #Initialization }
 Die >> initializeWith: aNumberOfFaces [
 
 	faces := aNumberOfFaces
+]
+
+{ #category : #Information }
+Die >> numberOfFaces [
+
+	^ faces
 ]
 
 { #category : #Throw }

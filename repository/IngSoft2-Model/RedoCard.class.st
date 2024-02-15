@@ -2,8 +2,7 @@ Class {
 	#name : #RedoCard,
 	#superclass : #Object,
 	#instVars : [
-		'holder',
-		'target'
+		'holder'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,17 +13,24 @@ RedoCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
-{ #category : #Information }
+{ #category : #Initialization }
 RedoCard >> = aCard [
 
 	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
 ]
 
-{ #category : #Initialization }
-RedoCard >> applyCardUsing: cardManager at: aGame [
+{ #category : #Effect }
+RedoCard >> applyCardUsing: aCardManager at: aGame [
 
-	(cardManager lastCardPlay selectTarget: target)
-		applyCardUsing: cardManager
+	aCardManager lastCardPlay applyCardUsing: aCardManager at: aGame
+]
+
+{ #category : #Effect }
+RedoCard >> applyCardUsing: aCardManager to: anObjective at: aGame [
+
+	aCardManager lastCardPlay
+		applyCardUsing: aCardManager
+		to: anObjective
 		at: aGame
 ]
 
@@ -37,8 +43,7 @@ RedoCard >> haveEffect [
 { #category : #Initialization }
 RedoCard >> initializeWith: aHolder [
 
-	holder := aHolder.
-	target:= EmptyPlayer new.
+	holder := aHolder
 ]
 
 { #category : #Information }
@@ -51,10 +56,4 @@ RedoCard >> isHolder: aColorPlayer [
 RedoCard >> isPermanent [
 
 	^ false
-]
-
-{ #category : #Information }
-RedoCard >> selectTarget: aNewTarget [
-
-	target := aNewTarget
 ]

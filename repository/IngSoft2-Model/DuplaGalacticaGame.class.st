@@ -40,11 +40,22 @@ DuplaGalacticaGame >> add: aCard [
 
 { #category : #Cards }
 DuplaGalacticaGame >> apply: aCard [
-	
-	(cardManager canBeUse: aCard whenPlay: current color) ifFalse: [ 
-		Error signal:
-			'A permanent card can only be use when it is your turn' ].
-	cardManager apply: aCard at: self.
+
+	(cardManager canBeUse: aCard whenPlay: current color) 
+		ifFalse: [ 
+			Error signal:
+				'A permanent card can only be use when it is your turn' ].
+	cardManager apply: aCard at: self
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> apply: aCard to: anObjective [
+
+	(cardManager canBeUse: aCard whenPlay: current color) 
+		ifFalse: [ 
+			Error signal:
+				'A permanent card can only be use when it is your turn' ].
+	cardManager apply: aCard to: anObjective at: self
 ]
 
 { #category : #Information }
@@ -57,6 +68,13 @@ DuplaGalacticaGame >> boxes [
 DuplaGalacticaGame >> boxesByParsecs [
 
 	^ self parsecs nominalValue // self boxes
+]
+
+{ #category : #Boxes }
+DuplaGalacticaGame >> changePolarity: aBoxNumber [
+
+	self isValidBox: aBoxNumber.
+	board changePolarity: aBoxNumber
 ]
 
 { #category : #Information }
@@ -78,16 +96,23 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard usingToThrow
 	board := aBoard.
 	shaker := aDiceShaker.
 	turnManager := TurnManager with: players.
-	goalLaps := reachAValue.
 	current := turnManager current.
+	goalLaps := reachAValue.
 	cardManager := CardManager using: aCardDealer with: aColorsCollection
 ]
 
 { #category : #Cards }
-DuplaGalacticaGame >> isValidPlayer: objective [
+DuplaGalacticaGame >> isValidBox: aBoxNumber [
+
+	(aBoxNumber <= self boxes and: aBoxNumber > 0) ifFalse: [ 
+		Error signal: 'That is not a valid box number' ]
+]
+
+{ #category : #Cards }
+DuplaGalacticaGame >> isValidPlayer: anObjective [
 
 	self playersColors
-		detect: [ :color | color = objective ]
+		detect: [ :color | color = anObjective ]
 		ifFound: [ ^ true ]
 		ifNone: [ Error signal: 'That is not a valid objective' ]
 ]
@@ -98,23 +123,22 @@ DuplaGalacticaGame >> lightYears [
 	^ board lightYears
 ]
 
-{ #category : #Player }
+{ #category : #Boxes }
 DuplaGalacticaGame >> moveAllToTheStart [
 
-	players do: [ :player | 
-		player move: player box * -1 + 1 andUpdateLap: board boxes ]
+	players do: [ :player | player moveToTheBeginning]
 ]
 
-{ #category : #Player }
+{ #category : #Boxes }
 DuplaGalacticaGame >> moveCurrent: aValue [
 
 	current move: aValue andUpdateLap: board boxes
 ]
 
-{ #category : #Player }
+{ #category : #Boxes }
 DuplaGalacticaGame >> moveOthers: aValue [
 
-	(players reject: [ :player | player color == current color ]) do: [ 
+	(players reject: [ :player | player color == self currentPlayer ]) do: [ 
 		:player | player move: aValue andUpdateLap: board boxes ]
 ]
 
@@ -183,10 +207,8 @@ DuplaGalacticaGame >> ranking [
 { #category : #Cards }
 DuplaGalacticaGame >> repeatEffectTo: aPlayerColor [
 
-	| lastPosition |
-	lastPosition := current box.
 	current := players detect: [ :player | player color = aPlayerColor ].
-	board effectAt: lastPosition In: self.
+	board effectAt: board lastBoxInvoked In: self.
 	current := turnManager current
 ]
 

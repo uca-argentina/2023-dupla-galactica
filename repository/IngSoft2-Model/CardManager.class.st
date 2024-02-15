@@ -15,7 +15,7 @@ CardManager class >> using: aCardDealer with: aColorCollection [
 	^ self new initializeUsing: aCardDealer with: aColorCollection
 ]
 
-{ #category : #Information }
+{ #category : #Managing }
 CardManager >> activate: aCard [
 
 	activeCards activate: aCard
@@ -40,12 +40,24 @@ CardManager >> apply: aCard at: aGame [
 ]
 
 { #category : #Managing }
+CardManager >> apply: aCard to: anObjective at: aGame [
+
+	(self hasBeenGiven: aCard) ifFalse: [ 
+		Error signal: 'The player does not have that card in posetion' ].
+
+	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
+	aCard applyCardUsing: self to: anObjective at: aGame.
+
+	cardsInPosetion takeOut: aCard
+]
+
+{ #category : #Managing }
 CardManager >> calculateEffectOn: aColorPlayer [
 
 	^ activeCards calculateEffectOn: aColorPlayer
 ]
 
-{ #category : #Managing }
+{ #category : #Information }
 CardManager >> canBeUse: aCard whenPlay: aPlayer [
 
 	^ (aCard isPermanent and: (aCard isHolder: aPlayer)) or:
@@ -70,7 +82,7 @@ CardManager >> duplicateEffectOf: anObjectiveCard [
 	activeCards duplicateEffectOf: anObjectiveCard
 ]
 
-{ #category : #Managing }
+{ #category : #Information }
 CardManager >> hasBeenGiven: aCard [
 
 	^ cardsInPosetion hasBeenGiven: aCard
@@ -85,7 +97,7 @@ CardManager >> initializeUsing: aCardDealer with: aColorCollection [
 	aCardDealer dealCards: self to: aColorCollection
 ]
 
-{ #category : #information }
+{ #category : #Information }
 CardManager >> lastCardPlay [
 
 	^ lastCardPlay

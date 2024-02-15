@@ -14,7 +14,7 @@ Position class >> atTheBeginning [
 	^ self new initializeAtTheBeginning
 ]
 
-{ #category : #comparing }
+{ #category : #Comparing }
 Position >> = aPosition [
 
 	^ lap = aPosition lap and: box = aPosition boxNumber
@@ -70,4 +70,10 @@ Position >> moveForwardLaps: aLength [
 
 	lap := lap + (box // aLength).
 	box := box % aLength
+]
+
+{ #category : #Movement }
+Position >> moveToTheBeginning [
+
+	box := 1
 ]

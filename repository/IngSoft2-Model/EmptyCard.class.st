@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #Effect }
-EmptyCard >> selectTarget: aTarget [
+EmptyCard >> applyCardUsing: cardManager to: anObjectiveCard at: aGame [
 
 	Error signal:
 		'Redo card cannot be played because there are no cards that have been played before'

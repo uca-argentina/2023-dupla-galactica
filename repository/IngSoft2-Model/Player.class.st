@@ -2,7 +2,6 @@ Class {
 	#name : #Player,
 	#superclass : #Object,
 	#instVars : [
-		'lap',
 		'color',
 		'position'
 	],
@@ -38,8 +37,7 @@ Player >> color [
 Player >> initializeWith: aColor [
 
 	color := aColor.
-	position := Position atTheBeginning.
-	lap := 0.
+	position := Position atTheBeginning
 ]
 
 { #category : #Information }
@@ -55,7 +53,13 @@ Player >> move: aValue andUpdateLap: aLength [
 	self updateLap: aLength
 ]
 
-{ #category : #Information }
+{ #category : #PositionControl }
+Player >> moveToTheBeginning [
+
+	position moveToTheBeginning
+]
+
+{ #category : #PositionControl }
 Player >> updateLap: aLength [
 
 	position box  > aLength ifTrue: [ 

@@ -13,7 +13,7 @@ ActiveCards class >> createDeck [
 	^ self new initializeDeck
 ]
 
-{ #category : #Activation }
+{ #category : #Cards }
 ActiveCards >> activate: aCard [
 
 	cards addLast: aCard
@@ -27,16 +27,16 @@ ActiveCards >> calculateEffectOn: aColorPlayer [
 		  sum: #applyEffect
 ]
 
-{ #category : #Desactivation }
+{ #category : #Cards }
 ActiveCards >> desactivate: anObjectiveCard [
 
 	cards remove: (self searching: anObjectiveCard)
 ]
 
-{ #category : #Desactivation }
-ActiveCards >> duplicateEffectOf: anObjectiveCard [
+{ #category : #Effects }
+ActiveCards >> duplicateEffectOf: aCard [
 
-	(self searching: anObjectiveCard) boostEffect
+	(self searching: aCard) boostEffect
 ]
 
 { #category : #Initialization }
@@ -51,13 +51,13 @@ ActiveCards >> isEmpty [
 	cards isEmpty ifTrue: [ Error signal: 'There are no permanent cards' ]
 ]
 
-{ #category : #Desactivation }
-ActiveCards >> searching: anObjectiveCard [
+{ #category : #Cards }
+ActiveCards >> searching: aCard [
 
 	self isEmpty.
 	cards
 		detect: [ :card | 
-		card = anObjectiveCard or: (card isHolder: 'everyone') ]
+		card = aCard or: (card isHolder: 'everyone') ]
 		ifFound: [ :card | ^ card ]
 		ifNone: [ 
 			Error signal:

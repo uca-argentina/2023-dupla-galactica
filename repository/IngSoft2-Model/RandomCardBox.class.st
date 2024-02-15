@@ -2,7 +2,7 @@ Class {
 	#name : #RandomCardBox,
 	#superclass : #Object,
 	#instVars : [
-		'cards'
+		'cardsProbabilities'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,11 +18,12 @@ RandomCardBox class >> with: aCardsProbabilitiesCollection [
 { #category : #Effect }
 RandomCardBox >> effect: aGame [
 
-	aGame add: ((RandomCardGenerator dealing: cards) createCardFor: aGame currentPlayer)
+	aGame add: ((RandomCardGenerator dealing: cardsProbabilities ) createCardFor:
+			 aGame currentPlayer)
 ]
 
 { #category : #Initialization }
 RandomCardBox >> intializeUsing: aCardsProbabilitiesCollection [
 
-	cards := aCardsProbabilitiesCollection
+	cardsProbabilities := aCardsProbabilitiesCollection
 ]

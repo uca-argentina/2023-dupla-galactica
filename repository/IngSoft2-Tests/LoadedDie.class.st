@@ -2,7 +2,6 @@ Class {
 	#name : #LoadedDie,
 	#superclass : #Object,
 	#instVars : [
-		'faces',
 		'valueManager'
 	],
 	#category : #'IngSoft2-Tests'
@@ -26,7 +25,7 @@ LoadedDie >> initializeWith: aValue [
 ]
 
 { #category : #Information }
-LoadedDie >> numberOffaces [
+LoadedDie >> numberOfFaces [
 
 	^ (valueManager valuesSize).
 ]

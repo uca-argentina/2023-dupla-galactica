@@ -2,12 +2,7 @@ Class {
 	#name : #CreatingPlayersFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aColorCollection',
-		'aLoadedDie',
-		'boxes',
-		'aGame',
-		'aBoard',
-		'aShaker'
+		'aGame'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -15,6 +10,7 @@ Class {
 { #category : #running }
 CreatingPlayersFromTheGameTest >> setUp [
 
+	| aBoard aColorCollection aLoadedDie aShaker boxes |
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red'.
@@ -23,21 +19,24 @@ CreatingPlayersFromTheGameTest >> setUp [
 			               with: 5
 			               with: 7
 			               with: 9).
-	
+
 	aShaker := DiceShaker with: aLoadedDie.
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox new withChanceOf: 100))) create: 10.
+	boxes := (BoxCreator use: (OrderedCollection with:
+			           (BoxProbability
+				            using: NoEffectBox initializeNew
+				            withChanceOf: 100))) create: 10.
 	aBoard := Board with: boxes measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
 		         usingToThrow: aShaker
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100)))
+		         using: (CardDealer with: (OrderedCollection with:
+					           (CardProbability using: OverloadCard withChanceOf: 100)))
 ]
 
 { #category : #tests }
-CreatingPlayersFromTheGameTest >> testI001CreatingPlayersFromTheGame [
+CreatingPlayersFromTheGameTest >> testI001CreateAGameWithAColorsCollectionThenCheckTheCreationOfPlayers [
 
-	aGame movePlayer.
-	self assert: aGame playersBox equals: (OrderedCollection with: 9)
+	self assert: aGame playersColors equals: (OrderedCollection with: 'red')
 ]

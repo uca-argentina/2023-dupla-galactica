@@ -2,7 +2,8 @@ Class {
 	#name : #MoonWalkBox,
 	#superclass : #Object,
 	#instVars : [
-		'effectValue'
+		'effectValue',
+		'polarity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -14,13 +15,22 @@ MoonWalkBox class >> with: aValue [
 ]
 
 { #category : #Effect }
+MoonWalkBox >> changePolarity [
+
+	polarity := polarity not
+]
+
+{ #category : #Effect }
 MoonWalkBox >> effect: aGame [
 
-	aGame moveOthers: effectValue
+	polarity
+		ifTrue: [ aGame moveOthers: effectValue ]
+		ifFalse: [ aGame moveCurrent: effectValue ]
 ]
 
 { #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue [
 
 	effectValue := aValue.
+	polarity := true
 ]

@@ -2,7 +2,7 @@ Class {
 	#name : #CardDealer,
 	#superclass : #Object,
 	#instVars : [
-		'cardsProbabilitiesToDeal'
+		'cardsProbabilities'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -21,12 +21,12 @@ CardDealer >> dealCards: aCardManager to: aColorsCollection [
 	aColorsCollection do: [ :color | 
 		2 timesRepeat: [ 
 			aCardManager add:
-				((RandomCardGenerator dealing: cardsProbabilitiesToDeal) 
+				((RandomCardGenerator dealing: cardsProbabilities) 
 					 createCardFor: color) ] ]
 ]
 
 { #category : #Initialization }
 CardDealer >> intializeWith: aCardsProbabilitiesCollection [
 
-	cardsProbabilitiesToDeal := aCardsProbabilitiesCollection
+	cardsProbabilities := aCardsProbabilitiesCollection
 ]
