@@ -11,10 +11,6 @@ NoEffectBox class >> initializeNew [
 ]
 
 { #category : #Effect }
-NoEffectBox >> changePolarity [
-]
-
-{ #category : #Effect }
 NoEffectBox >> effect: aBoard [
 
 	
