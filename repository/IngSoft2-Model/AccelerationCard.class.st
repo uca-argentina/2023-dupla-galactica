@@ -27,6 +27,12 @@ AccelerationCard >> applyCardUsing: aCardManager at: aGame [
 ]
 
 { #category : #Effect }
+AccelerationCard >> applyCardUsing: aCardManager to: anObjective at: aGame [
+
+	aCardManager activate: (self class holder: 'everyone')
+]
+
+{ #category : #Effect }
 AccelerationCard >> applyEffect [
 
 	^ effect
@@ -61,8 +67,4 @@ AccelerationCard >> isHolder: aColorPlayer [
 AccelerationCard >> isPermanent [
 
 	^ true
-]
-
-{ #category : #Effect }
-AccelerationCard >> selectTarget: anEmptyPlayer [
 ]

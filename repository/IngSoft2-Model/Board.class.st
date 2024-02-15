@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'boxes',
-		'lengthMeasure'
+		'lengthMeasure',
+		'lastBoxInvoked'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,22 +26,30 @@ Board >> boxes [
 ]
 
 { #category : #BoxManager }
-Board >> changePolarity: aBoxNumber [
+Board >> changePolarity: aPosition [
 
-	(boxes at: aBoxNumber) changePolarity
+	(boxes at: aPosition) changePolarity
 ]
 
 { #category : #BoxManager }
 Board >> effectAt: aPosition In: aGame [
 
-	(boxes at: aPosition) effect: aGame 
+	(boxes at: aPosition) effect: aGame.
+	lastBoxInvoked := aPosition
 ]
 
 { #category : #Initialization }
 Board >> initializeWith: aBoxCollection measure: aLengthMeasure [
 
 	lengthMeasure := aLengthMeasure.
-	boxes := aBoxCollection
+	boxes := aBoxCollection.
+	lastBoxInvoked := 0
+]
+
+{ #category : #Information }
+Board >> lastBoxInvoked [
+
+	^ lastBoxInvoked
 ]
 
 { #category : #Information }

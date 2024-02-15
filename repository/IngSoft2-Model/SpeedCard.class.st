@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'holder',
-		'target',
 		'effect'
 	],
 	#category : #'IngSoft2-Model'
@@ -22,10 +21,10 @@ SpeedCard >> = aCard [
 ]
 
 { #category : #Effect }
-SpeedCard >> applyCardUsing: cardManager at: aGame [
+SpeedCard >> applyCardUsing: cardManager to: anObjective at: aGame [
 
-	aGame isValidPlayer: target.
-	cardManager activate: (self class holder: target).
+	aGame isValidPlayer: anObjective.
+	cardManager activate: (self class holder: anObjective).
 ]
 
 { #category : #Effect }
@@ -50,7 +49,6 @@ SpeedCard >> haveEffect [
 SpeedCard >> initializeWith: aHolder [
 
 	holder := aHolder.
-	target := EmptyPlayer new.
 	effect := 1
 ]
 
@@ -64,10 +62,4 @@ SpeedCard >> isHolder: aColorPlayer [
 SpeedCard >> isPermanent [
 
 	^ true
-]
-
-{ #category : #Effect }
-SpeedCard >> selectTarget: aNewTarget [
-
-	target := aNewTarget
 ]

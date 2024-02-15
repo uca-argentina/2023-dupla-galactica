@@ -29,10 +29,10 @@ CardsInPosetion >> cardsOf: players [
 { #category : #Information }
 CardsInPosetion >> hasBeenGiven: aCard [
 
-	cards do: [ :card | 
-		card = aCard
-			ifTrue: [ ^ true ]
-			ifFalse: [ ^ false ] ]
+	cards
+		detect: [ :card | card = aCard ]
+		ifFound: [ :card | ^ true ]
+		ifNone: [ ^ false ]
 ]
 
 { #category : #Initialization }

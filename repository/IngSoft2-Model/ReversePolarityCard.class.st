@@ -3,7 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'holder',
-		'target',
 		'effect'
 	],
 	#category : #'IngSoft2-Model'
@@ -22,9 +21,9 @@ ReversePolarityCard >> = aCard [
 ]
 
 { #category : #Effect }
-ReversePolarityCard >> applyCardUsing: cardManager at: aGame [
+ReversePolarityCard >> applyCardUsing: cardManager to: anObjective at: aGame [
 
-	aGame changePolarity: target
+	aGame changePolarity: anObjective
 ]
 
 { #category : #Information }
@@ -37,7 +36,6 @@ ReversePolarityCard >> haveEffect [
 ReversePolarityCard >> initializeWith: aHolder [
 
 	holder := aHolder.
-	target := NoEffectBox initializeNew.
 	effect := true
 ]
 
@@ -51,10 +49,4 @@ ReversePolarityCard >> isHolder: aPlayer [
 ReversePolarityCard >> isPermanent [
 
 	^ true
-]
-
-{ #category : #Effect }
-ReversePolarityCard >> selectTarget: aBoxNumber [
-
-	target := aBoxNumber
 ]
