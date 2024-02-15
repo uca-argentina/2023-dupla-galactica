@@ -29,7 +29,7 @@ AccelerationCard >> applyCardUsing: aCardManager at: aGame [
 { #category : #Effect }
 AccelerationCard >> applyCardUsing: aCardManager to: anObjective at: aGame [
 
-	aCardManager activate: (self class holder: 'everyone')
+	aCardManager activate: (self class holder: 'everyone') 
 ]
 
 { #category : #Effect }
