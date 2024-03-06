@@ -25,9 +25,9 @@ DuplaGalacticaGameProxy >> apply: aCard [
 ]
 
 { #category : #Cards }
-DuplaGalacticaGameProxy >> apply: aCard to: anObjective [
+DuplaGalacticaGameProxy >> apply: aCardInHand to: anObjective [
 
-	game apply: aCard to: anObjective
+	game apply: aCardInHand to: anObjective
 ]
 
 { #category : #Information }
@@ -49,14 +49,14 @@ DuplaGalacticaGameProxy >> goalLaps [
 ]
 
 { #category : #Initialization }
-DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: aCardDealer [
+DuplaGalacticaGameProxy >> initializeWith: aColorsCollection and: aBoard usingToThrow: aDiceShaker winningWhen: aValue using: cards [
 
 	game := DuplaGalacticaGame
 		        with: aColorsCollection
 		        and: aBoard
 		        usingToThrow: aDiceShaker
 		        winningWhenReach: aValue
-		        using: aCardDealer
+		        using: cards
 ]
 
 { #category : #Information }

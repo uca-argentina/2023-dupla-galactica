@@ -14,24 +14,25 @@ CardsInPosetion class >> createDeck [
 ]
 
 { #category : #Cards }
-CardsInPosetion >> add: aCard [
+CardsInPosetion >> add: aCardInPlayerHand [
 
-	cards addLast: aCard
+	cards addLast: aCardInPlayerHand
 ]
 
 { #category : #Information }
 CardsInPosetion >> cardsOf: players [
 
 	^ players collect: [ :player | 
-		  (cards select: [ :card | card isHolder: player color ]) size ]
+		  (cards select: [ :hand | hand holder = player color ]) size ]
 ]
 
 { #category : #Information }
-CardsInPosetion >> hasBeenGiven: aCard [
+CardsInPosetion >> hasBeenGiven: aCardInHand [
 
 	cards
-		detect: [ :card | card = aCard ]
-		ifFound: [ :card | ^ true ]
+		detect: [ :hand | 
+			hand card = aCardInHand card and: hand holder = aCardInHand holder ]
+		ifFound: [ :hand | ^ true ]
 		ifNone: [ ^ false ]
 ]
 
@@ -42,7 +43,8 @@ CardsInPosetion >> initializeDeck [
 ]
 
 { #category : #Cards }
-CardsInPosetion >> takeOut: aCard [
+CardsInPosetion >> takeOut: aCardInHand [
 
-	cards remove: aCard.
+	cards remove: (cards detect: [ :hand | 
+			 hand card = aCardInHand card and: hand holder = aCardInHand holder ])
 ]

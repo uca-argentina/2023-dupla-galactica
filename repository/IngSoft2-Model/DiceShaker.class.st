@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-DiceShaker class >> with: aDie [
+DiceShaker class >> with: aDiceCollection [
 
-	^ self new initializeWithDie: aDie
+	^ self new initializeWithDie: aDiceCollection
 ]
 
 { #category : #Dice }
@@ -20,9 +20,9 @@ DiceShaker >> addDie: aDie [
 ]
 
 { #category : #Initialization }
-DiceShaker >> initializeWithDie: aDie [
+DiceShaker >> initializeWithDie: aDiceCollection [
 
-	dice := OrderedCollection with: aDie
+	dice := aDiceCollection
 ]
 
 { #category : #Dice }

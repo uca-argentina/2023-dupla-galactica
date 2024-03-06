@@ -10,58 +10,71 @@ Class {
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithMoreParsecs: aLoadedDie [
 
-	| boxes aBoard aLoadedGame aShaker |
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 200).
-
-	aShaker := DiceShaker with: aLoadedDie.
+	| aBoard aLoadedGame aCardsCollection aBoxesCollection |
+	aCardsCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 200).
 	aLoadedGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
-		               usingToThrow: aShaker
+		               usingToThrow:
+		               (DiceShaker with:
+			                (OrderedCollection with: aLoadedDie))
 		               winningWhenReach: 2
-		               using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		               using: aCardsCollection.
 	^ aLoadedGame
 ]
 
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithOneLap: aLoadedDie [
 
-	| aGame boxes aBoard aShaker |
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-
-	aShaker := DiceShaker with: aLoadedDie.
+	| aGame aBoard aCardsCollection aBoxesCollection |
+	aCardsCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
-
+		         using: aCardsCollection.
 	^ aGame
 ]
 
 { #category : #Games }
 MovePlayersFromTheGameTest >> gameWithTwoLaps: aLoadedDie [
 
-	| boxes aBoard aLoadedGame aShaker |
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-
-	aShaker := DiceShaker with: aLoadedDie.
+	| aBoard aLoadedGame aCardsCollection aBoxesCollection |
+	aCardsCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aLoadedGame := DuplaGalacticaGameProxy
 		               with: aColorCollection
 		               and: aBoard
-		               usingToThrow: aShaker
+		               usingToThrow:
+		               (DiceShaker with:
+			                (OrderedCollection with: aLoadedDie))
 		               winningWhenReach: 2
-		               using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		               using: aCardsCollection.
 	^ aLoadedGame
 ]
 

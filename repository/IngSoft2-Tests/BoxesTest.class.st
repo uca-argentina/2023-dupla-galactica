@@ -2,7 +2,8 @@ Class {
 	#name : #BoxesTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aColorCollection'
+		'aColorCollection',
+		'aCardsCollection'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -12,7 +13,11 @@ BoxesTest >> setUp [
 
 	super setUp.
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'
+	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aCardsCollection := (Creator use: (OrderedCollection with:
+			           (ObjectProbability
+				            using: OverloadCard initializeNew
+				            withChanceOf: 100))) create: 4.
 ]
 
 { #category : #tests }
@@ -26,27 +31,26 @@ BoxesTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 ]
 
 { #category : #tests }
-BoxesTest >> testN001WhenPlayerReachesANoEffectBoxThenCheckThatNoEffectsWereAppliedOnItPosition [
+BoxesTest >> testN001WhenPlayerReachesANoEffectBoxThenCheckThatNoEffectsWereAppliedOnItPositionAndValidPlayersPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 6
 			               with: 8
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
-
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with:
-					           (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -55,26 +59,26 @@ BoxesTest >> testN001WhenPlayerReachesANoEffectBoxThenCheckThatNoEffectsWereAppl
 ]
 
 { #category : #tests }
-BoxesTest >> testN002WhenPlayerReachesAWormHoleBoxThenCheckThatANegativeEffectWasAppliedOnItPosition [
+BoxesTest >> testN002WhenPlayerReachesAWormHoleBoxThenCheckThatANegativeEffectWasAppliedOnItPositionAndValidPlayersPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker|
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 5
 			               with: 8
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use:
-		          (OrderedCollection with:  (BoxProbability using: WormHoleBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
-	
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: WormHoleBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -83,26 +87,26 @@ BoxesTest >> testN002WhenPlayerReachesAWormHoleBoxThenCheckThatANegativeEffectWa
 ]
 
 { #category : #tests }
-BoxesTest >> testN003WhenPlayerReachesASpeedUpBoxThenCheckThatAPositiveEffectWasAppliedOnItPosition [
+BoxesTest >> testN003WhenPlayerReachesASpeedUpBoxThenCheckThatAPositiveEffectWasAppliedOnItPositionAndValidPlayersPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 8
 			               with: 5
 			               with: 8).
-	boxes := boxes := (BoxCreator use:
-		                   (OrderedCollection with:
-			                     (BoxProbability using: SpeedUpBox initializeNew withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
-	
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -111,26 +115,26 @@ BoxesTest >> testN003WhenPlayerReachesASpeedUpBoxThenCheckThatAPositiveEffectWas
 ]
 
 { #category : #tests }
-BoxesTest >> testN004WhenPlayerReachesAMoonWalkBoxThenCheckThatTheEffectWasAppliedOnOtherPlayersPositions [
+BoxesTest >> testN004WhenPlayerReachesAMoonWalkBoxThenCheckThatTheEffectWasAppliedOnOtherPlayersPositionsAndValidPlayersPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator
-		          use: (OrderedCollection with:  (BoxProbability using: (MoonWalkBox with: -2) withChanceOf: 100))) create:
-		         10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
-	
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: (MoonWalkBox with: -2)
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -141,23 +145,24 @@ BoxesTest >> testN004WhenPlayerReachesAMoonWalkBoxThenCheckThatTheEffectWasAppli
 { #category : #tests }
 BoxesTest >> testN005WhenPlayerReachesAnAtomicBombBoxThenCheckThatAllPlayersWereMovedToTheBeginningOfTheLap [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
 			               with: 8
-			               with: 7
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use:
-		          (OrderedCollection with:  (BoxProbability using: AtomicBombBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: AtomicBombBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -168,53 +173,55 @@ BoxesTest >> testN005WhenPlayerReachesAnAtomicBombBoxThenCheckThatAllPlayersWere
 { #category : #tests }
 BoxesTest >> testN006WhenPlayerReachesAHyperJumpBoxThenCheckThatTheEffectDependingOnAParsecNominalValueWasAppliedOnItPosition [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using: (HyperJumpBox with:
-						             (OrderedCollection
-							              with: (Parsec worth: 40)
-							              with: (Parsec worth: 30)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: (HyperJumpBox with:
+						                        (OrderedCollection
+							                         with: (Parsec worth: 40)
+							                         with: (Parsec worth: 30)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with:(OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 7 with: 8)
+		equals: (OrderedCollection with: 8 with: 7)
 ]
 
 { #category : #tests }
 BoxesTest >> testN007WhenPlayerReachesAWormHoleBoxInTheFirstLapThenCheckThatTheNegativeEffectCannotSendPlayerToAnOutOfRangeBoardPosition [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 8
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: WormHoleBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: WormHoleBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -225,24 +232,24 @@ BoxesTest >> testN007WhenPlayerReachesAWormHoleBoxInTheFirstLapThenCheckThatTheN
 { #category : #tests }
 BoxesTest >> testN008WhenPlayerReachesAMoonWalkBoxThenCheckThatTheEffectCannotSendOtherPlayersToAnOutOfRangeBoardPositionInTheFirstLap [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 1
+			               with: 3
 			               with: 4
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability
-				            using: (MoonWalkBox with: -4)
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: (MoonWalkBox with: -4)
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
@@ -253,53 +260,55 @@ BoxesTest >> testN008WhenPlayerReachesAMoonWalkBoxThenCheckThatTheEffectCannotSe
 { #category : #tests }
 BoxesTest >> testN009WhenPlayerReachesAHyperJumpBoxInTheFirstLapThenCheckThatANegativeEffectCannotSendPlayerToAnOutOfRangeBoardPosition [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using: (HyperJumpBox with:
-						             (OrderedCollection
-							              with: (Parsec worth: -40)
-							              with: (Parsec worth: -10)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: (HyperJumpBox with:
+						                        (OrderedCollection
+							                         with: (Parsec worth: -40)
+							                         with: (Parsec worth: -10)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 1 with: 3)
+		equals: (OrderedCollection with: 3 with: 1)
 ]
 
 { #category : #tests }
 BoxesTest >> testN010WhenPlayerReachesTheGoalButAlsoReachAMoonWalkBoxCheckThatTheEffectMakesItNotWinAndCheckingWinnerFails [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 13
-			               with: 3
+			               with: 8
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use:
-		          (OrderedCollection with: (BoxProbability using: WormHoleBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: WormHoleBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	self
 		should: [ aGame winner ]
@@ -310,57 +319,60 @@ BoxesTest >> testN010WhenPlayerReachesTheGoalButAlsoReachAMoonWalkBoxCheckThatTh
 { #category : #tests }
 BoxesTest >> testN011CheckHyperJumpBoxMovesTheCorrectAmountOfParsecsWhenThatAreNotEntireValuesThenValuePlayerPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using: (HyperJumpBox with: (OrderedCollection
-							              with: (Parsec worth: 45.5)
-							              with: (Parsec worth: 34.9)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (HyperJumpBox with: (OrderedCollection
+							                         with: (Parsec worth: 45.5)
+							                         with: (Parsec worth: 39.4)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 7 with: 8)
+		equals: (OrderedCollection with: 8 with: 7)
 ]
 
 { #category : #tests }
 BoxesTest >> testR001WhenPlayerReachesARandomCardBoxThenCheckThatPlayerHasOneMoreCardInPosetion [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 3
-			               with: 5
+			               with: 6
+			               with: 8
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using:
-					            (RandomCardBox with: (OrderedCollection with:
-							              (CardProbability
-								               using: OverloadCard
-								               withChanceOf: 100)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (RandomCardBox with:
+						                        (OrderedCollection with:
+							                         (ObjectProbability
+								                          using: OverloadCard initializeNew
+								                          withChanceOf: 100)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with:
-					           (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	self
 		assert: aGame playersCardInPosetion
@@ -372,7 +384,10 @@ BoxesTest >> testR003TryToCreateARandomCardBoxWithCardsProbabilitiesLessThan100T
 
 	self
 		should: [ 
-			(RandomCardBox with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 10)))]
+			RandomCardBox with: (OrderedCollection with:
+					 (ObjectProbability
+						  using: OverloadCard initializeNew
+						  withChanceOf: 10)) ]
 		raise: Error
 		withMessage: 'The sum of probabilities must be 100'
 ]
@@ -380,59 +395,63 @@ BoxesTest >> testR003TryToCreateARandomCardBoxWithCardsProbabilitiesLessThan100T
 { #category : #tests }
 BoxesTest >> testT001CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYearsThenValidPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using: (HyperJumpBox with: (OrderedCollection
-							              with: (LigthYear worth: 120)
-							              with: (LigthYear worth: 90)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (HyperJumpBox with: (OrderedCollection
+							                         with: (LigthYear worth: 120)
+							                         with: (LigthYear worth: 90)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 7 with: 8)
+		equals: (OrderedCollection with: 8 with: 7)
 ]
 
 { #category : #tests }
 BoxesTest >> testT002CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYearsAndParsecsThenValidPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using: (HyperJumpBox with: (OrderedCollection
-							              with: (LigthYear worth: 120)
-							              with: (Parsec worth: 30)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (HyperJumpBox with: (OrderedCollection
+							                         with: (LigthYear worth: 120)
+							                         with: (Parsec worth: 30)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 7 with: 8)
+		equals: (OrderedCollection with: 8 with: 7)
 ]
 
 { #category : #tests }
@@ -440,9 +459,9 @@ BoxesTest >> testT003TryToCreateAHyperJumpBoxWithNoValuesToUseThenFails [
 
 	self
 		should: [ 
-			(BoxCreator use: (OrderedCollection with:
-					  (BoxProbability using: (HyperJumpBox with: OrderedCollection new) withChanceOf: 100))) 
-				create: 10 ]
+			(Creator use: (OrderedCollection with: (ObjectProbability
+						   using: (HyperJumpBox with: OrderedCollection new)
+						   withChanceOf: 100))) create: 10 ]
 		raise: Error
 		withMessage: 'There are no values to use in the hyper jump box'
 ]
@@ -450,55 +469,58 @@ BoxesTest >> testT003TryToCreateAHyperJumpBoxWithNoValuesToUseThenFails [
 { #category : #tests }
 BoxesTest >> testT004CheckHyperJumpBoxMoveTheCorrectAmountOfBoxesWhenTheValuesAreGivenInLightYearsAndParsecsAndAlsoTheyAreNegativeThenValidPositions [
 
-	
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 3
 			               with: 3
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using: (HyperJumpBox with: (OrderedCollection
-							              with: (LigthYear worth: -60)
-							              with: (Parsec worth: -30)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (HyperJumpBox with: (OrderedCollection
+							                         with: (LigthYear worth: -60)
+							                         with: (Parsec worth: -30)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 1 with: 2)
+		equals: (OrderedCollection with: 2 with: 1)
 ]
 
 { #category : #tests }
 BoxesTest >> testT005WhenPlayerReachesAHyperJumpBoxThenCheckIfItHasANegativeEffectThatMakesPlayerMoveBackwardMoreThanOneLapAndValidPositions [
 
-	| aLoadedDie aGame boxes aBoard aShaker |
+	| aLoadedDie aGame aBoxesCollection aBoard |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 30
 			               with: 31
 			               with: 5
 			               with: 8).
-	boxes := (BoxCreator use: (OrderedCollection with: (BoxProbability
-				            using:
-				            (HyperJumpBox with:
-					             (OrderedCollection with: (Parsec worth: -220)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
+	aBoxesCollection := (Creator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+				                       (HyperJumpBox with:
+					                        (OrderedCollection with:
+						                         (Parsec worth: -220)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
-		         winningWhenReach: 3
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
+		         winningWhenReach: 1
+		         using: aCardsCollection.
 	aGame movePlayer.
 	aGame movePlayer.
 	self

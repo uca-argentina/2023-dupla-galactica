@@ -2,7 +2,6 @@ Class {
 	#name : #OverloadCard,
 	#superclass : #Object,
 	#instVars : [
-		'holder',
 		'effect'
 	],
 	#category : #'IngSoft2-Model'
@@ -14,17 +13,23 @@ OverloadCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
+{ #category : #'Instance creation' }
+OverloadCard class >> initializeNew [
+
+	^ self new initializeNew
+]
+
 { #category : #Initialization }
 OverloadCard >> = aCard [
 
-	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
 OverloadCard >> applyCardUsing: cardManager to: anObjective at: aGame [
 
 	aGame isValidPlayer: anObjective.
-	cardManager activate: (self class holder: anObjective)
+	cardManager activate: (Hand of: anObjective with: self initializeNew)
 ]
 
 { #category : #Effect }
@@ -46,16 +51,9 @@ OverloadCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-OverloadCard >> initializeWith: aHolder [
+OverloadCard >> initializeNew [
 
-	holder := aHolder.
 	effect := -2
-]
-
-{ #category : #Information }
-OverloadCard >> isHolder: aColorPlayer [
-
-	^ holder = aColorPlayer
 ]
 
 { #category : #Information }

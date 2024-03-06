@@ -1,22 +1,19 @@
 Class {
 	#name : #SpeedBoostCard,
 	#superclass : #Object,
-	#instVars : [
-		'holder'
-	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-SpeedBoostCard class >> holder: aPlayer [
+SpeedBoostCard class >> initializeNew [
 
-	^ self new initializeWith: aPlayer
+	^ self new initializeNew
 ]
 
 { #category : #Initialization }
 SpeedBoostCard >> = aCard [
 
-	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
@@ -32,15 +29,7 @@ SpeedBoostCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-SpeedBoostCard >> initializeWith: aPlayer [
-
-	holder := aPlayer.
-]
-
-{ #category : #Information }
-SpeedBoostCard >> isHolder: aColorPlayer [
-
-	^ holder = aColorPlayer
+SpeedBoostCard >> initializeNew [
 ]
 
 { #category : #Information }

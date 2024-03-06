@@ -10,9 +10,9 @@ Class {
 }
 
 { #category : #'Instance creation' }
-CardManager class >> using: aCardDealer with: aColorCollection [
+CardManager class >> using: cards with: aColorCollection [
 
-	^ self new initializeUsing: aCardDealer with: aColorCollection
+	^ self new initializeUsing: cards with: aColorCollection
 ]
 
 { #category : #Managing }
@@ -22,33 +22,22 @@ CardManager >> activate: aCard [
 ]
 
 { #category : #Managing }
-CardManager >> add: aCard [
+CardManager >> add: aCardInPlayerHand [
 
-	cardsInPosetion add: aCard
+	cardsInPosetion add: aCardInPlayerHand
 ]
 
 { #category : #Managing }
-CardManager >> apply: aCard at: aGame [
+CardManager >> apply: aCardInHand to: anObjective at: aGame [
 
-	(self hasBeenGiven: aCard) ifFalse: [ 
+	(self hasBeenGiven: aCardInHand) ifFalse: [ 
 		Error signal: 'The player does not have that card in posetion' ].
 
-	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
-	aCard applyCardUsing: self at: aGame.
+	aCardInHand card haveEffect ifTrue: [ 
+		lastCardPlay := aCardInHand card ].
+	aCardInHand card applyCardUsing: self to: anObjective at: aGame.
 
-	cardsInPosetion takeOut: aCard
-]
-
-{ #category : #Managing }
-CardManager >> apply: aCard to: anObjective at: aGame [
-
-	(self hasBeenGiven: aCard) ifFalse: [ 
-		Error signal: 'The player does not have that card in posetion' ].
-
-	aCard haveEffect ifTrue: [ lastCardPlay := aCard ].
-	aCard applyCardUsing: self to: anObjective at: aGame.
-
-	cardsInPosetion takeOut: aCard
+	cardsInPosetion takeOut: aCardInHand
 ]
 
 { #category : #Managing }
@@ -58,10 +47,10 @@ CardManager >> calculateEffectOn: aColorPlayer [
 ]
 
 { #category : #Information }
-CardManager >> canBeUse: aCard whenPlay: aPlayer [
+CardManager >> canBeUse: aCardInHand whenPlay: aPlayer [
 
-	^ (aCard isPermanent and: (aCard isHolder: aPlayer)) or:
-		  aCard isPermanent not
+	^ (aCardInHand card isPermanent and: aCardInHand holder = aPlayer) 
+		  or: aCardInHand card isPermanent not
 ]
 
 { #category : #Information }
@@ -71,9 +60,25 @@ CardManager >> cardsInPosetionOf: players [
 ]
 
 { #category : #Managing }
-CardManager >> desactivate: anObjectiveCard [
+CardManager >> checkPolarityAt: aDuplaGalacticaGame [
 
-	activeCards desactivate: anObjectiveCard
+	activeCards checkPolarityAt: aDuplaGalacticaGame
+]
+
+{ #category : #Initialization }
+CardManager >> deal: cards to: aColorCollection [
+
+	| cardsPerColor |
+	cardsPerColor := cards size // aColorCollection size.
+	aColorCollection do: [ :color | 
+		cardsPerColor timesRepeat: [ 
+			self add: (Hand of: color with: cards removeLast) ] ]
+]
+
+{ #category : #Managing }
+CardManager >> desactivate: anObjectiveCardInHand [
+
+	activeCards desactivate: anObjectiveCardInHand
 ]
 
 { #category : #Managing }
@@ -83,18 +88,18 @@ CardManager >> duplicateEffectOf: anObjectiveCard [
 ]
 
 { #category : #Information }
-CardManager >> hasBeenGiven: aCard [
+CardManager >> hasBeenGiven: aCardInHand [
 
-	^ cardsInPosetion hasBeenGiven: aCard
+	^ cardsInPosetion hasBeenGiven: aCardInHand
 ]
 
 { #category : #Initialization }
-CardManager >> initializeUsing: aCardDealer with: aColorCollection [
+CardManager >> initializeUsing: cards with: aColorCollection [
 
-	lastCardPlay := EmptyCard new.
+	lastCardPlay := NullCard new.
 	activeCards := ActiveCards createDeck.
 	cardsInPosetion := CardsInPosetion createDeck.
-	aCardDealer dealCards: self to: aColorCollection
+	self deal: cards to: aColorCollection
 ]
 
 { #category : #Information }

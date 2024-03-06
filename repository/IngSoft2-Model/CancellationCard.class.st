@@ -1,28 +1,25 @@
 Class {
 	#name : #CancellationCard,
 	#superclass : #Object,
-	#instVars : [
-		'holder'
-	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-CancellationCard class >> holder: aPlayer [
+CancellationCard class >> initializeNew [
 
-	^ self new initializeWith: aPlayer
+	^ self new intializeNew
 ]
 
 { #category : #Initialization }
 CancellationCard >> = aCard [
 
-	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
-CancellationCard >> applyCardUsing: cardManager to: anObjectiveCard at: aGame [
+CancellationCard >> applyCardUsing: cardManager to: anObjectiveCardInHand at: aGame [
 
-	cardManager desactivate: anObjectiveCard
+	cardManager desactivate: anObjectiveCardInHand
 ]
 
 { #category : #Information }
@@ -32,15 +29,9 @@ CancellationCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-CancellationCard >> initializeWith: aPlayer [
+CancellationCard >> intializeNew [
 
-	holder := aPlayer.
-]
-
-{ #category : #Information }
-CancellationCard >> isHolder: aColorPlayer [
-
-	^ holder = aColorPlayer
+	
 ]
 
 { #category : #Information }

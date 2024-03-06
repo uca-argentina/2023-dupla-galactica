@@ -21,13 +21,13 @@ LoadedDie class >> with: aValuesCollection [
 { #category : #Initialization }
 LoadedDie >> initializeWith: aValue [
 
-	valueManager := TurnManager with: aValue
+	valueManager := QueueManager with: aValue
 ]
 
 { #category : #Information }
 LoadedDie >> numberOfFaces [
 
-	^ (valueManager valuesSize).
+	^ (valueManager valuesOnQueue).
 ]
 
 { #category : #Throw }

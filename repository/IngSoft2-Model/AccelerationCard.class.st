@@ -2,34 +2,27 @@ Class {
 	#name : #AccelerationCard,
 	#superclass : #Object,
 	#instVars : [
-		'holder',
 		'effect'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-AccelerationCard class >> holder: aColorPlayer [
+AccelerationCard class >> initializeNew [
 
-	^ self new initializeWith: aColorPlayer
+	^ self new initializeNew
 ]
 
-{ #category : #Initialization }
+{ #category : #comparing }
 AccelerationCard >> = aCard [
 
-	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
-]
-
-{ #category : #Effect }
-AccelerationCard >> applyCardUsing: aCardManager at: aGame [
-
-	aCardManager activate: (self class holder: 'everyone')
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
 AccelerationCard >> applyCardUsing: aCardManager to: anObjective at: aGame [
 
-	aCardManager activate: (self class holder: 'everyone') 
+	aCardManager activate: (Hand of: 'everyone' with: self initializeNew)
 ]
 
 { #category : #Effect }
@@ -51,16 +44,9 @@ AccelerationCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-AccelerationCard >> initializeWith: aHolder [
+AccelerationCard >> initializeNew [
 
-	holder := aHolder.
 	effect := 1
-]
-
-{ #category : #Information }
-AccelerationCard >> isHolder: aColorPlayer [
-
-	^ holder = aColorPlayer
 ]
 
 { #category : #Information }

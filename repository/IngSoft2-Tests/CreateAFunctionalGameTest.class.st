@@ -10,53 +10,60 @@ Class {
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithLoadedDie [
 
-	| aLoadedGame aLoadedDie aBoard boxes aShaker |
+	| aLoadedDie aBoard aBoxesCollection aCardsCollection |
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 6
 			               with: 7
 			               with: 9).
-	boxes:= (BoxCreator use: (OrderedCollection with: (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aShaker := DiceShaker with: aLoadedDie.
-	
-	aLoadedGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow: aShaker
-		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
-	^ aLoadedGame
+	aCardsCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
+	^ DuplaGalacticaGameProxy
+		  with: aColorCollection
+		  and: aBoard
+		  usingToThrow:
+		  (DiceShaker with: (OrderedCollection with: aLoadedDie))
+		  winningWhenReach: 1
+		  using: aCardsCollection
 ]
 
 { #category : #Games }
 CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 
-	| aLoadedDie aSecondLoadedDie aShaker aGame boxes aBoard |
+	| aLoadedDie aSecondLoadedDie aBoard aBoxesCollection aCardsCollection |
 	aLoadedDie := LoadedDie with: (OrderedCollection
-			               with: 4
-			               with: 5
 			               with: 1
-			               with: 9).
+			               with: 2
+			               with: 3
+			               with: 4).
 	aSecondLoadedDie := LoadedDie with: (OrderedCollection
-			                     with: 5
-			                     with: 7
-			                     with: 0
-			                     with: 8).
-	aShaker := DiceShaker with: aLoadedDie.
-	aShaker addDie: aSecondLoadedDie.
-	
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability using: NoEffectBox initializeNew withChanceOf: 100))) 
-		         create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow: aShaker
-		         winningWhenReach: 2
-		         using: (CardDealer with: (OrderedCollection with: (CardProbability using: OverloadCard withChanceOf: 100))).
-	^ aGame
+			                     with: 1
+			                     with: 2
+			                     with: 3
+			                     with: 4).
+	aCardsCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
+	^ DuplaGalacticaGameProxy
+		  with: aColorCollection
+		  and: aBoard
+		  usingToThrow: (DiceShaker with:
+				   (OrderedCollection with: aLoadedDie with: aSecondLoadedDie))
+		  winningWhenReach: 1
+		  using: aCardsCollection
 ]
 
 { #category : #running }
@@ -117,10 +124,9 @@ CreateAFunctionalGameTest >> testG002CreateAGameWithTwoLoadedDiceThenMovePlayers
 	aGame := self gameWithTwoLoadedDie.
 	aGame movePlayer.
 	aGame movePlayer.
-
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 10 with: 3)
+		equals: (OrderedCollection with: 3 with: 5)
 ]
 
 { #category : #tests }
@@ -131,10 +137,9 @@ CreateAFunctionalGameTest >> testH001WhenTheGameTriesToMovePlayersAfterSomeoneWi
 	aGame movePlayer.
 	aGame movePlayer.
 	aGame movePlayer.
-
 	self
 		assert: aGame playersBox
-		equals: (OrderedCollection with: 1 with: 3)
+		equals: (OrderedCollection with: 9 with: 5)
 ]
 
 { #category : #tests }

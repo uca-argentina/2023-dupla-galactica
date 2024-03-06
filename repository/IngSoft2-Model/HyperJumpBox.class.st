@@ -47,7 +47,7 @@ HyperJumpBox >> initializeWith: aParsecCollection [
 
 	| aParsecCollectionOrdered |
 	aParsecCollectionOrdered := aParsecCollection sort: [ :value1 :value2 | 
-		           value2 parsecs nominalValue > value1 parsecs nominalValue ].
-	parsecManager := TurnManager with: aParsecCollectionOrdered.
+		           value2 parsecs nominalValue < value1 parsecs nominalValue ].
+	parsecManager := QueueManager with: aParsecCollectionOrdered.
 	polarity := true
 ]

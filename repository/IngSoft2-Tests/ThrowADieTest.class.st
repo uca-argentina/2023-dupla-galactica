@@ -128,14 +128,14 @@ ThrowADieTest >> testE017CreateAShakerWithALoadedDieThenUseItToThrowAndCheckTheV
 		                       with: 7
 		                       with: 9.
 	aLoadedDie := LoadedDie with: anOrderedCollection.
-	aShaker := DiceShaker with: aLoadedDie.
+	aShaker := DiceShaker with: (OrderedCollection with: aLoadedDie).
 	self assert: aShaker throwDice equals: 3
 ]
 
 { #category : #tests }
 ThrowADieTest >> testE018CreateAShakerWithTwoLoadedDieThenUseItToThrowAndCheckTheValueReturned [
 
-	| aLoadedDie anOrderedCollection aShaker aSecondLoadedDie|
+	| aLoadedDie anOrderedCollection aShaker aSecondLoadedDie |
 	anOrderedCollection := OrderedCollection
 		                       with: 3
 		                       with: 5
@@ -143,7 +143,7 @@ ThrowADieTest >> testE018CreateAShakerWithTwoLoadedDieThenUseItToThrowAndCheckTh
 		                       with: 9.
 	aLoadedDie := LoadedDie with: anOrderedCollection.
 	aSecondLoadedDie := LoadedDie with: anOrderedCollection.
-	aShaker := DiceShaker with: aLoadedDie.
+	aShaker := DiceShaker with: (OrderedCollection with: aLoadedDie).
 	aShaker addDie: aSecondLoadedDie.
 	self assert: aShaker throwDice equals: 6
 ]

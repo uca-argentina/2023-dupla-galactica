@@ -10,26 +10,28 @@ Class {
 { #category : #running }
 MovePlayersInTurnFromTheGameTest >> setUp [
 
-	| aColorCollection aLoadedDie boxes aBoard aShaker|
+	| aColorCollection aLoadedDie aCardsCollection aBoxesCollection aBoard |
 	super setUp.
 
 	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
-	boxes := (BoxCreator use: (OrderedCollection with:
-			           (BoxProbability
-				            using: NoEffectBox initializeNew
-				            withChanceOf: 100))) create: 10.
-
-	aShaker := DiceShaker with: aLoadedDie.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aCardsCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (Creator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
 	aGame := DuplaGalacticaGameProxy
 		         with: aColorCollection
 		         and: aBoard
-		         usingToThrow: aShaker
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		         winningWhenReach: 1
-		         using: (CardDealer with: (OrderedCollection with:
-					           (CardProbability using: OverloadCard withChanceOf: 100)))
+		         using: aCardsCollection
 ]
 
 { #category : #tests }

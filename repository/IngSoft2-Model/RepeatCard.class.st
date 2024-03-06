@@ -1,22 +1,19 @@
 Class {
 	#name : #RepeatCard,
 	#superclass : #Object,
-	#instVars : [
-		'holder'
-	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RepeatCard class >> holder: aPlayer [
+RepeatCard class >> initializeNew [
 
-	^ self new initializeWith: aPlayer
+	^ self new initializeNew
 ]
 
 { #category : #Initialization }
 RepeatCard >> = aCard [
 
-	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
@@ -33,15 +30,9 @@ RepeatCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-RepeatCard >> initializeWith: aHolder [
+RepeatCard >> initializeNew [
 
-	holder := aHolder
-]
-
-{ #category : #Information }
-RepeatCard >> isHolder: aColorPlayer [
-
-	^ holder = aColorPlayer
+	
 ]
 
 { #category : #Information }

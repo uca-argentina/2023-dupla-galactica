@@ -2,7 +2,6 @@ Class {
 	#name : #SpeedCard,
 	#superclass : #Object,
 	#instVars : [
-		'holder',
 		'effect'
 	],
 	#category : #'IngSoft2-Model'
@@ -14,17 +13,23 @@ SpeedCard class >> holder: aPlayer [
 	^ self new initializeWith: aPlayer
 ]
 
+{ #category : #'Instance creation' }
+SpeedCard class >> initializeNew [
+
+	^ self new initializeNew
+]
+
 { #category : #Initialization }
 SpeedCard >> = aCard [
 
-	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
 SpeedCard >> applyCardUsing: cardManager to: anObjective at: aGame [
 
 	aGame isValidPlayer: anObjective.
-	cardManager activate: (self class holder: anObjective).
+	cardManager activate: (Hand of: anObjective with: self initializeNew)
 ]
 
 { #category : #Effect }
@@ -46,16 +51,9 @@ SpeedCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-SpeedCard >> initializeWith: aHolder [
+SpeedCard >> initializeNew [
 
-	holder := aHolder.
 	effect := 1
-]
-
-{ #category : #Information }
-SpeedCard >> isHolder: aColorPlayer [
-
-	^ holder = aColorPlayer
 ]
 
 { #category : #Information }

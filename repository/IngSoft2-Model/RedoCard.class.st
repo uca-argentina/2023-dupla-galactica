@@ -1,28 +1,19 @@
 Class {
 	#name : #RedoCard,
 	#superclass : #Object,
-	#instVars : [
-		'holder'
-	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-RedoCard class >> holder: aPlayer [
+RedoCard class >> initializeNew [
 
-	^ self new initializeWith: aPlayer
+	^ self new initializeNew
 ]
 
 { #category : #Initialization }
 RedoCard >> = aCard [
 
-	^ (aCard isKindOf: self class) and: [ aCard isHolder: holder ]
-]
-
-{ #category : #Effect }
-RedoCard >> applyCardUsing: aCardManager at: aGame [
-
-	aCardManager lastCardPlay applyCardUsing: aCardManager at: aGame
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
@@ -41,15 +32,7 @@ RedoCard >> haveEffect [
 ]
 
 { #category : #Initialization }
-RedoCard >> initializeWith: aHolder [
-
-	holder := aHolder
-]
-
-{ #category : #Information }
-RedoCard >> isHolder: aColorPlayer [
-
-	^ holder = aColorPlayer
+RedoCard >> initializeNew [
 ]
 
 { #category : #Information }
