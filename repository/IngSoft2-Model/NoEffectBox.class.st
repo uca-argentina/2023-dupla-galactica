@@ -11,7 +11,12 @@ NoEffectBox class >> initializeNew [
 ]
 
 { #category : #Effect }
-NoEffectBox >> effect: aBoard [
+NoEffectBox >> changePolarity [
+	
+]
+
+{ #category : #Effect }
+NoEffectBox >> effect: aGame [
 
 	
 ]

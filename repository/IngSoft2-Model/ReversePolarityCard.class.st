@@ -8,12 +8,6 @@ Class {
 }
 
 { #category : #'Instance creation' }
-ReversePolarityCard class >> holder: aPlayer [
-
-	^ self new initializeWith: aPlayer
-]
-
-{ #category : #'Instance creation' }
 ReversePolarityCard class >> initializeNew [
 
 	^ self new initializeNew

@@ -19,12 +19,6 @@ DuplaGalacticaGameProxy class >> with: aColorCollection and: aBoard usingToThrow
 ]
 
 { #category : #Cards }
-DuplaGalacticaGameProxy >> apply: aCard [
-
-	game apply: aCard
-]
-
-{ #category : #Cards }
 DuplaGalacticaGameProxy >> apply: aCardInHand to: anObjective [
 
 	game apply: aCardInHand to: anObjective
@@ -99,12 +93,6 @@ DuplaGalacticaGameProxy >> playersColors [
 DuplaGalacticaGameProxy >> playersLaps [
 
 	^ game playersLaps
-]
-
-{ #category : #Information }
-DuplaGalacticaGameProxy >> playersPositions [
-
-	^ game playersPositions
 ]
 
 { #category : #Finalization }

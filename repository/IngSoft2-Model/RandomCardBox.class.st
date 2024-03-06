@@ -2,7 +2,8 @@ Class {
 	#name : #RandomCardBox,
 	#superclass : #Object,
 	#instVars : [
-		'cardsProbabilities'
+		'cardsProbabilities',
+		'polarity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -12,19 +13,30 @@ RandomCardBox class >> with: aCardsProbabilitiesCollection [
 
 	(aCardsProbabilitiesCollection sum: #probability) = 100 ifFalse: [ 
 		Error signal: 'The sum of probabilities must be 100' ].
-	^ self new intializeUsing: aCardsProbabilitiesCollection
+	^ self new initializeWith: aCardsProbabilitiesCollection
+]
+
+{ #category : #Effect }
+RandomCardBox >> changePolarity [
+
+	polarity := polarity not
 ]
 
 { #category : #Effect }
 RandomCardBox >> effect: aGame [
 
-	aGame add: (Hand
-			 of: aGame currentPlayer
-			 with: ((Creator use: cardsProbabilities) create: 1))
+	polarity
+		ifTrue: [ 
+			aGame add: (Hand
+					 of: aGame currentPlayer
+					 with: ((Creator use: cardsProbabilities) create: 1)) ]
+		ifFalse: [ 
+		aGame addToOthers: ((Creator use: cardsProbabilities) create: 1) ]
 ]
 
 { #category : #Initialization }
-RandomCardBox >> intializeUsing: aCardsProbabilitiesCollection [
+RandomCardBox >> initializeWith: aCardsProbabilitiesCollection [
 
-	cardsProbabilities := aCardsProbabilitiesCollection
+	cardsProbabilities := aCardsProbabilitiesCollection.
+	polarity := true
 ]

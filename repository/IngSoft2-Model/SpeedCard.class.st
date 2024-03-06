@@ -8,12 +8,6 @@ Class {
 }
 
 { #category : #'Instance creation' }
-SpeedCard class >> holder: aPlayer [
-
-	^ self new initializeWith: aPlayer
-]
-
-{ #category : #'Instance creation' }
 SpeedCard class >> initializeNew [
 
 	^ self new initializeNew

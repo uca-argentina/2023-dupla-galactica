@@ -14,20 +14,8 @@ Position class >> atTheBeginning [
 	^ self new initializeAtTheBeginning
 ]
 
-{ #category : #Comparing }
-Position >> = aPosition [
-
-	^ lap = aPosition lap and: box = aPosition boxNumber
-]
-
 { #category : #Information }
 Position >> box [
-
-	^ box
-]
-
-{ #category : #Information }
-Position >> boxNumber [
 
 	^ box
 ]

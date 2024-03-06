@@ -39,6 +39,14 @@ DuplaGalacticaGame >> add: aCard [
 ]
 
 { #category : #Cards }
+DuplaGalacticaGame >> addToOthers: aCard [
+
+	(players reject: [ :player | player color == self currentPlayer ]) 
+		do: [ :player | 
+		cardManager add: (Hand of: player color with: aCard) ]
+]
+
+{ #category : #Cards }
 DuplaGalacticaGame >> apply: aCardInHand to: anObjective [
 
 	(cardManager canBeUse: aCardInHand whenPlay: current color) 
@@ -181,14 +189,6 @@ DuplaGalacticaGame >> playersColors [
 DuplaGalacticaGame >> playersLaps [
 
 	^ players collect: [ :player | player lap ]
-]
-
-{ #category : #Information }
-DuplaGalacticaGame >> playersPositions [
-
-	^ players collect: [ :player | 
-		  Position atTheBeginning move:
-			  board boxes * player lap + player box - 1 ]
 ]
 
 { #category : #Finalization }

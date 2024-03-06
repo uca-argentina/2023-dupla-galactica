@@ -1291,3 +1291,176 @@ CardsTest >> testQ061WhenPlayerPlaysAReversePolarityCardOnASpeedUpBoxThenCheckTh
 		assert: aGame playersBox
 		equals: (OrderedCollection with: 2 with: 10)
 ]
+
+{ #category : #tests }
+CardsTest >> testQ062WhenPlayerPlaysAReversePolarityCardOnAWormHoleBoxThenCheckThatTheBoxAffectOtherPlayersAndValidPlayersPositions [
+
+	| aGame aLoadedDie cards boxes aBoard |
+	cards := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: ReversePolarityCard initializeNew
+				            withChanceOf: 100))) create: 4.
+	boxes := (Creator use: (OrderedCollection with:
+			           (ObjectProbability
+				            using: WormHoleBox initializeNew
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 7
+			               with: 8
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
+		         winningWhenReach: 1
+		         using: cards.
+	aGame
+		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 9.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 1 with: 9)
+]
+
+{ #category : #tests }
+CardsTest >> testQ063WhenPlayerPlaysAReversePolarityCardOnAMoonWalkBoxThenCheckThatTheBoxAffectTheCurrentPlayersAndValidPlayersPositions [
+
+	| aGame aLoadedDie cards boxes aBoard |
+	cards := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: ReversePolarityCard initializeNew
+				            withChanceOf: 100))) create: 4.
+	boxes := (Creator use: (OrderedCollection with:
+			           (ObjectProbability
+				            using: (MoonWalkBox with: -2)
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 5
+			               with: 4
+			               with: 3
+			               with: 2).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
+		         winningWhenReach: 1
+		         using: cards.
+	aGame
+		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 5.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 6 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ064WhenPlayerPlaysAReversePolarityCardOnAnAtomicBombBoxThenCheckThatTheBoxDoesNotAffectAnyoneAndValidPlayersPositions [
+
+	| aGame aLoadedDie cards boxes aBoard |
+	cards := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: ReversePolarityCard initializeNew
+				            withChanceOf: 100))) create: 4.
+	boxes := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: AtomicBombBox initializeNew
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 5
+			               with: 4
+			               with: 3
+			               with: 2).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
+		         winningWhenReach: 1
+		         using: cards.
+	aGame
+		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 5.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 1 with: 5)
+]
+
+{ #category : #tests }
+CardsTest >> testQ065WhenPlayerPlaysAReversePolarityCardOnAHyperJumpBoxThenCheckThatTheBoxAffectOtherPlayersAndValidPlayersPositions [
+
+	| aGame aLoadedDie cards boxes aBoard |
+	cards := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: ReversePolarityCard initializeNew
+				            withChanceOf: 100))) create: 4.
+	boxes := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: (HyperJumpBox with:
+						             (OrderedCollection
+							              with: (Parsec worth: 40)
+							              with: (Parsec worth: 30)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
+		         winningWhenReach: 1
+		         using: cards.
+	aGame
+		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersBox
+		equals: (OrderedCollection with: 10 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ066WhenPlayerPlaysAReversePolarityCardOnARandomCardBoxThenCheckThatTheBoxAffectOtherPlayersAndValidPlayersCardsInPosition [
+
+	| aGame aLoadedDie cards boxes aBoard |
+	cards := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: ReversePolarityCard initializeNew
+				            withChanceOf: 100))) create: 4.
+	boxes := (Creator use: (OrderedCollection with: (ObjectProbability
+				            using: (RandomCardBox with: (OrderedCollection with:
+							              (ObjectProbability
+								               using: OverloadCard initializeNew
+								               withChanceOf: 100)))
+				            withChanceOf: 100))) create: 10.
+	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aGame := DuplaGalacticaGameProxy
+		         with: aColorCollection
+		         and: aBoard
+		         usingToThrow:
+		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
+		         winningWhenReach: 1
+		         using: cards.
+	aGame
+		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aGame movePlayer.
+	aGame movePlayer.
+	self
+		assert: aGame playersCardInPosetion
+		equals: (OrderedCollection with: 3 with: 2)
+]

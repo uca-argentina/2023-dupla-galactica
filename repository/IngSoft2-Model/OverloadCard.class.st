@@ -8,12 +8,6 @@ Class {
 }
 
 { #category : #'Instance creation' }
-OverloadCard class >> holder: aPlayer [
-
-	^ self new initializeWith: aPlayer
-]
-
-{ #category : #'Instance creation' }
 OverloadCard class >> initializeNew [
 
 	^ self new initializeNew
