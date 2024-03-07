@@ -12,13 +12,12 @@ NoEffectCard class >> initializeNew [
 
 { #category : #Information }
 NoEffectCard >> = aCard [
+
+	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
 NoEffectCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
-
-	Error signal:
-		'Redo card cannot be played because there are no cards that have been played before'
 ]
 
 { #category : #Effect }
@@ -27,6 +26,8 @@ NoEffectCard >> applyEffect [
 
 { #category : #Information }
 NoEffectCard >> haveEffect [
+
+	^ true
 ]
 
 { #category : #Initialization }
@@ -35,4 +36,6 @@ NoEffectCard >> initializeNew [
 
 { #category : #Information }
 NoEffectCard >> isPermanent [
+
+	^ false
 ]

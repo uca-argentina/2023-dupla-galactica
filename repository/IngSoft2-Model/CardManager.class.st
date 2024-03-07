@@ -98,7 +98,7 @@ CardManager >> hasBeenGiven: aCardInAPlayerHand [
 { #category : #Initialization }
 CardManager >> initializeUsing: aCardsCollection with: aColorsCollection [
 
-	lastCardPlay := NoEffectCard new.
+	lastCardPlay := NoEffectCard initializeNew.
 	activeCards := ActiveCardsDeck createDeck.
 	cardsInPosetion := CardsInPosetionDeck createDeck.
 	self deal: aCardsCollection to: aColorsCollection

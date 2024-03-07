@@ -107,8 +107,11 @@ DuplaGalacticaGame >> initializeWith: aColorsCollection and: aBoard usingToThrow
 { #category : #Boxes }
 DuplaGalacticaGame >> isValidBox: aBoxNumber [
 
-	(aBoxNumber <= self boardLength and: aBoxNumber > 0) ifFalse: [ 
-		Error signal: 'That is not a valid box number' ]
+	aBoxNumber isNumber
+		ifTrue: [ 
+			(aBoxNumber <= self boardLength and: aBoxNumber > 0) ifFalse: [ 
+				Error signal: 'That is not a valid box number' ] ]
+		ifFalse: [ Error signal: 'That is not a box number' ]
 ]
 
 { #category : #Cards }

@@ -1609,14 +1609,9 @@ CardsTest >> testQ067WhenPlayerPlaysAReversePolarityCardOnANoEffectBoxThenCheckT
 		                     (OrderedCollection with: (ObjectProbability
 				                       using: ReversePolarityCard initializeNew
 				                       withChanceOf: 100))) create: 4.
-	aBoxesCollection := (ObjectCreator use:
-		                     (OrderedCollection with: (ObjectProbability
-				                       using:
-					                       (RandomCardBox with:
-						                        (OrderedCollection with:
-							                         (ObjectProbability
-								                          using: NoEffectBox initializeNew
-								                          withChanceOf: 100)))
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
 				                       withChanceOf: 100))) create: 10.
 	aBoard := Board
 		          with: aBoxesCollection
@@ -1895,4 +1890,118 @@ CardsTest >> testQ073WhenPlayerPlaysTwoReversePolarityCardsOnTheSameBoxThenCheck
 	self
 		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 7 with: 1)
+]
+
+{ #category : #tests }
+CardsTest >> testQ074WhenPlayerTriesToPlayAReversePolarityCardOnAPlayerObjectiveThenFails [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	self
+		should: [ 
+			aDuplaGalacticaGame
+				apply:
+				(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+				to: 'blue' ]
+		raise: Error
+		withMessage: 'That is not a box number'
+]
+
+{ #category : #tests }
+CardsTest >> testQ075WhenPlayerTriesToPlayAReversePolarityCardOnACardObjectiveThenFails [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	self
+		should: [ 
+			aDuplaGalacticaGame
+				apply:
+				(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+				to: (PlayerHand of: 'red' with: SpeedCard initializeNew) ]
+		raise: Error
+		withMessage: 'That is not a box number'
+]
+
+{ #category : #tests }
+CardsTest >> testQ076WhenPlayerPlaysANoEffectCardThenCheckThatNoEffectsWereAppliedAndValidPlayersPositions [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: NoEffectCard initializeNew)
+		to: 'blue'.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	self
+		assert: aDuplaGalacticaGame playersBox
+		equals: (OrderedCollection with: 2 with: 3)
 ]
