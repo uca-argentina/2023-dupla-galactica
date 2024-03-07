@@ -14,7 +14,7 @@ Player class >> with: aSpaceship [
 	^ self new initializeWith: aSpaceship
 ]
 
-{ #category : #Sort }
+{ #category : #Information }
 Player >> aheadOf: aPlayer [
 
 	^ aPlayer lap < position lap or:
@@ -37,7 +37,7 @@ Player >> color [
 Player >> initializeWith: aColor [
 
 	color := aColor.
-	position := Position atTheBeginning
+	position := PlayerPosition atTheBeginning
 ]
 
 { #category : #Information }

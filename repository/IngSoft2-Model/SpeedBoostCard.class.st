@@ -17,9 +17,9 @@ SpeedBoostCard >> = aCard [
 ]
 
 { #category : #Effect }
-SpeedBoostCard >> applyCardUsing: cardManager to: anObjective at: aGame [
+SpeedBoostCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
 
-	cardManager duplicateEffectOf: anObjective
+	aCardManager duplicateEffectOf: anObjective
 ]
 
 { #category : #Information }

@@ -20,10 +20,11 @@ SpeedCard >> = aCard [
 ]
 
 { #category : #Effect }
-SpeedCard >> applyCardUsing: cardManager to: anObjective at: aGame [
+SpeedCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
 
-	aGame isValidPlayer: anObjective.
-	cardManager activate: (Hand of: anObjective with: self initializeNew)
+	aDuplaGalacticaGame isValidPlayer: anObjective.
+	aCardManager activate:
+		(PlayerHand of: anObjective with: self initializeNew)
 ]
 
 { #category : #Effect }

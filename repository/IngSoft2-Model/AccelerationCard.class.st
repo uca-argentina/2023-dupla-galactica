@@ -13,16 +13,20 @@ AccelerationCard class >> initializeNew [
 	^ self new initializeNew
 ]
 
-{ #category : #comparing }
+{ #category : #Initialization }
 AccelerationCard >> = aCard [
 
 	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
-AccelerationCard >> applyCardUsing: aCardManager to: anObjective at: aGame [
+AccelerationCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
 
-	aCardManager activate: (Hand of: 'everyone' with: self initializeNew)
+	anObjective = 'everyone'
+		ifTrue: [ 
+			aCardManager activate:
+				(PlayerHand of: anObjective with: self initializeNew) ]
+		ifFalse: [ Error signal: 'That is not a valid objective' ]
 ]
 
 { #category : #Effect }

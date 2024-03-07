@@ -20,17 +20,24 @@ ReversePolarityCard >> = aCard [
 ]
 
 { #category : #Effect }
-ReversePolarityCard >> applyCardUsing: cardManager to: anObjective at: aGame [
+ReversePolarityCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
 
-	cardManager activate: (Hand of: anObjective with: self initializeNew)
+	aDuplaGalacticaGame isValidBox: anObjective.
+	aCardManager activate:
+		(PlayerHand of: anObjective with: self initializeNew)
+]
+
+{ #category : #Effect }
+ReversePolarityCard >> boostEffect [
+
+	effect := effect + 1
 ]
 
 { #category : #Effect }
 ReversePolarityCard >> changePolarity: aBoxNumber at: aDuplaGalacticaGame [
 
-	effect ifFalse: [ ^ self ].
-	aDuplaGalacticaGame changePolarity: aBoxNumber.
-	effect := false
+	effect timesRepeat: [ 
+		aDuplaGalacticaGame changePolarityOf: aBoxNumber ]
 ]
 
 { #category : #Information }
@@ -42,7 +49,7 @@ ReversePolarityCard >> haveEffect [
 { #category : #Initialization }
 ReversePolarityCard >> initializeNew [
 
-	effect := true
+	effect := 1
 ]
 
 { #category : #Information }

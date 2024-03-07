@@ -2,7 +2,7 @@ Class {
 	#name : #CreateAFunctionalGameTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aColorCollection'
+		'aColorsCollection'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -16,17 +16,19 @@ CreateAFunctionalGameTest >> gameWithLoadedDie [
 			               with: 6
 			               with: 7
 			               with: 9).
-	aCardsCollection := (Creator use: (OrderedCollection with:
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: OverloadCard initializeNew
 				                       withChanceOf: 100))) create: 4.
-	aBoxesCollection := (Creator use: (OrderedCollection with:
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: NoEffectBox initializeNew
 				                       withChanceOf: 100))) create: 10.
-	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	^ DuplaGalacticaGameProxy
-		  with: aColorCollection
+		  with: aColorsCollection
 		  and: aBoard
 		  usingToThrow:
 		  (DiceShaker with: (OrderedCollection with: aLoadedDie))
@@ -48,17 +50,19 @@ CreateAFunctionalGameTest >> gameWithTwoLoadedDie [
 			                     with: 2
 			                     with: 3
 			                     with: 4).
-	aCardsCollection := (Creator use: (OrderedCollection with:
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: OverloadCard initializeNew
 				                       withChanceOf: 100))) create: 4.
-	aBoxesCollection := (Creator use: (OrderedCollection with:
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: NoEffectBox initializeNew
 				                       withChanceOf: 100))) create: 10.
-	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	^ DuplaGalacticaGameProxy
-		  with: aColorCollection
+		  with: aColorsCollection
 		  and: aBoard
 		  usingToThrow: (DiceShaker with:
 				   (OrderedCollection with: aLoadedDie with: aSecondLoadedDie))
@@ -72,7 +76,7 @@ CreateAFunctionalGameTest >> setUp [
 	super setUp.
 
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'
+	aColorsCollection := OrderedCollection with: 'red' with: 'blue'
 ]
 
 { #category : #tests }
@@ -88,68 +92,66 @@ CreateAFunctionalGameTest >> should: anErrorBlock raise: anExceptionClass withMe
 { #category : #tests }
 CreateAFunctionalGameTest >> testD001CreateAGameWithALoadedDieThenAskForCurrentPlayer [
 
-	| aLoadedGame |
-	aLoadedGame := self gameWithLoadedDie.
-	self
-		assert: aLoadedGame currentPlayer 
-		equals: 'red' 
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self gameWithLoadedDie.
+	self assert: aDuplaGalacticaGame currentPlayer equals: 'red'
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testD002CreateAGameWithALoadedDieThenMovePlayersAndAskForWinner [
 
-	| aLoadedGame |
-	aLoadedGame := self gameWithLoadedDie.
-	aLoadedGame movePlayer.
-	aLoadedGame movePlayer.
-	aLoadedGame movePlayer.
-	self assert: aLoadedGame winner equals: 'red'
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self gameWithLoadedDie.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	self assert: aDuplaGalacticaGame winner equals: 'red'
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testF001CreateAGameWithALoadedDieThenMovePlayersAndCheckPlayersPositions [
 
-	| aGame |
-	aGame := self gameWithLoadedDie.
-	aGame movePlayer.
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self gameWithLoadedDie.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 10 with: 1)
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testG002CreateAGameWithTwoLoadedDiceThenMovePlayersAndCheckPlayersPositions [
 
-	| aGame |
-	aGame := self gameWithTwoLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self gameWithTwoLoadedDie.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 3 with: 5)
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testH001WhenTheGameTriesToMovePlayersAfterSomeoneWinsThenTheMovementHasNoEffectAndCheckPlayersPositions [
 
-	| aGame |
-	aGame := self gameWithTwoLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self gameWithTwoLoadedDie.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 9 with: 5)
 ]
 
 { #category : #tests }
 CreateAFunctionalGameTest >> testL002TryToAskForWinnerWhenNoOneWinsThenFails [
 
-	| aGame |
-	aGame := self gameWithLoadedDie.
-	aGame movePlayer.
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self gameWithLoadedDie.
+	aDuplaGalacticaGame movePlayer.
 	self
-		should: [ aGame winner ]
+		should: [ aDuplaGalacticaGame winner ]
 		raise: Error
 		withMessage: 'There is no winner'
 ]
@@ -157,13 +159,13 @@ CreateAFunctionalGameTest >> testL002TryToAskForWinnerWhenNoOneWinsThenFails [
 { #category : #tests }
 CreateAFunctionalGameTest >> testL003WhenTheGameAskForRankingThenCheckPlayersPositionsAndValid [
 
-	| aGame |
-	aGame := self gameWithTwoLoadedDie.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self gameWithTwoLoadedDie.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame ranking
+		assert: aDuplaGalacticaGame ranking
 		equals: (OrderedCollection with: 'blue' with: 'red')
 ]

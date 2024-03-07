@@ -20,15 +20,21 @@ SpeedUpBox >> changePolarity [
 ]
 
 { #category : #Effect }
-SpeedUpBox >> effect: aGame [
+SpeedUpBox >> effect: aDuplaGalacticaGame [
 
 	polarity
-		ifTrue: [ aGame moveCurrent: 4 ]
-		ifFalse: [ aGame moveOthers: 4 ]
+		ifTrue: [ aDuplaGalacticaGame moveCurrent: 4 ]
+		ifFalse: [ aDuplaGalacticaGame moveOthers: 4 ]
 ]
 
 { #category : #Initialization }
 SpeedUpBox >> initializeNew [
+
+	polarity := true
+]
+
+{ #category : #Effect }
+SpeedUpBox >> resetPolarity [
 
 	polarity := true
 ]

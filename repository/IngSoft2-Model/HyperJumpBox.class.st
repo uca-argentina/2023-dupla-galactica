@@ -23,26 +23,33 @@ HyperJumpBox >> changePolarity [
 ]
 
 { #category : #Effect }
-HyperJumpBox >> effect: aGame [
+HyperJumpBox >> effect: aDuplaGalacticaGame [
 
 	polarity
 		ifTrue: [ 
-			aGame moveCurrent:
-				parsecManager current parsecs nominalValue // aGame boxesByParsecs ]
+			aDuplaGalacticaGame moveCurrent:
+				parsecManager current parsecs nominalValue
+				// aDuplaGalacticaGame boxesByParsecs ]
 		ifFalse: [ 
-			aGame moveOthers:
-				parsecManager current parsecs nominalValue // aGame boxesByParsecs ].
-
+			aDuplaGalacticaGame moveOthers:
+				parsecManager current parsecs nominalValue
+				// aDuplaGalacticaGame boxesByParsecs ].
 	parsecManager goNext
 ]
 
 { #category : #Initialization }
-HyperJumpBox >> initializeWith: aParsecCollection [
+HyperJumpBox >> initializeWith: aParsecsCollection [
 
-	| aParsecCollectionOrdered |
-	aParsecCollectionOrdered := aParsecCollection sort: [ :value1 :value2 | 
-		                            value2 parsecs nominalValue
-		                            < value1 parsecs nominalValue ].
-	parsecManager := QueueManager with: aParsecCollectionOrdered.
+	| aParsecsCollectionOrdered |
+	aParsecsCollectionOrdered := aParsecsCollection sort: [ :value1 :value2 | 
+		                             value2 parsecs nominalValue
+		                             < value1 parsecs nominalValue ].
+	parsecManager := QueueManager with: aParsecsCollectionOrdered.
+	polarity := true
+]
+
+{ #category : #Effect }
+HyperJumpBox >> resetPolarity [
+
 	polarity := true
 ]

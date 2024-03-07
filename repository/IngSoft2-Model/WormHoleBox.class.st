@@ -20,15 +20,21 @@ WormHoleBox >> changePolarity [
 ]
 
 { #category : #Effect }
-WormHoleBox >> effect: aGame [
+WormHoleBox >> effect: aDuplaGalacticaGame [
 
 	polarity
-		ifTrue: [ aGame moveCurrent: -4 ]
-		ifFalse: [ aGame moveOthers: -4 ]
+		ifTrue: [ aDuplaGalacticaGame moveCurrent: -4 ]
+		ifFalse: [ aDuplaGalacticaGame moveOthers: -4 ]
 ]
 
 { #category : #Initialization }
 WormHoleBox >> initializeNew [
+
+	polarity := true
+]
+
+{ #category : #Effect }
+WormHoleBox >> resetPolarity [
 
 	polarity := true
 ]

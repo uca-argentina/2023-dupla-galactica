@@ -1,5 +1,5 @@
 Class {
-	#name : #Hand,
+	#name : #PlayerHand,
 	#superclass : #Object,
 	#instVars : [
 		'card',
@@ -8,26 +8,26 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-Hand class >> of: aColor with: aCard [
+{ #category : #'Instance creation' }
+PlayerHand class >> of: aColor with: aCard [
 
 	^ self new initializeOf: aColor with: aCard
 ]
 
 { #category : #Information }
-Hand >> card [
+PlayerHand >> card [
 
 	^ card
 ]
 
 { #category : #Information }
-Hand >> holder [
+PlayerHand >> holder [
 
 	^ holder
 ]
 
 { #category : #Initialization }
-Hand >> initializeOf: aColor with: aCard [
+PlayerHand >> initializeOf: aColor with: aCard [
 
 	holder := aColor.
 	card := aCard

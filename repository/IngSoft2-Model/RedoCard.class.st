@@ -17,12 +17,12 @@ RedoCard >> = aCard [
 ]
 
 { #category : #Effect }
-RedoCard >> applyCardUsing: aCardManager to: anObjective at: aGame [
+RedoCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
 
 	aCardManager lastCardPlay
 		applyCardUsing: aCardManager
 		to: anObjective
-		at: aGame
+		at: aDuplaGalacticaGame
 ]
 
 { #category : #Information }

@@ -17,10 +17,10 @@ RepeatCard >> = aCard [
 ]
 
 { #category : #Effect }
-RepeatCard >> applyCardUsing: cardManager to: anObjective at: aGame [
+RepeatCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
 
-	aGame isValidPlayer: anObjective.
-	aGame repeatEffectTo: anObjective
+	aDuplaGalacticaGame isValidPlayer: anObjective.
+	aDuplaGalacticaGame repeatEffectTo: anObjective
 ]
 
 { #category : #Information }

@@ -23,20 +23,27 @@ RandomCardBox >> changePolarity [
 ]
 
 { #category : #Effect }
-RandomCardBox >> effect: aGame [
+RandomCardBox >> effect: aDuplaGalacticaGame [
 
 	polarity
 		ifTrue: [ 
-			aGame add: (Hand
-					 of: aGame currentPlayer
-					 with: ((Creator use: cardsProbabilities) create: 1)) ]
+			aDuplaGalacticaGame add: (PlayerHand
+					 of: aDuplaGalacticaGame currentPlayer
+					 with: ((ObjectCreator use: cardsProbabilities) create: 1)) ]
 		ifFalse: [ 
-		aGame addToOthers: ((Creator use: cardsProbabilities) create: 1) ]
+			aDuplaGalacticaGame addToOthers:
+				((ObjectCreator use: cardsProbabilities) create: 1) ]
 ]
 
 { #category : #Initialization }
 RandomCardBox >> initializeWith: aCardsProbabilitiesCollection [
 
 	cardsProbabilities := aCardsProbabilitiesCollection.
+	polarity := true
+]
+
+{ #category : #Effect }
+RandomCardBox >> resetPolarity [
+
 	polarity := true
 ]

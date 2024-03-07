@@ -2,9 +2,8 @@ Class {
 	#name : #CreateDuplaGalacticaGameTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aColorCollection',
 		'aLoadedDie',
-		'aShaker'
+		'aColorsCollection'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -13,7 +12,7 @@ Class {
 CreateDuplaGalacticaGameTest >> createGameWithEffects [
 
 	| aBoard aBoxCreator aBoxesCollection boxesProbabilities aCardsCollection |
-	aCardsCollection := (Creator use: (OrderedCollection with:
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: OverloadCard initializeNew
 				                       withChanceOf: 100))) create: 4.
@@ -39,10 +38,10 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 			                       using: AtomicBombBox initializeNew
 			                       withChanceOf: 2)
 		                      with: (ObjectProbability
-				                       using: (HyperJumpBox with:
-						                        (OrderedCollection
-							                         with: (Parsec worth: 40)
-							                         with: (Parsec worth: 30)))
+				                       using:
+					                       (HyperJumpBox with: (OrderedCollection
+							                         with: (ParsecMeasure worth: 40)
+							                         with: (ParsecMeasure worth: 30)))
 				                       withChanceOf: 8).
 	boxesProbabilities addLast: (ObjectProbability
 			 using:
@@ -50,13 +49,16 @@ CreateDuplaGalacticaGameTest >> createGameWithEffects [
 							    using: CancellationCard initializeNew
 							    withChanceOf: 100)))
 			 withChanceOf: 10).
-	aBoxCreator := Creator use: boxesProbabilities.
+	aBoxCreator := ObjectCreator use: boxesProbabilities.
 	aBoxesCollection := aBoxCreator create: 10.
-	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 200).
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 200).
 	^ DuplaGalacticaGameProxy
-		  with: aColorCollection
+		  with: aColorsCollection
 		  and: aBoard
-		  usingToThrow: aShaker
+		  usingToThrow:
+		  (DiceShaker with: (OrderedCollection with: aLoadedDie))
 		  winningWhenReach: 1
 		  using: aCardsCollection
 ]
@@ -66,13 +68,12 @@ CreateDuplaGalacticaGameTest >> setUp [
 
 	super setUp.
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aColorsCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
-			               with: 4).
-	aShaker := DiceShaker with: (OrderedCollection with: aLoadedDie)
+			               with: 4)
 ]
 
 { #category : #tests }
@@ -86,29 +87,28 @@ CreateDuplaGalacticaGameTest >> should: anErrorBlock raise: anExceptionClass wit
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP001CreateAGameWithABoardWhoseBoxesHaveRandomEffectsThenAskForTheBoardBoxesSize [
+CreateDuplaGalacticaGameTest >> testP001CreateAGameWithABoardWhoseBoxesHaveRandomEffectsThenValidBoardBoxesSize [
 
-	| aGame |
-	aGame := self createGameWithEffects.
-
-	self assert: aGame boxes identicalTo: 10
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self createGameWithEffects.
+	self assert: aDuplaGalacticaGame boardLength identicalTo: 10
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP003CreateAGameThenMovePlayersAndAskForCurrentPlayerToCheckTurns [
+CreateDuplaGalacticaGameTest >> testP003CreateAGameThenMovePlayersAndValidPlayersTurn [
 
-	| aGame |
-	aGame := self createGameWithEffects.
-	aGame movePlayer.
-	self assert: aGame currentPlayer equals: 'blue'
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self createGameWithEffects.
+	aDuplaGalacticaGame movePlayer.
+	self assert: aDuplaGalacticaGame currentPlayer equals: 'blue'
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP004CreateAGameThenAskForGoalLaps [
+CreateDuplaGalacticaGameTest >> testP004CreateAGameThenValidGoalLaps [
 
-	| aGame |
-	aGame := self createGameWithEffects.
-	self assert: aGame goalLaps identicalTo: 1
+	| aDuplaGalacticaGame |
+	aDuplaGalacticaGame := self createGameWithEffects.
+	self assert: aDuplaGalacticaGame goalLaps identicalTo: 1
 ]
 
 { #category : #tests }
@@ -124,7 +124,7 @@ CreateDuplaGalacticaGameTest >> testP017TryToCreateAGameWithoutAColorsCollection
 								  with: NoEffectBox initializeNew
 								  with: NoEffectBox initializeNew
 								  with: NoEffectBox initializeNew)
-						 measure: (Parsec worth: 200))
+						 measure: (ParsecMeasure worth: 200))
 				usingToThrow: (OrderedCollection with: aLoadedDie)
 				winningWhenReach: 1
 				using: (OrderedCollection with: OverloadCard initializeNew) ]
@@ -138,14 +138,14 @@ CreateDuplaGalacticaGameTest >> testP018TryToCreateAGameWithAnInvalidAmountOfGoa
 	self
 		should: [ 
 			DuplaGalacticaGame
-				with: aColorCollection
+				with: aColorsCollection
 				and: (Board
 						 with: (OrderedCollection
 								  with: NoEffectBox initializeNew
 								  with: NoEffectBox initializeNew
 								  with: NoEffectBox initializeNew
 								  with: NoEffectBox initializeNew)
-						 measure: (Parsec worth: 200))
+						 measure: (ParsecMeasure worth: 200))
 				usingToThrow: (DiceShaker with: aLoadedDie)
 				winningWhenReach: -1
 				using: (OrderedCollection with: OverloadCard initializeNew) ]
@@ -159,9 +159,11 @@ CreateDuplaGalacticaGameTest >> testP019TryToCreateAgameWithAnInvalidParsecAmoun
 	self
 		should: [ 
 			DuplaGalacticaGameProxy
-				with: aColorCollection
+				with: aColorsCollection
 				and:
-				(Board with: OrderedCollection new measure: (Parsec worth: 0))
+				(Board
+					 with: OrderedCollection new
+					 measure: (ParsecMeasure worth: 0))
 				usingToThrow: (DiceShaker with: aLoadedDie)
 				winningWhenReach: 1
 				using: (OrderedCollection with: OverloadCard initializeNew) ]
@@ -171,21 +173,23 @@ CreateDuplaGalacticaGameTest >> testP019TryToCreateAgameWithAnInvalidParsecAmoun
 ]
 
 { #category : #tests }
-CreateDuplaGalacticaGameTest >> testP020TryToCreateAGameWithDuplicateColorsThenFails [
+CreateDuplaGalacticaGameTest >> testP020TryToCreateAGameWithDuplicatedColorsThenFails [
 
-	| aDuplicateColorCollection boxes aBoard |
-	aDuplicateColorCollection := OrderedCollection
-		                             with: 'red'
-		                             with: 'red'.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: NoEffectBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplicatedColorsCollection aBoxesCollection aBoard |
+	aDuplicatedColorsCollection := OrderedCollection
+		                               with: 'red'
+		                               with: 'red'.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	self
 		should: [ 
 			DuplaGalacticaGameProxy
-				with: aDuplicateColorCollection
+				with: aDuplicatedColorsCollection
 				and: aBoard
 				usingToThrow: (DiceShaker with: aLoadedDie)
 				winningWhenReach: 1
@@ -203,7 +207,7 @@ CreateDuplaGalacticaGameTest >> testP021TryToCreateAGameWithMoreThan100PercentPr
 			                       using: NoEffectBox initializeNew
 			                       withChanceOf: 130).
 	self
-		should: [ aBoxCreator := Creator use: boxesProbabilities ]
+		should: [ aBoxCreator := ObjectCreator use: boxesProbabilities ]
 		raise: Error
 		withMessage: 'The sum of probabilities must be 100'
 ]
@@ -211,25 +215,31 @@ CreateDuplaGalacticaGameTest >> testP021TryToCreateAGameWithMoreThan100PercentPr
 { #category : #tests }
 CreateDuplaGalacticaGameTest >> testP022TryToCreateAGameWithMoreThan100PercentProbabilityOfCardAppearancesThenFails [
 
-	| boxesProbabilities aBoxCreator boxes aBoard aGame |
+	| boxesProbabilities aBoxCreator aBoxesCollection aBoard aDuplaGalacticaGame |
 	boxesProbabilities := OrderedCollection with:
 		                      (ObjectProbability
 			                       using: NoEffectBox initializeNew
 			                       withChanceOf: 100).
-	aBoxCreator := Creator use: boxesProbabilities.
-	boxes := aBoxCreator create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 200).
+	aBoxCreator := ObjectCreator use: boxesProbabilities.
+	aBoxesCollection := aBoxCreator create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 200).
 	self
 		should: [ 
-			aGame := DuplaGalacticaGameProxy
-				         with: aColorCollection
-				         and: aBoard
-				         usingToThrow: aShaker
-				         winningWhenReach: 1
-				         using: (Creator use: (OrderedCollection with:
-							           (ObjectProbability
-								            using: OverloadCard initializeNew
-								            withChanceOf: 130))) ]
+			aDuplaGalacticaGame := DuplaGalacticaGameProxy
+				                       with: aColorsCollection
+				                       and: aBoard
+				                       usingToThrow:
+				                       (DiceShaker with:
+					                        (OrderedCollection with: aLoadedDie))
+				                       winningWhenReach: 1
+				                       using:
+					                       (ObjectCreator use:
+						                        (OrderedCollection with:
+							                         (ObjectProbability
+								                          using: OverloadCard initializeNew
+								                          withChanceOf: 130))) ]
 		raise: Error
 		withMessage: 'The sum of probabilities must be 100'
 ]

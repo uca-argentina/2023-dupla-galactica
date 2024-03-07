@@ -5,32 +5,35 @@ Class {
 }
 
 { #category : #tests }
-CreatingPlayersFromTheGameTest >> testI001CreateAGameWithAColorsCollectionThenCheckTheCreationOfPlayers [
+CreatingPlayersFromTheGameTest >> testI001CreateAGameWithAColorsCollectionThenCheckTheCreationOfPlayersAndValidPlayersColors [
 
-	| aBoard aColorCollection aLoadedDie aShaker boxes aCardsCollection aGame |
-	aCardsCollection := (Creator use: (OrderedCollection with:
+	| aBoard aColorsCollection aLoadedDie aBoxesCollection aCardsCollection aDuplaGalacticaGame |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: OverloadCard initializeNew
 				                       withChanceOf: 100))) create: 4.
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aColorsCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
 			               with: 5
 			               with: 7
 			               with: 9).
-	aShaker := DiceShaker with: aLoadedDie.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: NoEffectBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow: aShaker
-		         winningWhenReach: 1
-		         using: aCardsCollection.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: NoEffectBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
-		assert: aGame playersColors
+		assert: aDuplaGalacticaGame playersColors
 		equals: (OrderedCollection with: 'red' with: 'blue')
 ]

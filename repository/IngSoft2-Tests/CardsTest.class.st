@@ -2,7 +2,7 @@ Class {
 	#name : #CardsTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aColorCollection'
+		'aColorsCollection'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -10,12 +10,12 @@ Class {
 { #category : #Board }
 CardsTest >> createBoard [
 
-	| boxes |
-	boxes := (Creator use: (OrderedCollection with:
+	| aBoxesCollection |
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
 			           (ObjectProbability
 				            using: NoEffectBox initializeNew
 				            withChanceOf: 100))) create: 10.
-	^ Board with: boxes measure: (Parsec worth: 100)
+	^ Board with: aBoxesCollection measure: (ParsecMeasure worth: 100)
 ]
 
 { #category : #running }
@@ -23,7 +23,7 @@ CardsTest >> setUp [
 
 	super setUp.
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aColorsCollection := OrderedCollection with: 'red' with: 'blue'.
 ]
 
 { #category : #tests }
@@ -39,100 +39,103 @@ CardsTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 { #category : #tests }
 CardsTest >> testQ001WhenPlayerPlaysAnOverloadCardThenCheckTheNegativeEffectAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 2 with: 1)
 ]
 
 { #category : #tests }
 CardsTest >> testQ002WhenPlayerPlaysAnOverloadCardThenCheckThatTheNegativeEffectIsPermanentAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 5 with: 3)
 ]
 
 { #category : #tests }
 CardsTest >> testQ003WhenPlayerPlaysAnOverloadCardThenCheckTheNegativeEffectMakesPlayerGoBackwardLapsAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 10
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 2 with: 9)
 ]
 
 { #category : #tests }
 CardsTest >> testQ004WhenPlayerPlaysAnOverloadCardThenCheckTheNegativeEffectCannotSendPlayerToAnOutOfRangeBoardPositionAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
+	| aDuplaGalacticaGame aLoadedDie cards |
+	cards := (ObjectCreator use: (OrderedCollection with:
 			           (ObjectProbability
 				            using: OverloadCard initializeNew
 				            withChanceOf: 100))) create: 4.
@@ -141,335 +144,361 @@ CardsTest >> testQ004WhenPlayerPlaysAnOverloadCardThenCheckTheNegativeEffectCann
 			               with: 1
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: cards.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 2 with: 1)
 ]
 
 { #category : #tests }
 CardsTest >> testQ005WhenPlayerPlaysASpeedCardThenCheckThePositiveEffectAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: SpeedCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 4
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame apply: (Hand of: 'red' with: SpeedCard initializeNew) to: 'red'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 3 with: 5)
 ]
 
 { #category : #tests }
 CardsTest >> testQ006WhenPlayerPlaysASpeedCardThenCheckThatThePositiveEffectIsPermanentAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: SpeedCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame apply: (Hand of: 'red' with: SpeedCard initializeNew) to: 'red'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 7 with: 3)
 ]
 
 { #category : #tests }
 CardsTest >> testQ007WhenPlayerPlaysASpeedCardThenCheckThePositiveEffectMakesPlayerGoForwardLapsAndValidPlayersLaps [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: SpeedCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 9
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame apply: (Hand of: 'red' with: SpeedCard initializeNew) to: 'red'.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersLaps
+		assert: aDuplaGalacticaGame playersLaps
 		equals: (OrderedCollection with: 1 with: 0)
 ]
 
 { #category : #tests }
 CardsTest >> testQ008WhenPlayerPlaysTwoOverloadCardsThenCheckThatBothEffectsWereAppliedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 2 with: 1)
 ]
 
 { #category : #tests }
 CardsTest >> testQ009WhenPlayerPlaysAnAccelerationCardThenCheckThatItHasAPositiveEffectOnAllPlayersAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: AccelerationCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: AccelerationCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: AccelerationCard initializeNew)
-		to: 'everyone'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: AccelerationCard initializeNew)
+		to: EveryPlayer initializeNew players.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 3 with: 4)
 ]
 
 { #category : #tests }
 CardsTest >> testQ010WhenPlayerPlaysAnAccelerationCardThenCheckThePositiveEffectMakesPlayerGoForwardLapsAndValidPlayersLaps [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: AccelerationCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: AccelerationCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
 			               with: 9
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: AccelerationCard initializeNew)
-		to: 'everyone'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: AccelerationCard initializeNew)
+		to: EveryPlayer initializeNew players.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersLaps
+		assert: aDuplaGalacticaGame playersLaps
 		equals: (OrderedCollection with: 0 with: 1)
 ]
 
 { #category : #tests }
 CardsTest >> testQ011WhenPlayerPlaysACancellationCardOnAnOverloadCardThenTheOverloadCardEffectIsCancelledAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: CancellationCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: CancellationCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: CancellationCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'blue' with: CancellationCard initializeNew)
-		to: (Hand of: 'blue' with: OverloadCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: CancellationCard initializeNew)
+		to: (PlayerHand of: 'blue' with: OverloadCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 5 with: 5)
 ]
 
 { #category : #tests }
 CardsTest >> testQ012WhenPlayerPlaysACancellationCardOnASpeedCardAndThereAreTwoActiveSpeedCardsThenOneSpeedCardEffectIsCancelledAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: SpeedCard initializeNew
-		         with: SpeedCard initializeNew
-		         with: CancellationCard initializeNew
-		         with: SpeedCard initializeNew
-		         with: SpeedCard initializeNew
-		         with: CancellationCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: SpeedCard initializeNew
+		                    with: SpeedCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: SpeedCard initializeNew
+		                    with: SpeedCard initializeNew
+		                    with: CancellationCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame apply: (Hand of: 'red' with: SpeedCard initializeNew) to: 'red'.
-	aGame apply: (Hand of: 'red' with: SpeedCard initializeNew) to: 'red'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'blue' with: CancellationCard initializeNew)
-		to: (Hand of: 'red' with: SpeedCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: CancellationCard initializeNew)
+		to: (PlayerHand of: 'red' with: SpeedCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 8 with: 7)
 ]
 
 { #category : #tests }
 CardsTest >> testQ013WhenPlayerPlaysTwoCancellationCardsOnTwoActiveSpeedCardsThenTheTwoSpeedCardsEffectsAreCancelledAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: SpeedCard initializeNew
-		         with: CancellationCard initializeNew
-		         with: SpeedCard initializeNew
-		         with: CancellationCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: SpeedCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: SpeedCard initializeNew
+		                    with: CancellationCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame apply: (Hand of: 'red' with: SpeedCard initializeNew) to: 'red'.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'blue' with: SpeedCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: SpeedCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'blue' with: CancellationCard initializeNew)
-		to: (Hand of: 'red' with: SpeedCard initializeNew).
-	aGame
-		apply: (Hand of: 'red' with: CancellationCard initializeNew)
-		to: (Hand of: 'blue' with: SpeedCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: CancellationCard initializeNew)
+		to: (PlayerHand of: 'red' with: SpeedCard initializeNew).
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: CancellationCard initializeNew)
+		to: (PlayerHand of: 'blue' with: SpeedCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 6 with: 8)
 ]
 
 { #category : #tests }
 CardsTest >> testQ014TryToApplyACancellationCardOnAnOverloadCardWhenThePlayerDoesNotHaveAnyActiveCardsThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: CancellationCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: CancellationCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: CancellationCard initializeNew)
-				to: (Hand of: 'red' with: OverloadCard initializeNew) ]
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: CancellationCard initializeNew)
+				to: (PlayerHand of: 'red' with: OverloadCard initializeNew) ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
 ]
@@ -477,32 +506,34 @@ CardsTest >> testQ014TryToApplyACancellationCardOnAnOverloadCardWhenThePlayerDoe
 { #category : #tests }
 CardsTest >> testQ015TryToApplyACancellationCardOnASpeedCardWhenThePlayerHasOnlyAnActiveOverloadCardThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: CancellationCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: CancellationCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: CancellationCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'blue' with: CancellationCard initializeNew)
-				to: (Hand of: 'blue' with: SpeedCard initializeNew) ]
+			aDuplaGalacticaGame
+				apply:
+				(PlayerHand of: 'blue' with: CancellationCard initializeNew)
+				to: (PlayerHand of: 'blue' with: SpeedCard initializeNew) ]
 		raise: Error
 		withMessage:
 		'There are no that type of cards activate in this player'
@@ -511,27 +542,28 @@ CardsTest >> testQ015TryToApplyACancellationCardOnASpeedCardWhenThePlayerHasOnly
 { #category : #tests }
 CardsTest >> testQ017WhenPlayerTriesToApplyAPermanentCardAndItIsNotItsTurnThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'blue' with: OverloadCard initializeNew)
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'blue' with: OverloadCard initializeNew)
 				to: 'red' ]
 		raise: Error
 		withMessage: 'A permanent card can only be use when it is your turn'
@@ -540,27 +572,28 @@ CardsTest >> testQ017WhenPlayerTriesToApplyAPermanentCardAndItIsNotItsTurnThenFa
 { #category : #tests }
 CardsTest >> testQ018WhenPlayerTriesToUseASpeedCardAndItDoesNotHaveThatTypeOfCardInPosetionThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: SpeedCard initializeNew)
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
 				to: 'red' ]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
@@ -569,33 +602,34 @@ CardsTest >> testQ018WhenPlayerTriesToUseASpeedCardAndItDoesNotHaveThatTypeOfCar
 { #category : #tests }
 CardsTest >> testQ021TryToApplyACardWhenPlayerDoNotHaveAnyMoreCardsThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: OverloadCard initializeNew)
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 				to: 'blue' ]
 		raise: Error
 		withMessage: 'The player does not have that card in posetion'
@@ -604,445 +638,471 @@ CardsTest >> testQ021TryToApplyACardWhenPlayerDoNotHaveAnyMoreCardsThenFails [
 { #category : #tests }
 CardsTest >> testQ026TryToApplyACancellationCardOnANonValidObjectiveThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: CancellationCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: CancellationCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: CancellationCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'blue' with: CancellationCard initializeNew)
+			aDuplaGalacticaGame
+				apply:
+				(PlayerHand of: 'blue' with: CancellationCard initializeNew)
 				to: 'blue' ]
 		raise: Error
-		withMessage:
-		'That is not a valid objective'
+		withMessage: 'That is not a valid card objective'
 ]
 
 { #category : #tests }
 CardsTest >> testQ029WhenPlayerPlaysARedoCardAndTheLastCardPlayedWasAPermanentCardThenCheckThatTheEffectWasRepeatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: RedoCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: RedoCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: RedoCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: RedoCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame apply: (Hand of: 'blue' with: RedoCard initializeNew) to: 'red'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: RedoCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 3 with: 3)
 ]
 
 { #category : #tests }
 CardsTest >> testQ030WhenPlayerPlaysARedoCardAndTheLastCardPlayedWasACancellationCardThenCheckThatTheEffectWasRepeated [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: RedoCard initializeNew
-		         with: CancellationCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: RedoCard initializeNew
-		         with: CancellationCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: RedoCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: RedoCard initializeNew
+		                    with: CancellationCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'blue' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: OverloadCard initializeNew)
 		to: 'red'.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'blue' with: CancellationCard initializeNew)
-		to: (Hand of: 'blue' with: OverloadCard initializeNew).
-	aGame
-		apply: (Hand of: 'red' with: RedoCard initializeNew)
-		to: (Hand of: 'red' with: OverloadCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: CancellationCard initializeNew)
+		to: (PlayerHand of: 'blue' with: OverloadCard initializeNew).
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RedoCard initializeNew)
+		to: (PlayerHand of: 'red' with: OverloadCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 5 with: 5)
 ]
 
 { #category : #tests }
 CardsTest >> testQ033WhenPlayerPlaysARedoCardAndLastCardPlayedWasARedoCardThatRepeatedTheEffectOfAPermanentCardThenRepeatAgainThatEffectAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: AccelerationCard initializeNew
-		         with: RedoCard initializeNew
-		         with: AccelerationCard initializeNew
-		         with: RedoCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: AccelerationCard initializeNew
+		                    with: RedoCard initializeNew
+		                    with: AccelerationCard initializeNew
+		                    with: RedoCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 3).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: AccelerationCard initializeNew)
-		to: 'everyone'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: RedoCard initializeNew)
-		to: 'everyone'.
-	aGame
-		apply: (Hand of: 'blue' with: RedoCard initializeNew)
-		to: 'everyone'.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: AccelerationCard initializeNew)
+		to: EveryPlayer initializeNew players.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RedoCard initializeNew)
+		to: EveryPlayer initializeNew players.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: RedoCard initializeNew)
+		to: EveryPlayer initializeNew players.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 9 with: 10)
 ]
 
 { #category : #tests }
 CardsTest >> testQ034WhenPlayerPlaysARepeatCardAndLastBoxInvokedWasASpeedUpBoxThenCheckThatThisEffectWasRepeatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: RepeatCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: SpeedUpBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: RepeatCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: RepeatCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RepeatCard initializeNew)
 		to: 'red'.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 10 with: 7)
 ]
 
 { #category : #tests }
 CardsTest >> testQ035WhenPlayerPlaysARepeatCardAndLastBoxInvokedWasAWormHoleBoxThenCheckThatThisEffectWasRepeatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: RepeatCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: WormHoleBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: RepeatCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: WormHoleBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 8
 			               with: 9
 			               with: 7
 			               with: 6).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: RepeatCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RepeatCard initializeNew)
 		to: 'blue'.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 5 with: 2)
 ]
 
 { #category : #tests }
 CardsTest >> testQ036WhenPlayerPlaysARepeatCardAndLastBoxInvokedWasAMoonWalkBoxThenCheckThatThisEffectWasRepeatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: RepeatCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: (MoonWalkBox with: -2)
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: RepeatCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: (MoonWalkBox with: -2)
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 4
 			               with: 5
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: RepeatCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RepeatCard initializeNew)
 		to: 'red'.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 3 with: 4)
 ]
 
 { #category : #tests }
 CardsTest >> testQ038WhenPlayerPlaysARepeatCardAndLastBoxInvokedWasAHyperJumpBoxThenCheckThatThisEffectWasRepeatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: RepeatCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: (HyperJumpBox with:
-						             (OrderedCollection
-							              with: (Parsec worth: 40)
-							              with: (Parsec worth: 20)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: RepeatCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (HyperJumpBox with: (OrderedCollection
+							                         with: (ParsecMeasure worth: 40)
+							                         with: (ParsecMeasure worth: 20)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: RepeatCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RepeatCard initializeNew)
 		to: 'red'.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 8 with: 7)
 ]
 
 { #category : #tests }
 CardsTest >> testQ045WhenPlayerPlaysARedoCardAndTheLastCardPlayedWasARepeatCardThenCheckThatTheEffectWasRepeatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := OrderedCollection
-		         with: RepeatCard initializeNew
-		         with: RedoCard initializeNew
-		         with: RepeatCard initializeNew
-		         with: RedoCard initializeNew.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: SpeedUpBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := OrderedCollection
+		                    with: RepeatCard initializeNew
+		                    with: RedoCard initializeNew
+		                    with: RepeatCard initializeNew
+		                    with: RedoCard initializeNew.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: RepeatCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RepeatCard initializeNew)
 		to: 'red'.
-	aGame
-		apply: (Hand of: 'blue' with: RedoCard initializeNew)
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: RedoCard initializeNew)
 		to: 'blue'.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 10 with: 5)
 ]
 
 { #category : #tests }
 CardsTest >> testQ048WhenPlayerTriesToPlayAnOverloadCardOnAnInvalidObjectiveThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: OverloadCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: OverloadCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: OverloadCard initializeNew)
-				to: (Hand of: 'blue' with: OverloadCard initializeNew) ]
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
+				to: (PlayerHand of: 'blue' with: OverloadCard initializeNew) ]
 		raise: Error
-		withMessage: 'That is not a valid objective'
+		withMessage: 'That is not a valid player objective'
 ]
 
 { #category : #tests }
 CardsTest >> testQ050WhenPlayerTriesToPlayASpeedCardOnAnInvalidObjectiveThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: SpeedCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: SpeedCard initializeNew)
-				to: (Hand of: 'blue' with: SpeedCard initializeNew) ]
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+				to: (PlayerHand of: 'blue' with: SpeedCard initializeNew) ]
 		raise: Error
-		withMessage: 'That is not a valid objective'
+		withMessage: 'That is not a valid player objective'
 ]
 
 { #category : #tests }
 CardsTest >> testQ051WhenPlayerTriesToPlayARepeatCardOnAnInvalidObjectiveThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: RepeatCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: RepeatCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: RepeatCard initializeNew)
-				to: (Hand of: 'blue' with: RepeatCard initializeNew) ]
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: RepeatCard initializeNew)
+				to: (PlayerHand of: 'blue' with: RepeatCard initializeNew) ]
 		raise: Error
-		withMessage: 'That is not a valid objective'
+		withMessage: 'That is not a valid player objective'
 ]
 
 { #category : #tests }
 CardsTest >> testQ052WhenPlayerTriesToPlayARedoCardAndNoOtherCardsWerePlayedBeforeThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: RedoCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: RedoCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'blue' with: RedoCard initializeNew)
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'blue' with: RedoCard initializeNew)
 				to: 'red' ]
 		raise: Error
 		withMessage:
@@ -1052,179 +1112,218 @@ CardsTest >> testQ052WhenPlayerTriesToPlayARedoCardAndNoOtherCardsWerePlayedBefo
 { #category : #tests }
 CardsTest >> testQ053WhenPlayerPlaysASpeedBoostCardOnAnOverloadCardThenCheckThatTheOverloadCardEffectWasDuplicatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: SpeedBoostCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: SpeedBoostCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: SpeedBoostCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: SpeedBoostCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 2
 			               with: 3
 			               with: 4
 			               with: 5).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: SpeedBoostCard initializeNew)
-		to: (Hand of: 'blue' with: OverloadCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedBoostCard initializeNew)
+		to: (PlayerHand of: 'blue' with: OverloadCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 7 with: 3)
 ]
 
 { #category : #tests }
 CardsTest >> testQ054WhenPlayerPlaysASpeedBoostCardOnASpeedCardThenCheckThatTheSpeedCardEffectWasDuplicatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: SpeedCard initializeNew
-		         with: SpeedBoostCard initializeNew
-		         with: SpeedCard initializeNew
-		         with: SpeedBoostCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: SpeedCard initializeNew
+		                    with: SpeedBoostCard initializeNew
+		                    with: SpeedCard initializeNew
+		                    with: SpeedBoostCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame apply: (Hand of: 'red' with: SpeedCard initializeNew) to: 'red'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: SpeedBoostCard initializeNew)
-		to: (Hand of: 'red' with: SpeedCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedCard initializeNew)
+		to: 'red'.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedBoostCard initializeNew)
+		to: (PlayerHand of: 'red' with: SpeedCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 8 with: 7)
 ]
 
 { #category : #tests }
 CardsTest >> testQ055WhenPlayerPlaysASpeedBoostCardOnAnAccelerationCardThenCheckThatTheAccelerationCardEffectWasDuplicatedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: AccelerationCard initializeNew
-		         with: SpeedBoostCard initializeNew
-		         with: AccelerationCard initializeNew
-		         with: SpeedBoostCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: AccelerationCard initializeNew
+		                    with: SpeedBoostCard initializeNew
+		                    with: AccelerationCard initializeNew
+		                    with: SpeedBoostCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: AccelerationCard initializeNew)
-		to: 'everyone'.
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'red' with: SpeedBoostCard initializeNew)
-		to: (Hand of: 'everyone' with: AccelerationCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: AccelerationCard initializeNew)
+		to: EveryPlayer initializeNew players.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedBoostCard initializeNew)
+		to: (PlayerHand
+				 of: EveryPlayer initializeNew players
+				 with: AccelerationCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 8 with: 10)
 ]
 
 { #category : #tests }
 CardsTest >> testQ056WhenPlayerPlaysACancellationCardOnABoostedPermanentCardThenCheckThatTheEffectIsNoMoreAppliedAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: SpeedBoostCard initializeNew
-		         with: CancellationCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: SpeedBoostCard initializeNew
-		         with: CancellationCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: SpeedBoostCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: SpeedBoostCard initializeNew
+		                    with: CancellationCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 2
 			               with: 5
 			               with: 1
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
-	aGame
-		apply: (Hand of: 'red' with: SpeedBoostCard initializeNew)
-		to: (Hand of: 'blue' with: OverloadCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
-	aGame
-		apply: (Hand of: 'blue' with: CancellationCard initializeNew)
-		to: (Hand of: 'blue' with: OverloadCard initializeNew).
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedBoostCard initializeNew)
+		to: (PlayerHand of: 'blue' with: OverloadCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'blue' with: CancellationCard initializeNew)
+		to: (PlayerHand of: 'blue' with: OverloadCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 4 with: 6)
+]
+
+{ #category : #tests }
+CardsTest >> testQ058WhenPlayerTriesToPlayAnAccelerationCardOnAnInvalidObjectiveThenFails [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: AccelerationCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 5
+			               with: 1
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	self
+		should: [ 
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: AccelerationCard initializeNew)
+				to: 'blue' ]
+		raise: Error
+		withMessage: 'That is not a valid objective'
 ]
 
 { #category : #tests }
 CardsTest >> testQ059WhenPlayerTriesToPlayASpeedBoostCardOnANonExistentCardThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := OrderedCollection
-		         with: OverloadCard initializeNew
-		         with: SpeedBoostCard initializeNew
-		         with: OverloadCard initializeNew
-		         with: SpeedBoostCard initializeNew.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := OrderedCollection
+		                    with: OverloadCard initializeNew
+		                    with: SpeedBoostCard initializeNew
+		                    with: OverloadCard initializeNew
+		                    with: SpeedBoostCard initializeNew.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: OverloadCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: OverloadCard initializeNew)
 		to: 'blue'.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: SpeedBoostCard initializeNew)
-				to: (Hand of: 'blue' with: SpeedCard initializeNew) ]
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: SpeedBoostCard initializeNew)
+				to: (PlayerHand of: 'blue' with: SpeedCard initializeNew) ]
 		raise: Error
 		withMessage:
 		'There are no that type of cards activate in this player'
@@ -1233,27 +1332,29 @@ CardsTest >> testQ059WhenPlayerTriesToPlayASpeedBoostCardOnANonExistentCardThenF
 { #category : #tests }
 CardsTest >> testQ060WhenPlayerTriesToPlayASpeedBoostCardAndThereAreNoActivePermanentCardsThenFails [
 
-	| aGame aLoadedDie cards |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: SpeedBoostCard initializeNew
-				            withChanceOf: 100))) create: 4.
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: SpeedBoostCard initializeNew
+				                       withChanceOf: 100))) create: 4.
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: self createBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: self createBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
 	self
 		should: [ 
-			aGame
-				apply: (Hand of: 'red' with: SpeedBoostCard initializeNew)
-				to: (Hand of: 'red' with: SpeedCard initializeNew) ]
+			aDuplaGalacticaGame
+				apply: (PlayerHand of: 'red' with: SpeedBoostCard initializeNew)
+				to: (PlayerHand of: 'red' with: SpeedCard initializeNew) ]
 		raise: Error
 		withMessage: 'There are no permanent cards'
 ]
@@ -1261,206 +1362,537 @@ CardsTest >> testQ060WhenPlayerTriesToPlayASpeedBoostCardAndThereAreNoActivePerm
 { #category : #tests }
 CardsTest >> testQ061WhenPlayerPlaysAReversePolarityCardOnASpeedUpBoxThenCheckThatTheBoxAffectOtherPlayersAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: ReversePolarityCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: SpeedUpBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 1
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
 		to: 2.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 2 with: 10)
 ]
 
 { #category : #tests }
 CardsTest >> testQ062WhenPlayerPlaysAReversePolarityCardOnAWormHoleBoxThenCheckThatTheBoxAffectOtherPlayersAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: ReversePolarityCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: WormHoleBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: WormHoleBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 7
 			               with: 8
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
 		to: 9.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 1 with: 9)
 ]
 
 { #category : #tests }
 CardsTest >> testQ063WhenPlayerPlaysAReversePolarityCardOnAMoonWalkBoxThenCheckThatTheBoxAffectTheCurrentPlayersAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: ReversePolarityCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with:
-			           (ObjectProbability
-				            using: (MoonWalkBox with: -2)
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: (MoonWalkBox with: -2)
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 5
 			               with: 4
 			               with: 3
 			               with: 2).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
 		to: 5.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 6 with: 3)
 ]
 
 { #category : #tests }
 CardsTest >> testQ064WhenPlayerPlaysAReversePolarityCardOnAnAtomicBombBoxThenCheckThatTheBoxDoesNotAffectAnyoneAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: ReversePolarityCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: AtomicBombBox initializeNew
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: AtomicBombBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 5
 			               with: 4
 			               with: 3
 			               with: 2).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
 		to: 5.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 1 with: 5)
 ]
 
 { #category : #tests }
 CardsTest >> testQ065WhenPlayerPlaysAReversePolarityCardOnAHyperJumpBoxThenCheckThatTheBoxAffectOtherPlayersAndValidPlayersPositions [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: ReversePolarityCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: (HyperJumpBox with:
-						             (OrderedCollection
-							              with: (Parsec worth: 40)
-							              with: (Parsec worth: 30)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (HyperJumpBox with: (OrderedCollection
+							                         with: (ParsecMeasure worth: 40)
+							                         with: (ParsecMeasure worth: 30)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
 		to: 3.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersBox
+		assert: aDuplaGalacticaGame playersBox
 		equals: (OrderedCollection with: 10 with: 3)
 ]
 
 { #category : #tests }
 CardsTest >> testQ066WhenPlayerPlaysAReversePolarityCardOnARandomCardBoxThenCheckThatTheBoxAffectOtherPlayersAndValidPlayersCardsInPosition [
 
-	| aGame aLoadedDie cards boxes aBoard |
-	cards := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: ReversePolarityCard initializeNew
-				            withChanceOf: 100))) create: 4.
-	boxes := (Creator use: (OrderedCollection with: (ObjectProbability
-				            using: (RandomCardBox with: (OrderedCollection with:
-							              (ObjectProbability
-								               using: OverloadCard initializeNew
-								               withChanceOf: 100)))
-				            withChanceOf: 100))) create: 10.
-	aBoard := Board with: boxes measure: (Parsec worth: 100).
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (RandomCardBox with:
+						                        (OrderedCollection with:
+							                         (ObjectProbability
+								                          using: OverloadCard initializeNew
+								                          withChanceOf: 100)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
 	aLoadedDie := LoadedDie with: (OrderedCollection
 			               with: 1
 			               with: 2
 			               with: 3
 			               with: 4).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
-		         and: aBoard
-		         usingToThrow:
-		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
-		         winningWhenReach: 1
-		         using: cards.
-	aGame
-		apply: (Hand of: 'red' with: ReversePolarityCard initializeNew)
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
 		to: 3.
-	aGame movePlayer.
-	aGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
 	self
-		assert: aGame playersCardInPosetion
+		assert: aDuplaGalacticaGame playersCardInPosetion
 		equals: (OrderedCollection with: 3 with: 2)
+]
+
+{ #category : #tests }
+CardsTest >> testQ067WhenPlayerPlaysAReversePolarityCardOnANoEffectBoxThenCheckThatNoEffectsWereAppliedAndValidPlayersPositions [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using:
+					                       (RandomCardBox with:
+						                        (OrderedCollection with:
+							                         (ObjectProbability
+								                          using: NoEffectBox initializeNew
+								                          withChanceOf: 100)))
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	self
+		assert: aDuplaGalacticaGame playersBox
+		equals: (OrderedCollection with: 2 with: 3)
+]
+
+{ #category : #tests }
+CardsTest >> testQ068WhenPlayerTriesToPlayAReversePolarityCardOnAOutOfRangeBoxThenFails [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 1
+			               with: 2
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	self
+		should: [ 
+			aDuplaGalacticaGame
+				apply:
+				(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+				to: 11 ]
+		raise: Error
+		withMessage: 'That is not a valid box number'
+]
+
+{ #category : #tests }
+CardsTest >> testQ069WhenPlayerPlaysASpeedBoostCardOnAReversePolarityCardThenCheckThatTheBoxPolarityHasChangedAgainThenValidPlayersPositions [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := OrderedCollection
+		                    with: ReversePolarityCard initializeNew
+		                    with: SpeedBoostCard initializeNew
+		                    with: ReversePolarityCard initializeNew
+		                    with: SpeedBoostCard initializeNew.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 8
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: SpeedBoostCard initializeNew)
+		to: (PlayerHand of: 3 with: ReversePolarityCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	self
+		assert: aDuplaGalacticaGame playersBox
+		equals: (OrderedCollection with: 3 with: 7)
+]
+
+{ #category : #tests }
+CardsTest >> testQ070WhenPlayerPlaysACancellationCardOnAReversePolarityCardThenCheckThatTheBoxPolarityHasChangedAgainAndValidPlayersPositions [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := OrderedCollection
+		                    with: ReversePolarityCard initializeNew
+		                    with: CancellationCard initializeNew
+		                    with: ReversePolarityCard initializeNew
+		                    with: CancellationCard initializeNew.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 8
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: CancellationCard initializeNew)
+		to: (PlayerHand of: 3 with: ReversePolarityCard initializeNew).
+	aDuplaGalacticaGame movePlayer.
+	self
+		assert: aDuplaGalacticaGame playersBox
+		equals: (OrderedCollection with: 3 with: 7)
+]
+
+{ #category : #tests }
+CardsTest >> testQ071WhenPlayerPlaysARedoCardAndTheLastCardPlayedWasAReversePolarityCardThenCheckThatTheBoxPolarityHasChangedDueToTheRedoCardAndValidPlayersPositions [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := OrderedCollection
+		                    with: ReversePolarityCard initializeNew
+		                    with: RedoCard initializeNew
+		                    with: ReversePolarityCard initializeNew
+		                    with: RedoCard initializeNew.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 1
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: RedoCard initializeNew)
+		to: 6.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	self
+		assert: aDuplaGalacticaGame playersBox
+		equals: (OrderedCollection with: 7 with: 6)
+]
+
+{ #category : #tests }
+CardsTest >> testQ072WhenPlayerPlaysARepeatCardAndTheLastBoxInvokedHasBeenAffectedByAReversePolarityCardThenCheckThatTheEffectReversedWasRepeatedAndValidPlayersPositions [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := OrderedCollection
+		                    with: ReversePolarityCard initializeNew
+		                    with: RepeatCard initializeNew
+		                    with: ReversePolarityCard initializeNew
+		                    with: RepeatCard initializeNew.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 1
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame
+		apply: (PlayerHand of: 'red' with: RepeatCard initializeNew)
+		to: 'blue'.
+	self
+		assert: aDuplaGalacticaGame playersBox
+		equals: (OrderedCollection with: 7 with: 5)
+]
+
+{ #category : #tests }
+CardsTest >> testQ073WhenPlayerPlaysTwoReversePolarityCardsOnTheSameBoxThenCheckThatTheEffectWasNotReversedAndValidPlayersPositions [
+
+	| aDuplaGalacticaGame aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	aCardsCollection := (ObjectCreator use:
+		                     (OrderedCollection with: (ObjectProbability
+				                       using: ReversePolarityCard initializeNew
+				                       withChanceOf: 100))) create: 4.
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
+			                      (ObjectProbability
+				                       using: SpeedUpBox initializeNew
+				                       withChanceOf: 100))) create: 10.
+	aBoard := Board
+		          with: aBoxesCollection
+		          measure: (ParsecMeasure worth: 100).
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 2
+			               with: 1
+			               with: 3
+			               with: 4).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		                       with: aColorsCollection
+		                       and: aBoard
+		                       usingToThrow:
+		                       (DiceShaker with:
+			                        (OrderedCollection with: aLoadedDie))
+		                       winningWhenReach: 1
+		                       using: aCardsCollection.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aDuplaGalacticaGame
+		apply:
+		(PlayerHand of: 'red' with: ReversePolarityCard initializeNew)
+		to: 3.
+	aDuplaGalacticaGame movePlayer.
+	self
+		assert: aDuplaGalacticaGame playersBox
+		equals: (OrderedCollection with: 7 with: 1)
 ]

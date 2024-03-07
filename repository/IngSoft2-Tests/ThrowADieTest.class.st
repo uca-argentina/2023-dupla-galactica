@@ -51,13 +51,12 @@ ThrowADieTest >> testE007ThrowADieThenCheckTheValueReturnedIsInTheFacesRange [
 { #category : #tests }
 ThrowADieTest >> testE009ThrowALoadedDieWithAnOrderedCollectionOfValuesTwiceThenCheckTheValueReturnedIsTheSecondValue [
 
-	| aLoadedDie anOrderedCollection |
-	anOrderedCollection := OrderedCollection
-		                       with: 3
-		                       with: 5
-		                       with: 7
-		                       with: 9.
-	aLoadedDie := LoadedDie with: anOrderedCollection.
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 5
+			               with: 7
+			               with: 9).
 	aLoadedDie throw.
 	self assert: aLoadedDie throw equals: 5
 ]
@@ -65,13 +64,12 @@ ThrowADieTest >> testE009ThrowALoadedDieWithAnOrderedCollectionOfValuesTwiceThen
 { #category : #tests }
 ThrowADieTest >> testE010ThrowALoadedDieWithAnOrderedCollectionOfValuesAllPossibleValuesTimesThenCheckTheValueReturnedIsTheFirstValue [
 
-	| aLoadedDie anOrderedCollection |
-	anOrderedCollection := OrderedCollection
-		                       with: 3
-		                       with: 5
-		                       with: 7
-		                       with: 9.
-	aLoadedDie := LoadedDie with: anOrderedCollection.
+	| aLoadedDie |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 5
+			               with: 7
+			               with: 9).
 	aLoadedDie throw.
 	aLoadedDie throw.
 	aLoadedDie throw.
@@ -121,13 +119,12 @@ ThrowADieTest >> testE014TryToCreateADieWithNumberOfFacesLessThanThreeThenFails 
 { #category : #tests }
 ThrowADieTest >> testE017CreateAShakerWithALoadedDieThenUseItToThrowAndCheckTheValueReturned [
 
-	| aLoadedDie anOrderedCollection aShaker |
-	anOrderedCollection := OrderedCollection
-		                       with: 3
-		                       with: 5
-		                       with: 7
-		                       with: 9.
-	aLoadedDie := LoadedDie with: anOrderedCollection.
+	| aLoadedDie aShaker |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 5
+			               with: 7
+			               with: 9).
 	aShaker := DiceShaker with: (OrderedCollection with: aLoadedDie).
 	self assert: aShaker throwDice equals: 3
 ]
@@ -135,15 +132,18 @@ ThrowADieTest >> testE017CreateAShakerWithALoadedDieThenUseItToThrowAndCheckTheV
 { #category : #tests }
 ThrowADieTest >> testE018CreateAShakerWithTwoLoadedDieThenUseItToThrowAndCheckTheValueReturned [
 
-	| aLoadedDie anOrderedCollection aShaker aSecondLoadedDie |
-	anOrderedCollection := OrderedCollection
-		                       with: 3
-		                       with: 5
-		                       with: 7
-		                       with: 9.
-	aLoadedDie := LoadedDie with: anOrderedCollection.
-	aSecondLoadedDie := LoadedDie with: anOrderedCollection.
+	| aLoadedDie aShaker aSecondLoadedDie |
+	aLoadedDie := LoadedDie with: (OrderedCollection
+			               with: 3
+			               with: 5
+			               with: 7
+			               with: 9).
 	aShaker := DiceShaker with: (OrderedCollection with: aLoadedDie).
+	aSecondLoadedDie := LoadedDie with: (OrderedCollection
+			                     with: 3
+			                     with: 5
+			                     with: 7
+			                     with: 9).
 	aShaker addDie: aSecondLoadedDie.
 	self assert: aShaker throwDice equals: 6
 ]

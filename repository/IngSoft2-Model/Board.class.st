@@ -19,30 +19,24 @@ Board class >> with: aBoxCollection measure: aLengthMeasure [
 	^ self new initializeWith: aBoxCollection measure: aLengthMeasure
 ]
 
-{ #category : #Information }
-Board >> boxes [
+{ #category : #BoxManager }
+Board >> changePolarityOf: aBoxNumber [
 
-	^ boxes size
+	(boxes at: aBoxNumber) changePolarity
 ]
 
 { #category : #BoxManager }
-Board >> changePolarity: aPosition [
+Board >> effectAt: aBoxNumber In: aDuplaGalacticaGame [
 
-	(boxes at: aPosition) changePolarity
-]
-
-{ #category : #BoxManager }
-Board >> effectAt: aPosition In: aGame [
-
-	(boxes at: aPosition) effect: aGame.
-	lastBoxInvoked := aPosition
+	(boxes at: aBoxNumber) effect: aDuplaGalacticaGame.
+	lastBoxInvoked := aBoxNumber
 ]
 
 { #category : #Initialization }
-Board >> initializeWith: aBoxCollection measure: aLengthMeasure [
+Board >> initializeWith: aBoxesCollection measure: aLengthMeasure [
 
 	lengthMeasure := aLengthMeasure.
-	boxes := aBoxCollection.
+	boxes := aBoxesCollection.
 	lastBoxInvoked := 0
 ]
 
@@ -50,6 +44,12 @@ Board >> initializeWith: aBoxCollection measure: aLengthMeasure [
 Board >> lastBoxInvoked [
 
 	^ lastBoxInvoked
+]
+
+{ #category : #Information }
+Board >> length [
+
+	^ boxes size
 ]
 
 { #category : #Information }
@@ -62,4 +62,10 @@ Board >> lightYears [
 Board >> parsecs [
 
 	^ lengthMeasure parsecs
+]
+
+{ #category : #BoxManager }
+Board >> resetPolarities [
+
+	boxes do: [ :box | box resetPolarity ]
 ]

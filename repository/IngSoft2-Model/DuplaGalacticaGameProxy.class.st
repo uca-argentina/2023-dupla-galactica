@@ -25,9 +25,9 @@ DuplaGalacticaGameProxy >> apply: aCardInHand to: anObjective [
 ]
 
 { #category : #Information }
-DuplaGalacticaGameProxy >> boxes [
+DuplaGalacticaGameProxy >> boardLength [
 
-	^ game boxes
+	^ game boardLength
 ]
 
 { #category : #Information }
@@ -95,7 +95,7 @@ DuplaGalacticaGameProxy >> playersLaps [
 	^ game playersLaps
 ]
 
-{ #category : #Finalization }
+{ #category : #Information }
 DuplaGalacticaGameProxy >> ranking [
 
 	^ game ranking

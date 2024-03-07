@@ -2,7 +2,7 @@ Class {
 	#name : #MovePlayersInTurnFromTheGameTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aGame'
+		'aDuplaGalacticaGame'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -10,23 +10,23 @@ Class {
 { #category : #running }
 MovePlayersInTurnFromTheGameTest >> setUp [
 
-	| aColorCollection aLoadedDie aCardsCollection aBoxesCollection aBoard |
+	| aColorsCollection aLoadedDie aCardsCollection aBoxesCollection aBoard |
 	super setUp.
 
-	aColorCollection := OrderedCollection with: 'red' with: 'blue'.
+	aColorsCollection := OrderedCollection with: 'red' with: 'blue'.
 	aLoadedDie := LoadedDie with:
 		              (OrderedCollection with: 1 with: 2 with: 3).
-	aCardsCollection := (Creator use: (OrderedCollection with:
+	aCardsCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: OverloadCard initializeNew
 				                       withChanceOf: 100))) create: 4.
-	aBoxesCollection := (Creator use: (OrderedCollection with:
+	aBoxesCollection := (ObjectCreator use: (OrderedCollection with:
 			                      (ObjectProbability
 				                       using: NoEffectBox initializeNew
 				                       withChanceOf: 100))) create: 10.
-	aBoard := Board with: aBoxesCollection measure: (Parsec worth: 100).
-	aGame := DuplaGalacticaGameProxy
-		         with: aColorCollection
+	aBoard := Board with: aBoxesCollection measure: (ParsecMeasure worth: 100).
+	aDuplaGalacticaGame := DuplaGalacticaGameProxy
+		         with: aColorsCollection
 		         and: aBoard
 		         usingToThrow:
 		         (DiceShaker with: (OrderedCollection with: aLoadedDie))
@@ -35,22 +35,15 @@ MovePlayersInTurnFromTheGameTest >> setUp [
 ]
 
 { #category : #tests }
-MovePlayersInTurnFromTheGameTest >> testJ001CreateAGameWithTwoColorsPlayersThenCheckForThePlayerTurn [
+MovePlayersInTurnFromTheGameTest >> testJ001CreateAGameWithTwoColorsPlayersThenValidPlayersTurn [
 
-	self assert: aGame currentPlayer equals: 'red'
+	self assert: aDuplaGalacticaGame currentPlayer equals: 'red'
 ]
 
 { #category : #tests }
-MovePlayersInTurnFromTheGameTest >> testJ002CreateAGameWithTwoColorsPlayersThenMoveOnePlayerAndCheckThatThePlayerTurnHasChanged [
+MovePlayersInTurnFromTheGameTest >> testJ003CreateAGameWithTwoColorsPlayersThenMoveBothPlayersAndValidPlayersTurn [
 
-	aGame movePlayer.
-	self assert: aGame currentPlayer equals: 'blue'
-]
-
-{ #category : #tests }
-MovePlayersInTurnFromTheGameTest >> testJ003CreateAGameWithTwoColorsPlayersThenMoveBothPlayersAndCheckThatIsTurnOfTheFirstPlayer [
-
-	aGame movePlayer.
-	aGame movePlayer.
-	self assert: aGame currentPlayer equals: 'red'
+	aDuplaGalacticaGame movePlayer.
+	aDuplaGalacticaGame movePlayer.
+	self assert: aDuplaGalacticaGame currentPlayer equals: 'red'
 ]

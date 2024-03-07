@@ -21,16 +21,22 @@ MoonWalkBox >> changePolarity [
 ]
 
 { #category : #Effect }
-MoonWalkBox >> effect: aGame [
+MoonWalkBox >> effect: aDuplaGalacticaGame [
 
 	polarity
-		ifTrue: [ aGame moveOthers: effectValue ]
-		ifFalse: [ aGame moveCurrent: effectValue ]
+		ifTrue: [ aDuplaGalacticaGame moveOthers: effectValue ]
+		ifFalse: [ aDuplaGalacticaGame moveCurrent: effectValue ]
 ]
 
 { #category : #Initialization }
 MoonWalkBox >> initializeWith: aValue [
 
 	effectValue := aValue.
+	polarity := true
+]
+
+{ #category : #Effect }
+MoonWalkBox >> resetPolarity [
+
 	polarity := true
 ]

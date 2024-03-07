@@ -20,13 +20,19 @@ AtomicBombBox >> changePolarity [
 ]
 
 { #category : #Effect }
-AtomicBombBox >> effect: aGame [
+AtomicBombBox >> effect: aDuplaGalacticaGame [
 
-	polarity ifTrue: [ aGame moveAllToTheStart ]
+	polarity ifTrue: [ aDuplaGalacticaGame moveAllToTheStart ]
 ]
 
 { #category : #Initialization }
 AtomicBombBox >> initializeNew [
+
+	polarity := true
+]
+
+{ #category : #Effect }
+AtomicBombBox >> resetPolarity [
 
 	polarity := true
 ]

@@ -10,16 +10,16 @@ CancellationCard class >> initializeNew [
 	^ self new intializeNew
 ]
 
-{ #category : #Initialization }
+{ #category : #Information }
 CancellationCard >> = aCard [
 
 	^ aCard isKindOf: self class
 ]
 
 { #category : #Effect }
-CancellationCard >> applyCardUsing: cardManager to: anObjectiveCardInHand at: aGame [
+CancellationCard >> applyCardUsing: aCardManager to: anObjective at: aDuplaGalacticaGame [
 
-	cardManager desactivate: anObjectiveCardInHand
+	aCardManager desactivate: anObjective
 ]
 
 { #category : #Information }

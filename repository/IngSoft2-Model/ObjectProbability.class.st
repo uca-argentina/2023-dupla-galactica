@@ -11,11 +11,11 @@ Class {
 { #category : #'Instance creation' }
 ObjectProbability class >> using: anObject withChanceOf: aProbability [
 
-	^ self new initializeUsing: anObject withChance: aProbability
+	^ self new initializeUsing: anObject withChanceOf: aProbability
 ]
 
 { #category : #Initialization }
-ObjectProbability >> initializeUsing: anObject withChance: aProbability [
+ObjectProbability >> initializeUsing: anObject withChanceOf: aProbability [
 
 	object := anObject.
 	probability := aProbability

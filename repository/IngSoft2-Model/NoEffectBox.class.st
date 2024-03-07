@@ -16,11 +16,15 @@ NoEffectBox >> changePolarity [
 ]
 
 { #category : #Effect }
-NoEffectBox >> effect: aGame [
+NoEffectBox >> effect: aDuplaGalacticaGame [
 
 	
 ]
 
 { #category : #Initialization }
 NoEffectBox >> initializeNew [
+]
+
+{ #category : #Effect }
+NoEffectBox >> resetPolarity [
 ]

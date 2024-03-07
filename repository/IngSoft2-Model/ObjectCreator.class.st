@@ -1,14 +1,14 @@
 Class {
-	#name : #Creator,
+	#name : #ObjectCreator,
 	#superclass : #Object,
 	#instVars : [
-		'objects'
+		'objectsProbabilities'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'Instance creation' }
-Creator class >> use: anObjectProbabilitiesCollection [
+ObjectCreator class >> use: anObjectProbabilitiesCollection [
 
 	(anObjectProbabilitiesCollection sum: #probability) = 100 ifFalse: [ 
 		Error signal: 'The sum of probabilities must be 100' ].
@@ -16,7 +16,7 @@ Creator class >> use: anObjectProbabilitiesCollection [
 ]
 
 { #category : #Creation }
-Creator >> create: aNumberOfObjects [
+ObjectCreator >> create: aNumberOfObjects [
 
 	| anObjectCollection |
 	anObjectCollection := OrderedCollection new.
@@ -26,17 +26,17 @@ Creator >> create: aNumberOfObjects [
 ]
 
 { #category : #Initialization }
-Creator >> initializeUse: anObjectProbabilityCollection [
+ObjectCreator >> initializeUse: anObjectProbabilitiesCollection [
 
-	objects := anObjectProbabilityCollection
+	objectsProbabilities := anObjectProbabilitiesCollection
 ]
 
 { #category : #Creation }
-Creator >> oneRandomObject [
+ObjectCreator >> oneRandomObject [
 
 	| sum |
 	sum := 0.
-	^ (objects detect: [ :object | 
+	^ (objectsProbabilities detect: [ :object | 
 		   sum := sum + object probability.
 		   100 atRandom <= sum ]) object deepCopy
 ]
